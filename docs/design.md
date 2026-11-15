@@ -1,172 +1,222 @@
-# Track B: Patient-Reported Data Prototype Design (v0.1)
+# Track B: Patient-Reported Data Prototype Design (v0.2)
 
-This document defines the meaning of the data before implementation of the parser, database, and charts. All patients, reports, and medication labels are fictional. All submission artifacts, including documentation, sample text, code comments, prompts, and interface labels, must be in English.
+This document defines the data contract before implementation of the parser, database, and charts. All patients, reports, and medication labels are fictional. All submission artifacts, including documentation, sample text, code comments, prompts, and interface labels, must be in English.
 
-The current milestone contains this design, 10 source reports, and their expected structured results. The examples and expected results were drafted with AI assistance and checked against these rules. They have not been independently annotated by a human reviewer. No parser, database, or chart has been implemented. These are development examples, not a held-out evaluation set.
+Current deliverables: this design, 10 source reports from three fictional patients, 15 expected observations, and three targeted extraction checks. The examples and reference answers were drafted with AI assistance and reviewed against these rules, but have not been independently annotated by a human reviewer. They are development fixtures, not a held-out test set. No application parser, executable schema, database, query, chart, or reusable test suite has been implemented.
 
-## 1. Scope and goal
+## 1. Scope and changes in v0.2
 
-- Scenario: patients report nausea (`nausea`) and vomiting (`vomiting`) during oncology treatment.
-- Planned full prototype: three fictional patients over four consecutive weeks. The current 10 examples illustrate design decisions and do not constitute the full follow-up dataset.
-- Goal: preserve the original reports, structure information that can be supported, and let a provider inspect reported trends, missing information, and source evidence.
-- `Medication A` is a fictional label. It does not represent a real drug, dosage, or treatment recommendation.
-- The first implementation will cover the expressions and aggregation rules defined here. Information that cannot be interpreted reliably will remain unknown, with an explanation where needed.
+The scenario covers nausea (`nausea`) and vomiting (`vomiting`) during oncology treatment. The planned full prototype will cover three patients over four consecutive weeks. The current 10 reports are deliberately small examples, not the complete follow-up dataset. `Medication A` is a fictional label and makes no claim about a real drug, dosage, or treatment.
 
-## 2. Planned data flow and dataset roles
+Version 0.2 makes six changes:
 
-The diagram describes the intended pipeline, not functionality that already exists.
+1. Separate text extraction, deterministic normalization, and cross-report aggregation.
+2. Add `day_total` for an explicitly reported total over a completed calendar day.
+3. Replace the single `questionnaire` object with a `questionnaire_answers` list.
+4. Represent issues as `{field, code}` objects, so only the affected fields lose usability.
+5. Define severity as the worst symptom severity so far today on a fixed 1-5 scale.
+6. Require complete replacement reports for corrections, and keep generated identifiers out of semantic accuracy scoring.
+
+The source fixtures were deliberately revised for this version; their earlier versions remain in Git history. This does not permit an operational pipeline to overwrite a received patient report silently.
+
+## 2. Processing stages and dataset roles
+
+The diagram is the intended architecture, not an implemented pipeline.
 
 ```mermaid
 flowchart TD
-    A["Source reports: reports.jsonl"] --> B["Preserve original text and report identity"]
-    B --> C["Parser extracts candidate fields"]
-    C --> D["Code resolves dates and validates fields"]
-    D --> E["Structured observations and issue flags"]
-    E --> F["Database: source reports, observations, and corrections"]
-    F --> G["SQL queries apply aggregation rules"]
-    G --> H["Trends, missing data, and source details"]
-    T["Expected results: expected.jsonl"] -. "Check extraction and normalization" .-> D
+    A["Source report: original text and submission context"] --> B["Text parser: source-specific candidate claims"]
+    Q["Questionnaire answers: read directly by code"] --> C["Code: resolve dates, validate, and reconcile sources"]
+    B --> C
+    C --> D["Normalized observations with evidence and field issues"]
+    D --> E["Database: preserve source reports and observations"]
+    E --> F["Code and SQL: apply corrections and counting rules"]
+    F --> G["Patient trends, coverage, and source details"]
+    T["Gold: targeted extraction checks"] -. "Check source claims" .-> B
+    U["Gold: expected observations"] -. "Check normalized results" .-> D
 ```
 
 | Dataset | Location | Purpose |
 | --- | --- | --- |
-| Source reports | `data/raw/reports.jsonl` | Input available to the pipeline; preserves the information the patient actually supplied. |
-| Expected results (gold) | `data/gold/expected.jsonl` | Reference answers authored according to this design. Used for validation, never provided to the parser as input. |
-| Processed results | To be generated during implementation | Actual pipeline outputs. Copying the gold file does not demonstrate successful extraction. |
+| Source reports | `data/raw/reports.jsonl` | Original text, structured questionnaire answers, and submission metadata. |
+| Expected results (gold) | `data/gold/expected.jsonl` | Authored reference answers and a few source-specific checks. Never passed to the parser as input. |
+| Processed results | To be generated | Actual outputs of the implemented pipeline. Copying gold is not successful extraction. |
 
-JSONL contains one JSON object per line. The two existing files each contain 10 records, linked by `report_id`.
+Each existing JSONL file contains 10 records, one JSON object per line. Records are linked by `report_id`.
 
-## 3. Reports and symptom observations
+### Responsibilities
 
-- A **report** is one patient submission.
-- An **observation** describes one symptom within a particular time context in that report.
-- One report may produce multiple observations. For example, vomiting yesterday and nausea today should become separate observations.
-- An observation is not necessarily a confirmed episode. It may describe a cumulative count, explicit absence, a concern about a future symptom, or conflicting statements.
-- Create observations only for symptoms mentioned in the text or questionnaire. A report that does not mention vomiting must not automatically produce a zero-vomiting observation.
+- **Text parser:** reads the original text and identifies source claims, including symptom, assertion, count and scope, quoted time expressions, explicit score and scale, score context, and medication relationships. An LLM is optional. Questionnaire answers are handled directly by code rather than being merged by the model.
+- **Normalization code:** resolves relative dates using the report context; enforces the score contract; compares compatible text and questionnaire claims; produces normalized values, evidence, and field-specific issues; and assigns reference identifiers.
+- **Aggregation code:** applies valid corrections, prevents cumulative double counting, and computes query-specific eligibility. An observation may be usable for a count trend but unusable for a severity trend.
 
-## 4. Source report fields
+The parser must preserve conflicting source values before reconciliation. For R009, the text candidate is count 1, while the questionnaire value is 0; only the normalized count becomes `null`. For R002, the text candidate severity is 2/5, the questionnaire rating is 3/5, and only the normalized severity becomes `null`.
+
+The internal candidate object and diagnostic output are not another complete dataset. Targeted checks use candidate field names such as `symptom`, `assertion`, `count`, `count_scope`, `severity_value`, `severity_scale_max`, and `severity_context`. `severity_context=worst_today_so_far` identifies a compatible score; current-only, other, or unknown contexts remain distinguishable before normalization. Preserve the original time expression for code to resolve. Do not ask a model to invent database IDs, final issue flags, correction targets, or aggregate totals.
+
+## 3. Reports and observations
+
+A **report** is one submission. An **observation** is a claim about one symptom within a particular time context. A report may yield multiple observations, including explicit absence or hypothetical symptoms rather than confirmed episodes.
+
+Create observations only for symptoms actually mentioned in text or questionnaire answers. No mention is not explicit absence. Keep descriptions of different dates or incompatible time scopes separate; sharing a symptom and date alone does not prove two descriptions are the same event.
+
+## 4. Source report contract
 
 | Field | Type or example | Meaning and rationale |
 | --- | --- | --- |
-| `report_id` | String, such as `R001` | Unique submission identifier. Links source text to results and supports duplicate-import prevention. |
-| `patient_id` | String, such as `P001` | Fictional patient identifier. Groups multiple reports from the same patient without requiring a name or other identifying details. |
-| `reported_at` | Timestamp with a UTC offset, such as `2026-11-02T20:00:00-06:00` | Time the system received the report, not the time the symptom occurred. The offset identifies the instant. |
-| `patient_timezone` | IANA timezone name, such as `America/Chicago` | Calendar timezone used to interpret expressions such as today and yesterday. A fixed offset alone does not encode daylight-saving rules. |
-| `text` | English string | Original patient wording, preserved without rewriting. Extracted information must remain traceable to its source. |
-| `questionnaire` | Object or `null` | Structured answers submitted with the text. Keeping them separate allows disagreements to be detected. `null` means no questionnaire was supplied. |
-| `supersedes_report_id` | Report identifier or `null` | Identifies an earlier report explicitly corrected by this submission. Supplied by the simulated correction action, rather than inferred by guessing a report ID. |
+| `report_id` | String, such as `R001` | Unique submission identifier; links input and output and supports duplicate-import checks. |
+| `patient_id` | String, such as `P001` | Fictional patient identifier for longitudinal grouping. |
+| `reported_at` | Timestamp with UTC offset, such as `2026-11-02T20:00:00-06:00` | When the submission was received, not when the symptom occurred. |
+| `patient_timezone` | IANA name, such as `America/Chicago` | Timezone snapshot used to interpret the patient's relative dates. Retain it even when a patient table is added. |
+| `text` | English string | Original wording, preserved for inspection. |
+| `questionnaire_answers` | List of answer objects; `[]` if none | Allows a single submission to include answers about multiple symptoms. |
+| `supersedes_report_id` | Report ID or `null` | Target of an explicit complete-replacement edit action. Never inferred by the model from a partial correction sentence. |
 
-When `questionnaire` is not `null`, it contains:
+Each questionnaire answer contains:
+
+| Field | Meaning and rule |
+| --- | --- |
+| `symptom` | Target symptom: `nausea` or `vomiting`. At most one answer per symptom and date in a report. |
+| `event_date` | Date targeted by the form. In v0.2 the form asks about today, so this must equal the patient-local submission date. Historical totals can be supplied in text. |
+| `count` | Vomiting episodes from the start of today up to submission: a nonnegative integer or `null`. The implied scope is `day_to_date`. Nausea count remains `null`. |
+| `severity` | Integer 1-5 answering the fixed question below, or `null` if no rating is supplied. |
+
+### Fixed severity question
+
+> How severe has your [symptom] been at its worst so far today, on a scale from 1 to 5?
+
+Use 1 = very mild, 2 = mild, 3 = moderate, 4 = severe, and 5 = very severe. This is a prototype self-report scale, not a clinical grading system. If the symptom did not occur, do not enter a severity rating; explicit absence is recorded separately. A missing rating is `null`, not zero.
+
+The normalized `severity` field always has this meaning. A free-text rating is accepted only when it explicitly supplies the same 1-5 scale and the same worst-so-far-today context. A current-only rating, a score out of 10, a historical-day score, or an unclear time basis must not be silently mixed into this trend. Preserve the candidate value and evidence, leave normalized severity unknown, and flag the affected field. No conversion from episode counts, adjectives, or another score scale is permitted.
+
+## 5. Normalized observations and gold records
+
+Each gold record contains:
+
+| Field | Purpose |
+| --- | --- |
+| `report_id` | Links to the source submission. |
+| `extraction_checks` | A small list of source-specific assertions to check before reconciliation; `[]` when no additional check is specified. |
+| `observations` | Expected results after date normalization, field validation, and source reconciliation. There are 15 across the 10 reports. |
+
+Each observation contains:
 
 | Field | Meaning and rationale |
 | --- | --- |
-| `symptom` | Symptom targeted by the questionnaire. Prevents a nausea rating from being applied to vomiting. The first version supports one symptom per questionnaire. |
-| `event_date` | Date explicitly targeted by the questionnaire. Helps determine whether the text and questionnaire describe the same day. |
-| `count` | Cumulative vomiting count for the target date as of this submission: a nonnegative integer or `null`. Zero is an explicit report of no episodes; `null` means no count was provided. The current prototype does not collect nausea counts. |
-| `severity` | Patient-reported severity for the target symptom and date: an integer from 1 to 5, or `null`. |
+| `observation_id` | Reference label such as `R001-O1`, assigned by code. See the identifier policy below. |
+| `symptom` | `nausea` or `vomiting`, independent of the source wording. |
+| `assertion` | `present`, `absent`, `hypothetical`, or `uncertain`. Distinguishes occurrence, explicit absence, a concern or hypothetical statement, and unresolved presence. |
+| `count` | Supported vomiting count: nonnegative integer or `null`. Nausea counts remain `null` in this version. |
+| `count_scope` | `event`, `window`, `day_to_date`, `day_total`, or `null`; determines how a count may be interpreted and aggregated. |
+| `severity` | Supported 1-5 worst-so-far-today rating under the fixed contract, or `null`. Independent of episode count. |
+| `event_date` | Patient-local date, `YYYY-MM-DD`, or `null`. Do not force a multi-day count into a single date. |
+| `event_time` | Explicit patient-local clock time, `HH:MM`, or `null`. Never invent a clock time for meals or parts of a day. |
+| `time_text` | Original time expression, or `null`, preserving context not represented by the date alone. |
+| `date_basis` | `relative_text`, `explicit_text`, `questionnaire`, or `unknown`; records how the single date was established. |
+| `medication_relation` | Object or `null`, preserving an explicitly reported temporal relationship without asserting causation. |
+| `evidence` | List of `{path, value}` source references. |
+| `issues` | List of `{field, code}` objects; `[]` when no issue applies. Each item names the affected observation field. |
 
-The prototype uses a simple self-report scale: 1 means very mild and 5 means very severe. This is not a clinical grading system. Missing severity is `null`, not zero. Neither an episode count nor an adjective such as "uncomfortable" is automatically converted into a numeric severity rating.
+### Count scopes
 
-## 5. Expected result fields
-
-Each record contains `report_id` and an `observations` list. The identifier links to the source report, and the list contains the observations derived from that report. The current 10 reports have 13 expected observations.
-
-These answers describe the expected result after extraction, date normalization, and field validation. They do not require every step to be performed by an LLM.
-
-| Observation field | Meaning | Rationale |
+| Scope | Example | Interpretation |
 | --- | --- | --- |
-| `observation_id` | Stable identifier, such as `R001-O1`. | Allows individual observations within a report to be referenced. Generated by code rather than chosen randomly by a model. |
-| `symptom` | `nausea` or `vomiting`. | Provides a consistent query vocabulary despite variations such as "vomited" and "threw up" in the source. |
-| `assertion` | `present`, `absent`, `hypothetical`, or `uncertain`. | Distinguishes an actual symptom, explicit absence, a concern or hypothetical statement, and an unresolved assertion. Prevents a fear of vomiting from becoming a recorded episode. |
-| `count` | Vomiting count: a nonnegative integer or `null`. | Preserves explicit counts. Unknown must not become zero. Nausea counts remain `null` in this version. |
-| `count_scope` | `event`, `window`, `day_to_date`, or `null`. | Distinguishes a specific episode, a described time window, and the current day's cumulative count as of submission. Counts with different scopes cannot simply be added. |
-| `severity` | Self-reported integer from 1 to 5, or `null`. | Kept separate from episode count and assertion status. Requires an explicit rating in the source. |
-| `event_date` | Patient-local date in `YYYY-MM-DD` format, or `null`. | Supports daily and weekly grouping. Populated only when the date can be established. |
-| `event_time` | Patient-local clock time in `HH:MM` format, or `null`. | Preserves explicitly stated clock times. "After dinner" must not be assigned an invented time. Date and timezone are retained in their associated fields. |
-| `time_text` | Original time expression, or `null`. | Preserves useful context such as "after dinner" or "this morning" that a date alone cannot express. |
-| `date_basis` | `relative_text`, `explicit_text`, `questionnaire`, or `unknown`. | Records whether the date was resolved from a relative expression, stated explicitly, supplied by a questionnaire, or could not be established. |
-| `medication_relation` | Medication relationship object, or `null`. | Preserves a relationship explicitly reported by the patient without inferring causation from treatment context. |
-| `evidence` | List of source references. | Retains supporting text excerpts or questionnaire values for inspection. |
-| `issues` | List of issue flags, or `[]` if none apply. | Explains limitations that affect interpretation or aggregation. A model's self-reported confidence is not a substitute for evidence. |
+| `event` | "I vomited once today at 14:20." | A particular episode, not an entire day's total. A precise clock time is not required for an episode to exist. |
+| `window` | "I vomited twice after dinner yesterday." | Count over a described interval. Its boundaries or overlap with other records may be unresolved. |
+| `day_to_date` | "I have vomited three times in total so far today." | Current-day cumulative count up to submission. An evening report is still not automatically a complete-day total. |
+| `day_total` | "I vomited twice in total yesterday." | Explicit total for a completed calendar day; its date must precede the local submission date. |
+| `null` | Nausea without an episode count. | No applicable or identifiable counting scope. An unknown count may still have a known scope, as in R008. |
 
-Examples of `count_scope`:
+For annotation consistency, a count framed around a meal or another described interval is labeled `window`, even when the count is one, as in R007. Use `event` when the text identifies a particular episode, as in R003. This convention distinguishes the intended count scope without claiming that an exact clock time is required for an episode.
 
-- `event`: "I vomited once today at 14:20." This identifies one episode, not a full-day total.
-- `window`: "I vomited twice after dinner yesterday." The count belongs to the described window and is not assumed to cover the entire day.
-- `day_to_date`: "I have vomited twice in total so far today." This is a current-day cumulative count up to submission, even if submitted in the evening.
-- `null`: No applicable or identifiable counting scope, such as a report of nausea without an episode count. A known scope may still accompany an unknown count, as in R008.
+A count over several days remains a `window` count with its source text preserved. In this limited single-date representation, set `event_date=null`, `date_basis=unknown`, and flag the unsupported time range. Do not split the count across days or assign it to the submission date. "I vomited again" also does not prove that a new record is independent of earlier counts; unresolved relationships must not be summed automatically.
 
-`medication_relation` currently has two fields: `medication` contains the medication label from the source; `relation` uses `after_taking` when the patient describes a symptom after taking it. This is a temporal relationship, not proof that the medication caused the symptom.
+### Evidence and medication relationships
 
-Each `evidence` item has `path` and `value`. The path identifies an input field, such as `text` or `questionnaire.count`; the value retains an excerpt or the original questionnaire value. Text evidence must be a contiguous substring of the source. Questionnaire evidence must match the input value.
+Evidence paths use dot notation with zero-based list indexes, such as `questionnaire_answers.0.severity`. `value` is an exact questionnaire value or a contiguous source-text substring. Preserve evidence from both sides of a conflict. A valid substring is necessary for traceability but does not alone prove correct interpretation.
 
-The current examples use these `issues` flags:
+`medication_relation` contains `medication` (the source label) and `relation`. The current relation `after_taking` means the patient described a symptom after taking the medication. It does not establish causation and is not a medication-change record.
 
-| Flag | Meaning |
-| --- | --- |
-| `date_unknown` | The observation cannot reliably be assigned to a calendar date. |
-| `count_unknown` | The symptom occurred, but the episode count cannot be determined. |
-| `conflicting_sources` | Text and questionnaire answers conflict about the same symptom and time scope. |
+### Field-specific issues
 
-An omitted severity rating may simply remain `null`. Not every missing field is an error that requires a flag.
-
-## 6. Processing rules to implement
-
-### Time
-
-1. Convert the instant in `reported_at` to `patient_timezone` before interpreting today or yesterday. Code performs the date arithmetic.
-2. If only a date is known, keep `event_time` as `null`; do not insert `00:00`.
-3. These are open-ended reports without an implicit "today only" form context. The phrase "after dinner" alone therefore does not establish a date.
-4. Compare text and questionnaire answers directly only when they refer to the same event or aggregation scope. Descriptions of different dates should become separate observations. If they clearly refer to the same event but give incompatible dates, retain both sources and flag the conflict rather than choosing arbitrarily.
-5. Retain and display observations with unknown dates, but do not force them into a particular day's count trend.
-
-### Negation, missing information, and hypothetical statements
-
-- "I have not vomited at all today" produces `absent`, `count=0`, and `count_scope=day_to_date`.
-- "I vomited a few times today but cannot remember how many" produces `present`, `count=null`, and `count_unknown`.
-- "I am worried I might vomit tonight" produces `hypothetical` and contributes no observed episode count. The date of the future concern can still be known.
-- No submission is different from an explicit symptom-free report. Do not fill unreported dates with zero.
-
-### Conflicts, corrections, and duplicates
-
-- If text reports one episode and a questionnaire reports zero for the same symptom, date, and count scope, retain both sources, set `assertion=uncertain` and `count=null`, and add `conflicting_sources`.
-- Only unresolved fields become unknown. Keep information that remains supported, such as an agreed date.
-- In this prototype, `supersedes_report_id` replaces an entire report. The target must exist, belong to the same patient, and precede the correction. Self-references and cycles are invalid. Correcting only part of a report would require a more detailed policy.
-- Retain the old report and its original extraction. Exclude superseded versions from effective aggregates. Do not rewrite R005's original extracted count of 3 as 2.
-- Do not add cumulative snapshots for the same patient, symptom, and date. Resolve explicit corrections first, then use the latest valid cumulative value with the same scope.
-- A decreasing cumulative count without an explicit correction, or overlapping windows that cannot be reconciled, requires review. Do not hide ambiguity by automatically choosing the latest or largest value.
-- Reimporting the same `report_id` must not create another copy. Changed content under an existing ID must raise an error or require an explicit version rather than silently overwrite the source.
-
-### Queries and visualization
-
-- Planned query 1: reported vomiting counts by patient and week, accompanied by reporting coverage and records that cannot be counted reliably.
-- Do not add a daily cumulative count to episode or window counts that it already contains. Do not combine ambiguous overlapping windows. R004-R006 will exercise the initial cumulative-count rule.
-- Planned query 2: symptoms occurring after a known medication change. This requires a separate medication-change table. R010's patient-reported relationship after taking a medication does not replace a formal change record.
-- A date without a clock time may be insufficient to determine whether a symptom occurred before or after a medication change on the same day.
-- Charts will use database query results and distinguish counts, severity ratings, missing information, and source details.
-- Coverage calculations also require each patient's follow-up start and end dates. That table is not present yet, so coverage is not currently calculated. Submission dates and symptom dates must remain distinct.
-
-## 7. Starter cases and expected interpretation
-
-| Report | Source summary | Expected interpretation |
+| Field | Code | Meaning |
 | --- | --- | --- |
-| R001 | Vomited twice after dinner yesterday; nauseous all morning today. | Two observations: vomiting on November 1, count 2; nausea on November 2, count unknown. |
-| R002 | No vomiting today; nausea today. Questionnaire nausea severity is 3. | Explicit vomiting count of zero; severity 3 applies only to nausea. |
-| R003 | Vomited once today at 14:20. | One episode at 14:20 on November 3, not a full-day total. |
-| R004 | Morning submission: two vomiting episodes in total so far today. | Cumulative snapshot of 2 for November 4. |
-| R005 | Evening submission: three vomiting episodes in total so far today. | Later cumulative snapshot of 3 for the same day; do not add it to R004. |
-| R006 | Later that evening, corrects R005: two episodes in total so far today, not three. | Explicit correction for November 4; the effective cumulative count becomes 2. |
-| R007 | Vomited once after dinner. | Date and clock time are unknown; preserve the dinner context and count of 1. |
-| R008 | Vomited a few times in total so far today but cannot recall the count. | Occurrence and date are known; count remains unknown with an issue flag. |
-| R009 | Text reports one episode so far today; the same-day questionnaire reports zero. | Sources conflict; assertion is unresolved and count remains unknown. Retain both sources. |
-| R010 | Nausea after taking fictional Medication A this morning; worried about vomiting tonight. | Nausea occurred, with a reported temporal medication relationship. Vomiting is hypothetical and must not count as an observed episode. |
+| `event_date` | `date_unknown` | No reliable single date can be established. |
+| `event_date` | `unsupported_time_range` | The claim spans several dates and cannot be placed in a single-day trend. |
+| `count` | `count_unknown` | Occurrence is reported, but no exact count is known. |
+| Any affected observation field | `conflicting_sources` | Compatible source claims disagree on that field. |
+| `severity` | `unsupported_scale` | A rating uses a different or unspecified numeric scale. |
+| `severity` | `unsupported_severity_context` | A rating targets a different context, such as current severity or a historical day. |
+| `severity` | `severity_context_unknown` | The rating's time or summary context cannot be established. |
+| `count` | `unresolved_count_relationship` | A count cannot be safely combined with other records because independence or overlap is unresolved. |
 
-All dates above are in 2026. Cross-report acceptance example: R004 alone gives a cumulative count of 2; adding R005 updates it to 3; adding the explicit correction R006 changes it to 2. Preserve all three source reports and their individual expected extractions throughout.
+Not every `null` requires a flag: an unmentioned severity rating can simply remain unknown. Issues should identify the reason, not duplicate multiple equivalent flags. Cross-report overlap and correction diagnostics are determined by aggregation or input-validation code, not guessed by the text model.
 
-## 8. Next steps and validation limits
+For example, R002 has `assertion=present` for nausea, but `severity=null` and `{"field":"severity","code":"conflicting_sources"}`. R009 has separate issues for `assertion` and `count`, because zero and one disagree on both presence and number. If both sources instead report positive but different counts, presence remains `present` and only count is unresolved.
 
-Review these examples, then implement the data structures, parser, and validators. A model may identify symptoms, negation, and time expressions. Deterministic code will handle identifiers, date arithmetic, input constraints, and aggregation rules.
+## 6. Time, corrections, and counting rules
 
-Compare actual outputs against the gold file by symptom, assertion, count, severity, date, and handling of unknown values. Valid output structure does not prove correct interpretation. If a reference answer is found to be wrong, revise it using an explicit rule and record the reason; it is not an unquestionable clinical fact.
+### Date normalization and source reconciliation
 
-These 10 examples have been used for design and development and cannot support claims of independent test accuracy. The full prototype still needs additional held-out cases, multi-week data, a medication-change table, two SQL queries, and a working chart.
+1. Interpret relative expressions against `reported_at` converted to `patient_timezone`. Code performs calendar arithmetic.
+2. If only a date is known, keep the clock time unknown; do not substitute midnight. Approximate times must not be promoted to exact clock times.
+3. Free text is open-ended. The questionnaire's today-only context does not make an undated text statement refer to today.
+4. Compare claims only when symptom, date, and relevant scope are compatible. Different dates or event versus daily scopes may require separate observations rather than a conflict.
+5. Unknown dates and unsupported ranges are retained for inspection but excluded from single-day allocation.
+6. Resolve only fields supported by the sources. A conflict in severity must not invalidate a consistent count or date.
+
+### Complete report replacement
+
+`supersedes_report_id` is supplied by an explicit edit operation that submits the entire revised text and questionnaire payload. The replacement must repeat information that remains valid. In the current fixtures, R006 changes R005's vomiting count from 3 to 2 and explicitly repeats nausea severity 4.
+
+Validate that the target exists, belongs to the same patient, and precedes the replacement; reject self-references and cycles. A partial message such as "change vomiting to two" must not automatically replace a multi-symptom report. Preserve it for review and do not apply it as a complete correction or count it as an independent new episode. Completeness is an input contract: an ID alone cannot prove the author intended a full replacement. The MVP does not support implicit deletion of another symptom or partial field updates; omissions require review.
+
+Keep the original report and its original normalized observations. Compute which version is effective when aggregating. Do not rewrite R005's original count of 3 or erase its nausea observation. An invalid or incomplete correction must not deactivate the valid target.
+
+Reimporting an unchanged `report_id` must not create a duplicate. Changed contents under the same ID require an explicit new version or an error, not silent overwriting.
+
+### Aggregation boundaries
+
+- An explicit absence over a known scope may contribute zero. Missing reports, unknown counts, and hypothetical symptoms must not be converted to zero.
+- Resolve valid replacements first. For compatible same-day cumulative snapshots, use the latest valid value without summing snapshots. A decrease without an explicit correction requires review.
+- A compatible `day_total` replaces earlier partial-day snapshots for that date in the total calculation; it is not added to them. If it contradicts a larger earlier count without an explicit correction, flag the inconsistency for review rather than choosing silently.
+- Do not add episode or window counts already covered by a cumulative count. Combine separate episodes or windows only when their non-overlap is supported; unresolved relationships stay out of the combined count and remain visible.
+- Clearly label partial reported counts and complete-day totals. "Reported count" is not proof that every real episode was captured.
+- Compute query-specific eligibility, correction status, and review indicators from the rules and evidence. Do not store redundant `is_valid`, `is_active`, and `needs_review` booleans that can disagree.
+
+## 7. Identifiers and layered validation
+
+Gold `observation_id` values are reference labels, not medical identities and not fields an LLM must generate. For display, order observations by known date first, then known clock time, symptom, count scope, and assertion; use a canonical serialization of the remaining content to break ties. The current fixtures follow this ordering. Labels may change when source content or the schema changes; they are not guaranteed stable across reparsing versions.
+
+Future storage will assign or retain identifiers within a stored report version. Semantic evaluation matches observations by symptom, time, and source evidence, not by output-array position or a database ID. Different valid evidence excerpts should not automatically fail an otherwise correct extraction.
+
+Each targeted extraction check contains `source` (a `{path, value}` reference) and `expected_fields` (only the candidate fields being checked). Current checks cover R001's complete-day count, R002's text rating of 2/5, and R009's text count of 1. These checks are evaluated before questionnaire reconciliation; then compare normalized observations to gold. No additional full candidate dataset is required.
+
+Format validation and semantic evaluation are separate. Parse failures must remain distinguishable from a successful extraction with no relevant symptoms. Future run diagnostics will record such failures; a model error must not become a symptom-free report. Reference answers can be revised with a documented reason and are not independent clinical ground truth.
+
+## 8. Starter examples and acceptance expectations
+
+| Report | Case | Expected result |
+| --- | --- | --- |
+| R001 | Yesterday's complete-day vomiting total and today's morning nausea. | Vomiting count 2 with `day_total` on November 1; separate nausea on November 2. |
+| R002 | Text gives worst-so-far-today nausea severity 2/5; questionnaire gives 3/5. Both sources report no vomiting. | Only nausea severity is unresolved. Vomiting remains absent with count 0. Two questionnaire entries are preserved. |
+| R003 | One vomiting episode today at 14:20. | One event at 14:20 on November 3, not a full-day total. |
+| R004 | Morning cumulative vomiting count of 2. | `day_to_date` count 2 for November 4. |
+| R005 | Evening cumulative vomiting count of 3 and worst-so-far-today nausea severity 4/5. | Two observations, both preserved as the original version. |
+| R006 | Complete replacement of R005: vomiting count 2, with nausea severity 4/5 repeated. | Effective vomiting count becomes 2; nausea severity remains 4. Original R005 observations remain stored. |
+| R007 | Vomited once after dinner without a date. | Count 1 and dinner context retained; unknown date flagged. |
+| R008 | Vomited a few times today but cannot recall the count. | Presence and date known, count unknown with a field-specific issue. |
+| R009 | Text count 1; same-day questionnaire count 0. | Text extraction check expects 1. Normalized assertion and count are unresolved, with two field-specific issues. |
+| R010 | Nausea after fictional Medication A this morning; worried about vomiting tonight. | Reported temporal medication relationship for nausea; vomiting is hypothetical and contributes no observed count. |
+
+All dates are in 2026. Across R004, R005, and R006, effective cumulative vomiting counts progress 2 -> 3 -> 2; they are never summed. Nausea severity from the corrected report is retained at 4.
+
+Additional examples to add before claiming broader coverage include multi-day counts, ambiguous incremental reports, incompatible severity scales or contexts, incomplete corrections, and decreasing cumulative counts without a correction. These rules are specified but not yet represented by a complete test suite or held-out dataset.
+
+## 9. Remaining inputs and implementation work
+
+The full prototype still needs patient follow-up start and end dates for coverage denominators, and a separate medication-change table containing the patient, medication, change time, and change type. These belong in their own tables, not as repeated background fields on every symptom observation.
+
+Planned SQL queries are weekly reported vomiting counts with coverage and unresolved records, and symptoms occurring after a known medication change. A symptom date without a clock time may be insufficient to establish order relative to a same-day medication change. A patient-reported "after taking" relationship is not a substitute for a medication-change record.
+
+Next, implement the executable data structures and validators, text parser, storage, queries, and chart. Add multi-week source data and independent evaluation cases. Charts will read stored query results and distinguish counts, compatible severity scores, missing information, and source evidence. The current development fixtures do not establish parser accuracy, clinical validity, or completion of the working prototype.
