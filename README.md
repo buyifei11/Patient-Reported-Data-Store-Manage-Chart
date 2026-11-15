@@ -4,9 +4,20 @@ Track B prototype for structuring synthetic patient reports, storing them over t
 
 ## Current stage
 
-The first milestone contains a data design and starter examples. The parser, database, SQL queries, and dashboard are not implemented yet.
+The first milestone contains a data design and starter examples. The repository does not yet contain executable application code. All submission artifacts are written in English.
 
-- [Design and field explanations (中文)](docs/design.md)
+| Component | Status |
+| --- | --- |
+| Data fields and processing rules | Documented; not implemented as executable schemas or validators. |
+| Starter source data | 10 reports from 3 fictional patients. |
+| Expected structured results | 13 observations authored as development references; not parser-generated output. |
+| Parser and model integration | Not implemented. |
+| Database and SQL queries | Not implemented. |
+| Charts or dashboard | Not implemented. |
+| Reusable validation scripts and automated tests | Not implemented. |
+| Full multi-week dataset and held-out evaluation cases | Not yet prepared. |
+
+- [Design and field explanations](docs/design.md)
 - [10 synthetic source reports](data/raw/reports.jsonl)
 - [Expected structured results: 13 observations](data/gold/expected.jsonl)
 
@@ -18,7 +29,7 @@ Expected results were drafted with AI assistance and checked against the documen
 
 ## Current validation
 
-The starter files have been checked for JSON validity, unique IDs, field values, timezones and dates, source evidence, and correction references. No parser evaluation has been run yet.
+One-off integrity checks were run during preparation for JSON validity, unique IDs, field values, timezones and dates, source evidence, and correction references. These checks have not yet been added as reusable scripts or an automated test suite. No parser evaluation has been run.
 
 ## Next steps
 

@@ -1,170 +1,172 @@
-# Track B：患者反馈数据原型设计（v0.1）
+# Track B: Patient-Reported Data Prototype Design (v0.1)
 
-这份文档先定义数据含义，再指导数据、解析器、数据库和图表的实现。所有患者、反馈和药物均为虚构。英文作为模拟输入，中文用于解释设计。
+This document defines the meaning of the data before implementation of the parser, database, and charts. All patients, reports, and medication labels are fictional. All submission artifacts, including documentation, sample text, code comments, prompts, and interface labels, must be in English.
 
-当前阶段交付：本设计、10 条原始反馈、对应的预期结果。样例和答案由助手依据本设计逐条起草、核对，供你继续复核，尚未经过独立人工标注。尚未实现解析器、数据库或图表。这 10 条用于讨论和开发，不是独立保留测试集。
+The current milestone contains this design, 10 source reports, and their expected structured results. The examples and expected results were drafted with AI assistance and checked against these rules. They have not been independently annotated by a human reviewer. No parser, database, or chart has been implemented. These are development examples, not a held-out evaluation set.
 
-## 1. 范围与目标
+## 1. Scope and goal
 
-- 场景：肿瘤科治疗期间，患者报告恶心（`nausea`）和呕吐（`vomiting`）。
-- 完整原型计划：3 位虚构患者、连续 4 周；本次只有 10 条设计样例，不代表完整随访。
-- 目标：保存原话，把能确定的信息结构化，让医生查看报告趋势、缺失和原文依据。
-- `Medication A` 是虚构药物标签，不对应真实药理、剂量或治疗建议。
-- 第一版只处理本文明确规定的表达和统计范围；未能可靠解释的信息保留为未知，并标记原因。
+- Scenario: patients report nausea (`nausea`) and vomiting (`vomiting`) during oncology treatment.
+- Planned full prototype: three fictional patients over four consecutive weeks. The current 10 examples illustrate design decisions and do not constitute the full follow-up dataset.
+- Goal: preserve the original reports, structure information that can be supported, and let a provider inspect reported trends, missing information, and source evidence.
+- `Medication A` is a fictional label. It does not represent a real drug, dosage, or treatment recommendation.
+- The first implementation will cover the expressions and aggregation rules defined here. Information that cannot be interpreted reliably will remain unknown, with an explanation where needed.
 
-## 2. 数据流程与三种数据
+## 2. Planned data flow and dataset roles
+
+The diagram describes the intended pipeline, not functionality that already exists.
 
 ```mermaid
 flowchart TD
-    A[原始反馈 reports.jsonl] --> B[保存原文与报告身份]
-    B --> C[Parser 提取候选字段]
-    C --> D[代码解析日期并执行校验]
-    D --> E[结构化结果与问题标记]
-    E --> F[数据库：保留原文、结果、更正关系]
-    F --> G[按统计规则运行 SQL]
-    G --> H[趋势、缺失和原文详情]
-    T[预期结果 expected.jsonl] -. 检查提取和规范化 .-> D
+    A["Source reports: reports.jsonl"] --> B["Preserve original text and report identity"]
+    B --> C["Parser extracts candidate fields"]
+    C --> D["Code resolves dates and validates fields"]
+    D --> E["Structured observations and issue flags"]
+    E --> F["Database: source reports, observations, and corrections"]
+    F --> G["SQL queries apply aggregation rules"]
+    G --> H["Trends, missing data, and source details"]
+    T["Expected results: expected.jsonl"] -. "Check extraction and normalization" .-> D
 ```
 
-| 数据 | 位置 | 作用 |
+| Dataset | Location | Purpose |
 | --- | --- | --- |
-| 原始反馈 | `data/raw/reports.jsonl` | 程序可以读取的输入；保留患者实际提供的信息 |
-| 预期结果（gold） | `data/gold/expected.jsonl` | 按本文规则逐条制定的参考答案；仅供验证，不传给解析器 |
-| 程序转换结果（processed） | 后续生成 | 解析器实际运行的输出；不能直接复制 gold 冒充提取结果 |
+| Source reports | `data/raw/reports.jsonl` | Input available to the pipeline; preserves the information the patient actually supplied. |
+| Expected results (gold) | `data/gold/expected.jsonl` | Reference answers authored according to this design. Used for validation, never provided to the parser as input. |
+| Processed results | To be generated during implementation | Actual pipeline outputs. Copying the gold file does not demonstrate successful extraction. |
 
-JSONL 表示一行一个 JSON 对象。两个现有文件各有 10 行，通过 `report_id` 对应。
+JSONL contains one JSON object per line. The two existing files each contain 10 records, linked by `report_id`.
 
-## 3. 先分清“报告”和“症状观察”
+## 3. Reports and symptom observations
 
-- 一条 **报告 report** 是患者的一次提交。
-- 一条 **症状观察 observation** 是报告对某个症状、某个时间范围所作的一项描述。
-- 一条报告可以产生多条观察。例如，昨天呕吐、今天恶心，应拆成两条。
-- 一条观察不一定是一次真实发作；它也可能是累计次数、明确没有症状、担忧未来发生，或者互相冲突的说法。
-- 只为文字或问卷实际提到的症状建立观察。没有提到呕吐，不自动补一条“呕吐为零”。
+- A **report** is one patient submission.
+- An **observation** describes one symptom within a particular time context in that report.
+- One report may produce multiple observations. For example, vomiting yesterday and nausea today should become separate observations.
+- An observation is not necessarily a confirmed episode. It may describe a cumulative count, explicit absence, a concern about a future symptom, or conflicting statements.
+- Create observations only for symptoms mentioned in the text or questionnaire. A report that does not mention vomiting must not automatically produce a zero-vomiting observation.
 
-## 4. 原始反馈字段
+## 4. Source report fields
 
-| 字段 | 类型／示例 | 意思与设计原因 |
+| Field | Type or example | Meaning and rationale |
 | --- | --- | --- |
-| `report_id` | 字符串，如 `R001` | 一次提交的唯一编号。连接原文与结果，也便于防止重复导入。 |
-| `patient_id` | 字符串，如 `P001` | 虚构患者编号。多条报告可以属于同一患者；当前不需要姓名等资料。 |
-| `reported_at` | 带 UTC 偏移的时间，如 `2026-11-02T20:00:00-06:00` | 系统接收反馈的时间。它不是症状发生时间。偏移量明确该时刻。 |
-| `patient_timezone` | IANA 时区名，如 `America/Chicago` | 解释“今天／昨天”的日历时区；固定偏移本身不能表达夏令时规则。 |
-| `text` | 英文字符串 | 患者原话，保留不改写。后面每个提取结果都应能回查依据。 |
-| `questionnaire` | 对象或 `null` | 同次提交的结构化问卷答案。与文字分开保留，才能发现冲突；`null` 表示没有这份问卷。 |
-| `supersedes_report_id` | 报告编号或 `null` | 本次是否明确更正某条旧报告。由模拟的“更正”操作提供，不让模型猜旧报告编号。 |
+| `report_id` | String, such as `R001` | Unique submission identifier. Links source text to results and supports duplicate-import prevention. |
+| `patient_id` | String, such as `P001` | Fictional patient identifier. Groups multiple reports from the same patient without requiring a name or other identifying details. |
+| `reported_at` | Timestamp with a UTC offset, such as `2026-11-02T20:00:00-06:00` | Time the system received the report, not the time the symptom occurred. The offset identifies the instant. |
+| `patient_timezone` | IANA timezone name, such as `America/Chicago` | Calendar timezone used to interpret expressions such as today and yesterday. A fixed offset alone does not encode daylight-saving rules. |
+| `text` | English string | Original patient wording, preserved without rewriting. Extracted information must remain traceable to its source. |
+| `questionnaire` | Object or `null` | Structured answers submitted with the text. Keeping them separate allows disagreements to be detected. `null` means no questionnaire was supplied. |
+| `supersedes_report_id` | Report identifier or `null` | Identifies an earlier report explicitly corrected by this submission. Supplied by the simulated correction action, rather than inferred by guessing a report ID. |
 
-`questionnaire` 非空时包含：
+When `questionnaire` is not `null`, it contains:
 
-| 子字段 | 意思与设计原因 |
+| Field | Meaning and rationale |
 | --- | --- |
-| `symptom` | 这份问卷针对哪个症状，避免把恶心的评分套给呕吐。第一版一份问卷对应一个症状。 |
-| `event_date` | 问卷明确询问的日期。用于判断文字和问卷是否谈的是同一天。 |
-| `count` | 截至本次提交，问卷目标日期内的累计呕吐次数；非负整数或 `null`。`0` 是明确报告零次，`null` 是未提供。当前恶心不收集次数。 |
-| `severity` | 针对该症状、该日期的患者自评：1—5 的整数或 `null`。 |
+| `symptom` | Symptom targeted by the questionnaire. Prevents a nausea rating from being applied to vomiting. The first version supports one symptom per questionnaire. |
+| `event_date` | Date explicitly targeted by the questionnaire. Helps determine whether the text and questionnaire describe the same day. |
+| `count` | Cumulative vomiting count for the target date as of this submission: a nonnegative integer or `null`. Zero is an explicit report of no episodes; `null` means no count was provided. The current prototype does not collect nausea counts. |
+| `severity` | Patient-reported severity for the target symptom and date: an integer from 1 to 5, or `null`. |
 
-严重程度采用本原型自定义的 1—5 量表，1 表示很轻，5 表示很重。它不是临床评级。缺失用 `null`，不用 0；也不把“吐两次”或“很难受”自动换算成评分。
+The prototype uses a simple self-report scale: 1 means very mild and 5 means very severe. This is not a clinical grading system. Missing severity is `null`, not zero. Neither an episode count nor an adjective such as "uncomfortable" is automatically converted into a numeric severity rating.
 
-## 5. 预期结果字段
+## 5. Expected result fields
 
-每行外层结构是 `report_id` 和 `observations`。前者连接对应原始报告；后者是这条报告产生的症状观察列表。本次 10 条报告对应 13 条观察。
+Each record contains `report_id` and an `observations` list. The identifier links to the source report, and the list contains the observations derived from that report. The current 10 reports have 13 expected observations.
 
-这些答案描述的是“提取＋日期规范化＋字段校验”后的预期结果，不要求全部工作都由 LLM 完成。
+These answers describe the expected result after extraction, date normalization, and field validation. They do not require every step to be performed by an LLM.
 
-| 观察字段 | 意思 | 为什么这样设计 |
+| Observation field | Meaning | Rationale |
 | --- | --- | --- |
-| `observation_id` | 稳定编号，如 `R001-O1` | 同一报告可能有多条观察，需要分别引用。由程序生成，不能依赖模型随机取名。 |
-| `symptom` | `nausea` 或 `vomiting` | 用统一名称查询，不受原话中 `vomited`、`threw up` 等词语差异影响。 |
-| `assertion` | `present`、`absent`、`hypothetical`、`uncertain` | 分别表示明确发生、明确没有、仅担忧／假设、无法确定。防止把“担心会吐”当作已经吐了。 |
-| `count` | 呕吐次数：非负整数或 `null` | 保存明确次数；未知不能填零。当前恶心的次数留空。 |
-| `count_scope` | `event`、`window`、`day_to_date` 或 `null` | 次数属于一次具体发作、一个描述的时间段、还是截至上报时的当天累计。范围不同，不能直接相加。 |
-| `severity` | 1—5 的自评整数或 `null` | 与次数、症状是否存在分别处理；必须有明确评分依据。 |
-| `event_date` | 患者当地日期 `YYYY-MM-DD` 或 `null` | 用于按日／周归属。只有日期可确定时才填写。 |
-| `event_time` | 患者当地钟点 `HH:MM` 或 `null` | 仅保留明确钟点；不把“饭后”变成固定时刻。日期和时区仍来自关联字段。 |
-| `time_text` | 原话里的时间表达或 `null` | 保存“after dinner”“this morning”等不能被一个日期充分表达的信息。 |
-| `date_basis` | `relative_text`、`explicit_text`、`questionnaire`、`unknown` | 分别表示日期由相对表达推算、原文明示、问卷给出，或未知。让日期来源可解释。 |
-| `medication_relation` | 用药关联对象或 `null` | 保留患者明确提到的药物关系，不从背景治疗信息推断因果。 |
-| `evidence` | 原始依据列表 | 保留支持该观察的原文片段或问卷值，便于核对。 |
-| `issues` | 问题标记列表；无问题时 `[]` | 明确为什么某个统计不能进行；不用模型自报的置信分数代替依据。 |
+| `observation_id` | Stable identifier, such as `R001-O1`. | Allows individual observations within a report to be referenced. Generated by code rather than chosen randomly by a model. |
+| `symptom` | `nausea` or `vomiting`. | Provides a consistent query vocabulary despite variations such as "vomited" and "threw up" in the source. |
+| `assertion` | `present`, `absent`, `hypothetical`, or `uncertain`. | Distinguishes an actual symptom, explicit absence, a concern or hypothetical statement, and an unresolved assertion. Prevents a fear of vomiting from becoming a recorded episode. |
+| `count` | Vomiting count: a nonnegative integer or `null`. | Preserves explicit counts. Unknown must not become zero. Nausea counts remain `null` in this version. |
+| `count_scope` | `event`, `window`, `day_to_date`, or `null`. | Distinguishes a specific episode, a described time window, and the current day's cumulative count as of submission. Counts with different scopes cannot simply be added. |
+| `severity` | Self-reported integer from 1 to 5, or `null`. | Kept separate from episode count and assertion status. Requires an explicit rating in the source. |
+| `event_date` | Patient-local date in `YYYY-MM-DD` format, or `null`. | Supports daily and weekly grouping. Populated only when the date can be established. |
+| `event_time` | Patient-local clock time in `HH:MM` format, or `null`. | Preserves explicitly stated clock times. "After dinner" must not be assigned an invented time. Date and timezone are retained in their associated fields. |
+| `time_text` | Original time expression, or `null`. | Preserves useful context such as "after dinner" or "this morning" that a date alone cannot express. |
+| `date_basis` | `relative_text`, `explicit_text`, `questionnaire`, or `unknown`. | Records whether the date was resolved from a relative expression, stated explicitly, supplied by a questionnaire, or could not be established. |
+| `medication_relation` | Medication relationship object, or `null`. | Preserves a relationship explicitly reported by the patient without inferring causation from treatment context. |
+| `evidence` | List of source references. | Retains supporting text excerpts or questionnaire values for inspection. |
+| `issues` | List of issue flags, or `[]` if none apply. | Explains limitations that affect interpretation or aggregation. A model's self-reported confidence is not a substitute for evidence. |
 
-`count_scope` 的例子：
+Examples of `count_scope`:
 
-- `event`：今天 14:20 吐了一次，只明确这一次发作。
-- `window`：昨晚饭后吐了两次，次数属于描述的时间段；不自动视为全天总数。
-- `day_to_date`：今天截至上报时一共吐了两次。即使晚上上报，也不代表之后不会再发生。
-- `null`：没有可适用或可确定的计数范围。例如，只有“今天恶心”。次数未知但范围明确时仍可使用 `day_to_date`，见 R008。
+- `event`: "I vomited once today at 14:20." This identifies one episode, not a full-day total.
+- `window`: "I vomited twice after dinner yesterday." The count belongs to the described window and is not assumed to cover the entire day.
+- `day_to_date`: "I have vomited twice in total so far today." This is a current-day cumulative count up to submission, even if submitted in the evening.
+- `null`: No applicable or identifiable counting scope, such as a report of nausea without an episode count. A known scope may still accompany an unknown count, as in R008.
 
-`medication_relation` 当前只有两个子字段：`medication` 是原文中的药物标签；`relation` 当前使用 `after_taking`，表示患者描述症状发生在服药后。它表示时间关系，不证明药物导致症状。
+`medication_relation` currently has two fields: `medication` contains the medication label from the source; `relation` uses `after_taking` when the patient describes a symptom after taking it. This is a temporal relationship, not proof that the medication caused the symptom.
 
-`evidence` 每项有 `path` 和 `value`：`path` 指向输入字段，例如 `text` 或 `questionnaire.count`；`value` 保留原文字串或问卷原值。正文证据必须是原话的连续片段。问卷证据必须与输入值一致。
+Each `evidence` item has `path` and `value`. The path identifies an input field, such as `text` or `questionnaire.count`; the value retains an excerpt or the original questionnaire value. Text evidence must be a contiguous substring of the source. Questionnaire evidence must match the input value.
 
-本次 `issues` 使用以下标记：
+The current examples use these `issues` flags:
 
-| 标记 | 意思 |
+| Flag | Meaning |
 | --- | --- |
-| `date_unknown` | 无法把记录可靠归入某个日期。 |
-| `count_unknown` | 知道发生过，但无法确定次数。 |
-| `conflicting_sources` | 文字与问卷对同一症状、同一时间范围给出冲突答案。 |
+| `date_unknown` | The observation cannot reliably be assigned to a calendar date. |
+| `count_unknown` | The symptom occurred, but the episode count cannot be determined. |
+| `conflicting_sources` | Text and questionnaire answers conflict about the same symptom and time scope. |
 
-正常未提供严重程度时保留 `null` 即可，不把每一个空字段都标成错误。
+An omitted severity rating may simply remain `null`. Not every missing field is an error that requires a flag.
 
-## 6. 关键处理规则
+## 6. Processing rules to implement
 
-### 时间
+### Time
 
-1. 先将 `reported_at` 对应的时刻转换为 `patient_timezone` 的当地日期，再解释“今天／昨天”。日期运算由代码完成。
-2. 只知道日期时，`event_time` 保持 `null`；不能补 `00:00`。
-3. 当前输入是开放式反馈，没有“本表单只问今天”的隐含约定。因此“after dinner”本身不能确定日期。
-4. 文字和问卷只有在明确描述同一事件／统计范围时才直接比较。分别描述不同日期的情况应拆成不同观察；若明确是同一事件却给出不相容日期，保留两边证据并标记，不任意选一边。
-5. 日期未知的记录仍保存和展示，但不强行放进某天的次数趋势。
+1. Convert the instant in `reported_at` to `patient_timezone` before interpreting today or yesterday. Code performs the date arithmetic.
+2. If only a date is known, keep `event_time` as `null`; do not insert `00:00`.
+3. These are open-ended reports without an implicit "today only" form context. The phrase "after dinner" alone therefore does not establish a date.
+4. Compare text and questionnaire answers directly only when they refer to the same event or aggregation scope. Descriptions of different dates should become separate observations. If they clearly refer to the same event but give incompatible dates, retain both sources and flag the conflict rather than choosing arbitrarily.
+5. Retain and display observations with unknown dates, but do not force them into a particular day's count trend.
 
-### 否定、缺失与假设
+### Negation, missing information, and hypothetical statements
 
-- “今天没吐”是 `absent`、`count=0`、`count_scope=day_to_date`。
-- “今天吐了几次，记不清”是 `present`、`count=null`，并标记 `count_unknown`。
-- “担心今晚会吐”是 `hypothetical`，不计入已发生次数；未来担忧的日期仍可以明确。
-- 没有提交报告，与明确报告没有症状不同；未提交的日期不能补零。
+- "I have not vomited at all today" produces `absent`, `count=0`, and `count_scope=day_to_date`.
+- "I vomited a few times today but cannot remember how many" produces `present`, `count=null`, and `count_unknown`.
+- "I am worried I might vomit tonight" produces `hypothetical` and contributes no observed episode count. The date of the future concern can still be known.
+- No submission is different from an explicit symptom-free report. Do not fill unreported dates with zero.
 
-### 冲突、更正与重复
+### Conflicts, corrections, and duplicates
 
-- 相同症状、日期和计数范围内，文字说 1 次、问卷说 0 次：保留两边证据，`assertion=uncertain`、`count=null`，标记 `conflicting_sources`。
-- 若某个字段冲突，只将受影响字段置为未知；仍可确定的日期等信息保留。
-- `supersedes_report_id` 是本原型的整条报告更正，要求目标存在、属于同一患者，且更正提交晚于目标；禁止自指和循环。以后如支持只更正部分症状，需要另加更细的规则。
-- 旧报告和它的提取结果保留；有效统计排除已被更正的版本。不能把 R005 原本提取出的 3 改写为 2。
-- 同一患者、同一症状、同一日期的累计快照不能相加。先处理明确更正，再在有效且范围相同的累计记录中采用最新值。
-- 如果累计快照没有明确更正却变小，或不同计数窗口重叠且无法判断，标记待核实；不能简单取最新或取最大值掩盖问题。
-- 未来重复导入同一个 `report_id` 不新增副本；若同一 ID 内容改变，应报错或要求明确版本，不能静默覆盖。
+- If text reports one episode and a questionnaire reports zero for the same symptom, date, and count scope, retain both sources, set `assertion=uncertain` and `count=null`, and add `conflicting_sources`.
+- Only unresolved fields become unknown. Keep information that remains supported, such as an agreed date.
+- In this prototype, `supersedes_report_id` replaces an entire report. The target must exist, belong to the same patient, and precede the correction. Self-references and cycles are invalid. Correcting only part of a report would require a more detailed policy.
+- Retain the old report and its original extraction. Exclude superseded versions from effective aggregates. Do not rewrite R005's original extracted count of 3 as 2.
+- Do not add cumulative snapshots for the same patient, symptom, and date. Resolve explicit corrections first, then use the latest valid cumulative value with the same scope.
+- A decreasing cumulative count without an explicit correction, or overlapping windows that cannot be reconciled, requires review. Do not hide ambiguity by automatically choosing the latest or largest value.
+- Reimporting the same `report_id` must not create another copy. Changed content under an existing ID must raise an error or require an explicit version rather than silently overwrite the source.
 
-### 查询与图表
+### Queries and visualization
 
-- 计划查询一：按患者和周统计可确定的已报告呕吐次数，同时展示不能可靠计数的记录和上报覆盖。
-- 日累计与其包含的单次发作／时间段记录不能重复相加；范围不明的重叠记录暂不合并。R004—R006 先用于检验最小累计规则。
-- 计划查询二：在已知用药变更之后报告了哪些症状。需要独立用药变更表；R010 仅是患者所述服药后症状，不能代替正式变更记录。
-- 只有日期而没有钟点时，不能确定症状与同日某次用药变更的先后。
-- 图表从数据库查询。次数、评分、缺失和原文详情分开表达。
-- 计算覆盖率还需患者随访起止日期；本次未创建该表，因此不计算覆盖率。实际提交日期与症状归属日期也不能混为一谈。
+- Planned query 1: reported vomiting counts by patient and week, accompanied by reporting coverage and records that cannot be counted reliably.
+- Do not add a daily cumulative count to episode or window counts that it already contains. Do not combine ambiguous overlapping windows. R004-R006 will exercise the initial cumulative-count rule.
+- Planned query 2: symptoms occurring after a known medication change. This requires a separate medication-change table. R010's patient-reported relationship after taking a medication does not replace a formal change record.
+- A date without a clock time may be insufficient to determine whether a symptom occurred before or after a medication change on the same day.
+- Charts will use database query results and distinguish counts, severity ratings, missing information, and source details.
+- Coverage calculations also require each patient's follow-up start and end dates. That table is not present yet, so coverage is not currently calculated. Submission dates and symptom dates must remain distinct.
 
-## 7. 10 条样例与预期含义
+## 7. Starter cases and expected interpretation
 
-| 报告 | 原话中文理解 | 预期要点 |
+| Report | Source summary | Expected interpretation |
 | --- | --- | --- |
-| R001 | 昨天晚饭后吐两次；今天整个早上恶心。 | 拆成两条：呕吐归 11 月 1 日、次数 2；恶心归 11 月 2 日、次数未知。 |
-| R002 | 今天一直没有吐；今天恶心。问卷恶心评分 3。 | 呕吐明确为 0；恶心评分 3，只作用于恶心。 |
-| R003 | 今天 14:20 吐了一次。 | 11 月 3 日 14:20 的一次发作，不代表全天只吐一次。 |
-| R004 | 上午：今天截至现在累计吐两次。 | 11 月 4 日的累计快照为 2。 |
-| R005 | 晚上：今天截至现在累计吐三次。 | 同一天更新的累计快照为 3；与 R004 不能相加。 |
-| R006 | 同日晚间更正 R005：今天截至现在累计吐两次，不是三次。 | 明确更正，发生日期仍是 11 月 4 日；有效累计改为 2。 |
-| R007 | 晚饭后吐一次。 | 日期未知、钟点未知；保留“饭后”和次数 1。 |
-| R008 | 今天截至现在吐过几次，记不清次数。 | 明确发生、日期明确；次数未知且标记原因。 |
-| R009 | 文字说今天累计吐一次；同日问卷填零。 | 来源冲突；发生与否不能统一，次数留空，证据都保留。 |
-| R010 | 今天早上服用虚构药物 A 后恶心；担心今晚会吐。 | 恶心确已发生，记录服药后关系；呕吐只是担忧，不能计数。 |
+| R001 | Vomited twice after dinner yesterday; nauseous all morning today. | Two observations: vomiting on November 1, count 2; nausea on November 2, count unknown. |
+| R002 | No vomiting today; nausea today. Questionnaire nausea severity is 3. | Explicit vomiting count of zero; severity 3 applies only to nausea. |
+| R003 | Vomited once today at 14:20. | One episode at 14:20 on November 3, not a full-day total. |
+| R004 | Morning submission: two vomiting episodes in total so far today. | Cumulative snapshot of 2 for November 4. |
+| R005 | Evening submission: three vomiting episodes in total so far today. | Later cumulative snapshot of 3 for the same day; do not add it to R004. |
+| R006 | Later that evening, corrects R005: two episodes in total so far today, not three. | Explicit correction for November 4; the effective cumulative count becomes 2. |
+| R007 | Vomited once after dinner. | Date and clock time are unknown; preserve the dinner context and count of 1. |
+| R008 | Vomited a few times in total so far today but cannot recall the count. | Occurrence and date are known; count remains unknown with an issue flag. |
+| R009 | Text reports one episode so far today; the same-day questionnaire reports zero. | Sources conflict; assertion is unresolved and count remains unknown. Retain both sources. |
+| R010 | Nausea after taking fictional Medication A this morning; worried about vomiting tonight. | Nausea occurred, with a reported temporal medication relationship. Vomiting is hypothetical and must not count as an observed episode. |
 
-跨记录验收例：仅处理 R004 时累计为 2；加入 R005 后为 3；加入明确更正 R006 后为 2。原始三条记录和各自预期提取结果始终保留。
+All dates above are in 2026. Cross-report acceptance example: R004 alone gives a cumulative count of 2; adding R005 updates it to 3; adding the explicit correction R006 changes it to 2. Preserve all three source reports and their individual expected extractions throughout.
 
-## 8. 下一步与验证边界
+## 8. Next steps and validation limits
 
-先逐条理解这些样例，再实现结构定义、解析和校验。模型可识别症状、否定和时间表达；普通代码负责编号、日期计算、输入约束和统计规则。
+Review these examples, then implement the data structures, parser, and validators. A model may identify symptoms, negation, and time expressions. Deterministic code will handle identifiers, date arithmetic, input constraints, and aggregation rules.
 
-以后把实际转换结果与 gold 对照，分别检查症状、否定／假设、次数、评分、日期和未知值。格式合法不等于语义正确。若发现 gold 有问题，也应按明确规则修订并记录原因；gold 不是不可质疑的医学事实。
+Compare actual outputs against the gold file by symptom, assertion, count, severity, date, and handling of unknown values. Valid output structure does not prove correct interpretation. If a reference answer is found to be wrong, revise it using an explicit rule and record the reason; it is not an unquestionable clinical fact.
 
-这 10 条已用于设计与开发，不报告为独立测试准确率。完整原型还需要额外未参与调规则的测试样例、多周数据、用药变更表、两个 SQL 查询和可运行图表。
+These 10 examples have been used for design and development and cannot support claims of independent test accuracy. The full prototype still needs additional held-out cases, multi-week data, a medication-change table, two SQL queries, and a working chart.
