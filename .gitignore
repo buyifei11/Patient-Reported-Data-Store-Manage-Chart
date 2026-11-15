@@ -1,0 +1,23 @@
+# Local credentials and settings containing secrets
+.env
+.env.*
+!.env.example
+
+# Python environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Generated outputs; source and expected datasets stay tracked
+data/processed/
+artifacts/
+work/
+
+# macOS files
+.DS_Store
