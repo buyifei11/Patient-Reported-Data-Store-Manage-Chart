@@ -23,8 +23,10 @@ The separate [`text_validation/`](text_validation/README.md) contains ten newly
 authored synthetic cases, 15 observations, and 15 candidate-level checks. It
 extends the text pilot with varied sentence layouts and distinguishes zero,
 unknown count, and unmentioned symptoms. The two extraction prompts were frozen
-before generation. Sources and references are reviewed; extraction has not been
-run. These are targeted validation cases, not a final independent clinical test.
+before generation. The [two-prompt comparison](../results/text-validation-comparison/README.md)
+is now complete, using unchanged sources and references. These are targeted
+validation cases, not a final independent clinical test. Further tuning based on
+their results makes them development/regression material.
 
 | Set | Sources | References | Reports | Reference observations | Targeted extraction checks |
 | --- | --- | --- | ---: | ---: | ---: |

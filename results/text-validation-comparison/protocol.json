@@ -1,0 +1,99 @@
+{
+  "purpose": "Compare original and evidence-focused prompts on ten fresh reviewed synthetic validation reports",
+  "frozen_at_utc": "2026-11-16T05:18:43.870823+00:00",
+  "base_git_revision": "25d752b93f764d9826d8e276c8896d632325e5f1",
+  "case_set_role": "targeted_synthetic_validation_not_final_independent_test",
+  "report_ids": [
+    "TV001",
+    "TV002",
+    "TV003",
+    "TV004",
+    "TV005",
+    "TV006",
+    "TV007",
+    "TV008",
+    "TV009",
+    "TV010"
+  ],
+  "expected_observations": 15,
+  "provider": "openai",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "reasoning_effort": "none",
+  "max_output_tokens": 2048,
+  "prompts": {
+    "baseline": {
+      "prompt_file": "prompts/extraction.txt",
+      "prompt_file_sha256": "d88b76baa0f7454fd31495e03df07a5a607651718714bc24ec67b5103fa55cd7",
+      "system_prompt_sha256": "380d1c6a9fa3076cfdac16a4bc8bb6eea91ca05d3885d3a56235e3b8f2837ab5"
+    },
+    "evidence": {
+      "prompt_file": "prompts/extraction_evidence.txt",
+      "prompt_file_sha256": "20871c7ab93d939fd4dd5c1398f05fcb8a012b149f82ca99cc27c76988559036",
+      "system_prompt_sha256": "224f5b80f8e9c13e53d8c49e12ebeb70e3612bfad34e31bd060c8c752e239934"
+    }
+  },
+  "source_file": "data/text_validation/reports.jsonl",
+  "source_file_sha256": "907d09c1292d7ed1d42c8fa8b731585c358e6ca6bafc082fda4088ff1ac10cd6",
+  "gold_file": "data/text_validation/expected.jsonl",
+  "gold_file_sha256": "0c975a58177f44ef2822d09fae299672daaf0dabd97c467b8efdb53276a65ea6",
+  "source_dataset_sha256": "a93f7524592612ec6d6946d7b1e13676682455297cbedcf685200d8db9030e6e",
+  "gold_dataset_sha256": "ba106ae74de42664b438f6ee9e62b70ce3d4a83172d275604c8785a09eda5a33",
+  "runtime_sha256": "df4534d4ed5f1f952ad24316982b8d1581b512b5055bcec12bbebf765b45f6f6",
+  "preparation_protocol": "data/text_validation/preparation.json",
+  "preparation_protocol_sha256": "9fef70b797d13b430c773c0a0ac10b7a7b4ae3485b945c1b6578d96292be96e2",
+  "preparation_review_sha256": "0f45c7e2801af411b153c93c273d96d71fff6347ed73f31f9678af236ddf77f0",
+  "attempts_per_report_per_prompt": 1,
+  "planned_extraction_requests": 20,
+  "selection_policy": "All ten reports per prompt, in source-file order. Independent arm runs may execute concurrently. No selection by outcome.",
+  "input_policy": "Each stateless extraction request receives only patient text and its frozen instructions/schema. No seeds, gold, questionnaires, metadata, or generation conversation enter the model.",
+  "postprocessing_policy": "Existing deterministic normalizer resolves dates from submission metadata; questionnaire arrays are empty. No reference-assisted repair.",
+  "primary_metrics": [
+    "Report completion out of 10",
+    "Observation detection precision/recall/F1 out of 15 references, including extras",
+    "All 165 candidate semantic field expectations, with per-field breakdown",
+    "135 normalized core fields, with known and null references separated",
+    "Unknown overfill and issue detection",
+    "Exact-source-substring validity and separate source-based evidence-completeness review",
+    "Whole-report pass including evidence out of 10"
+  ],
+  "normalized_core_fields": [
+    "symptom",
+    "assertion",
+    "count",
+    "count_scope",
+    "severity",
+    "event_date",
+    "event_time",
+    "date_basis",
+    "medication_relation"
+  ],
+  "evidence_rule": "The retained quote must be an exact contiguous source substring and itself support every claimed field. No cross-symptom value borrowing. Shorter or longer sufficient spans are valid; exact equality to the gold quote is not required.",
+  "evidence_denominators": "Report observed-quote support out of all emitted candidates, and reference observation coverage out of all15 expected observations. Missing/error cases cannot inflate coverage; extras remain visible.",
+  "whole_report_rule": "Successful processing; no missing/extra observations or candidates; all candidate checks and normalized core fields correct; issue flags match; all quotes exact and complete. Exact time_text differences reported separately and reviewed for semantic validity.",
+  "separate_diagnostics": [
+    "Exact time_text equality is not a primary semantic metric; inspect whether alternative source phrases retain the same meaning.",
+    "The unchanged automatic evaluator carries historical development_fixtures labels; this protocol describes the actual fresh targeted-validation role."
+  ],
+  "failure_policy": "No automatic retry or output repair. Preserve failed calls and remaining missing reports in denominators. Stop an arm on service/configuration failure as the existing CLI does.",
+  "change_policy": "Only extraction prompt differs between arms. No changes to source texts, references, model, runtime, scoring rules, default prompt, or dashboard.",
+  "limitations": [
+    "Ten targeted synthetic reports, not a population sample or independent human clinical test.",
+    "AI-assisted generation and labels; same model family used to generate texts and extract.",
+    "Controlled/repetitive language; no medication, clocks, corrections, ambiguous-date coverage.",
+    "One attempt per report per prompt does not estimate sampling variability or prove stable improvement.",
+    "Tuning based on these outcomes makes the cases development data; later independent evaluation needs fresh cases."
+  ],
+  "pre_run_scoring_audit": "Before any extraction calls, a separate reviewer identified that candidate alignment by evidence overlap can conflate a disjoint incomplete quote with all candidate fields being missing. Preserve raw metrics and add the diagnostic below.",
+  "direct_candidate_value_diagnostic": {
+    "purpose": "Separate field-value correctness from quote-overlap alignment; evidence completeness remains an independent requirement.",
+    "matching_rule": "For each reference symptom, compare its 11 declared fields only when exactly one expected check and exactly one emitted candidate of that symptom exist. Ambiguous, missing, or failed extractions receive no credit; extra candidates are counted separately. Never choose the most accurate candidate.",
+    "denominator": 165,
+    "status_policy": "Use validated candidates from ok rows or normalization_error rows, matching the existing evaluator. Other error or missing rows receive no credit.",
+    "reporting_policy": "Publish this alongside the unchanged automatic evaluator, with any disagreement attributed explicitly to matching/evidence, not repaired model output."
+  },
+  "expected_normalized_core_denominators": {
+    "known": 89,
+    "null": 46,
+    "total": 135
+  }
+}

@@ -12,10 +12,11 @@ LLM-generated feedback, reviewed references, and generation provenance. Its
 separately; the existing offline dashboard below still uses its original
 mixed-input dataset.
 
-A separate [ten-report validation set](data/text_validation/README.md) is now
-prepared with fresh texts and reviewed reference answers. Extraction has not
-been run on those ten reports; they target evidence completeness and correct
-assignment of counts and ratings to symptoms.
+A separate [ten-report validation set](data/text_validation/README.md) now has a
+[two-prompt extraction comparison](results/text-validation-comparison/README.md).
+Whole-report passes increased from 2/10 to 8/10 with the evidence-focused prompt;
+two reports still split counts and ratings into separate records. Sources and
+references were unchanged, and the default extraction prompt remains in place.
 
 ## Run the complete offline demo
 

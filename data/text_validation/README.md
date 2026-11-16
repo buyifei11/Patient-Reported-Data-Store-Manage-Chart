@@ -1,6 +1,6 @@
 # Ten fresh texts for evidence-completeness validation
 
-**Preparation complete; extraction has not been run on these ten reports.**
+**Preparation and the separate [two-prompt extraction comparison](../../results/text-validation-comparison/README.md) are complete.**
 They are new, fictional cases authored after the two existing extraction prompts
 were frozen. One LLM generation request produced the texts; references were then
 authored from those texts and the data contract and checked by a separate agent.
@@ -9,7 +9,10 @@ All ten generated texts were accepted without editorial changes.
 These are targeted synthetic validation cases, not a final independent test set.
 They extend the [five development examples](../text_pilot/README.md) with different
 sentence layouts. They are newly authored facts, not ten more conversions of the
-61 original questionnaires. No model training or extraction accuracy is reported.
+61 original questionnaires. No model training was performed. The preparation
+protocol and review remain historical snapshots from before extraction; actual
+outputs and metrics are recorded in the separate comparison, without changing
+these source texts or reference answers.
 
 ## What the ten cases cover
 
@@ -137,7 +140,7 @@ context, and writing instructions, but no extraction prompts, previous texts, or
 previous extraction outputs. Sources and reference answers remain separate.
 
 The **165 candidate field expectations** are 15 observations × 11 semantic fields.
-They are future checks, not 165 successful extractions or independent examples.
+They are checks, not 165 successful extractions or independent examples.
 The reference also contains 15 normalized observations to check the later code
 stage. These answers were not produced by running the normalizer on itself.
 
@@ -171,11 +174,14 @@ split; `split=validation` records the intended role. Fictional patient IDs are
 VAL-P001–VAL-P010, not ten independently sampled real patients. `focus`, `layout`,
 and `style` describe case construction and never enter the extraction input.
 
-## Scope of a later comparison
+## Scope of the comparison
 
-Compare the two frozen prompts on these same reviewed texts in a separate step,
-with the same extraction model and runtime. Check semantic fields and evidence
-completeness separately, including false extra observations and missing ones.
+The two frozen prompts were compared on these same reviewed texts, with the same
+extraction model and runtime. Semantic fields and evidence completeness were
+checked separately, including extra and missing observations. Whole reports
+passed 2/10 with the original prompt and 8/10 with the evidence-focused prompt;
+TV003 and TV006 still split counts and scores in the latter run. See the linked
+comparison for the full results and the observed TV006 structure regression.
 An exact substring check alone does not prove that a quote supports every field;
 literal differences in valid quote boundaries should not count as errors.
 

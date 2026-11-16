@@ -1,0 +1,1405 @@
+{
+  "model": "gpt-5.4-mini-2026-03-17",
+  "case_set_role": "targeted_synthetic_validation_not_final_independent_test",
+  "extraction_requests": 20,
+  "attempts_per_report_per_prompt": 1,
+  "same_source_gold_model_runtime": true,
+  "arms": {
+    "baseline": {
+      "prompt_file": "prompts/extraction.txt",
+      "model_requests": 10,
+      "usage": {
+        "input_tokens": 18677,
+        "output_tokens": 1810,
+        "total_tokens": 20487
+      },
+      "report_completion": {
+        "total": 10,
+        "ok": 10,
+        "error": 0,
+        "missing": 0,
+        "rate": 1.0
+      },
+      "observation_detection": {
+        "true_positive": 15,
+        "false_positive": 2,
+        "false_negative": 0,
+        "precision": 0.8823529411764706,
+        "recall": 1.0,
+        "f1": 0.9375
+      },
+      "emitted_candidates": 19,
+      "normalized_observations": 17,
+      "automatic_candidate_fields": {
+        "correct": 150,
+        "total": 165
+      },
+      "automatic_candidate_checks": {
+        "passed": 12,
+        "total": 15,
+        "accuracy": 0.8,
+        "fields": {
+          "assertion": {
+            "correct": 14,
+            "total": 15,
+            "accuracy": 0.9333333333333333
+          },
+          "clock_time": {
+            "correct": 14,
+            "total": 15,
+            "accuracy": 0.9333333333333333
+          },
+          "count": {
+            "correct": 12,
+            "total": 15,
+            "accuracy": 0.8
+          },
+          "count_scope": {
+            "correct": 12,
+            "total": 15,
+            "accuracy": 0.8
+          },
+          "day_reference": {
+            "correct": 14,
+            "total": 15,
+            "accuracy": 0.9333333333333333
+          },
+          "explicit_date": {
+            "correct": 14,
+            "total": 15,
+            "accuracy": 0.9333333333333333
+          },
+          "medication_relation": {
+            "correct": 14,
+            "total": 15,
+            "accuracy": 0.9333333333333333
+          },
+          "severity_context": {
+            "correct": 14,
+            "total": 15,
+            "accuracy": 0.9333333333333333
+          },
+          "severity_scale_max": {
+            "correct": 14,
+            "total": 15,
+            "accuracy": 0.9333333333333333
+          },
+          "severity_value": {
+            "correct": 14,
+            "total": 15,
+            "accuracy": 0.9333333333333333
+          },
+          "symptom": {
+            "correct": 14,
+            "total": 15,
+            "accuracy": 0.9333333333333333
+          }
+        }
+      },
+      "direct_unique_candidate_fields": {
+        "correct": 121,
+        "total": 165,
+        "fields": {
+          "symptom": {
+            "correct": 11,
+            "total": 15
+          },
+          "assertion": {
+            "correct": 11,
+            "total": 15
+          },
+          "count": {
+            "correct": 11,
+            "total": 15
+          },
+          "count_scope": {
+            "correct": 11,
+            "total": 15
+          },
+          "severity_value": {
+            "correct": 11,
+            "total": 15
+          },
+          "severity_scale_max": {
+            "correct": 11,
+            "total": 15
+          },
+          "severity_context": {
+            "correct": 11,
+            "total": 15
+          },
+          "day_reference": {
+            "correct": 11,
+            "total": 15
+          },
+          "explicit_date": {
+            "correct": 11,
+            "total": 15
+          },
+          "clock_time": {
+            "correct": 11,
+            "total": 15
+          },
+          "medication_relation": {
+            "correct": 11,
+            "total": 15
+          }
+        },
+        "matching_rule": "For each reference symptom, compare its 11 declared fields only when exactly one expected check and exactly one emitted candidate of that symptom exist. Ambiguous, missing, or failed extractions receive no credit; extra candidates are counted separately. Never choose the most accurate candidate.",
+        "unique_groups": 11,
+        "ambiguous_groups": 4,
+        "reports": [
+          {
+            "report_id": "TV001",
+            "symptom": "vomiting",
+            "actual_candidate_count": 2,
+            "matching": "ambiguous",
+            "correct_fields": 0,
+            "total_fields": 11,
+            "differences": [
+              {
+                "field": "symptom",
+                "expected": "vomiting",
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "assertion",
+                "expected": "present",
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "count",
+                "expected": 3,
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "count_scope",
+                "expected": "day_to_date",
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "severity_value",
+                "expected": 1,
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "severity_scale_max",
+                "expected": 5,
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "severity_context",
+                "expected": "worst_today_so_far",
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "day_reference",
+                "expected": "today",
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "explicit_date",
+                "expected": null,
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "clock_time",
+                "expected": null,
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "medication_relation",
+                "expected": null,
+                "actual": null,
+                "unique_candidate_available": false
+              }
+            ],
+            "values_complete": false,
+            "values_and_evidence_complete": false
+          },
+          {
+            "report_id": "TV002",
+            "symptom": "nausea",
+            "actual_candidate_count": 1,
+            "matching": "unique",
+            "correct_fields": 11,
+            "total_fields": 11,
+            "differences": [],
+            "values_complete": true,
+            "values_and_evidence_complete": true
+          },
+          {
+            "report_id": "TV003",
+            "symptom": "vomiting",
+            "actual_candidate_count": 2,
+            "matching": "ambiguous",
+            "correct_fields": 0,
+            "total_fields": 11,
+            "differences": [
+              {
+                "field": "symptom",
+                "expected": "vomiting",
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "assertion",
+                "expected": "present",
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "count",
+                "expected": 1,
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "count_scope",
+                "expected": "day_to_date",
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "severity_value",
+                "expected": 3,
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "severity_scale_max",
+                "expected": 5,
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "severity_context",
+                "expected": "worst_today_so_far",
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "day_reference",
+                "expected": "today",
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "explicit_date",
+                "expected": null,
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "clock_time",
+                "expected": null,
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "medication_relation",
+                "expected": null,
+                "actual": null,
+                "unique_candidate_available": false
+              }
+            ],
+            "values_complete": false,
+            "values_and_evidence_complete": false
+          },
+          {
+            "report_id": "TV004",
+            "symptom": "vomiting",
+            "actual_candidate_count": 2,
+            "matching": "ambiguous",
+            "correct_fields": 0,
+            "total_fields": 11,
+            "differences": [
+              {
+                "field": "symptom",
+                "expected": "vomiting",
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "assertion",
+                "expected": "present",
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "count",
+                "expected": 2,
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "count_scope",
+                "expected": "day_to_date",
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "severity_value",
+                "expected": 4,
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "severity_scale_max",
+                "expected": 5,
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "severity_context",
+                "expected": "worst_today_so_far",
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "day_reference",
+                "expected": "today",
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "explicit_date",
+                "expected": null,
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "clock_time",
+                "expected": null,
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "medication_relation",
+                "expected": null,
+                "actual": null,
+                "unique_candidate_available": false
+              }
+            ],
+            "values_complete": false,
+            "values_and_evidence_complete": false
+          },
+          {
+            "report_id": "TV005",
+            "symptom": "nausea",
+            "actual_candidate_count": 2,
+            "matching": "ambiguous",
+            "correct_fields": 0,
+            "total_fields": 11,
+            "differences": [
+              {
+                "field": "symptom",
+                "expected": "nausea",
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "assertion",
+                "expected": "present",
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "count",
+                "expected": null,
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "count_scope",
+                "expected": null,
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "severity_value",
+                "expected": 2,
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "severity_scale_max",
+                "expected": 5,
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "severity_context",
+                "expected": "worst_today_so_far",
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "day_reference",
+                "expected": "today",
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "explicit_date",
+                "expected": null,
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "clock_time",
+                "expected": null,
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "medication_relation",
+                "expected": null,
+                "actual": null,
+                "unique_candidate_available": false
+              }
+            ],
+            "values_complete": false,
+            "values_and_evidence_complete": false
+          },
+          {
+            "report_id": "TV006",
+            "symptom": "nausea",
+            "actual_candidate_count": 1,
+            "matching": "unique",
+            "correct_fields": 11,
+            "total_fields": 11,
+            "differences": [],
+            "values_complete": true,
+            "values_and_evidence_complete": true
+          },
+          {
+            "report_id": "TV006",
+            "symptom": "vomiting",
+            "actual_candidate_count": 1,
+            "matching": "unique",
+            "correct_fields": 11,
+            "total_fields": 11,
+            "differences": [],
+            "values_complete": true,
+            "values_and_evidence_complete": false
+          },
+          {
+            "report_id": "TV007",
+            "symptom": "nausea",
+            "actual_candidate_count": 1,
+            "matching": "unique",
+            "correct_fields": 11,
+            "total_fields": 11,
+            "differences": [],
+            "values_complete": true,
+            "values_and_evidence_complete": false
+          },
+          {
+            "report_id": "TV007",
+            "symptom": "vomiting",
+            "actual_candidate_count": 1,
+            "matching": "unique",
+            "correct_fields": 11,
+            "total_fields": 11,
+            "differences": [],
+            "values_complete": true,
+            "values_and_evidence_complete": true
+          },
+          {
+            "report_id": "TV008",
+            "symptom": "nausea",
+            "actual_candidate_count": 1,
+            "matching": "unique",
+            "correct_fields": 11,
+            "total_fields": 11,
+            "differences": [],
+            "values_complete": true,
+            "values_and_evidence_complete": true
+          },
+          {
+            "report_id": "TV008",
+            "symptom": "vomiting",
+            "actual_candidate_count": 1,
+            "matching": "unique",
+            "correct_fields": 11,
+            "total_fields": 11,
+            "differences": [],
+            "values_complete": true,
+            "values_and_evidence_complete": false
+          },
+          {
+            "report_id": "TV009",
+            "symptom": "nausea",
+            "actual_candidate_count": 1,
+            "matching": "unique",
+            "correct_fields": 11,
+            "total_fields": 11,
+            "differences": [],
+            "values_complete": true,
+            "values_and_evidence_complete": true
+          },
+          {
+            "report_id": "TV009",
+            "symptom": "vomiting",
+            "actual_candidate_count": 1,
+            "matching": "unique",
+            "correct_fields": 11,
+            "total_fields": 11,
+            "differences": [],
+            "values_complete": true,
+            "values_and_evidence_complete": true
+          },
+          {
+            "report_id": "TV010",
+            "symptom": "nausea",
+            "actual_candidate_count": 1,
+            "matching": "unique",
+            "correct_fields": 11,
+            "total_fields": 11,
+            "differences": [],
+            "values_complete": true,
+            "values_and_evidence_complete": true
+          },
+          {
+            "report_id": "TV010",
+            "symptom": "vomiting",
+            "actual_candidate_count": 1,
+            "matching": "unique",
+            "correct_fields": 11,
+            "total_fields": 11,
+            "differences": [],
+            "values_complete": true,
+            "values_and_evidence_complete": false
+          }
+        ]
+      },
+      "normalized_core_fields": {
+        "known": {
+          "correct": 85,
+          "total": 89
+        },
+        "null": {
+          "correct": 46,
+          "total": 46
+        }
+      },
+      "unknown_overfill": {
+        "errors": 0,
+        "reference_null_fields": 46,
+        "rate": 0.0
+      },
+      "issue_detection": {
+        "true_positive": 1,
+        "false_positive": 2,
+        "false_negative": 0,
+        "precision": 0.3333333333333333,
+        "recall": 1.0,
+        "f1": 0.5
+      },
+      "exact_time_text": {
+        "reference_known": {
+          "correct": 5,
+          "total": 15,
+          "accuracy": 0.3333333333333333
+        },
+        "reference_null": {
+          "correct": 0,
+          "total": 0,
+          "accuracy": null,
+          "overfilled": 0
+        },
+        "missing_predictions": 0
+      },
+      "evidence_review": {
+        "method": "agent_review_with_separate_agent_check_not_human_clinical_annotation",
+        "exact_substrings": 19,
+        "supporting_emitted_claims": 13,
+        "total_emitted_quotes": 19,
+        "reference_observations_with_unique_complete_values_and_evidence": 7,
+        "total_reference_observations": 15
+      },
+      "whole_reports": {
+        "normalized_values_and_structure_correct": 8,
+        "candidate_values_and_structure_correct": 6,
+        "including_evidence_complete": 2,
+        "total": 10
+      },
+      "reports": [
+        {
+          "report_id": "TV001",
+          "emitted_candidates": 2,
+          "expected_observations": 1,
+          "normalized_observations": 2,
+          "normalized_values_and_structure_pass": false,
+          "automatic_candidate_checks_pass": false,
+          "unique_candidate_values_and_structure_pass": false,
+          "evidence_supports_emitted_claims": true,
+          "whole_report_pass": false,
+          "exact_time_text_mismatches": 1
+        },
+        {
+          "report_id": "TV002",
+          "emitted_candidates": 1,
+          "expected_observations": 1,
+          "normalized_observations": 1,
+          "normalized_values_and_structure_pass": true,
+          "automatic_candidate_checks_pass": true,
+          "unique_candidate_values_and_structure_pass": true,
+          "evidence_supports_emitted_claims": true,
+          "whole_report_pass": true,
+          "exact_time_text_mismatches": 1
+        },
+        {
+          "report_id": "TV003",
+          "emitted_candidates": 2,
+          "expected_observations": 1,
+          "normalized_observations": 2,
+          "normalized_values_and_structure_pass": false,
+          "automatic_candidate_checks_pass": false,
+          "unique_candidate_values_and_structure_pass": false,
+          "evidence_supports_emitted_claims": true,
+          "whole_report_pass": false,
+          "exact_time_text_mismatches": 1
+        },
+        {
+          "report_id": "TV004",
+          "emitted_candidates": 2,
+          "expected_observations": 1,
+          "normalized_observations": 1,
+          "normalized_values_and_structure_pass": true,
+          "automatic_candidate_checks_pass": true,
+          "unique_candidate_values_and_structure_pass": false,
+          "evidence_supports_emitted_claims": false,
+          "whole_report_pass": false,
+          "exact_time_text_mismatches": 1
+        },
+        {
+          "report_id": "TV005",
+          "emitted_candidates": 2,
+          "expected_observations": 1,
+          "normalized_observations": 1,
+          "normalized_values_and_structure_pass": true,
+          "automatic_candidate_checks_pass": true,
+          "unique_candidate_values_and_structure_pass": false,
+          "evidence_supports_emitted_claims": false,
+          "whole_report_pass": false,
+          "exact_time_text_mismatches": 1
+        },
+        {
+          "report_id": "TV006",
+          "emitted_candidates": 2,
+          "expected_observations": 2,
+          "normalized_observations": 2,
+          "normalized_values_and_structure_pass": true,
+          "automatic_candidate_checks_pass": true,
+          "unique_candidate_values_and_structure_pass": true,
+          "evidence_supports_emitted_claims": false,
+          "whole_report_pass": false,
+          "exact_time_text_mismatches": 0
+        },
+        {
+          "report_id": "TV007",
+          "emitted_candidates": 2,
+          "expected_observations": 2,
+          "normalized_observations": 2,
+          "normalized_values_and_structure_pass": true,
+          "automatic_candidate_checks_pass": false,
+          "unique_candidate_values_and_structure_pass": true,
+          "evidence_supports_emitted_claims": false,
+          "whole_report_pass": false,
+          "exact_time_text_mismatches": 2
+        },
+        {
+          "report_id": "TV008",
+          "emitted_candidates": 2,
+          "expected_observations": 2,
+          "normalized_observations": 2,
+          "normalized_values_and_structure_pass": true,
+          "automatic_candidate_checks_pass": true,
+          "unique_candidate_values_and_structure_pass": true,
+          "evidence_supports_emitted_claims": false,
+          "whole_report_pass": false,
+          "exact_time_text_mismatches": 1
+        },
+        {
+          "report_id": "TV009",
+          "emitted_candidates": 2,
+          "expected_observations": 2,
+          "normalized_observations": 2,
+          "normalized_values_and_structure_pass": true,
+          "automatic_candidate_checks_pass": true,
+          "unique_candidate_values_and_structure_pass": true,
+          "evidence_supports_emitted_claims": true,
+          "whole_report_pass": true,
+          "exact_time_text_mismatches": 1
+        },
+        {
+          "report_id": "TV010",
+          "emitted_candidates": 2,
+          "expected_observations": 2,
+          "normalized_observations": 2,
+          "normalized_values_and_structure_pass": true,
+          "automatic_candidate_checks_pass": true,
+          "unique_candidate_values_and_structure_pass": true,
+          "evidence_supports_emitted_claims": false,
+          "whole_report_pass": false,
+          "exact_time_text_mismatches": 1
+        }
+      ],
+      "provenance": {
+        "predictions_sha256": "0b754a9d9446b49d111303fe83576bb12042fb978a6e32d32db83455ba3bdf2e",
+        "metrics_sha256": "06269d326e6a538dbaffdcb34881f30c33868dd905a00bbd96727d993928bae7"
+      }
+    },
+    "evidence": {
+      "prompt_file": "prompts/extraction_evidence.txt",
+      "model_requests": 10,
+      "usage": {
+        "input_tokens": 20897,
+        "output_tokens": 1841,
+        "total_tokens": 22738
+      },
+      "report_completion": {
+        "total": 10,
+        "ok": 10,
+        "error": 0,
+        "missing": 0,
+        "rate": 1.0
+      },
+      "observation_detection": {
+        "true_positive": 15,
+        "false_positive": 2,
+        "false_negative": 0,
+        "precision": 0.8823529411764706,
+        "recall": 1.0,
+        "f1": 0.9375
+      },
+      "emitted_candidates": 17,
+      "normalized_observations": 17,
+      "automatic_candidate_fields": {
+        "correct": 161,
+        "total": 165
+      },
+      "automatic_candidate_checks": {
+        "passed": 13,
+        "total": 15,
+        "accuracy": 0.8666666666666667,
+        "fields": {
+          "assertion": {
+            "correct": 15,
+            "total": 15,
+            "accuracy": 1.0
+          },
+          "clock_time": {
+            "correct": 15,
+            "total": 15,
+            "accuracy": 1.0
+          },
+          "count": {
+            "correct": 13,
+            "total": 15,
+            "accuracy": 0.8666666666666667
+          },
+          "count_scope": {
+            "correct": 13,
+            "total": 15,
+            "accuracy": 0.8666666666666667
+          },
+          "day_reference": {
+            "correct": 15,
+            "total": 15,
+            "accuracy": 1.0
+          },
+          "explicit_date": {
+            "correct": 15,
+            "total": 15,
+            "accuracy": 1.0
+          },
+          "medication_relation": {
+            "correct": 15,
+            "total": 15,
+            "accuracy": 1.0
+          },
+          "severity_context": {
+            "correct": 15,
+            "total": 15,
+            "accuracy": 1.0
+          },
+          "severity_scale_max": {
+            "correct": 15,
+            "total": 15,
+            "accuracy": 1.0
+          },
+          "severity_value": {
+            "correct": 15,
+            "total": 15,
+            "accuracy": 1.0
+          },
+          "symptom": {
+            "correct": 15,
+            "total": 15,
+            "accuracy": 1.0
+          }
+        }
+      },
+      "direct_unique_candidate_fields": {
+        "correct": 143,
+        "total": 165,
+        "fields": {
+          "symptom": {
+            "correct": 13,
+            "total": 15
+          },
+          "assertion": {
+            "correct": 13,
+            "total": 15
+          },
+          "count": {
+            "correct": 13,
+            "total": 15
+          },
+          "count_scope": {
+            "correct": 13,
+            "total": 15
+          },
+          "severity_value": {
+            "correct": 13,
+            "total": 15
+          },
+          "severity_scale_max": {
+            "correct": 13,
+            "total": 15
+          },
+          "severity_context": {
+            "correct": 13,
+            "total": 15
+          },
+          "day_reference": {
+            "correct": 13,
+            "total": 15
+          },
+          "explicit_date": {
+            "correct": 13,
+            "total": 15
+          },
+          "clock_time": {
+            "correct": 13,
+            "total": 15
+          },
+          "medication_relation": {
+            "correct": 13,
+            "total": 15
+          }
+        },
+        "matching_rule": "For each reference symptom, compare its 11 declared fields only when exactly one expected check and exactly one emitted candidate of that symptom exist. Ambiguous, missing, or failed extractions receive no credit; extra candidates are counted separately. Never choose the most accurate candidate.",
+        "unique_groups": 13,
+        "ambiguous_groups": 2,
+        "reports": [
+          {
+            "report_id": "TV001",
+            "symptom": "vomiting",
+            "actual_candidate_count": 1,
+            "matching": "unique",
+            "correct_fields": 11,
+            "total_fields": 11,
+            "differences": [],
+            "values_complete": true,
+            "values_and_evidence_complete": true
+          },
+          {
+            "report_id": "TV002",
+            "symptom": "nausea",
+            "actual_candidate_count": 1,
+            "matching": "unique",
+            "correct_fields": 11,
+            "total_fields": 11,
+            "differences": [],
+            "values_complete": true,
+            "values_and_evidence_complete": true
+          },
+          {
+            "report_id": "TV003",
+            "symptom": "vomiting",
+            "actual_candidate_count": 2,
+            "matching": "ambiguous",
+            "correct_fields": 0,
+            "total_fields": 11,
+            "differences": [
+              {
+                "field": "symptom",
+                "expected": "vomiting",
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "assertion",
+                "expected": "present",
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "count",
+                "expected": 1,
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "count_scope",
+                "expected": "day_to_date",
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "severity_value",
+                "expected": 3,
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "severity_scale_max",
+                "expected": 5,
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "severity_context",
+                "expected": "worst_today_so_far",
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "day_reference",
+                "expected": "today",
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "explicit_date",
+                "expected": null,
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "clock_time",
+                "expected": null,
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "medication_relation",
+                "expected": null,
+                "actual": null,
+                "unique_candidate_available": false
+              }
+            ],
+            "values_complete": false,
+            "values_and_evidence_complete": false
+          },
+          {
+            "report_id": "TV004",
+            "symptom": "vomiting",
+            "actual_candidate_count": 1,
+            "matching": "unique",
+            "correct_fields": 11,
+            "total_fields": 11,
+            "differences": [],
+            "values_complete": true,
+            "values_and_evidence_complete": true
+          },
+          {
+            "report_id": "TV005",
+            "symptom": "nausea",
+            "actual_candidate_count": 1,
+            "matching": "unique",
+            "correct_fields": 11,
+            "total_fields": 11,
+            "differences": [],
+            "values_complete": true,
+            "values_and_evidence_complete": true
+          },
+          {
+            "report_id": "TV006",
+            "symptom": "nausea",
+            "actual_candidate_count": 1,
+            "matching": "unique",
+            "correct_fields": 11,
+            "total_fields": 11,
+            "differences": [],
+            "values_complete": true,
+            "values_and_evidence_complete": true
+          },
+          {
+            "report_id": "TV006",
+            "symptom": "vomiting",
+            "actual_candidate_count": 2,
+            "matching": "ambiguous",
+            "correct_fields": 0,
+            "total_fields": 11,
+            "differences": [
+              {
+                "field": "symptom",
+                "expected": "vomiting",
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "assertion",
+                "expected": "present",
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "count",
+                "expected": 4,
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "count_scope",
+                "expected": "day_to_date",
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "severity_value",
+                "expected": 3,
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "severity_scale_max",
+                "expected": 5,
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "severity_context",
+                "expected": "worst_today_so_far",
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "day_reference",
+                "expected": "today",
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "explicit_date",
+                "expected": null,
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "clock_time",
+                "expected": null,
+                "actual": null,
+                "unique_candidate_available": false
+              },
+              {
+                "field": "medication_relation",
+                "expected": null,
+                "actual": null,
+                "unique_candidate_available": false
+              }
+            ],
+            "values_complete": false,
+            "values_and_evidence_complete": false
+          },
+          {
+            "report_id": "TV007",
+            "symptom": "nausea",
+            "actual_candidate_count": 1,
+            "matching": "unique",
+            "correct_fields": 11,
+            "total_fields": 11,
+            "differences": [],
+            "values_complete": true,
+            "values_and_evidence_complete": true
+          },
+          {
+            "report_id": "TV007",
+            "symptom": "vomiting",
+            "actual_candidate_count": 1,
+            "matching": "unique",
+            "correct_fields": 11,
+            "total_fields": 11,
+            "differences": [],
+            "values_complete": true,
+            "values_and_evidence_complete": true
+          },
+          {
+            "report_id": "TV008",
+            "symptom": "nausea",
+            "actual_candidate_count": 1,
+            "matching": "unique",
+            "correct_fields": 11,
+            "total_fields": 11,
+            "differences": [],
+            "values_complete": true,
+            "values_and_evidence_complete": true
+          },
+          {
+            "report_id": "TV008",
+            "symptom": "vomiting",
+            "actual_candidate_count": 1,
+            "matching": "unique",
+            "correct_fields": 11,
+            "total_fields": 11,
+            "differences": [],
+            "values_complete": true,
+            "values_and_evidence_complete": true
+          },
+          {
+            "report_id": "TV009",
+            "symptom": "nausea",
+            "actual_candidate_count": 1,
+            "matching": "unique",
+            "correct_fields": 11,
+            "total_fields": 11,
+            "differences": [],
+            "values_complete": true,
+            "values_and_evidence_complete": true
+          },
+          {
+            "report_id": "TV009",
+            "symptom": "vomiting",
+            "actual_candidate_count": 1,
+            "matching": "unique",
+            "correct_fields": 11,
+            "total_fields": 11,
+            "differences": [],
+            "values_complete": true,
+            "values_and_evidence_complete": true
+          },
+          {
+            "report_id": "TV010",
+            "symptom": "nausea",
+            "actual_candidate_count": 1,
+            "matching": "unique",
+            "correct_fields": 11,
+            "total_fields": 11,
+            "differences": [],
+            "values_complete": true,
+            "values_and_evidence_complete": true
+          },
+          {
+            "report_id": "TV010",
+            "symptom": "vomiting",
+            "actual_candidate_count": 1,
+            "matching": "unique",
+            "correct_fields": 11,
+            "total_fields": 11,
+            "differences": [],
+            "values_complete": true,
+            "values_and_evidence_complete": true
+          }
+        ]
+      },
+      "normalized_core_fields": {
+        "known": {
+          "correct": 85,
+          "total": 89
+        },
+        "null": {
+          "correct": 46,
+          "total": 46
+        }
+      },
+      "unknown_overfill": {
+        "errors": 0,
+        "reference_null_fields": 46,
+        "rate": 0.0
+      },
+      "issue_detection": {
+        "true_positive": 1,
+        "false_positive": 2,
+        "false_negative": 0,
+        "precision": 0.3333333333333333,
+        "recall": 1.0,
+        "f1": 0.5
+      },
+      "exact_time_text": {
+        "reference_known": {
+          "correct": 8,
+          "total": 15,
+          "accuracy": 0.5333333333333333
+        },
+        "reference_null": {
+          "correct": 0,
+          "total": 0,
+          "accuracy": null,
+          "overfilled": 0
+        },
+        "missing_predictions": 0
+      },
+      "evidence_review": {
+        "method": "agent_review_with_separate_agent_check_not_human_clinical_annotation",
+        "exact_substrings": 17,
+        "supporting_emitted_claims": 17,
+        "total_emitted_quotes": 17,
+        "reference_observations_with_unique_complete_values_and_evidence": 13,
+        "total_reference_observations": 15
+      },
+      "whole_reports": {
+        "normalized_values_and_structure_correct": 8,
+        "candidate_values_and_structure_correct": 8,
+        "including_evidence_complete": 8,
+        "total": 10
+      },
+      "reports": [
+        {
+          "report_id": "TV001",
+          "emitted_candidates": 1,
+          "expected_observations": 1,
+          "normalized_observations": 1,
+          "normalized_values_and_structure_pass": true,
+          "automatic_candidate_checks_pass": true,
+          "unique_candidate_values_and_structure_pass": true,
+          "evidence_supports_emitted_claims": true,
+          "whole_report_pass": true,
+          "exact_time_text_mismatches": 0
+        },
+        {
+          "report_id": "TV002",
+          "emitted_candidates": 1,
+          "expected_observations": 1,
+          "normalized_observations": 1,
+          "normalized_values_and_structure_pass": true,
+          "automatic_candidate_checks_pass": true,
+          "unique_candidate_values_and_structure_pass": true,
+          "evidence_supports_emitted_claims": true,
+          "whole_report_pass": true,
+          "exact_time_text_mismatches": 1
+        },
+        {
+          "report_id": "TV003",
+          "emitted_candidates": 2,
+          "expected_observations": 1,
+          "normalized_observations": 2,
+          "normalized_values_and_structure_pass": false,
+          "automatic_candidate_checks_pass": false,
+          "unique_candidate_values_and_structure_pass": false,
+          "evidence_supports_emitted_claims": true,
+          "whole_report_pass": false,
+          "exact_time_text_mismatches": 1
+        },
+        {
+          "report_id": "TV004",
+          "emitted_candidates": 1,
+          "expected_observations": 1,
+          "normalized_observations": 1,
+          "normalized_values_and_structure_pass": true,
+          "automatic_candidate_checks_pass": true,
+          "unique_candidate_values_and_structure_pass": true,
+          "evidence_supports_emitted_claims": true,
+          "whole_report_pass": true,
+          "exact_time_text_mismatches": 0
+        },
+        {
+          "report_id": "TV005",
+          "emitted_candidates": 1,
+          "expected_observations": 1,
+          "normalized_observations": 1,
+          "normalized_values_and_structure_pass": true,
+          "automatic_candidate_checks_pass": true,
+          "unique_candidate_values_and_structure_pass": true,
+          "evidence_supports_emitted_claims": true,
+          "whole_report_pass": true,
+          "exact_time_text_mismatches": 1
+        },
+        {
+          "report_id": "TV006",
+          "emitted_candidates": 3,
+          "expected_observations": 2,
+          "normalized_observations": 3,
+          "normalized_values_and_structure_pass": false,
+          "automatic_candidate_checks_pass": false,
+          "unique_candidate_values_and_structure_pass": false,
+          "evidence_supports_emitted_claims": true,
+          "whole_report_pass": false,
+          "exact_time_text_mismatches": 0
+        },
+        {
+          "report_id": "TV007",
+          "emitted_candidates": 2,
+          "expected_observations": 2,
+          "normalized_observations": 2,
+          "normalized_values_and_structure_pass": true,
+          "automatic_candidate_checks_pass": true,
+          "unique_candidate_values_and_structure_pass": true,
+          "evidence_supports_emitted_claims": true,
+          "whole_report_pass": true,
+          "exact_time_text_mismatches": 1
+        },
+        {
+          "report_id": "TV008",
+          "emitted_candidates": 2,
+          "expected_observations": 2,
+          "normalized_observations": 2,
+          "normalized_values_and_structure_pass": true,
+          "automatic_candidate_checks_pass": true,
+          "unique_candidate_values_and_structure_pass": true,
+          "evidence_supports_emitted_claims": true,
+          "whole_report_pass": true,
+          "exact_time_text_mismatches": 1
+        },
+        {
+          "report_id": "TV009",
+          "emitted_candidates": 2,
+          "expected_observations": 2,
+          "normalized_observations": 2,
+          "normalized_values_and_structure_pass": true,
+          "automatic_candidate_checks_pass": true,
+          "unique_candidate_values_and_structure_pass": true,
+          "evidence_supports_emitted_claims": true,
+          "whole_report_pass": true,
+          "exact_time_text_mismatches": 1
+        },
+        {
+          "report_id": "TV010",
+          "emitted_candidates": 2,
+          "expected_observations": 2,
+          "normalized_observations": 2,
+          "normalized_values_and_structure_pass": true,
+          "automatic_candidate_checks_pass": true,
+          "unique_candidate_values_and_structure_pass": true,
+          "evidence_supports_emitted_claims": true,
+          "whole_report_pass": true,
+          "exact_time_text_mismatches": 1
+        }
+      ],
+      "provenance": {
+        "predictions_sha256": "fb55bd85746c85a0d4cc1213f97d394cddc886cfc97497fb93e991cfbb888619",
+        "metrics_sha256": "35d8f4523960755b1162ffe2fc6921116f53c1c08c07724d6c9b393423dce8eb"
+      }
+    }
+  },
+  "observed_conclusion": "Supporting quotes improved from 13/19 to 17/17 and whole reports from 2/10 to 8/10. Both runs still produced 17 normalized observations against 15 expected. TV003 remains fragmented; TV006 newly fragments in the evidence run, while TV001 fragmentation is resolved. This is not 100% extraction correctness.",
+  "raw_metric_interpretation": "Preserve the unchanged evidence-overlap evaluator alongside the predeclared unique-symptom diagnostic. Neither aggregate is a population accuracy estimate; ambiguous groups receive no credit in the unique diagnostic, and emitted-quote support does not measure omitted fields.",
+  "limitations": [
+    "Ten targeted synthetic reports, not a population sample or independent human clinical test.",
+    "AI-assisted generation and labels; same model family used to generate texts and extract.",
+    "Controlled/repetitive language; no medication, clocks, corrections, ambiguous-date coverage.",
+    "One attempt per report per prompt does not estimate sampling variability or prove stable improvement.",
+    "Tuning based on these outcomes makes the cases development data; later independent evaluation needs fresh cases."
+  ],
+  "provenance": {
+    "protocol_sha256": "7950103197844ea063750d59a99fa9f7a9387c9ce9e3584a1c17a6850eb0f4a1",
+    "review_sha256": "09ddba1da80a4ec65a755d0515489827117eae38baa874f93017cbc9e898833a",
+    "source_file_sha256": "907d09c1292d7ed1d42c8fa8b731585c358e6ca6bafc082fda4088ff1ac10cd6",
+    "gold_file_sha256": "0c975a58177f44ef2822d09fae299672daaf0dabd97c467b8efdb53276a65ea6",
+    "runtime_sha256": "df4534d4ed5f1f952ad24316982b8d1581b512b5055bcec12bbebf765b45f6f6"
+  }
+}
