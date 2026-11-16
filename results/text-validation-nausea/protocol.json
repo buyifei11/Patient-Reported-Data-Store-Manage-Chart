@@ -1,0 +1,110 @@
+{
+  "report_ids": [
+    "TV001",
+    "TV002",
+    "TV003",
+    "TV004",
+    "TV005",
+    "TV006",
+    "TV007",
+    "TV008",
+    "TV009",
+    "TV010"
+  ],
+  "model": "gpt-5.4-mini-2026-03-17",
+  "reasoning_effort": "none",
+  "max_output_tokens": 2048,
+  "source_file": "data/text_validation/reports.jsonl",
+  "source_file_sha256": "907d09c1292d7ed1d42c8fa8b731585c358e6ca6bafc082fda4088ff1ac10cd6",
+  "gold_file": "data/text_validation/expected.jsonl",
+  "gold_file_sha256": "0c975a58177f44ef2822d09fae299672daaf0dabd97c467b8efdb53276a65ea6",
+  "source_dataset_sha256": "a93f7524592612ec6d6946d7b1e13676682455297cbedcf685200d8db9030e6e",
+  "gold_dataset_sha256": "ba106ae74de42664b438f6ee9e62b70ce3d4a83172d275604c8785a09eda5a33",
+  "normalized_core_fields": [
+    "symptom",
+    "assertion",
+    "count",
+    "count_scope",
+    "severity",
+    "event_date",
+    "event_time",
+    "date_basis",
+    "medication_relation"
+  ],
+  "whole_report_rule": "Successful processing; no missing/extra observations or candidates; all candidate checks and normalized core fields correct; issue flags match; all quotes exact and complete. Exact time_text differences reported separately and reviewed for semantic validity.",
+  "direct_candidate_value_diagnostic": {
+    "purpose": "Separate field-value correctness from quote-overlap alignment; evidence completeness remains an independent requirement.",
+    "matching_rule": "For each reference symptom, compare its 11 declared fields only when exactly one expected check and exactly one emitted candidate of that symptom exist. Ambiguous, missing, or failed extractions receive no credit; extra candidates are counted separately. Never choose the most accurate candidate.",
+    "denominator": 165,
+    "status_policy": "Use validated candidates from ok rows or normalization_error rows, matching the existing evaluator. Other error or missing rows receive no credit.",
+    "reporting_policy": "Publish this alongside the unchanged automatic evaluator, with any disagreement attributed explicitly to matching/evidence, not repaired model output."
+  },
+  "evidence_rule": "The retained quote must be an exact contiguous source substring and itself support every claimed field. No cross-symptom value borrowing. Shorter or longer sufficient spans are valid; exact equality to the gold quote is not required.",
+  "kind": "two_stage_daily_nausea_regression",
+  "frozen_at_utc": "2026-11-16T19:42:56.422567+00:00",
+  "base_git_revision": "0a002895aaccff61080939dfe6979345092ab357",
+  "base_runtime_sha256": "df4534d4ed5f1f952ad24316982b8d1581b512b5055bcec12bbebf765b45f6f6",
+  "frozen_files": {
+    "data/text_validation/expected.jsonl": "0c975a58177f44ef2822d09fae299672daaf0dabd97c467b8efdb53276a65ea6",
+    "data/text_validation/reports.jsonl": "907d09c1292d7ed1d42c8fa8b731585c358e6ca6bafc082fda4088ff1ac10cd6",
+    "prompts/extraction.txt": "d88b76baa0f7454fd31495e03df07a5a607651718714bc24ec67b5103fa55cd7",
+    "prompts/extraction_grouping_compact.txt": "5744662feff442cc42aebad000b0e3da8de93f4a3efcc084f794dc65cb7ac441",
+    "results/text-validation-compact/README.md": "39d3c0ad3ad9b24c786fc480171fa9e07cc45ba903faf4be07cb80de86cee352",
+    "results/text-validation-compact/comparison.json": "eb721bc5eb6911b29cedebc2e6a0fc356204517d8471e6ade4774507710e1d11",
+    "results/text-validation-compact/diagnosis.json": "bba18047e349b05a39b7e62ca424f0d4d70560a40664323a139161118e0c4937",
+    "results/text-validation-compact/metrics.json": "1e513e9385d28310a57aa5cfde2873e69d506b2d157ea22c81018a1223e1eb8f",
+    "results/text-validation-compact/predictions.jsonl": "2e5b990c047a3be1a3005d6c235bf8fee68dfcbdbbb0045b722120f609502394",
+    "results/text-validation-compact/protocol.json": "4a3a93dfca4ef9cc5ba1e904dd91015584d29933d711b1e80c9af863bdbf95f2",
+    "results/text-validation-compact/review.json": "ffd0d5ff85673e6b78d0c8db1a64ff97acf612667230b4ba410c6b97ed9ada4d",
+    "results/text-validation-compact/summary.json": "0c1191692b9cbf7cf338e71594cf6843aa549d0797a7d639593c86ecc6ad2086",
+    "src/__init__.py": "36cfe2112bf6abb102be397db6a599982529ba5b9d76dad5dcbc410e2ff58867",
+    "src/aggregation.py": "337577986b2d279a5e16349d49a1056b6627ecb73667f76e19b9b2d233958ce5",
+    "src/dashboard.py": "11687da8ca4ac0e8eeb4c67659d519d445b03f25143d7beec8b5863b4970a548",
+    "src/dashboard_review.py": "699301966cb187516d2fb0513fb53a795aae1dc05f3f31b7a5460e624af34aa8",
+    "src/demo.py": "1a4f61a5737a2c93414a838542af8f6460e6e5db71a2c8cd9cd55cd2ffb74d0d",
+    "src/evaluation.py": "f2b0ce9616a81bf91bfc8d947c3a0a09d187e6e93717cb01a56e220ab415a90d",
+    "src/experiment.py": "3c45414f498b9e1d948e469fb7cf66c62f9dbc1e00c39a3cabac4b50fce0e15b",
+    "src/llm.py": "90fede83c9aa7419def6cb850be3a03d4cdb70f1cf26ecb841730b191befadba",
+    "src/normalization.py": "08b28c5198bcb09415f73226d67b3a5f6b5db3639d0549676b6ac7be2bae2839",
+    "src/openai_client.py": "af9a18759a0a1659d8edbb29bd84806275522ac238566203a5b72427d429a6da",
+    "src/pipeline.py": "17eac6385d10e7a0486be41fa6e67760c548490f8ced929a739db078062950ec",
+    "src/schema.py": "af0a842093535588a9271ab36f5df841b1bb8b93a0a45d4c9109cc8ff4037e28",
+    "src/store.py": "b83bbb35be764249f8cef34df3ed5779313c926c5f1adc9a1a5fe3cd285d1fd2"
+  },
+  "case_set_role": "known_synthetic_development_regression",
+  "stage_1": {
+    "change": "Narrow deterministic nausea day-to-submission compatibility fix only; preserve conflicts and original evidence.",
+    "input": "results/text-validation-compact/predictions.jsonl",
+    "model_requests": 0,
+    "expected_focus": [
+      "TV007",
+      "TV009"
+    ],
+    "raw_output_policy": "Candidates, raw response, and original extraction metadata unchanged; normalization replay provenance recorded separately.",
+    "controls": [
+      "current rating",
+      "morning",
+      "different date",
+      "clock",
+      "medication",
+      "narrower residual cutoff",
+      "conflicting ratings",
+      "conflicting assertions"
+    ]
+  },
+  "stage_2": {
+    "change": "Add only a short nausea same-interval grouping rule to the compact prompt.",
+    "baseline": "Stage 1 offline replay; both arms use identical fixed normalization.",
+    "planned_requests": 10,
+    "attempts_per_report": 1,
+    "model_settings": "Same pinned model, reasoning effort, output token limit.",
+    "failure_policy": "No retries or reference-assisted repair; preserve every failure.",
+    "prompt_freeze": "Write separate stage 2 protocol after stage 1 passes, before any request."
+  },
+  "conflict_policy": "Retain existing daily reconciliation: incompatible ratings become null with conflicting_sources and all evidence; no preferred value. Current/morning/date-specific contexts remain separate.",
+  "limitations": [
+    "Known synthetic regression examples, not a held-out test.",
+    "One saved baseline and one new call per report cannot distinguish prompt effects from model sampling variation.",
+    "Raw extraction and normalized metrics must be reported separately; Python replay cannot improve raw model output."
+  ]
+}

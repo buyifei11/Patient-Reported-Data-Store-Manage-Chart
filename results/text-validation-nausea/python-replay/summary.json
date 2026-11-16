@@ -1,0 +1,161 @@
+{
+  "kind": "offline_normalization_replay",
+  "model_requests": 0,
+  "created_at_utc": "2026-11-16T19:45:12.396550+00:00",
+  "original_predictions": "results/text-validation-compact/predictions.jsonl",
+  "original_predictions_sha256": "2e5b990c047a3be1a3005d6c235bf8fee68dfcbdbbb0045b722120f609502394",
+  "original_runtime_sha256": "df4534d4ed5f1f952ad24316982b8d1581b512b5055bcec12bbebf765b45f6f6",
+  "normalization_runtime_sha256": "0b334440ad39c4114305d6c46e8459eb782df10baaf7094fc5d8d4f08ca5e724",
+  "replay_script_sha256": "04de2194e08de47af0f643165cbc255549f50295c4a2a21cc359494c6b54747a",
+  "protocol_sha256": "b8673a9621413cc747bcea126ddec2c53837e2bc90cc6dea76b6180dd0aabef2",
+  "metadata_policy": "metadata describes the original extraction; normalization_replay describes this offline replay. Original token usage is not new usage.",
+  "changed_reports": [
+    "TV007",
+    "TV009"
+  ],
+  "original_candidates_raw_responses_metadata_unchanged": true,
+  "raw_extraction_metrics_unchanged": true,
+  "original_whole_report_rule_still_fails": [
+    "TV007",
+    "TV009"
+  ],
+  "interpretation": "Only normalized structure improves. Duplicate raw candidates still fail the frozen end-to-end rule.",
+  "arms": {
+    "saved": {
+      "emitted_candidates": 17,
+      "normalized_observations": 17,
+      "normalized_core_fields": {
+        "known": {
+          "correct": 84,
+          "total": 89
+        },
+        "null": {
+          "correct": 42,
+          "total": 46
+        }
+      },
+      "automatic_candidate_fields": {
+        "correct": 154,
+        "total": 165
+      },
+      "observation_detection": {
+        "true_positive": 14,
+        "false_positive": 3,
+        "false_negative": 1,
+        "precision": 0.8235294117647058,
+        "recall": 0.9333333333333333,
+        "f1": 0.875
+      },
+      "reports": [
+        {
+          "report_id": "TV001",
+          "normalized_values_and_structure_pass": true
+        },
+        {
+          "report_id": "TV002",
+          "normalized_values_and_structure_pass": true
+        },
+        {
+          "report_id": "TV003",
+          "normalized_values_and_structure_pass": true
+        },
+        {
+          "report_id": "TV004",
+          "normalized_values_and_structure_pass": true
+        },
+        {
+          "report_id": "TV005",
+          "normalized_values_and_structure_pass": true
+        },
+        {
+          "report_id": "TV006",
+          "normalized_values_and_structure_pass": true
+        },
+        {
+          "report_id": "TV007",
+          "normalized_values_and_structure_pass": false
+        },
+        {
+          "report_id": "TV008",
+          "normalized_values_and_structure_pass": true
+        },
+        {
+          "report_id": "TV009",
+          "normalized_values_and_structure_pass": false
+        },
+        {
+          "report_id": "TV010",
+          "normalized_values_and_structure_pass": true
+        }
+      ]
+    },
+    "python_replay": {
+      "emitted_candidates": 17,
+      "normalized_observations": 15,
+      "normalized_core_fields": {
+        "known": {
+          "correct": 89,
+          "total": 89
+        },
+        "null": {
+          "correct": 46,
+          "total": 46
+        }
+      },
+      "automatic_candidate_fields": {
+        "correct": 154,
+        "total": 165
+      },
+      "observation_detection": {
+        "true_positive": 15,
+        "false_positive": 0,
+        "false_negative": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "reports": [
+        {
+          "report_id": "TV001",
+          "normalized_values_and_structure_pass": true
+        },
+        {
+          "report_id": "TV002",
+          "normalized_values_and_structure_pass": true
+        },
+        {
+          "report_id": "TV003",
+          "normalized_values_and_structure_pass": true
+        },
+        {
+          "report_id": "TV004",
+          "normalized_values_and_structure_pass": true
+        },
+        {
+          "report_id": "TV005",
+          "normalized_values_and_structure_pass": true
+        },
+        {
+          "report_id": "TV006",
+          "normalized_values_and_structure_pass": true
+        },
+        {
+          "report_id": "TV007",
+          "normalized_values_and_structure_pass": true
+        },
+        {
+          "report_id": "TV008",
+          "normalized_values_and_structure_pass": true
+        },
+        {
+          "report_id": "TV009",
+          "normalized_values_and_structure_pass": true
+        },
+        {
+          "report_id": "TV010",
+          "normalized_values_and_structure_pass": true
+        }
+      ]
+    }
+  }
+}

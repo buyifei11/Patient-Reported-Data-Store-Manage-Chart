@@ -1,0 +1,240 @@
+[
+  {
+    "report_id": "TV007",
+    "before": {
+      "status": "ok",
+      "error_code": null,
+      "error": null,
+      "observations": [
+        {
+          "observation_id": "TV007-O1",
+          "symptom": "nausea",
+          "assertion": "present",
+          "count": null,
+          "count_scope": null,
+          "severity": null,
+          "event_date": "2026-11-14",
+          "event_time": null,
+          "time_text": "today up to now",
+          "date_basis": "relative_text",
+          "medication_relation": null,
+          "evidence": [
+            {
+              "path": "text",
+              "value": "I’ve had nausea today up to now."
+            }
+          ],
+          "issues": []
+        },
+        {
+          "observation_id": "TV007-O2",
+          "symptom": "nausea",
+          "assertion": "present",
+          "count": null,
+          "count_scope": null,
+          "severity": 5,
+          "event_date": "2026-11-14",
+          "event_time": null,
+          "time_text": "at its worst so far today",
+          "date_basis": "relative_text",
+          "medication_relation": null,
+          "evidence": [
+            {
+              "path": "text",
+              "value": "My nausea is 5 out of 5 at its worst so far today."
+            }
+          ],
+          "issues": []
+        },
+        {
+          "observation_id": "TV007-O3",
+          "symptom": "vomiting",
+          "assertion": "present",
+          "count": 2,
+          "count_scope": "day_to_date",
+          "severity": 2,
+          "event_date": "2026-11-14",
+          "event_time": null,
+          "time_text": "so far today",
+          "date_basis": "relative_text",
+          "medication_relation": null,
+          "evidence": [
+            {
+              "path": "text",
+              "value": "I’ve vomited 2 times so far today, and the worst vomiting severity today up to now is 2 out of 5."
+            }
+          ],
+          "issues": []
+        }
+      ]
+    },
+    "after": {
+      "status": "ok",
+      "error_code": null,
+      "error": null,
+      "observations": [
+        {
+          "observation_id": "TV007-O1",
+          "symptom": "nausea",
+          "assertion": "present",
+          "count": null,
+          "count_scope": null,
+          "severity": 5,
+          "event_date": "2026-11-14",
+          "event_time": null,
+          "time_text": "today up to now",
+          "date_basis": "relative_text",
+          "medication_relation": null,
+          "evidence": [
+            {
+              "path": "text",
+              "value": "I’ve had nausea today up to now."
+            },
+            {
+              "path": "text",
+              "value": "My nausea is 5 out of 5 at its worst so far today."
+            }
+          ],
+          "issues": []
+        },
+        {
+          "observation_id": "TV007-O2",
+          "symptom": "vomiting",
+          "assertion": "present",
+          "count": 2,
+          "count_scope": "day_to_date",
+          "severity": 2,
+          "event_date": "2026-11-14",
+          "event_time": null,
+          "time_text": "so far today",
+          "date_basis": "relative_text",
+          "medication_relation": null,
+          "evidence": [
+            {
+              "path": "text",
+              "value": "I’ve vomited 2 times so far today, and the worst vomiting severity today up to now is 2 out of 5."
+            }
+          ],
+          "issues": []
+        }
+      ]
+    }
+  },
+  {
+    "report_id": "TV009",
+    "before": {
+      "status": "ok",
+      "error_code": null,
+      "error": null,
+      "observations": [
+        {
+          "observation_id": "TV009-O1",
+          "symptom": "nausea",
+          "assertion": "present",
+          "count": null,
+          "count_scope": null,
+          "severity": 3,
+          "event_date": "2026-11-12",
+          "event_time": null,
+          "time_text": "so far today",
+          "date_basis": "relative_text",
+          "medication_relation": null,
+          "evidence": [
+            {
+              "path": "text",
+              "value": "I’ve had nausea today up to now, and my worst nausea severity so far today is 3 out of 5."
+            }
+          ],
+          "issues": []
+        },
+        {
+          "observation_id": "TV009-O2",
+          "symptom": "nausea",
+          "assertion": "present",
+          "count": null,
+          "count_scope": null,
+          "severity": null,
+          "event_date": "2026-11-12",
+          "event_time": null,
+          "time_text": "today up to now",
+          "date_basis": "relative_text",
+          "medication_relation": null,
+          "evidence": [
+            {
+              "path": "text",
+              "value": "I’ve had nausea today up to now, and my worst nausea severity so far today is 3 out of 5."
+            }
+          ],
+          "issues": []
+        },
+        {
+          "observation_id": "TV009-O3",
+          "symptom": "vomiting",
+          "assertion": "absent",
+          "count": 0,
+          "count_scope": "day_to_date",
+          "severity": null,
+          "event_date": "2026-11-12",
+          "event_time": null,
+          "time_text": "so far today",
+          "date_basis": "relative_text",
+          "medication_relation": null,
+          "evidence": [
+            {
+              "path": "text",
+              "value": "I haven’t vomited so far today."
+            }
+          ],
+          "issues": []
+        }
+      ]
+    },
+    "after": {
+      "status": "ok",
+      "error_code": null,
+      "error": null,
+      "observations": [
+        {
+          "observation_id": "TV009-O1",
+          "symptom": "nausea",
+          "assertion": "present",
+          "count": null,
+          "count_scope": null,
+          "severity": 3,
+          "event_date": "2026-11-12",
+          "event_time": null,
+          "time_text": "so far today",
+          "date_basis": "relative_text",
+          "medication_relation": null,
+          "evidence": [
+            {
+              "path": "text",
+              "value": "I’ve had nausea today up to now, and my worst nausea severity so far today is 3 out of 5."
+            }
+          ],
+          "issues": []
+        },
+        {
+          "observation_id": "TV009-O2",
+          "symptom": "vomiting",
+          "assertion": "absent",
+          "count": 0,
+          "count_scope": "day_to_date",
+          "severity": null,
+          "event_date": "2026-11-12",
+          "event_time": null,
+          "time_text": "so far today",
+          "date_basis": "relative_text",
+          "medication_relation": null,
+          "evidence": [
+            {
+              "path": "text",
+              "value": "I haven’t vomited so far today."
+            }
+          ],
+          "issues": []
+        }
+      ]
+    }
+  }
+]

@@ -252,10 +252,19 @@ def _compatible_with_questionnaire(candidate: dict, observation: dict, questionn
         return True
     if candidate["severity_context"] in ("current", "other"):
         return False
-    time_text = observation["time_text"] or ""
-    return bool(re.search(r"\btoday\b", time_text, re.IGNORECASE)) and not re.search(
-        r"\b(?:morning|afternoon|evening|tonight|dinner|lunch|breakfast|now|currently)\b",
-        time_text,
+    # "Today up to now" is a daily interval, unlike "right now today".
+    # Mask only that explicit interval in a temporary comparison string; keep
+    # original candidates, timing text, and evidence untouched. Any remaining
+    # narrower qualifier still prevents grouping with the daily worst score.
+    daily_context = re.sub(
+        r"\btoday\s+(?:up\s+(?:to|until)|until|through)\s+now\b",
+        "today", observation["time_text"] or "", flags=re.IGNORECASE,
+    )
+    return bool(re.search(r"\btoday\b", daily_context, re.IGNORECASE)) and not re.search(
+        r"\b(?:morning|afternoon|evening|tonight|dinner|lunch|breakfast|now|currently|"
+        r"earlier|previously|before|after|since|from|as\s+of)\b|"
+        r"\b(?:at|by|until|through|to)\s+\d",
+        daily_context,
         re.IGNORECASE,
     )
 
