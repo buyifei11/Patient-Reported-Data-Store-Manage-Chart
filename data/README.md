@@ -26,7 +26,10 @@ unknown count, and unmentioned symptoms. The two extraction prompts were frozen
 before generation. The [two-prompt comparison](../results/text-validation-comparison/README.md)
 is now complete, using unchanged sources and references. These are targeted
 validation cases, not a final independent clinical test. Further tuning based on
-their results makes them development/regression material.
+their results makes them development/regression material. The subsequent
+[grouping experiment](../results/text-validation-grouping/README.md) now uses them
+in that role: fragmentation decreased, but new errors reduced whole-report passes
+from 8/10 to 7/10. Sources and labels remain unchanged.
 
 | Set | Sources | References | Reports | Reference observations | Targeted extraction checks |
 | --- | --- | --- | ---: | ---: | ---: |

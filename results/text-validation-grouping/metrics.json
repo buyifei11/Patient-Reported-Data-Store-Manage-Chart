@@ -1,0 +1,600 @@
+{
+  "evaluation_version": "1.0",
+  "reference_role": "development_fixtures",
+  "report_completion": {
+    "total": 10,
+    "ok": 7,
+    "error": 3,
+    "missing": 0,
+    "rate": 0.7
+  },
+  "observation_detection": {
+    "true_positive": 9,
+    "false_positive": 0,
+    "false_negative": 6,
+    "precision": 1.0,
+    "recall": 0.6,
+    "f1": 0.75
+  },
+  "fields": {
+    "symptom": {
+      "reference_known": {
+        "correct": 9,
+        "total": 15,
+        "accuracy": 0.6
+      },
+      "reference_null": {
+        "correct": 0,
+        "total": 0,
+        "accuracy": null,
+        "overfilled": 0
+      },
+      "missing_predictions": 6
+    },
+    "assertion": {
+      "reference_known": {
+        "correct": 9,
+        "total": 15,
+        "accuracy": 0.6
+      },
+      "reference_null": {
+        "correct": 0,
+        "total": 0,
+        "accuracy": null,
+        "overfilled": 0
+      },
+      "missing_predictions": 6
+    },
+    "count": {
+      "reference_known": {
+        "correct": 5,
+        "total": 7,
+        "accuracy": 0.7142857142857143
+      },
+      "reference_null": {
+        "correct": 4,
+        "total": 8,
+        "accuracy": 0.5,
+        "overfilled": 0
+      },
+      "missing_predictions": 6
+    },
+    "count_scope": {
+      "reference_known": {
+        "correct": 5,
+        "total": 8,
+        "accuracy": 0.625
+      },
+      "reference_null": {
+        "correct": 4,
+        "total": 7,
+        "accuracy": 0.5714285714285714,
+        "overfilled": 0
+      },
+      "missing_predictions": 6
+    },
+    "severity": {
+      "reference_known": {
+        "correct": 8,
+        "total": 14,
+        "accuracy": 0.5714285714285714
+      },
+      "reference_null": {
+        "correct": 1,
+        "total": 1,
+        "accuracy": 1.0,
+        "overfilled": 0
+      },
+      "missing_predictions": 6
+    },
+    "event_date": {
+      "reference_known": {
+        "correct": 9,
+        "total": 15,
+        "accuracy": 0.6
+      },
+      "reference_null": {
+        "correct": 0,
+        "total": 0,
+        "accuracy": null,
+        "overfilled": 0
+      },
+      "missing_predictions": 6
+    },
+    "event_time": {
+      "reference_known": {
+        "correct": 0,
+        "total": 0,
+        "accuracy": null
+      },
+      "reference_null": {
+        "correct": 9,
+        "total": 15,
+        "accuracy": 0.6,
+        "overfilled": 0
+      },
+      "missing_predictions": 6
+    },
+    "time_text": {
+      "reference_known": {
+        "correct": 4,
+        "total": 15,
+        "accuracy": 0.26666666666666666
+      },
+      "reference_null": {
+        "correct": 0,
+        "total": 0,
+        "accuracy": null,
+        "overfilled": 0
+      },
+      "missing_predictions": 6
+    },
+    "date_basis": {
+      "reference_known": {
+        "correct": 9,
+        "total": 15,
+        "accuracy": 0.6
+      },
+      "reference_null": {
+        "correct": 0,
+        "total": 0,
+        "accuracy": null,
+        "overfilled": 0
+      },
+      "missing_predictions": 6
+    },
+    "medication_relation": {
+      "reference_known": {
+        "correct": 0,
+        "total": 0,
+        "accuracy": null
+      },
+      "reference_null": {
+        "correct": 9,
+        "total": 15,
+        "accuracy": 0.6,
+        "overfilled": 0
+      },
+      "missing_predictions": 6
+    }
+  },
+  "assertion_accuracy": {
+    "correct": 9,
+    "total": 15,
+    "accuracy": 0.6
+  },
+  "unknown_overfill": {
+    "errors": 0,
+    "reference_null_fields": 46,
+    "rate": 0.0
+  },
+  "issue_detection": {
+    "true_positive": 0,
+    "false_positive": 0,
+    "false_negative": 1,
+    "precision": null,
+    "recall": 0.0,
+    "f1": 0.0
+  },
+  "extraction_checks": {
+    "passed": 12,
+    "total": 15,
+    "accuracy": 0.8,
+    "fields": {
+      "assertion": {
+        "correct": 13,
+        "total": 15,
+        "accuracy": 0.8666666666666667
+      },
+      "clock_time": {
+        "correct": 13,
+        "total": 15,
+        "accuracy": 0.8666666666666667
+      },
+      "count": {
+        "correct": 13,
+        "total": 15,
+        "accuracy": 0.8666666666666667
+      },
+      "count_scope": {
+        "correct": 12,
+        "total": 15,
+        "accuracy": 0.8
+      },
+      "day_reference": {
+        "correct": 13,
+        "total": 15,
+        "accuracy": 0.8666666666666667
+      },
+      "explicit_date": {
+        "correct": 13,
+        "total": 15,
+        "accuracy": 0.8666666666666667
+      },
+      "medication_relation": {
+        "correct": 13,
+        "total": 15,
+        "accuracy": 0.8666666666666667
+      },
+      "severity_context": {
+        "correct": 13,
+        "total": 15,
+        "accuracy": 0.8666666666666667
+      },
+      "severity_scale_max": {
+        "correct": 13,
+        "total": 15,
+        "accuracy": 0.8666666666666667
+      },
+      "severity_value": {
+        "correct": 13,
+        "total": 15,
+        "accuracy": 0.8666666666666667
+      },
+      "symptom": {
+        "correct": 13,
+        "total": 15,
+        "accuracy": 0.8666666666666667
+      }
+    }
+  },
+  "matching": {
+    "ambiguous_groups": []
+  },
+  "mismatches": [
+    {
+      "report_id": "TV001",
+      "reference_index": 0,
+      "reference_id": "TV001-O1",
+      "prediction_index": 0,
+      "kind": "field",
+      "field": "time_text",
+      "expected": "so far today",
+      "predicted": "so far today, and the worst vomiting severity today up to now",
+      "prediction_missing": false
+    },
+    {
+      "report_id": "TV002",
+      "reference_index": 0,
+      "reference_id": "TV002-O1",
+      "prediction_index": 0,
+      "kind": "field",
+      "field": "time_text",
+      "expected": "so far today",
+      "predicted": "today up to now",
+      "prediction_missing": false
+    },
+    {
+      "report_id": "TV005",
+      "reference_index": 0,
+      "reference_id": "TV005-O1",
+      "prediction_index": 0,
+      "kind": "field",
+      "field": "time_text",
+      "expected": "so far today",
+      "predicted": "today up to now",
+      "prediction_missing": false
+    },
+    {
+      "report_id": "TV006",
+      "kind": "report_failure",
+      "status": "error",
+      "error": "Candidates failed provenance or normalization checks; inspect the saved candidates."
+    },
+    {
+      "report_id": "TV006",
+      "reference_index": 0,
+      "reference_id": "TV006-O1",
+      "prediction_index": null,
+      "kind": "missing_observation",
+      "symptom": "nausea",
+      "evidence": [
+        {
+          "path": "text",
+          "value": "I’ve had nausea today up to now, and my worst nausea severity today up to now is 1 out of 5."
+        }
+      ]
+    },
+    {
+      "report_id": "TV006",
+      "reference_index": 1,
+      "reference_id": "TV006-O2",
+      "prediction_index": null,
+      "kind": "missing_observation",
+      "symptom": "vomiting",
+      "evidence": [
+        {
+          "path": "text",
+          "value": "I’ve vomited 4 times so far today. I’ve had nausea today up to now, and my worst nausea severity today up to now is 1 out of 5. The worst vomiting severity so far today is 3 out of 5."
+        }
+      ]
+    },
+    {
+      "report_id": "TV006",
+      "kind": "extraction_check",
+      "check_index": 1,
+      "source": {
+        "path": "text",
+        "value": "I’ve vomited 4 times so far today. I’ve had nausea today up to now, and my worst nausea severity today up to now is 1 out of 5. The worst vomiting severity so far today is 3 out of 5."
+      },
+      "candidate_found": false,
+      "ambiguous_candidates": false,
+      "differences": [
+        {
+          "field": "symptom",
+          "expected": "vomiting",
+          "predicted": null,
+          "prediction_missing": true
+        },
+        {
+          "field": "assertion",
+          "expected": "present",
+          "predicted": null,
+          "prediction_missing": true
+        },
+        {
+          "field": "count",
+          "expected": 4,
+          "predicted": null,
+          "prediction_missing": true
+        },
+        {
+          "field": "count_scope",
+          "expected": "day_to_date",
+          "predicted": null,
+          "prediction_missing": true
+        },
+        {
+          "field": "severity_value",
+          "expected": 3,
+          "predicted": null,
+          "prediction_missing": true
+        },
+        {
+          "field": "severity_scale_max",
+          "expected": 5,
+          "predicted": null,
+          "prediction_missing": true
+        },
+        {
+          "field": "severity_context",
+          "expected": "worst_today_so_far",
+          "predicted": null,
+          "prediction_missing": true
+        },
+        {
+          "field": "day_reference",
+          "expected": "today",
+          "predicted": null,
+          "prediction_missing": true
+        },
+        {
+          "field": "explicit_date",
+          "expected": null,
+          "predicted": null,
+          "prediction_missing": true
+        },
+        {
+          "field": "clock_time",
+          "expected": null,
+          "predicted": null,
+          "prediction_missing": true
+        },
+        {
+          "field": "medication_relation",
+          "expected": null,
+          "predicted": null,
+          "prediction_missing": true
+        }
+      ]
+    },
+    {
+      "report_id": "TV007",
+      "kind": "report_failure",
+      "status": "error",
+      "error": "Candidates failed provenance or normalization checks; inspect the saved candidates."
+    },
+    {
+      "report_id": "TV007",
+      "reference_index": 0,
+      "reference_id": "TV007-O1",
+      "prediction_index": null,
+      "kind": "missing_observation",
+      "symptom": "nausea",
+      "evidence": [
+        {
+          "path": "text",
+          "value": "My nausea is 5 out of 5 at its worst so far today."
+        }
+      ]
+    },
+    {
+      "report_id": "TV007",
+      "reference_index": 1,
+      "reference_id": "TV007-O2",
+      "prediction_index": null,
+      "kind": "missing_observation",
+      "symptom": "vomiting",
+      "evidence": [
+        {
+          "path": "text",
+          "value": "I’ve vomited 2 times so far today, and the worst vomiting severity today up to now is 2 out of 5."
+        }
+      ]
+    },
+    {
+      "report_id": "TV007",
+      "kind": "extraction_check",
+      "check_index": 0,
+      "source": {
+        "path": "text",
+        "value": "My nausea is 5 out of 5 at its worst so far today."
+      },
+      "candidate_found": false,
+      "ambiguous_candidates": false,
+      "differences": [
+        {
+          "field": "symptom",
+          "expected": "nausea",
+          "predicted": null,
+          "prediction_missing": true
+        },
+        {
+          "field": "assertion",
+          "expected": "present",
+          "predicted": null,
+          "prediction_missing": true
+        },
+        {
+          "field": "count",
+          "expected": null,
+          "predicted": null,
+          "prediction_missing": true
+        },
+        {
+          "field": "count_scope",
+          "expected": null,
+          "predicted": null,
+          "prediction_missing": true
+        },
+        {
+          "field": "severity_value",
+          "expected": 5,
+          "predicted": null,
+          "prediction_missing": true
+        },
+        {
+          "field": "severity_scale_max",
+          "expected": 5,
+          "predicted": null,
+          "prediction_missing": true
+        },
+        {
+          "field": "severity_context",
+          "expected": "worst_today_so_far",
+          "predicted": null,
+          "prediction_missing": true
+        },
+        {
+          "field": "day_reference",
+          "expected": "today",
+          "predicted": null,
+          "prediction_missing": true
+        },
+        {
+          "field": "explicit_date",
+          "expected": null,
+          "predicted": null,
+          "prediction_missing": true
+        },
+        {
+          "field": "clock_time",
+          "expected": null,
+          "predicted": null,
+          "prediction_missing": true
+        },
+        {
+          "field": "medication_relation",
+          "expected": null,
+          "predicted": null,
+          "prediction_missing": true
+        }
+      ]
+    },
+    {
+      "report_id": "TV008",
+      "reference_index": 0,
+      "reference_id": "TV008-O1",
+      "prediction_index": 0,
+      "kind": "field",
+      "field": "time_text",
+      "expected": "so far today",
+      "predicted": "today up to now",
+      "prediction_missing": false
+    },
+    {
+      "report_id": "TV009",
+      "reference_index": 0,
+      "reference_id": "TV009-O1",
+      "prediction_index": 0,
+      "kind": "field",
+      "field": "time_text",
+      "expected": "so far today",
+      "predicted": "today up to now",
+      "prediction_missing": false
+    },
+    {
+      "report_id": "TV010",
+      "kind": "report_failure",
+      "status": "error",
+      "error": "Candidates failed provenance or normalization checks; inspect the saved candidates."
+    },
+    {
+      "report_id": "TV010",
+      "reference_index": 0,
+      "reference_id": "TV010-O1",
+      "prediction_index": null,
+      "kind": "missing_observation",
+      "symptom": "nausea",
+      "evidence": [
+        {
+          "path": "text",
+          "value": "I’ve had nausea today up to now, and my worst nausea severity so far today is 2 out of 5."
+        }
+      ]
+    },
+    {
+      "report_id": "TV010",
+      "reference_index": 1,
+      "reference_id": "TV010-O2",
+      "prediction_index": null,
+      "kind": "missing_observation",
+      "symptom": "vomiting",
+      "evidence": [
+        {
+          "path": "text",
+          "value": "I’ve vomited today up to now, but the cumulative count is unknown. The worst vomiting severity so far today is 4 out of 5."
+        }
+      ]
+    },
+    {
+      "report_id": "TV010",
+      "reference_index": 1,
+      "reference_id": "TV010-O2",
+      "prediction_index": null,
+      "kind": "issues",
+      "missing": [
+        {
+          "field": "count",
+          "code": "count_unknown"
+        }
+      ],
+      "extra": []
+    },
+    {
+      "report_id": "TV010",
+      "kind": "extraction_check",
+      "check_index": 0,
+      "source": {
+        "path": "text",
+        "value": "I’ve had nausea today up to now, and my worst nausea severity so far today is 2 out of 5."
+      },
+      "candidate_found": true,
+      "ambiguous_candidates": false,
+      "differences": [
+        {
+          "field": "count_scope",
+          "expected": null,
+          "predicted": "day_to_date",
+          "prediction_missing": false
+        }
+      ]
+    }
+  ],
+  "provenance": {
+    "source_dataset_sha256": "a93f7524592612ec6d6946d7b1e13676682455297cbedcf685200d8db9030e6e",
+    "gold_dataset_sha256": "ba106ae74de42664b438f6ee9e62b70ce3d4a83172d275604c8785a09eda5a33",
+    "predictions_file_sha256": "8ad7cb9634437ea539c610307bf6414d376b37cebb56981a2c10ad43e65ae83c",
+    "evaluation_scope": "Development fixtures; not held-out or clinical validation"
+  }
+}

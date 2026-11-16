@@ -18,6 +18,11 @@ Whole-report passes increased from 2/10 to 8/10 with the evidence-focused prompt
 two reports still split counts and ratings into separate records. Sources and
 references were unchanged, and the default extraction prompt remains in place.
 
+A subsequent [same-context grouping experiment](results/text-validation-grouping/README.md)
+removed fragmented candidates but reduced whole-report passes to 7/10 because of
+two invalid quotes and one nausea scope error. That candidate was not promoted.
+The ten cases are now known development/regression material.
+
 ## Run the complete offline demo
 
 Use Python 3.11 or newer; tested with Python 3.14.

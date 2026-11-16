@@ -1,18 +1,24 @@
 # Ten fresh texts for evidence-completeness validation
 
-**Preparation and the separate [two-prompt extraction comparison](../../results/text-validation-comparison/README.md) are complete.**
+**Preparation, the [two-prompt comparison](../../results/text-validation-comparison/README.md), and a [grouping follow-up](../../results/text-validation-grouping/README.md) are complete. These cases are now known development/regression material.**
 They are new, fictional cases authored after the two existing extraction prompts
 were frozen. One LLM generation request produced the texts; references were then
 authored from those texts and the data contract and checked by a separate agent.
 All ten generated texts were accepted without editorial changes.
 
-These are targeted synthetic validation cases, not a final independent test set.
+These began as targeted synthetic validation cases, not a final independent test set.
 They extend the [five development examples](../text_pilot/README.md) with different
 sentence layouts. They are newly authored facts, not ten more conversions of the
 61 original questionnaires. No model training was performed. The preparation
 protocol and review remain historical snapshots from before extraction; actual
 outputs and metrics are recorded in the separate comparison, without changing
 these source texts or reference answers.
+
+The grouping follow-up used the observed errors to adjust a prompt, so it is a
+development experiment. It removed fragmented candidates but reduced whole-report
+passes from 8/10 to 7/10, due to two invalid quotes and one nausea scope error.
+That candidate was not promoted. Historical seed `split=validation` labels record
+the preparation role; the follow-up protocol explicitly records the current role.
 
 ## What the ten cases cover
 

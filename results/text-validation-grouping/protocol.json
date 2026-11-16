@@ -1,0 +1,110 @@
+{
+  "purpose": "Clarify same-symptom same-context grouping and compare one run with saved evidence-focused output",
+  "frozen_at_utc": "2026-11-16T05:28:40.637504+00:00",
+  "base_git_revision": "e89414eee1b4b2ddc12a82405f8a035e786e8c20",
+  "case_set_role": "known_development_regression_after_inspection_and_prompt_tuning",
+  "report_ids": [
+    "TV001",
+    "TV002",
+    "TV003",
+    "TV004",
+    "TV005",
+    "TV006",
+    "TV007",
+    "TV008",
+    "TV009",
+    "TV010"
+  ],
+  "expected_observations": 15,
+  "provider": "openai",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "reasoning_effort": "none",
+  "max_output_tokens": 2048,
+  "prompt_file": "prompts/extraction_grouping.txt",
+  "prompt_file_sha256": "2ea00d9e6508ab8920356d71492b92b49402781f93dabe8d8828bc97bffc31d0",
+  "system_prompt_sha256": "221458c6a896c7f9dfb39eb23a72e6aea4659b90edf6396b2967297615520be9",
+  "source_file": "data/text_validation/reports.jsonl",
+  "source_file_sha256": "907d09c1292d7ed1d42c8fa8b731585c358e6ca6bafc082fda4088ff1ac10cd6",
+  "gold_file": "data/text_validation/expected.jsonl",
+  "gold_file_sha256": "0c975a58177f44ef2822d09fae299672daaf0dabd97c467b8efdb53276a65ea6",
+  "source_dataset_sha256": "a93f7524592612ec6d6946d7b1e13676682455297cbedcf685200d8db9030e6e",
+  "gold_dataset_sha256": "ba106ae74de42664b438f6ee9e62b70ce3d4a83172d275604c8785a09eda5a33",
+  "runtime_sha256": "df4534d4ed5f1f952ad24316982b8d1581b512b5055bcec12bbebf765b45f6f6",
+  "baseline_directory": "results/text-validation-comparison/evidence",
+  "baseline_summary_file": "results/text-validation-comparison/summary.json",
+  "baseline_summary_arm": "evidence",
+  "baseline_rerun": false,
+  "baseline_file_hashes": {
+    "results/text-validation-comparison/README.md": "a8ab6e677e2368d3cd4baf1787a442304b4a8fc1140ea5fd1f74b90ea954be19",
+    "results/text-validation-comparison/baseline/metrics.json": "06269d326e6a538dbaffdcb34881f30c33868dd905a00bbd96727d993928bae7",
+    "results/text-validation-comparison/baseline/predictions.jsonl": "0b754a9d9446b49d111303fe83576bb12042fb978a6e32d32db83455ba3bdf2e",
+    "results/text-validation-comparison/evidence/metrics.json": "35d8f4523960755b1162ffe2fc6921116f53c1c08c07724d6c9b393423dce8eb",
+    "results/text-validation-comparison/evidence/predictions.jsonl": "fb55bd85746c85a0d4cc1213f97d394cddc886cfc97497fb93e991cfbb888619",
+    "results/text-validation-comparison/protocol.json": "7950103197844ea063750d59a99fa9f7a9387c9ce9e3584a1c17a6850eb0f4a1",
+    "results/text-validation-comparison/review.json": "09ddba1da80a4ec65a755d0515489827117eae38baa874f93017cbc9e898833a",
+    "results/text-validation-comparison/summary.json": "9c20a61d892bcb5b3e0c4360bed58fd774f6cc709f7a65f309341e9e210ae620"
+  },
+  "unchanged_prompt_hashes": {
+    "prompts/extraction.txt": "d88b76baa0f7454fd31495e03df07a5a607651718714bc24ec67b5103fa55cd7",
+    "prompts/extraction_evidence.txt": "20871c7ab93d939fd4dd5c1398f05fcb8a012b149f82ca99cc27c76988559036"
+  },
+  "attempts_per_report": 1,
+  "planned_extraction_requests": 10,
+  "selection_policy": "All ten reports in source-file order; one attempt each; no selection by outcome.",
+  "input_policy": "Each stateless extraction request receives only patient text and its frozen instructions/schema. No seeds, gold, questionnaires, metadata, or generation conversation enter the model.",
+  "postprocessing_policy": "Existing deterministic normalizer resolves dates from submission metadata; questionnaire arrays are empty. No reference-assisted repair.",
+  "primary_metrics": [
+    "Report completion out of 10",
+    "Observation detection precision/recall/F1 out of 15 references, including extras",
+    "All 165 candidate semantic field expectations, with per-field breakdown",
+    "135 normalized core fields, with known and null references separated",
+    "Unknown overfill and issue detection",
+    "Exact-source-substring validity and separate source-based evidence-completeness review",
+    "Whole-report pass including evidence out of 10"
+  ],
+  "normalized_core_fields": [
+    "symptom",
+    "assertion",
+    "count",
+    "count_scope",
+    "severity",
+    "event_date",
+    "event_time",
+    "date_basis",
+    "medication_relation"
+  ],
+  "expected_normalized_core_denominators": {
+    "known": 89,
+    "null": 46,
+    "total": 135
+  },
+  "evidence_rule": "The retained quote must be an exact contiguous source substring and itself support every claimed field. No cross-symptom value borrowing. Shorter or longer sufficient spans are valid; exact equality to the gold quote is not required.",
+  "evidence_denominators": "Report observed-quote support out of all emitted candidates, and reference observation coverage out of all 15 expected observations. Missing/error cases cannot inflate coverage; extras remain visible.",
+  "whole_report_rule": "Successful processing; no missing/extra observations or candidates; all candidate checks and normalized core fields correct; issue flags match; all quotes exact and complete. Exact time_text differences reported separately and reviewed for semantic validity.",
+  "direct_candidate_value_diagnostic": {
+    "purpose": "Separate field-value correctness from quote-overlap alignment; evidence completeness remains an independent requirement.",
+    "matching_rule": "For each reference symptom, compare its 11 declared fields only when exactly one expected check and exactly one emitted candidate of that symptom exist. Ambiguous, missing, or failed extractions receive no credit; extra candidates are counted separately. Never choose the most accurate candidate.",
+    "denominator": 165,
+    "status_policy": "Use validated candidates from ok rows or normalization_error rows, matching the existing evaluator. Other error or missing rows receive no credit.",
+    "reporting_policy": "Publish this alongside the unchanged automatic evaluator, with any disagreement attributed explicitly to matching/evidence, not repaired model output."
+  },
+  "separate_diagnostics": [
+    "Exact time_text equality is diagnostic; source-supported alternatives with the same meaning are reviewed separately.",
+    "The automatic evaluator retains its historical development_fixtures label; these cases are now explicitly known development/regression data."
+  ],
+  "failure_policy": "No automatic retry or output repair. Preserve failed calls and remaining missing reports in denominators. Stop an arm on service/configuration failure as the existing CLI does.",
+  "prompt_change": "Clarify one separation sentence and add within-report candidate grouping rules. Preserve field definitions and evidence-completeness block byte-for-byte. No case IDs, source texts, reference values, or numeric examples inserted.",
+  "pre_run_review": "A separate agent inspected the concrete diff and found no blocking conflict. Only explicit compatible contexts can group; count addition, value selection, and cross-context merging remain prohibited.",
+  "change_policy": "Only the new candidate prompt changes. Freeze sources, gold, model, runtime, evaluator, review rules, saved baseline, default prompt, and dashboard. No retries or reference-assisted repairs.",
+  "success_focus": [
+    "Resolve TV003 and TV006 fragmentation without losing count, rating, scope, or complete evidence.",
+    "Preserve all other report facts, explicit zero, unknown count, distinct symptoms, and issue flags."
+  ],
+  "limitations": [
+    "All ten cases are now development/regression cases used to guide this prompt; this is not fresh validation.",
+    "Ten controlled synthetic texts, AI-assisted labels and review, and the same generation/extraction model family.",
+    "One saved baseline attempt and one new attempt per report; stochastic variability is not estimated.",
+    "No distinct-date, event/window, current-versus-worst, conflicting-value, or medication-context negative controls in this set; guardrails are reviewed instructions, not broadly tested safety.",
+    "A clean result here cannot establish generalization or justify automatic default-prompt/dashboard replacement."
+  ]
+}

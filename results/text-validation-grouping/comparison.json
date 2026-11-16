@@ -1,0 +1,285 @@
+{
+  "baseline_summary_file": "results/text-validation-comparison/summary.json",
+  "baseline_summary_arm": "evidence",
+  "baseline_summary_sha256": "9c20a61d892bcb5b3e0c4360bed58fd774f6cc709f7a65f309341e9e210ae620",
+  "candidate_summary_file": "results/text-validation-grouping/summary.json",
+  "candidate_summary_sha256": "e9d67d467a39f22e7839badf10d05ac54137e0dc6c81ead53441120c4cabd98d",
+  "baseline_rerun": false,
+  "new_model_requests": 10,
+  "attempts_per_report_per_prompt": 1,
+  "same_source_gold_model_runtime": true,
+  "metrics": {
+    "report_completion": {
+      "saved_evidence_prompt": {
+        "total": 10,
+        "ok": 10,
+        "error": 0,
+        "missing": 0,
+        "rate": 1.0
+      },
+      "grouping_prompt": {
+        "total": 10,
+        "ok": 7,
+        "error": 3,
+        "missing": 0,
+        "rate": 0.7
+      }
+    },
+    "observation_detection": {
+      "saved_evidence_prompt": {
+        "true_positive": 15,
+        "false_positive": 2,
+        "false_negative": 0,
+        "precision": 0.8823529411764706,
+        "recall": 1.0,
+        "f1": 0.9375
+      },
+      "grouping_prompt": {
+        "true_positive": 9,
+        "false_positive": 0,
+        "false_negative": 6,
+        "precision": 1.0,
+        "recall": 0.6,
+        "f1": 0.75
+      }
+    },
+    "emitted_candidates": {
+      "saved_evidence_prompt": 17,
+      "grouping_prompt": 15
+    },
+    "normalized_observations": {
+      "saved_evidence_prompt": 17,
+      "grouping_prompt": 9
+    },
+    "automatic_candidate_fields": {
+      "saved_evidence_prompt": {
+        "correct": 161,
+        "total": 165
+      },
+      "grouping_prompt": {
+        "correct": 142,
+        "total": 165
+      }
+    },
+    "normalized_core_fields": {
+      "saved_evidence_prompt": {
+        "known": {
+          "correct": 85,
+          "total": 89
+        },
+        "null": {
+          "correct": 46,
+          "total": 46
+        }
+      },
+      "grouping_prompt": {
+        "known": {
+          "correct": 54,
+          "total": 89
+        },
+        "null": {
+          "correct": 27,
+          "total": 46
+        }
+      }
+    },
+    "unknown_overfill": {
+      "saved_evidence_prompt": {
+        "errors": 0,
+        "reference_null_fields": 46,
+        "rate": 0.0
+      },
+      "grouping_prompt": {
+        "errors": 0,
+        "reference_null_fields": 46,
+        "rate": 0.0
+      }
+    },
+    "issue_detection": {
+      "saved_evidence_prompt": {
+        "true_positive": 1,
+        "false_positive": 2,
+        "false_negative": 0,
+        "precision": 0.3333333333333333,
+        "recall": 1.0,
+        "f1": 0.5
+      },
+      "grouping_prompt": {
+        "true_positive": 0,
+        "false_positive": 0,
+        "false_negative": 1,
+        "precision": null,
+        "recall": 0.0,
+        "f1": 0.0
+      }
+    },
+    "exact_time_text": {
+      "saved_evidence_prompt": {
+        "reference_known": {
+          "correct": 8,
+          "total": 15,
+          "accuracy": 0.5333333333333333
+        },
+        "reference_null": {
+          "correct": 0,
+          "total": 0,
+          "accuracy": null,
+          "overfilled": 0
+        },
+        "missing_predictions": 0
+      },
+      "grouping_prompt": {
+        "reference_known": {
+          "correct": 4,
+          "total": 15,
+          "accuracy": 0.26666666666666666
+        },
+        "reference_null": {
+          "correct": 0,
+          "total": 0,
+          "accuracy": null,
+          "overfilled": 0
+        },
+        "missing_predictions": 6
+      }
+    },
+    "whole_reports": {
+      "saved_evidence_prompt": {
+        "normalized_values_and_structure_correct": 8,
+        "candidate_values_and_structure_correct": 8,
+        "including_evidence_complete": 8,
+        "total": 10
+      },
+      "grouping_prompt": {
+        "normalized_values_and_structure_correct": 7,
+        "candidate_values_and_structure_correct": 9,
+        "including_evidence_complete": 7,
+        "total": 10
+      }
+    },
+    "usage": {
+      "saved_evidence_prompt": {
+        "input_tokens": 20897,
+        "output_tokens": 1841,
+        "total_tokens": 22738
+      },
+      "grouping_prompt": {
+        "input_tokens": 25217,
+        "output_tokens": 1670,
+        "total_tokens": 26887
+      }
+    }
+  },
+  "direct_unique_candidate_fields": {
+    "saved_evidence_prompt": {
+      "correct": 143,
+      "total": 165,
+      "unique_groups": 13
+    },
+    "grouping_prompt": {
+      "correct": 164,
+      "total": 165,
+      "unique_groups": 15
+    }
+  },
+  "valid_complete_evidence": {
+    "saved_evidence_prompt": {
+      "correct": 17,
+      "total": 17
+    },
+    "grouping_prompt": {
+      "correct": 12,
+      "total": 15
+    }
+  },
+  "reports": [
+    {
+      "report_id": "TV001",
+      "baseline_complete": true,
+      "candidate_complete": true,
+      "candidate_status": "ok",
+      "candidate_error_code": null
+    },
+    {
+      "report_id": "TV002",
+      "baseline_complete": true,
+      "candidate_complete": true,
+      "candidate_status": "ok",
+      "candidate_error_code": null
+    },
+    {
+      "report_id": "TV003",
+      "baseline_complete": false,
+      "candidate_complete": true,
+      "candidate_status": "ok",
+      "candidate_error_code": null
+    },
+    {
+      "report_id": "TV004",
+      "baseline_complete": true,
+      "candidate_complete": true,
+      "candidate_status": "ok",
+      "candidate_error_code": null
+    },
+    {
+      "report_id": "TV005",
+      "baseline_complete": true,
+      "candidate_complete": true,
+      "candidate_status": "ok",
+      "candidate_error_code": null
+    },
+    {
+      "report_id": "TV006",
+      "baseline_complete": false,
+      "candidate_complete": false,
+      "candidate_status": "error",
+      "candidate_error_code": "normalization_error"
+    },
+    {
+      "report_id": "TV007",
+      "baseline_complete": true,
+      "candidate_complete": false,
+      "candidate_status": "error",
+      "candidate_error_code": "normalization_error"
+    },
+    {
+      "report_id": "TV008",
+      "baseline_complete": true,
+      "candidate_complete": true,
+      "candidate_status": "ok",
+      "candidate_error_code": null
+    },
+    {
+      "report_id": "TV009",
+      "baseline_complete": true,
+      "candidate_complete": true,
+      "candidate_status": "ok",
+      "candidate_error_code": null
+    },
+    {
+      "report_id": "TV010",
+      "baseline_complete": true,
+      "candidate_complete": false,
+      "candidate_status": "error",
+      "candidate_error_code": "normalization_error"
+    }
+  ],
+  "improved_reports": [
+    "TV003"
+  ],
+  "regressed_reports": [
+    "TV007",
+    "TV010"
+  ],
+  "persistently_failed_with_changed_cause": [
+    "TV006"
+  ],
+  "observed_conclusion": "The run removes count/rating fragmentation, but quote stitching and a nausea scope error reduce accepted whole reports from 8/10 to 7/10. Reject this candidate as an overall improvement on this run.",
+  "limitations": [
+    "All ten cases are now development/regression cases used to guide this prompt; this is not fresh validation.",
+    "Ten controlled synthetic texts, AI-assisted labels and review, and the same generation/extraction model family.",
+    "One saved baseline attempt and one new attempt per report; stochastic variability is not estimated.",
+    "No distinct-date, event/window, current-versus-worst, conflicting-value, or medication-context negative controls in this set; guardrails are reviewed instructions, not broadly tested safety.",
+    "A clean result here cannot establish generalization or justify automatic default-prompt/dashboard replacement."
+  ]
+}
