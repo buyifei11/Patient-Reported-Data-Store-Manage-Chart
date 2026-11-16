@@ -1,6 +1,9 @@
 # Pilot preparation and review record
 
-Status: reviewed development fixtures; extraction has not been run.
+Preparation-stage status: reviewed development fixtures; extraction had not been
+run when this review was recorded. The later
+[first extraction baseline](../../results/text-pilot-extraction/README.md) is
+documented separately; it did not change these source/reference labels.
 
 ## Authorship and generation
 

@@ -1,0 +1,263 @@
+{
+  "evaluation_version": "1.0",
+  "reference_role": "development_fixtures",
+  "report_completion": {
+    "total": 5,
+    "ok": 5,
+    "error": 0,
+    "missing": 0,
+    "rate": 1.0
+  },
+  "observation_detection": {
+    "true_positive": 10,
+    "false_positive": 0,
+    "false_negative": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  },
+  "fields": {
+    "symptom": {
+      "reference_known": {
+        "correct": 10,
+        "total": 10,
+        "accuracy": 1.0
+      },
+      "reference_null": {
+        "correct": 0,
+        "total": 0,
+        "accuracy": null,
+        "overfilled": 0
+      },
+      "missing_predictions": 0
+    },
+    "assertion": {
+      "reference_known": {
+        "correct": 10,
+        "total": 10,
+        "accuracy": 1.0
+      },
+      "reference_null": {
+        "correct": 0,
+        "total": 0,
+        "accuracy": null,
+        "overfilled": 0
+      },
+      "missing_predictions": 0
+    },
+    "count": {
+      "reference_known": {
+        "correct": 4,
+        "total": 4,
+        "accuracy": 1.0
+      },
+      "reference_null": {
+        "correct": 6,
+        "total": 6,
+        "accuracy": 1.0,
+        "overfilled": 0
+      },
+      "missing_predictions": 0
+    },
+    "count_scope": {
+      "reference_known": {
+        "correct": 5,
+        "total": 5,
+        "accuracy": 1.0
+      },
+      "reference_null": {
+        "correct": 5,
+        "total": 5,
+        "accuracy": 1.0,
+        "overfilled": 0
+      },
+      "missing_predictions": 0
+    },
+    "severity": {
+      "reference_known": {
+        "correct": 9,
+        "total": 9,
+        "accuracy": 1.0
+      },
+      "reference_null": {
+        "correct": 1,
+        "total": 1,
+        "accuracy": 1.0,
+        "overfilled": 0
+      },
+      "missing_predictions": 0
+    },
+    "event_date": {
+      "reference_known": {
+        "correct": 10,
+        "total": 10,
+        "accuracy": 1.0
+      },
+      "reference_null": {
+        "correct": 0,
+        "total": 0,
+        "accuracy": null,
+        "overfilled": 0
+      },
+      "missing_predictions": 0
+    },
+    "event_time": {
+      "reference_known": {
+        "correct": 0,
+        "total": 0,
+        "accuracy": null
+      },
+      "reference_null": {
+        "correct": 10,
+        "total": 10,
+        "accuracy": 1.0,
+        "overfilled": 0
+      },
+      "missing_predictions": 0
+    },
+    "time_text": {
+      "reference_known": {
+        "correct": 9,
+        "total": 10,
+        "accuracy": 0.9
+      },
+      "reference_null": {
+        "correct": 0,
+        "total": 0,
+        "accuracy": null,
+        "overfilled": 0
+      },
+      "missing_predictions": 0
+    },
+    "date_basis": {
+      "reference_known": {
+        "correct": 10,
+        "total": 10,
+        "accuracy": 1.0
+      },
+      "reference_null": {
+        "correct": 0,
+        "total": 0,
+        "accuracy": null,
+        "overfilled": 0
+      },
+      "missing_predictions": 0
+    },
+    "medication_relation": {
+      "reference_known": {
+        "correct": 0,
+        "total": 0,
+        "accuracy": null
+      },
+      "reference_null": {
+        "correct": 10,
+        "total": 10,
+        "accuracy": 1.0,
+        "overfilled": 0
+      },
+      "missing_predictions": 0
+    }
+  },
+  "assertion_accuracy": {
+    "correct": 10,
+    "total": 10,
+    "accuracy": 1.0
+  },
+  "unknown_overfill": {
+    "errors": 0,
+    "reference_null_fields": 32,
+    "rate": 0.0
+  },
+  "issue_detection": {
+    "true_positive": 1,
+    "false_positive": 0,
+    "false_negative": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  },
+  "extraction_checks": {
+    "passed": 10,
+    "total": 10,
+    "accuracy": 1.0,
+    "fields": {
+      "assertion": {
+        "correct": 10,
+        "total": 10,
+        "accuracy": 1.0
+      },
+      "clock_time": {
+        "correct": 10,
+        "total": 10,
+        "accuracy": 1.0
+      },
+      "count": {
+        "correct": 10,
+        "total": 10,
+        "accuracy": 1.0
+      },
+      "count_scope": {
+        "correct": 10,
+        "total": 10,
+        "accuracy": 1.0
+      },
+      "day_reference": {
+        "correct": 10,
+        "total": 10,
+        "accuracy": 1.0
+      },
+      "explicit_date": {
+        "correct": 10,
+        "total": 10,
+        "accuracy": 1.0
+      },
+      "medication_relation": {
+        "correct": 10,
+        "total": 10,
+        "accuracy": 1.0
+      },
+      "severity_context": {
+        "correct": 10,
+        "total": 10,
+        "accuracy": 1.0
+      },
+      "severity_scale_max": {
+        "correct": 10,
+        "total": 10,
+        "accuracy": 1.0
+      },
+      "severity_value": {
+        "correct": 10,
+        "total": 10,
+        "accuracy": 1.0
+      },
+      "symptom": {
+        "correct": 10,
+        "total": 10,
+        "accuracy": 1.0
+      }
+    }
+  },
+  "matching": {
+    "ambiguous_groups": []
+  },
+  "mismatches": [
+    {
+      "report_id": "TP003",
+      "reference_index": 0,
+      "reference_id": "TP003-O1",
+      "prediction_index": 0,
+      "kind": "field",
+      "field": "time_text",
+      "expected": "so far today",
+      "predicted": "today",
+      "prediction_missing": false
+    }
+  ],
+  "provenance": {
+    "source_dataset_sha256": "dda79d181fc1596fa0bcead5ef0426640a13351aa59cd1f3c9998380bed1593f",
+    "gold_dataset_sha256": "be9b9117ad0e377235a1aaa8366ed5491d9f696328649f0f1373485d1d5a6b97",
+    "predictions_file_sha256": "0818f745a59b4416d696b70450a950f3d11b525c1557e5817c19795d7a842b03",
+    "evaluation_scope": "Development fixtures; not held-out or clinical validation"
+  }
+}

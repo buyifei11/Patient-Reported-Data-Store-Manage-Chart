@@ -5,9 +5,10 @@ Five existing fictional questionnaires supply fact seeds. One actual LLM request
 turns those seeds into patient feedback. The text is then reviewed, and reference
 answers are authored from the reviewed text and the existing data contract.
 
-**No extraction-model run, model training, accuracy measurement, or dashboard
-replacement has been performed for this pilot.** The five reports are development
-examples. They are not an independent test set or real patient data.
+Preparation is complete, and the [first extraction baseline](../../results/text-pilot-extraction/README.md)
+is now recorded separately. No model training or dashboard replacement has been
+performed for this pilot. These are development examples, not an independent
+test set or real patient data.
 
 ## Start with these five cases
 
@@ -168,6 +169,8 @@ wording is deliberately controlled and highly repetitive, so the five cases only
 establish a small, inspectable starting point. They do not test broad language
 variation or generalization.
 
-The next step, after reviewing these examples, is a separate extraction run with
-the original extraction model and a frozen prompt. Its actual outputs can then be
-compared with these references. This step has not yet been executed.
+The original extraction model has now been run with a frozen prompt. Its saved
+outputs and evaluation are in the separate baseline record linked above. All key
+values matched; one report retained incomplete supporting evidence. The next step
+is a bounded prompt-engineering comparison, not automatic replacement of the
+references or model fine-tuning.

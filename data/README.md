@@ -14,9 +14,10 @@ The separate [`text_pilot/`](text_pilot/README.md) now takes five of those exist
 questionnaires as fact seeds, generates English feedback with one actual LLM
 request, and provides reviewed references: five development reports, ten symptom
 observations, and ten candidate-level checks. These are derived pilot examples,
-not additional independent patients or test cases. Extraction evaluation has not
-yet been run on them; they do not replace any of the historical sets below or
-the current dashboard inputs.
+not additional independent patients or test cases. Their
+[first extraction baseline](../results/text-pilot-extraction/README.md) is now
+recorded separately. They do not replace any historical set below or the current
+dashboard inputs.
 
 | Set | Sources | References | Reports | Reference observations | Targeted extraction checks |
 | --- | --- | --- | ---: | ---: | ---: |

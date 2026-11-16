@@ -1,0 +1,180 @@
+{
+  "method": "Source-based review by the main agent and an independent reviewing agent; not independent human annotation",
+  "performed_after_extraction": true,
+  "sources_references_and_model_outputs_unchanged": true,
+  "observation_evidence_checks": [
+    {
+      "report_id": "TP001",
+      "candidate_index": 0,
+      "symptom": "vomiting",
+      "quote": "So far today I have vomited 2 times, and the worst vomiting severity so far today is 2 out of 5.",
+      "exact_source_substring": true,
+      "all_claimed_fields_supported_by_quote": true,
+      "unsupported_in_retained_quote": [],
+      "review_note": "The retained quote supports the claimed symptom, assertion, count, rating, and timing information."
+    },
+    {
+      "report_id": "TP001",
+      "candidate_index": 1,
+      "symptom": "nausea",
+      "quote": "I also have nausea, and the worst nausea severity so far today is 3 out of 5.",
+      "exact_source_substring": true,
+      "all_claimed_fields_supported_by_quote": true,
+      "unsupported_in_retained_quote": [],
+      "review_note": "The retained quote supports the claimed symptom, assertion, count, rating, and timing information."
+    },
+    {
+      "report_id": "TP002",
+      "candidate_index": 0,
+      "symptom": "vomiting",
+      "quote": "no vomiting today so far",
+      "exact_source_substring": true,
+      "all_claimed_fields_supported_by_quote": true,
+      "unsupported_in_retained_quote": [],
+      "review_note": "The retained quote supports the claimed symptom, assertion, count, rating, and timing information."
+    },
+    {
+      "report_id": "TP002",
+      "candidate_index": 1,
+      "symptom": "nausea",
+      "quote": "I also have nausea, and the worst nausea severity so far today is 2 out of 5",
+      "exact_source_substring": true,
+      "all_claimed_fields_supported_by_quote": true,
+      "unsupported_in_retained_quote": [],
+      "review_note": "The retained quote supports the claimed symptom, assertion, count, rating, and timing information."
+    },
+    {
+      "report_id": "TP003",
+      "candidate_index": 0,
+      "symptom": "vomiting",
+      "quote": "I have vomited today so far, but I don't know the number of episodes.",
+      "exact_source_substring": true,
+      "all_claimed_fields_supported_by_quote": false,
+      "unsupported_in_retained_quote": [
+        "severity_value",
+        "severity_scale_max",
+        "severity_context"
+      ],
+      "review_note": "The numeric rating 2/5 and worst-so-far severity context are stated in the following source clause, but that clause is missing from the retained quote. The values are correct in the full text; evidence is incomplete."
+    },
+    {
+      "report_id": "TP003",
+      "candidate_index": 1,
+      "symptom": "nausea",
+      "quote": "I also have nausea with a worst severity so far today of 3 out of 5.",
+      "exact_source_substring": true,
+      "all_claimed_fields_supported_by_quote": true,
+      "unsupported_in_retained_quote": [],
+      "review_note": "The retained quote supports the claimed symptom, assertion, count, rating, and timing information."
+    },
+    {
+      "report_id": "TP004",
+      "candidate_index": 0,
+      "symptom": "vomiting",
+      "quote": "Today up to now I have vomited 4 times, and the worst vomiting severity so far today is 2 out of 5.",
+      "exact_source_substring": true,
+      "all_claimed_fields_supported_by_quote": true,
+      "unsupported_in_retained_quote": [],
+      "review_note": "The retained quote supports the claimed symptom, assertion, count, rating, and timing information."
+    },
+    {
+      "report_id": "TP004",
+      "candidate_index": 1,
+      "symptom": "nausea",
+      "quote": "I also have nausea, and the worst nausea severity so far today is 4 out of 5.",
+      "exact_source_substring": true,
+      "all_claimed_fields_supported_by_quote": true,
+      "unsupported_in_retained_quote": [],
+      "review_note": "The retained quote supports the claimed symptom, assertion, count, rating, and timing information."
+    },
+    {
+      "report_id": "TP005",
+      "candidate_index": 0,
+      "symptom": "vomiting",
+      "quote": "Today up to now I have vomited 1 time, and the worst vomiting severity so far today is 2 out of 5.",
+      "exact_source_substring": true,
+      "all_claimed_fields_supported_by_quote": true,
+      "unsupported_in_retained_quote": [],
+      "review_note": "The retained quote supports the claimed symptom, assertion, count, rating, and timing information."
+    },
+    {
+      "report_id": "TP005",
+      "candidate_index": 1,
+      "symptom": "nausea",
+      "quote": "I also have nausea, and the worst nausea severity so far today is 5 out of 5.",
+      "exact_source_substring": true,
+      "all_claimed_fields_supported_by_quote": true,
+      "unsupported_in_retained_quote": [],
+      "review_note": "The retained quote supports the claimed symptom, assertion, count, rating, and timing information."
+    }
+  ],
+  "time_text_review": [
+    {
+      "report_id": "TP003",
+      "symptom": "nausea",
+      "reference": "so far today",
+      "extracted": "today",
+      "assessment": "Shorter supporting span. The retained quote includes so far today, severity_context is worst_today_so_far, and the resolved date is correct. Keep the exact mismatch as a separate diagnostic."
+    }
+  ],
+  "whole_report_rule": "Requires successful processing, no missing/extra observations, all candidate checks correct, all normalized core fields correct, matching issue flags, and source-supported evidence. Report exact time_text mismatches separately.",
+  "reports": [
+    {
+      "report_id": "TP001",
+      "expected_vomiting_count": 2,
+      "extracted_vomiting_count": 2,
+      "semantic_values_pass": true,
+      "evidence_complete": true,
+      "whole_report_pass": true,
+      "exact_time_text_mismatches": []
+    },
+    {
+      "report_id": "TP002",
+      "expected_vomiting_count": 0,
+      "extracted_vomiting_count": 0,
+      "semantic_values_pass": true,
+      "evidence_complete": true,
+      "whole_report_pass": true,
+      "exact_time_text_mismatches": []
+    },
+    {
+      "report_id": "TP003",
+      "expected_vomiting_count": null,
+      "extracted_vomiting_count": null,
+      "semantic_values_pass": true,
+      "evidence_complete": false,
+      "whole_report_pass": false,
+      "exact_time_text_mismatches": [
+        {
+          "report_id": "TP003",
+          "reference_index": 0,
+          "reference_id": "TP003-O1",
+          "prediction_index": 0,
+          "kind": "field",
+          "field": "time_text",
+          "expected": "so far today",
+          "predicted": "today",
+          "prediction_missing": false
+        }
+      ]
+    },
+    {
+      "report_id": "TP004",
+      "expected_vomiting_count": 4,
+      "extracted_vomiting_count": 4,
+      "semantic_values_pass": true,
+      "evidence_complete": true,
+      "whole_report_pass": true,
+      "exact_time_text_mismatches": []
+    },
+    {
+      "report_id": "TP005",
+      "expected_vomiting_count": 1,
+      "extracted_vomiting_count": 1,
+      "semantic_values_pass": true,
+      "evidence_complete": true,
+      "whole_report_pass": true,
+      "exact_time_text_mismatches": []
+    }
+  ]
+}

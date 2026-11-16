@@ -6,9 +6,10 @@ show patient trends with coverage and unresolved values. All deliverables are in
 English. No real patient information is used.
 
 A separate [five-report text pilot](data/text_pilot/README.md) now contains actual
-LLM-generated feedback, reviewed references, and generation provenance. It is a
-data-preparation step: extraction evaluation has not yet run, and the existing
-offline dashboard below still uses its original mixed-input dataset.
+LLM-generated feedback, reviewed references, and generation provenance. Its
+[first extraction baseline](results/text-pilot-extraction/README.md) is recorded
+separately; the existing offline dashboard below still uses its original
+mixed-input dataset.
 
 ## Run the complete offline demo
 
