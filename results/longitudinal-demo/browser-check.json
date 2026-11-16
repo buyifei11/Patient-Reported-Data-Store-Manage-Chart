@@ -5,7 +5,12 @@
     "P003"
   ],
   "chartValuesMatchStoredDailyRecords": true,
-  "indeterminateRows": 2,
+  "medicationLegendsMatchRecordedChanges": true,
+  "medicationComparisonSectionRemoved": true,
+  "reviewValuesAndFieldImpactsChecked": true,
+  "bothConflictingSourcesOpen": true,
+  "recordProcessingAndReviewLabelsChecked": true,
+  "originalCorrectionSourcePreserved": true,
   "desktopWidth": 1440,
   "mobileWidth": 390,
   "scriptErrors": [],

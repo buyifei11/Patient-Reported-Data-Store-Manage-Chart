@@ -46,8 +46,10 @@ python run_demo.py query --db artifacts/demo/patient_reports.sqlite --query revi
 ```
 
 Queries open the database read-only. Weekly counts include reporting coverage;
-missing values do not become zeros. Medication timing distinguishes definite
-order from uncertainty and does not imply causation.
+missing values do not become zeros. The medication query compares symptoms with
+recorded starts, stops, or dose changes, not each day's actual medication intake.
+It remains available through SQL, the CLI, and CSV exports; the dashboard uses
+labeled medication markers rather than a separate timing-comparison table.
 
 ## What is implemented
 
@@ -59,7 +61,7 @@ order from uncertainty and does not imply causation.
 | SQLite | Immutable source IDs and extraction runs; failed results, evidence, and correction history retained. |
 | Daily statistics | Complete replacements, cumulative no-sum rules, explicit zeros, missing days, field-specific eligibility, and review reasons. |
 | SQL | Weekly reported counts with coverage; symptoms relative to recorded medication changes. |
-| Dashboard | Patient selection, count/severity trends, medication markers, query tables, and expandable source records. |
+| Dashboard | Patient selection, count/severity trends, labeled medication changes, weekly coverage, concrete review explanations, and expandable source records. |
 | Validation | Offline tests for schemas, clients, time boundaries, corrections, aggregation, database integrity, queries, and integration. |
 
 R006 corrects R005's vomiting count from 3 to 2 while retaining nausea severity 4.

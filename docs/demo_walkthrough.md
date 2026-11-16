@@ -32,21 +32,30 @@ not a new model call. No model output is selectively replaced by a reference.
 ## A concise demonstration
 
 1. Open **Demo patient 2**. The chart shows supported daily counts over four
-   weeks, gaps, medication markers, and the coverage denominator.
+   weeks, gaps, and the coverage denominator. Each chart's medication legend
+   names the medication, change type, and date behind its M1/M2 markers.
 2. Open **R005** and **R006** under source records. The original count 3 is
    retained, but the corrected November 4 value is 2. Explain why cumulative
-   reports are not summed.
+   reports are not summed. **Current record** identifies the selected report
+   version; **Processing completed** describes processing success, not a guarantee
+   that every field is usable. Review status is shown separately.
 3. Select **Demo patient 1**. November 3 has a supported vomiting zero but an
    unresolved nausea score. November 10's cumulative decrease is excluded from
-   the count trend and visible in the review queue. These are different issues.
+   the count trend and visible in the review queue. Read the conflicting values,
+   their field-specific impact, and linked sources: R002 has text severity 2/5
+   versus questionnaire severity 3/5; November 10 falls from morning count 4 to
+   evening count 1 without a declared correction. These are different issues.
 4. Select **Demo patient 3**. Inspect the unknown date, unknown count, and text/form
    conflict. Missing follow-up days remain gaps. The questionnaire-only
    November 14 has an unknown count but a usable severity.
-5. Return to **Demo patient 2** and inspect medication timing. R003's 14:20
-   episode is definitely after the 13:00 change. For patient 3, the same-day
-   morning nausea cannot be ordered precisely against the recorded change.
-6. Show the SQL files and one terminal query. Explain that the chart reads
-   database-derived results and preserves source evidence, not hardcoded chart data.
+5. Show the SQL files and a terminal query. The medication query remains
+   available outside the dashboard: R003's 14:20 episode is after the recorded
+   13:00 change; patient 3's same-day morning nausea cannot be ordered precisely
+   against the recorded change. These comparisons do not establish timing
+   relative to every daily dose or imply a medication reaction.
+6. Explain that the chart reads database-derived results and preserves source
+   evidence, not hardcoded chart data. Weekly counts and coverage remain visible
+   on the page; medication timing results are available through the CLI and CSV.
 
 ```bash
 python run_demo.py query --db artifacts/demo/patient_reports.sqlite --query weekly

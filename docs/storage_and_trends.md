@@ -14,8 +14,12 @@ flowchart LR
     C --> D[Immutable sources and run results in SQLite]
     D --> E[Correction and daily eligibility rules]
     E --> F[Stored daily records and review queue]
-    F --> G[Weekly SQL and medication timing SQL]
-    G --> H[Offline patient dashboard and CSV exports]
+    F --> G[Weekly SQL]
+    G --> H[Offline patient dashboard]
+    F --> H
+    D --> I[Medication timing SQL]
+    G --> J[CSV exports]
+    I --> J
 ```
 
 `src/demo.py` imports normalized results, reloads the stored run, computes its
@@ -72,9 +76,9 @@ questionnaire severity solely because both sources are retained.
 
 The current conservative policy does not combine standalone events/windows into
 a daily count, even when an individual episode is clearly reported. For example,
-R003's exact episode is visible in source details and medication timing, but is
-not treated as the complete daily frequency. This reduces coverage and is shown
-explicitly. Future work could model proven non-overlapping event groups.
+R003's exact episode is visible in source details and the medication timing query,
+but is not treated as the complete daily frequency. This reduces coverage and is
+shown explicitly. Future work could model proven non-overlapping event groups.
 
 Earlier cumulative cutoff phrases are used only to order comparable snapshots.
 They are not episode times. Supported HH:MM/noon cutoffs are interpreted in the
@@ -114,14 +118,30 @@ instants. Multiple changes can provide several contexts for one observation.
 This is temporal association, not causation. `after_taking` text alone does not
 prove order relative to a separate medication-change record.
 
+This query is retained in the CLI and CSV export rather than the main dashboard.
+The source data record starts, stops, and dose changes, not each actual dose
+administration. Being after a recorded change therefore does not establish that
+a symptom followed that day's medication intake.
+
 ## Presentation and limits
 
 The self-contained HTML dashboard has patient selection, daily frequency and
-nausea charts, medication markers, coverage, SQL query tables, a review queue,
-and expandable original/corrected source records. Zero is plotted explicitly;
-missing or ineligible values create gaps, not connecting lines. Partial daily
-counts and completed-day totals use different markers. Source strings are
-escaped and rendered as text, with no remote assets or API requests.
+nausea charts, weekly counts and coverage, a review queue, and expandable
+original/corrected source records. Each chart has a medication legend identifying
+the medication, change type, and date for its M1/M2 markers. These identify
+changes, not distinct medicines or individual dose administrations. The separate
+medication timing table and its category filter are omitted from the main page.
+Zero is plotted explicitly; missing or ineligible values create gaps, not
+connecting lines. Partial daily counts and completed-day totals use different
+markers. Source strings are escaped and rendered as text, with no remote assets
+or API requests.
+
+Review explanations show the underlying conflicting values or evidence, the
+affected field, and its treatment in the daily statistics. Relevant source
+reports are linked for comparison. Source record labels separate revision status
+from processing status: **Current record** identifies the selected report version,
+while **Processing completed** reports successful processing. **Needs review** can
+coexist with both; neither label guarantees that all fields are eligible.
 
 The prototype has no authentication, clinician review/write-back workflow,
 production migrations, or clinical validation. It is a local synthetic-data

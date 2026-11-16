@@ -6,7 +6,7 @@ were made during implementation, offline replay, or demo generation.
 
 ## Automated verification
 
-The full offline suite passes **221 tests** with:
+The full offline suite passes **228 tests** with:
 
 ```bash
 python -m unittest discover -s tests -q
@@ -16,7 +16,8 @@ Coverage includes strict schemas, mocked API failure paths, evidence/time rules,
 metric denominators, frozen-experiment controls, cumulative counts, corrections,
 independent severity eligibility, database transactions/idempotency, UTC
 medication ordering, read-only queries, source-hash validation, HTML escaping,
-CSV formula neutralization, and the complete offline build.
+CSV formula neutralization, the complete offline build, and review explanations
+that preserve evidence attribution and field-level eligibility decisions.
 
 Specific behavioral assertions include:
 
@@ -51,14 +52,26 @@ second count is not a symptom-episode total. Snapshot files are preserved in
 [`results/longitudinal-demo/`](../results/longitudinal-demo/); local databases and
 routine build artifacts remain ignored under `artifacts/`.
 
-Browser checks used an isolated headless Chrome profile with external requests
-blocked. All three patient selections were exercised; every displayed count and
-nausea point matched the SQLite-derived daily rows. Source expansion retained
-R005's original count, medication filtering worked, and desktop (1440 pixels)
-and mobile (390 pixels) layouts had no page overflow or script errors. The page
-made no remote requests. Desktop/mobile images were visually inspected. The
-selected [browser record](../results/longitudinal-demo/browser-check.json) and
-[preview](dashboard-preview.png) document the check.
+Browser checks used an isolated headless Chrome profile with external
+requests blocked. All three patient selections were exercised; every displayed
+count and nausea point matched the SQLite-derived daily rows. Source expansion
+retained R005's original count. Both links in the cumulative-count conflict opened
+the correct source, review explanations showed the conflicting values and their
+field-specific effects, and record/processing/review labels remained distinct.
+Medication legends matched the stored changes, and the removed comparison table
+and timing filter were absent. Desktop (1440 pixels) and mobile (390 pixels)
+layouts had no page overflow or script errors. The page made no remote requests.
+Desktop/mobile images were visually inspected. The selected
+[browser record](../results/longitudinal-demo/browser-check.json) and
+[preview](dashboard-preview.png) accompany the saved dashboard snapshot.
+
+The subsequent presentation refinement adds explicit medication legends, concrete
+review explanations with source links and field-level impact, and separate
+record/processing/review labels. The medication timing table and category filter
+are removed from the page; their SQL, CLI, and CSV results remain available. This
+refinement does not change source data, medication details, extraction, or daily
+eligibility rules. All four query CSV exports are byte-for-byte identical to the
+previous demo build, and the summary metrics and dataset hashes are unchanged.
 
 ## Extraction guardrail replay
 
