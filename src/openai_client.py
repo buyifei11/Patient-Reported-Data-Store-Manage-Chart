@@ -14,12 +14,13 @@ import hashlib
 from http.client import HTTPException
 import json
 import math
+from pathlib import Path
 from urllib.error import HTTPError, URLError
 from urllib.request import HTTPRedirectHandler, ProxyHandler, Request, build_opener
 
 from pydantic import ValidationError
 
-from src.llm import ExtractionError, PROMPT_PATH
+from src.llm import ExtractionError, PROMPT_PATH, _read_prompt
 from src.schema import CandidateBatch
 
 
@@ -91,6 +92,7 @@ def extract_candidates(
     model: str,
     api_key: str,
     timeout: float = 120.0,
+    prompt_path: Path | str | None = None,
 ) -> dict:
     """Return validated candidates, audit metadata, and exact output text.
 
@@ -111,7 +113,7 @@ def extract_candidates(
 
     local_schema = CandidateBatch.model_json_schema()
     schema = _transport_schema(local_schema)
-    prompt = PROMPT_PATH.read_text(encoding="utf-8").rstrip()
+    prompt, prompt_metadata = _read_prompt(PROMPT_PATH if prompt_path is None else Path(prompt_path))
     system_message = prompt + "\n\nOutput JSON schema:\n" + json.dumps(local_schema, sort_keys=True)
     payload = {
         "model": model,
@@ -190,6 +192,7 @@ def extract_candidates(
             "model": returned_model or model,
             "returned_model": returned_model,
             "prompt_sha256": _sha256(system_message),
+            **prompt_metadata,
             "schema_sha256": _sha256(json.dumps(schema, sort_keys=True)),
             "response_sha256": _sha256(raw_response),
             "response_id": api_response.get("id"),

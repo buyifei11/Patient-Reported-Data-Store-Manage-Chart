@@ -77,12 +77,21 @@ def _sha256(value: str) -> str:
     return hashlib.sha256(value.encode("utf-8")).hexdigest()
 
 
+def _read_prompt(path: Path) -> tuple[str, dict]:
+    """Read once so the prompt and raw-file fingerprint describe the same bytes."""
+    raw = path.read_bytes()
+    # Preserve read_text's universal-newline behavior when constructing messages.
+    prompt = raw.decode("utf-8").replace("\r\n", "\n").replace("\r", "\n").rstrip()
+    return prompt, {"prompt_file": path.name, "prompt_file_sha256": hashlib.sha256(raw).hexdigest()}
+
+
 def extract_candidates(
     text: str,
     *,
     model: str,
     base_url: str = "http://127.0.0.1:11434",
     timeout: float = 120.0,
+    prompt_path: Path | str | None = None,
 ) -> dict:
     """Return validated candidates, run metadata, and exact assistant content.
 
@@ -102,7 +111,7 @@ def extract_candidates(
         raise ExtractionError("invalid_config", "timeout must be a positive finite number of seconds.")
     endpoint = _chat_url(base_url)
     schema = CandidateBatch.model_json_schema()
-    prompt = PROMPT_PATH.read_text(encoding="utf-8").rstrip()
+    prompt, prompt_metadata = _read_prompt(PROMPT_PATH if prompt_path is None else Path(prompt_path))
     system_message = prompt + "\n\nOutput JSON schema:\n" + json.dumps(schema, sort_keys=True)
     payload = {
         "model": model,
@@ -177,6 +186,7 @@ def extract_candidates(
             "model": api_response.get("model", model),
             "requested_model": model,
             "prompt_sha256": _sha256(system_message),
+            **prompt_metadata,
             "response_sha256": _sha256(raw_response),
             "done_reason": api_response.get("done_reason"),
             "prompt_eval_count": api_response.get("prompt_eval_count"),

@@ -101,14 +101,57 @@ class PipelineTests(unittest.TestCase):
     def test_extract_cli_never_reads_gold(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "predictions.jsonl"
-            with patch("src.pipeline.extract_local", return_value={"candidates": [], "metadata": {}, "raw_response": '{"candidates":[]}'}), \
+            with patch("src.pipeline.extract_local", return_value={"candidates": [], "metadata": {}, "raw_response": '{"candidates":[]}'}) as extractor, \
                  patch("src.pipeline.load_settings", return_value={}), \
                  patch("src.pipeline.validate_fixtures", side_effect=AssertionError("Gold read during extraction")), \
                  redirect_stdout(io.StringIO()):
                 result = main(["extract", "--provider", "ollama", "--model", "test-model", "--limit", "1", "--output", str(path)])
             self.assertEqual(result, 0)
+            self.assertIsNone(extractor.call_args.kwargs["prompt_path"])
             self.assertEqual(len(read_jsonl(path)), 1)
             self.assertEqual(read_jsonl(path)[0]["metadata"]["selected_report_count"], 1)
+
+    def test_explicit_prompt_is_forwarded_to_both_clients_without_gold(self):
+        for provider, target in (("ollama", "src.pipeline.extract_local"),
+                                 ("openai", "src.openai_client.extract_candidates")):
+            with self.subTest(provider=provider), tempfile.TemporaryDirectory() as directory:
+                source = Path(directory) / "source.jsonl"
+                source.write_text(json.dumps(report()) + "\n", encoding="utf-8")
+                prompt = Path(directory) / "custom.txt"
+                prompt.write_text("Custom extraction prompt.\n", encoding="utf-8")
+                output = Path(directory) / "predictions.jsonl"
+                with patch(target, return_value={"candidates": [], "metadata": {}, "raw_response": '{"candidates":[]}'}) as extractor, \
+                     patch("src.pipeline.load_settings", return_value={"OPENAI_API_KEY": "fake-unit-test-token"}), \
+                     patch("src.pipeline.read_jsonl", wraps=read_jsonl) as reader, \
+                     patch("src.pipeline.validate_fixtures", side_effect=AssertionError("Gold read during extraction")), \
+                     redirect_stdout(io.StringIO()):
+                    result = main(["extract", "--provider", provider, "--model", "test-model", "--source", str(source),
+                                   "--prompt-file", str(prompt), "--output", str(output)])
+                self.assertEqual(result, 0)
+                reader.assert_called_once_with(source)
+                self.assertEqual(extractor.call_args.args, (report()["text"],))
+                expected_kwargs = {"model": "test-model", "timeout": 120, "prompt_path": prompt}
+                expected_kwargs.update({"base_url": "http://127.0.0.1:11434"} if provider == "ollama"
+                                       else {"api_key": "fake-unit-test-token"})
+                self.assertEqual(extractor.call_args.kwargs, expected_kwargs)
+                self.assertTrue(output.exists())
+
+    def test_missing_prompt_fails_before_settings_output_or_api(self):
+        for provider in ("ollama", "openai"):
+            with self.subTest(provider=provider), tempfile.TemporaryDirectory() as directory:
+                output = Path(directory) / "new-directory" / "predictions.jsonl"
+                prompt = Path(directory) / "missing.txt"
+                with patch("src.pipeline.extract_local") as local, \
+                     patch("src.openai_client.extract_candidates") as cloud, \
+                     patch("src.pipeline.load_settings") as settings, redirect_stderr(io.StringIO()):
+                    with self.assertRaises(SystemExit) as raised:
+                        main(["extract", "--provider", provider, "--model", "test-model", "--prompt-file", str(prompt),
+                              "--output", str(output)])
+                self.assertEqual(raised.exception.code, 2)
+                settings.assert_not_called()
+                local.assert_not_called()
+                cloud.assert_not_called()
+                self.assertFalse(output.parent.exists())
 
     def test_existing_output_is_preserved_without_model_call(self):
         with tempfile.TemporaryDirectory() as directory:

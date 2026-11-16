@@ -1,0 +1,444 @@
+{
+  "experiment": "temporal-prompt-v2",
+  "decision": "retain_v1_default_v2_remains_experimental",
+  "decision_reason": "Direct temporal gains coexist with per-report scope regressions and one new evidence-grounding failure. H016 alignment affects aggregate metrics and is a shared normalization defect.",
+  "independent_reports": {
+    "development": 30,
+    "heldout": 20
+  },
+  "repeats": {
+    "development": 1,
+    "heldout": 2
+  },
+  "runs": [
+    {
+      "run": "development-v1-r1",
+      "report_completion": {
+        "total": 30,
+        "ok": 29,
+        "error": 1,
+        "missing": 0,
+        "rate": 0.9666666666666667
+      },
+      "observation_detection": {
+        "true_positive": 35,
+        "false_positive": 0,
+        "false_negative": 1,
+        "precision": 1.0,
+        "recall": 0.9722222222222222,
+        "f1": 0.9859154929577465
+      },
+      "known_date": {
+        "correct": 31,
+        "total": 33,
+        "accuracy": 0.9393939393939394
+      },
+      "known_count": {
+        "correct": 16,
+        "total": 17,
+        "accuracy": 0.9411764705882353
+      },
+      "known_scope": {
+        "correct": 20,
+        "total": 22,
+        "accuracy": 0.9090909090909091
+      },
+      "assertion": {
+        "correct": 35,
+        "total": 36,
+        "accuracy": 0.9722222222222222
+      },
+      "candidate_day_reference": {
+        "correct": 11,
+        "total": 13,
+        "accuracy": 0.8461538461538461
+      },
+      "extraction_checks": {
+        "passed": 19,
+        "total": 24,
+        "accuracy": 0.7916666666666666
+      },
+      "unknown_overfill": {
+        "errors": 0,
+        "reference_null_fields": 135,
+        "rate": 0.0
+      },
+      "issue_detection": {
+        "true_positive": 13,
+        "false_positive": 3,
+        "false_negative": 2,
+        "precision": 0.8125,
+        "recall": 0.8666666666666667,
+        "f1": 0.8387096774193549
+      },
+      "exact_time_text": {
+        "correct": 27,
+        "total": 36,
+        "accuracy": 0.75
+      },
+      "failed_reports": [
+        "D012"
+      ]
+    },
+    {
+      "run": "development-v2-r1",
+      "report_completion": {
+        "total": 30,
+        "ok": 30,
+        "error": 0,
+        "missing": 0,
+        "rate": 1.0
+      },
+      "observation_detection": {
+        "true_positive": 36,
+        "false_positive": 0,
+        "false_negative": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "known_date": {
+        "correct": 33,
+        "total": 33,
+        "accuracy": 1.0
+      },
+      "known_count": {
+        "correct": 17,
+        "total": 17,
+        "accuracy": 1.0
+      },
+      "known_scope": {
+        "correct": 22,
+        "total": 22,
+        "accuracy": 1.0
+      },
+      "assertion": {
+        "correct": 36,
+        "total": 36,
+        "accuracy": 1.0
+      },
+      "candidate_day_reference": {
+        "correct": 13,
+        "total": 13,
+        "accuracy": 1.0
+      },
+      "extraction_checks": {
+        "passed": 23,
+        "total": 24,
+        "accuracy": 0.9583333333333334
+      },
+      "unknown_overfill": {
+        "errors": 0,
+        "reference_null_fields": 135,
+        "rate": 0.0
+      },
+      "issue_detection": {
+        "true_positive": 14,
+        "false_positive": 1,
+        "false_negative": 1,
+        "precision": 0.9333333333333333,
+        "recall": 0.9333333333333333,
+        "f1": 0.9333333333333333
+      },
+      "exact_time_text": {
+        "correct": 29,
+        "total": 36,
+        "accuracy": 0.8055555555555556
+      },
+      "failed_reports": []
+    },
+    {
+      "run": "heldout-v1-r1",
+      "report_completion": {
+        "total": 20,
+        "ok": 18,
+        "error": 2,
+        "missing": 0,
+        "rate": 0.9
+      },
+      "observation_detection": {
+        "true_positive": 22,
+        "false_positive": 3,
+        "false_negative": 3,
+        "precision": 0.88,
+        "recall": 0.88,
+        "f1": 0.88
+      },
+      "known_date": {
+        "correct": 19,
+        "total": 23,
+        "accuracy": 0.8260869565217391
+      },
+      "known_count": {
+        "correct": 8,
+        "total": 11,
+        "accuracy": 0.7272727272727273
+      },
+      "known_scope": {
+        "correct": 9,
+        "total": 14,
+        "accuracy": 0.6428571428571429
+      },
+      "assertion": {
+        "correct": 22,
+        "total": 25,
+        "accuracy": 0.88
+      },
+      "candidate_day_reference": {
+        "correct": 8,
+        "total": 10,
+        "accuracy": 0.8
+      },
+      "extraction_checks": {
+        "passed": 14,
+        "total": 17,
+        "accuracy": 0.8235294117647058
+      },
+      "unknown_overfill": {
+        "errors": 0,
+        "reference_null_fields": 97,
+        "rate": 0.0
+      },
+      "issue_detection": {
+        "true_positive": 7,
+        "false_positive": 2,
+        "false_negative": 2,
+        "precision": 0.7777777777777778,
+        "recall": 0.7777777777777778,
+        "f1": 0.7777777777777778
+      },
+      "exact_time_text": {
+        "correct": 16,
+        "total": 24,
+        "accuracy": 0.6666666666666666
+      },
+      "failed_reports": [
+        "H010",
+        "H012"
+      ]
+    },
+    {
+      "run": "heldout-v2-r1",
+      "report_completion": {
+        "total": 20,
+        "ok": 18,
+        "error": 2,
+        "missing": 0,
+        "rate": 0.9
+      },
+      "observation_detection": {
+        "true_positive": 23,
+        "false_positive": 2,
+        "false_negative": 2,
+        "precision": 0.92,
+        "recall": 0.92,
+        "f1": 0.92
+      },
+      "known_date": {
+        "correct": 21,
+        "total": 23,
+        "accuracy": 0.9130434782608695
+      },
+      "known_count": {
+        "correct": 8,
+        "total": 11,
+        "accuracy": 0.7272727272727273
+      },
+      "known_scope": {
+        "correct": 9,
+        "total": 14,
+        "accuracy": 0.6428571428571429
+      },
+      "assertion": {
+        "correct": 23,
+        "total": 25,
+        "accuracy": 0.92
+      },
+      "candidate_day_reference": {
+        "correct": 9,
+        "total": 10,
+        "accuracy": 0.9
+      },
+      "extraction_checks": {
+        "passed": 13,
+        "total": 17,
+        "accuracy": 0.7647058823529411
+      },
+      "unknown_overfill": {
+        "errors": 1,
+        "reference_null_fields": 97,
+        "rate": 0.010309278350515464
+      },
+      "issue_detection": {
+        "true_positive": 7,
+        "false_positive": 1,
+        "false_negative": 2,
+        "precision": 0.875,
+        "recall": 0.7777777777777778,
+        "f1": 0.8235294117647058
+      },
+      "exact_time_text": {
+        "correct": 16,
+        "total": 24,
+        "accuracy": 0.6666666666666666
+      },
+      "failed_reports": [
+        "H010",
+        "H012"
+      ]
+    },
+    {
+      "run": "heldout-v1-r2",
+      "report_completion": {
+        "total": 20,
+        "ok": 17,
+        "error": 3,
+        "missing": 0,
+        "rate": 0.85
+      },
+      "observation_detection": {
+        "true_positive": 19,
+        "false_positive": 3,
+        "false_negative": 6,
+        "precision": 0.8636363636363636,
+        "recall": 0.76,
+        "f1": 0.8085106382978723
+      },
+      "known_date": {
+        "correct": 16,
+        "total": 23,
+        "accuracy": 0.6956521739130435
+      },
+      "known_count": {
+        "correct": 7,
+        "total": 11,
+        "accuracy": 0.6363636363636364
+      },
+      "known_scope": {
+        "correct": 7,
+        "total": 14,
+        "accuracy": 0.5
+      },
+      "assertion": {
+        "correct": 19,
+        "total": 25,
+        "accuracy": 0.76
+      },
+      "candidate_day_reference": {
+        "correct": 8,
+        "total": 10,
+        "accuracy": 0.8
+      },
+      "extraction_checks": {
+        "passed": 14,
+        "total": 17,
+        "accuracy": 0.8235294117647058
+      },
+      "unknown_overfill": {
+        "errors": 0,
+        "reference_null_fields": 97,
+        "rate": 0.0
+      },
+      "issue_detection": {
+        "true_positive": 7,
+        "false_positive": 2,
+        "false_negative": 2,
+        "precision": 0.7777777777777778,
+        "recall": 0.7777777777777778,
+        "f1": 0.7777777777777778
+      },
+      "exact_time_text": {
+        "correct": 13,
+        "total": 24,
+        "accuracy": 0.5416666666666666
+      },
+      "failed_reports": [
+        "H010",
+        "H012",
+        "H019"
+      ]
+    },
+    {
+      "run": "heldout-v2-r2",
+      "report_completion": {
+        "total": 20,
+        "ok": 17,
+        "error": 3,
+        "missing": 0,
+        "rate": 0.85
+      },
+      "observation_detection": {
+        "true_positive": 21,
+        "false_positive": 3,
+        "false_negative": 4,
+        "precision": 0.875,
+        "recall": 0.84,
+        "f1": 0.8571428571428571
+      },
+      "known_date": {
+        "correct": 19,
+        "total": 23,
+        "accuracy": 0.8260869565217391
+      },
+      "known_count": {
+        "correct": 8,
+        "total": 11,
+        "accuracy": 0.7272727272727273
+      },
+      "known_scope": {
+        "correct": 9,
+        "total": 14,
+        "accuracy": 0.6428571428571429
+      },
+      "assertion": {
+        "correct": 21,
+        "total": 25,
+        "accuracy": 0.84
+      },
+      "candidate_day_reference": {
+        "correct": 9,
+        "total": 10,
+        "accuracy": 0.9
+      },
+      "extraction_checks": {
+        "passed": 14,
+        "total": 17,
+        "accuracy": 0.8235294117647058
+      },
+      "unknown_overfill": {
+        "errors": 0,
+        "reference_null_fields": 97,
+        "rate": 0.0
+      },
+      "issue_detection": {
+        "true_positive": 6,
+        "false_positive": 1,
+        "false_negative": 3,
+        "precision": 0.8571428571428571,
+        "recall": 0.6666666666666666,
+        "f1": 0.75
+      },
+      "exact_time_text": {
+        "correct": 15,
+        "total": 24,
+        "accuracy": 0.625
+      },
+      "failed_reports": [
+        "H010",
+        "H012",
+        "H015"
+      ]
+    }
+  ],
+  "usage": {
+    "recorded_requests": 140,
+    "requests_with_token_usage": 140,
+    "input_tokens": 264408,
+    "cached_input_tokens": 207616,
+    "output_tokens": 16360,
+    "reasoning_tokens": 0,
+    "listed_price_estimate_usd": 0.1317852,
+    "summed_elapsed_seconds": 198.68,
+    "median_elapsed_seconds": 1.39
+  }
+}

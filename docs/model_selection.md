@@ -1,6 +1,6 @@
 # Model selection for text extraction
 
-Decision date: 2026-11-15. Status: provisional pilot choice. One cloud development run is complete; [development_run.md](development_run.md) reports actual results, including a temporal error. Independent evaluation and any claim of comparative superiority remain pending.
+Decision date: 2026-11-15. Status: provisional pilot choice. The original [development run](development_run.md) and a [frozen prompt comparison](prompt_comparison.md) are complete. The latter uses 30 development reports and two paired rounds on 20 synthetic held-out reports. It reveals temporal gains, per-case regressions, and a shared normalization defect. No comparison against another model or claim of clinical validity has been established.
 
 ## Task fit
 
@@ -12,7 +12,7 @@ Schema-constrained JSON helps enforce output structure. It does not establish se
 
 | Candidate | Role and rationale | Limitation |
 | --- | --- | --- |
-| `gpt-5.4-mini-2026-03-17` | First cloud pilot. Supports Structured Outputs, a pinned snapshot, and reasoning effort `none`. A hosted model avoids local memory and deployment constraints. | Requires an API key and metered calls. Only the 10 development reports have been evaluated; held-out accuracy is unknown. |
+| `gpt-5.4-mini-2026-03-17` | First cloud pilot. Supports Structured Outputs, a pinned snapshot, and reasoning effort `none`. A hosted model avoids local memory and deployment constraints. | Requires an API key and metered calls. Small synthetic evaluation shows unresolved errors; real-world accuracy and superiority over alternatives remain unknown. |
 | Installed `llama3:8b` through local Ollama | Optional local baseline, with no API charge and local processing. | Installation proves availability, not suitability. The original model was released in April 2024; general benchmarks do not establish performance on our cases. |
 | Qwen3-8B | A possible alternative if local deployment becomes a requirement. Its documented non-thinking mode makes a bounded extraction pilot possible. | Not installed or tested here. Neither a newer release nor its general benchmarks proves better task accuracy. |
 
@@ -35,7 +35,7 @@ The pilot uses reasoning effort `none`, a 2,048 output-token cap per request, an
 5. Freeze the prompt and rules, then use separately authored and reviewed cases that were not used to tune them. Include negation, hypothetical statements, unknown counts, incompatible scores, multiple symptoms, and temporal ambiguity. Do not describe the current 10 examples as held-out accuracy.
 6. Compare another candidate on the same frozen cases if the first has material errors or if deployment/cost requirements justify it. Publish actual quality, latency, and usage side by side before claiming superiority.
 
-Offline unit-test success is evidence about program behavior. It is not an LLM accuracy result. No performance number should be invented while credentials or live inference are unavailable.
+Offline unit-test success is evidence about program behavior. It is not an LLM accuracy result. Actual per-run numbers and limitations are preserved in the reports. The temporal prompt candidate remains experimental because improved aggregate date scores coexist with count-scope and provenance regressions; the baseline remains the default without being certified as error-free.
 
 ## Primary sources
 

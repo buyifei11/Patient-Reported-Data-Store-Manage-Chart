@@ -1,0 +1,122 @@
+[
+  {
+    "report_id": "D001",
+    "scenario_group": "dev_book_club_concern",
+    "focus": "Current-reference tonight with hypothetical vomiting",
+    "reason": "A possible event tonight belongs to the local submission date without proving occurrence."
+  },
+  {
+    "report_id": "D002",
+    "scenario_group": "dev_pottery_episode",
+    "focus": "Current-reference tonight with an actual episode",
+    "reason": "A completed episode tonight uses the same current-day anchor as a hypothetical claim, with different assertion and count."
+  },
+  {
+    "report_id": "D003",
+    "scenario_group": "dev_piano_anticipation",
+    "focus": "Current-reference this evening with hypothetical nausea",
+    "reason": "This evening has a resolvable local date even though the symptom is only a possibility."
+  },
+  {
+    "report_id": "D004",
+    "scenario_group": "dev_choir_nausea",
+    "focus": "Current-reference this evening with actual nausea",
+    "reason": "An actual evening symptom has a date but no supported clock time or numeric severity."
+  },
+  {
+    "report_id": "D005",
+    "scenario_group": "dev_pacific_bus_timestamp",
+    "focus": "Today across a UTC-to-Pacific date boundary",
+    "reason": "The UTC timestamp is December 5 while the patient-local date is December 4; the explicit clock is retained."
+  },
+  {
+    "report_id": "D006",
+    "scenario_group": "dev_tokyo_calendar_total",
+    "focus": "Yesterday across a UTC-to-Tokyo date boundary",
+    "reason": "Local submission is December 7, so yesterday is December 6; a whole-day total is not a current-day snapshot."
+  },
+  {
+    "report_id": "D007",
+    "scenario_group": "dev_dated_afternoon_window",
+    "focus": "Explicit historical date with a partial-day window",
+    "reason": "The afternoon interval supplies a date and window count but neither an exact clock nor a whole-day total."
+  },
+  {
+    "report_id": "D008",
+    "scenario_group": "dev_stairwell_clock",
+    "focus": "Today with an explicit clock and one episode",
+    "reason": "A precise event time identifies an episode without implying an all-day cumulative count."
+  },
+  {
+    "report_id": "D009",
+    "scenario_group": "dev_undated_lunch_note",
+    "focus": "Meal-relative window with an explicitly unknown day",
+    "reason": "Submission context cannot supply a missing meal date, and a meal is not an exact clock."
+  },
+  {
+    "report_id": "D010",
+    "scenario_group": "dev_ferry_uncounted_window",
+    "focus": "Known current-day window with unknown episode count",
+    "reason": "Several confirms occurrence without supplying an exact integer; the ride supplies only a window."
+  },
+  {
+    "report_id": "D011",
+    "scenario_group": "dev_symptom_free_day",
+    "focus": "Explicit absence of both target symptoms",
+    "reason": "Explicit absence supports zero vomiting episodes, while nausea has no episode-count field."
+  },
+  {
+    "report_id": "D012",
+    "scenario_group": "dev_three_day_combined_total",
+    "focus": "One count over an explicit multi-day range",
+    "reason": "The combined count must stay unallocated because the schema cannot represent a date range as one event date."
+  },
+  {
+    "report_id": "D013",
+    "scenario_group": "dev_vomiting_score_disagreement",
+    "focus": "Eligible severity disagreement with agreeing positive counts",
+    "reason": "The text score remains 3 before reconciliation; only severity is unresolved because count and presence agree."
+  },
+  {
+    "report_id": "D014",
+    "scenario_group": "dev_current_clock_rating",
+    "focus": "Current-only score on the otherwise supported scale",
+    "reason": "A current rating must not be reinterpreted as the worst rating so far today."
+  },
+  {
+    "report_id": "D015",
+    "scenario_group": "dev_ten_point_diary_rating",
+    "focus": "Unsupported text scale with an independently valid questionnaire rating",
+    "reason": "The form can supply severity 2 while the rejected 6-of-10 text score remains a source diagnostic, without conversion."
+  },
+  {
+    "report_id": "D016",
+    "scenario_group": "dev_unqualified_diary_score",
+    "focus": "Supported scale with unspecified score context",
+    "reason": "A date and scale do not establish whether the rating describes current severity or the worst so far today."
+  },
+  {
+    "report_id": "D017",
+    "scenario_group": "dev_train_and_breakfast_dates",
+    "focus": "Two target symptoms on different relative dates",
+    "reason": "Separate clauses carry their own dates; the report-level submission date must not collapse them."
+  },
+  {
+    "report_id": "D018",
+    "scenario_group": "dev_running_total_disagreement",
+    "focus": "Different positive daily counts from text and questionnaire",
+    "reason": "Text count 4 survives extraction, then count becomes unknown while agreed presence stays present."
+  },
+  {
+    "report_id": "D019",
+    "scenario_group": "dev_zero_vs_positive_form",
+    "focus": "Text absence versus positive questionnaire count",
+    "reason": "Zero in the source must be preserved before reconciliation marks both presence and number as conflicting."
+  },
+  {
+    "report_id": "D020",
+    "scenario_group": "dev_household_logistics",
+    "focus": "Unrelated text with no target symptom",
+    "reason": "A successful empty extraction must not invent symptom absence, counts, dates, or observations."
+  }
+]

@@ -13,7 +13,7 @@ import time
 from pydantic import ValidationError
 
 from src.evaluation import evaluate_predictions
-from src.llm import ExtractionError, extract_candidates as extract_local
+from src.llm import ExtractionError, PROMPT_PATH, extract_candidates as extract_local
 from src.normalization import NormalizationError, normalize_report
 from src.schema import CandidateBatch, GoldRecord, NormalizedObservation, validate_sources
 
@@ -142,6 +142,9 @@ def process_report(report: dict, extractor, metadata: dict) -> dict:
 
 
 def _extract(args, sources: list[dict]) -> int:
+    # Check readability before creating output; clients read prompt bytes once per request.
+    with (args.prompt_file or PROMPT_PATH).open("rb"):
+        pass
     settings = load_settings()
     if args.provider == "openai":
         from src.openai_client import extract_candidates as extract_cloud
@@ -152,12 +155,14 @@ def _extract(args, sources: list[dict]) -> int:
             raise ValueError("OPENAI_API_KEY is missing. Configure it locally in .env or the environment; never paste it into logs.")
         if not model:
             raise ValueError("Choose --model or set OPENAI_MODEL in .env.")
-        extractor = lambda text: extract_cloud(text, model=model, api_key=key, timeout=args.timeout)
+        extractor = lambda text: extract_cloud(text, model=model, api_key=key, timeout=args.timeout,
+                                               prompt_path=args.prompt_file)
     else:
         model = args.model
         if not model:
             raise ValueError("The local adapter requires an explicit --model; no model is selected automatically.")
-        extractor = lambda text: extract_local(text, model=model, base_url=args.base_url, timeout=args.timeout)
+        extractor = lambda text: extract_local(text, model=model, base_url=args.base_url, timeout=args.timeout,
+                                               prompt_path=args.prompt_file)
     selected = sources[:args.limit] if args.limit is not None else sources
     metadata = {
         "backend": args.provider,
@@ -203,6 +208,7 @@ def main(argv: list[str] | None = None) -> int:
         command.add_argument("--gold", type=Path, default=ROOT / "data/gold/expected.jsonl")
     extract.add_argument("--provider", choices=("openai", "ollama"), required=True)
     extract.add_argument("--model", help="Explicit model ID; OpenAI may also use OPENAI_MODEL from .env")
+    extract.add_argument("--prompt-file", type=Path, default=None, help="Extraction prompt file; defaults to prompts/extraction.txt")
     extract.add_argument("--base-url", default="http://127.0.0.1:11434", help="Local Ollama origin only")
     extract.add_argument("--timeout", type=float, default=120)
     extract.add_argument("--limit", type=_positive_int)

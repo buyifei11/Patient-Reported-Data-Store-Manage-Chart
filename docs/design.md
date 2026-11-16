@@ -23,6 +23,8 @@ The source fixtures were deliberately revised for this version; their earlier ve
 
 The extraction, normalization, and evaluation stages are implemented. Database, cross-report aggregation, and trend stages in this diagram remain planned.
 
+The original starter fixtures below remain unchanged. A later temporal-prompt experiment adds 20 development and 20 held-out reports, bringing the repository to 50 reports and 61 reference observations. Their roles and pre-inference reviews are documented in [data/README.md](../data/README.md); measured gains, regressions, and known code limitations are in [prompt_comparison.md](prompt_comparison.md). These additional diagnostic cases do not complete the four-week follow-up dataset.
+
 ```mermaid
 flowchart TD
     A["Source report: original text and submission context"] --> B["Text parser: source-specific candidate claims"]
@@ -221,4 +223,4 @@ The full prototype still needs patient follow-up start and end dates for coverag
 
 Planned SQL queries are weekly reported vomiting counts with coverage and unresolved records, and symptoms occurring after a known medication change. A symptom date without a clock time may be insufficient to establish order relative to a same-day medication change. A patient-reported "after taking" relationship is not a substitute for a medication-change record.
 
-Next, address observed extraction errors and add independent evaluation cases. Then implement storage, cross-report aggregation, queries, and a chart, with multi-week source data. Charts will read stored query results and distinguish counts, compatible severity scores, missing information, and source evidence. The current development fixtures do not establish generalizable parser accuracy, clinical validity, or completion of the working prototype.
+Next, address the reconciliation and extraction defects found in the frozen prompt experiment, with separately versioned regression checks and new independent evaluation when making further quality claims. Then implement storage, cross-report aggregation, queries, and a chart, with multi-week source data. Charts will read stored query results and distinguish counts, compatible severity scores, missing information, and source evidence. The current synthetic fixtures do not establish generalizable parser accuracy, clinical validity, or completion of the working prototype.

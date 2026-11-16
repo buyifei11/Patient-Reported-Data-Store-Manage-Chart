@@ -1,11 +1,18 @@
-# Development evaluation
+# Reference-based evaluation
 
 `src/evaluation.py` compares a pipeline run with the authored reference records.
 It is independent of the model client and uses only the Python standard library.
-The current 10 reports, 15 observations, and three extraction checks are small
+The original 10 reports, 15 observations, and three extraction checks are small
 development fixtures. They were used to design the pipeline and are not an
 independently annotated, held-out dataset. Results measure agreement with these
 references; they do not establish clinical accuracy or generalization.
+
+The prompt experiment adds 20 development reports and 20 separately authored
+held-out reports, totaling 50 reports, 61 reference observations, and 41 targeted
+checks across all sets. The scorer is unchanged across both prompt versions;
+the experiment runner labels the output `reference_role` by split and validates
+frozen run metadata. These are small AI-assisted synthetic datasets, not clinical
+validation. See [dataset roles](../data/README.md) and [actual comparison](prompt_comparison.md).
 
 ## Two separate comparisons
 
@@ -125,7 +132,8 @@ Extraction checks choose a candidate by symptom, when specified, and source-quot
 overlap, never by its expected count or severity. Equally supported disagreeing
 candidates fail as ambiguous. Each check is independent: multiple checks may
 inspect different fields of the same candidate. Untargeted candidate fields are
-not scored by these three limited checks.
+not scored by the selected checks; three checks belong to the original fixtures,
+21 to the additional development set, and 17 to the held-out set.
 
 ## Inspecting mistakes and running tests
 
@@ -147,8 +155,18 @@ wrong issue fields, overfilled unknowns, and R009 candidate/reconciliation error
 Repeated-symptom examples ensure evidence drives alignment rather than matching
 the answer that produces the best grade. These tests require no model or API key.
 
-Before claiming broader extraction performance, add independent examples that
-were not used to design prompts or rules, freeze their references, review their
-annotations, and record the model, prompt, schema, and evaluation versions with
-the run. The three targeted extraction checks are useful regression checks, not
-complete coverage of all candidate fields or language patterns.
+The temporal experiment followed that pre-inference freeze/review process for
+its held-out cases. Once their outputs guide further changes, those cases become
+known regression data; a new independent claim needs new cases. Targeted checks
+are not complete coverage of all candidate fields or language patterns.
+
+## Observed alignment limitation
+
+H016 in the temporal experiment contains a daily text/form conflict that the
+normalizer incorrectly leaves as two observations. Full text and form evidence
+tie against the merged reference in three runs, leaving it unmatched. A shorter
+text excerpt in v2 round 1 makes the form observation the unique match, producing
+both an additional correct-date score and a count overfill. The number comes
+from the form; the metric alone does not mean it was fabricated. Inspect this
+case with the missing/extra observations and conflict flags. The frozen scores
+were not changed after this limitation was discovered.

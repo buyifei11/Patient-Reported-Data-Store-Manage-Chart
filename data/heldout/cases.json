@@ -1,0 +1,122 @@
+[
+  {
+    "report_id": "H001",
+    "scenario_group": "heldout_photo_album",
+    "focus": "Actual symptom tonight across a UTC/local-date boundary",
+    "reason": "A current evening narrative establishes the patient-local date even when the received timestamp has advanced to the next UTC date."
+  },
+  {
+    "report_id": "H002",
+    "scenario_group": "heldout_card_game",
+    "focus": "Evening occurrence with a limited-window count",
+    "reason": "An evening interval anchors today but does not turn a game-time count into a cumulative or completed-day total."
+  },
+  {
+    "report_id": "H003",
+    "scenario_group": "heldout_choir_rehearsal",
+    "focus": "Negated evening symptoms and bounded absence",
+    "reason": "Explicit evening absence is dated locally; a rehearsal-specific vomiting zero covers the rehearsal rather than the whole day."
+  },
+  {
+    "report_id": "H004",
+    "scenario_group": "heldout_concert_contingency",
+    "focus": "Conditional vomiting tonight",
+    "reason": "A contingency plan mentions a symptom on the current evening without asserting that it has happened or supplying a count."
+  },
+  {
+    "report_id": "H005",
+    "scenario_group": "heldout_balcony_evening",
+    "focus": "Actual tonight symptoms, clock time, and medication sequence",
+    "reason": "Two actual evening symptoms have distinct evidence; only the expressly timed episode gets a clock time, and the medication relation belongs to nausea."
+  },
+  {
+    "report_id": "H006",
+    "scenario_group": "heldout_garden_bus",
+    "focus": "Ordinary morning and afternoon anchors",
+    "reason": "Separate daytime activities support the same local date without supporting invented clock times or a whole-day vomiting total."
+  },
+  {
+    "report_id": "H007",
+    "scenario_group": "heldout_repair_shop",
+    "focus": "Known historical morning with an unknown count",
+    "reason": "Repeated vomiting establishes occurrence within an anchored window but supplies no exact episode count."
+  },
+  {
+    "report_id": "H008",
+    "scenario_group": "heldout_undated_travel_page",
+    "focus": "Undated meal window",
+    "reason": "A meal supplies a bounded context while the explicitly lost date prevents assignment to the submission day."
+  },
+  {
+    "report_id": "H009",
+    "scenario_group": "heldout_damaged_tally",
+    "focus": "Uncertain numerical alternatives for a daily count",
+    "reason": "A choice between two possible counts is not an exact count; the daily scope and confirmed occurrence remain usable."
+  },
+  {
+    "report_id": "H010",
+    "scenario_group": "heldout_combined_schedule",
+    "focus": "A combined count across four explicitly listed dates",
+    "reason": "A single tally combines four named dates without a daily allocation, so the bounded count stays a window with an unsupported single-date representation."
+  },
+  {
+    "report_id": "H011",
+    "scenario_group": "heldout_ferry_log",
+    "focus": "Explicit historical date and exact clock time",
+    "reason": "A dated log entry identifies a particular episode, independent of the later submission date."
+  },
+  {
+    "report_id": "H012",
+    "scenario_group": "heldout_completed_zero_log",
+    "focus": "Explicit completed-day total of zero",
+    "reason": "Full-day absence on a completed historical date is a day total; interval boundaries do not identify an event at midnight."
+  },
+  {
+    "report_id": "H013",
+    "scenario_group": "heldout_elevator_scale",
+    "focus": "Unsupported scale with compatible severity context",
+    "reason": "The daily maximum is explicit, but an eight on a ten-point scale must not be converted into the fixed five-point trend."
+  },
+  {
+    "report_id": "H014",
+    "scenario_group": "heldout_video_call_rating",
+    "focus": "A five-point rating elicited for the instant of a call",
+    "reason": "The explicitly momentary question makes a selected numeric rating ineligible for the worst-so-far-today trend; the call supplies no exact clock time."
+  },
+  {
+    "report_id": "H015",
+    "scenario_group": "heldout_kitchen_pad",
+    "focus": "Known date but unspecified severity summary context",
+    "reason": "A today label and five-point number do not establish whether the score is a maximum or a current measurement."
+  },
+  {
+    "report_id": "H016",
+    "scenario_group": "heldout_prework_form",
+    "focus": "Conflicting positive daily counts at a timezone boundary",
+    "reason": "Compatible text and form counts disagree on number while both confirm occurrence; today follows the patient-local date."
+  },
+  {
+    "report_id": "H017",
+    "scenario_group": "heldout_home_scale_form",
+    "focus": "Valid structured rating alongside unsupported text scale",
+    "reason": "The form independently supplies an eligible severity; an incompatible text scale remains a diagnostic rather than a conflict between eligible scores."
+  },
+  {
+    "report_id": "H018",
+    "scenario_group": "heldout_apartment_lobby",
+    "focus": "Exact event distinct from a questionnaire daily total",
+    "reason": "One clock-timed episode and a larger form total have incompatible scopes and must remain separate observations rather than a count conflict."
+  },
+  {
+    "report_id": "H019",
+    "scenario_group": "heldout_museum_recovery",
+    "focus": "Multiple symptoms with separate dates and absence",
+    "reason": "Historical nausea and current absence are distinct claims; a zero vomiting tally adds only the explicitly denied symptom for today."
+  },
+  {
+    "report_id": "H020",
+    "scenario_group": "heldout_delivery_request",
+    "focus": "Irrelevant administrative text",
+    "reason": "An administrative message contains neither target symptom and must not create symptom observations or inferred absence."
+  }
+]

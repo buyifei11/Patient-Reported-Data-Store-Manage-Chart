@@ -1,0 +1,58 @@
+{
+  "experiment": "temporal-prompt-v2",
+  "frozen_at": "2026-11-16T00:48:41.028242+00:00",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "groups": {
+    "development": [
+      [
+        "data/raw/reports.jsonl",
+        "data/gold/expected.jsonl"
+      ],
+      [
+        "data/dev/reports.jsonl",
+        "data/dev/expected.jsonl"
+      ]
+    ],
+    "heldout": [
+      [
+        "data/heldout/reports.jsonl",
+        "data/heldout/expected.jsonl"
+      ]
+    ]
+  },
+  "prompts": {
+    "v1": "prompts/extraction_v1.txt",
+    "v2": "prompts/extraction_v2.txt"
+  },
+  "repeats": {
+    "development": 1,
+    "heldout": 2
+  },
+  "planned_requests": 140,
+  "order": "Alternate prompt order by report index and round; preserve source order",
+  "files": {
+    "data/dev/cases.json": "5f2c28819885c21993d9eaa04572cedcca4336f54f01b4841823108d469c2194",
+    "data/dev/expected.jsonl": "f629fcd426bd3dbaa12b7e54f13a1f52526eb5884a215b6ac57cc46108039036",
+    "data/dev/reports.jsonl": "79f74d7c3e38f3c7842634d8d2f258da6e26104db03d00b30de797a9a5269a2b",
+    "data/dev/review.md": "a7c02b30881d7ebbb3ffaf914e997f130980252175185324b48eeff3ffef095c",
+    "data/gold/expected.jsonl": "ecff7a8d96f6e7c5d38ac485907d16475ab190f93ec9643584aece1df224ead6",
+    "data/heldout/cases.json": "6cb403bd157af6bdaf4d88c10ea33911c9c867d297e034a0123c5e5116f70d9e",
+    "data/heldout/expected.jsonl": "e4cb15dc5468c5ea8f45611307d1f62ec9394f58d46e13eb83e4c8f013fa6720",
+    "data/heldout/reports.jsonl": "3738b0a8de01bc58bceb069092374782da9d7487246f913f3e311c2025d216c8",
+    "data/heldout/review.md": "354a36e37e376d6e94b41b7c84aecb739f3c6014dd41d8d48c5382978056619a",
+    "data/raw/reports.jsonl": "81e45856bca4ccafec40f7474c3510e230fc03975448eceb221dad297b5710da",
+    "docs/prompt_experiment.md": "1130d4a9ab2ac70f235f4febe10c43219a0730cb6f096d8e1c041b4dbfee187b",
+    "prompts/extraction_v1.txt": "d88b76baa0f7454fd31495e03df07a5a607651718714bc24ec67b5103fa55cd7",
+    "prompts/extraction_v2.txt": "9507d6110ec54245a9ab31f19984be0cb684f936c5c1a4a70957717abeec6355",
+    "requirements.txt": "bdfcf80898f7fcd3021586dea1001cc42681f6eabeda66e225bf5104fa5755ce",
+    "run_experiment.py": "e197e21368ff49f54d155ddb802441905f522abae5425196cc5701df77065732",
+    "src/__init__.py": "36cfe2112bf6abb102be397db6a599982529ba5b9d76dad5dcbc410e2ff58867",
+    "src/evaluation.py": "f2b0ce9616a81bf91bfc8d947c3a0a09d187e6e93717cb01a56e220ab415a90d",
+    "src/experiment.py": "3c45414f498b9e1d948e469fb7cf66c62f9dbc1e00c39a3cabac4b50fce0e15b",
+    "src/llm.py": "90fede83c9aa7419def6cb850be3a03d4cdb70f1cf26ecb841730b191befadba",
+    "src/normalization.py": "68d120e8895bc55927ddb8512940dfc4f44b66d7dd18ebedd43eac14ab014353",
+    "src/openai_client.py": "af9a18759a0a1659d8edbb29bd84806275522ac238566203a5b72427d429a6da",
+    "src/pipeline.py": "17eac6385d10e7a0486be41fa6e67760c548490f8ced929a739db078062950ec",
+    "src/schema.py": "af0a842093535588a9271ab36f5df841b1bb8b93a0a45d4c9109cc8ff4037e28"
+  }
+}
