@@ -169,6 +169,15 @@ For example, R002 has `assertion=present` for nausea, but `severity=null` and `{
 
 When compatible daily claims contain a text score rejected for its scale or context and an independently valid questionnaire score, the normalized severity may use the questionnaire value. Retain the rejected text score's evidence and issue as source diagnostics; this is not a score conversion. Only disagreements between eligible severity values create a severity conflict. An unsupported-score issue therefore does not, by itself, exclude an independently supported non-null severity from a future trend. Exact events, narrower windows, and earlier within-day cumulative snapshots remain separate from a submission-time daily answer.
 
+For nausea, an explicit cumulative occurrence phrase such as `today up to now`
+can join a compatible daily-worst score within the same report. `Right now`,
+morning-only claims, different dates, explicit event clocks, and medication
+contexts remain separate. Grouping preserves original candidates and unions
+their evidence. Conflicting eligible daily ratings produce an unresolved null
+severity with `conflicting_sources`, never a selected score. Current-only scores
+remain in candidates/evidence and do not become daily-worst severity. See the
+[separate Python and prompt validation](../results/text-validation-nausea/README.md).
+
 ### Complete report replacement
 
 `supersedes_report_id` is supplied by an explicit edit operation that submits the entire revised text and questionnaire payload. The replacement must repeat information that remains valid. In the current fixtures, R006 changes R005's vomiting count from 3 to 2 and explicitly repeats nausea severity 4.

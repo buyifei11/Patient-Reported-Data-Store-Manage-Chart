@@ -16,11 +16,16 @@ A separate [ten-report text set](data/text_validation/README.md) has recorded
 [original/evidence](results/text-validation-comparison/README.md),
 [broad grouping](results/text-validation-grouping/README.md), and
 [compact grouping](results/text-validation-compact/README.md) experiments.
-Whole-report passes were 2/10, 8/10, 7/10, and 8/10, respectively. The latest run
-repairs vomiting grouping and evidence failures, but duplicates nausea in two
-reports. An offline diagnosis identifies a daily-context normalization gap.
-Sources, references, runtime, and the default prompt remain unchanged. These ten
-cases are known development/regression material, not a fresh evaluation set.
+Whole-report passes were 2/10, 8/10, 7/10, and 8/10, respectively. A subsequent
+[two-stage nausea follow-up](results/text-validation-nausea/README.md) repairs the
+daily-context Python gap first: replaying the saved compact output yields correct
+normalized values and structure for 10/10 reports, while preserving raw duplicate
+candidates. A separate one-rule prompt trial removes those duplicates but creates
+one invalid quote, leaving 9/10 usable reports. Keep the Python fix and retain the
+new prompt as experimental. Sources, references, and the default prompt remain
+unchanged. These cases are known development/regression material, not a fresh
+evaluation set; normalized correctness and strict whole-report correctness are
+reported separately.
 
 ## Run the complete offline demo
 

@@ -1,0 +1,247 @@
+{
+  "model": "gpt-5.4-mini-2026-03-17",
+  "scope": "known_synthetic_development_regression",
+  "prompt_file": "prompts/extraction_nausea_grouping.txt",
+  "runtime_sha256": "0b334440ad39c4114305d6c46e8459eb782df10baaf7094fc5d8d4f08ca5e724",
+  "model_requests": 10,
+  "attempts_per_report": 1,
+  "usage": {
+    "input_tokens": 23377,
+    "output_tokens": 1692,
+    "total_tokens": 25069
+  },
+  "report_completion": {
+    "total": 10,
+    "ok": 9,
+    "error": 1,
+    "missing": 0,
+    "rate": 0.9
+  },
+  "emitted_candidates": 15,
+  "normalized_observations": 13,
+  "automatic_candidate_fields": {
+    "correct": 154,
+    "total": 165
+  },
+  "direct_unique_candidate_fields": {
+    "correct": 165,
+    "total": 165,
+    "fields": {
+      "symptom": {
+        "correct": 15,
+        "total": 15
+      },
+      "assertion": {
+        "correct": 15,
+        "total": 15
+      },
+      "count": {
+        "correct": 15,
+        "total": 15
+      },
+      "count_scope": {
+        "correct": 15,
+        "total": 15
+      },
+      "severity_value": {
+        "correct": 15,
+        "total": 15
+      },
+      "severity_scale_max": {
+        "correct": 15,
+        "total": 15
+      },
+      "severity_context": {
+        "correct": 15,
+        "total": 15
+      },
+      "day_reference": {
+        "correct": 15,
+        "total": 15
+      },
+      "explicit_date": {
+        "correct": 15,
+        "total": 15
+      },
+      "clock_time": {
+        "correct": 15,
+        "total": 15
+      },
+      "medication_relation": {
+        "correct": 15,
+        "total": 15
+      }
+    },
+    "matching_rule": "For each reference symptom, compare its 11 declared fields only when exactly one expected check and exactly one emitted candidate of that symptom exist. Ambiguous, missing, or failed extractions receive no credit; extra candidates are counted separately. Never choose the most accurate candidate."
+  },
+  "normalized_core_fields": {
+    "known": {
+      "correct": 77,
+      "total": 89
+    },
+    "null": {
+      "correct": 40,
+      "total": 46
+    }
+  },
+  "observation_detection": {
+    "true_positive": 13,
+    "false_positive": 0,
+    "false_negative": 2,
+    "precision": 1.0,
+    "recall": 0.8666666666666667,
+    "f1": 0.9285714285714286
+  },
+  "unknown_overfill": {
+    "errors": 0,
+    "reference_null_fields": 46,
+    "rate": 0.0
+  },
+  "issue_detection": {
+    "true_positive": 1,
+    "false_positive": 0,
+    "false_negative": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  },
+  "exact_time_text": {
+    "reference_known": {
+      "correct": 8,
+      "total": 15,
+      "accuracy": 0.5333333333333333
+    },
+    "reference_null": {
+      "correct": 0,
+      "total": 0,
+      "accuracy": null,
+      "overfilled": 0
+    },
+    "missing_predictions": 2
+  },
+  "evidence_review": {
+    "valid_complete_quotes": 14,
+    "total_emitted_quotes": 15,
+    "reference_observations_with_unique_complete_values_and_evidence": 14,
+    "total_reference_observations": 15
+  },
+  "whole_reports": {
+    "normalized_values_and_structure_correct": 9,
+    "candidate_values_and_structure_correct": 10,
+    "including_evidence_complete": 9,
+    "total": 10
+  },
+  "reports": [
+    {
+      "report_id": "TV001",
+      "status": "ok",
+      "emitted_candidates": 1,
+      "normalized_observations": 1,
+      "normalized_values_and_structure_pass": true,
+      "unique_candidate_values_and_structure_pass": true,
+      "automatic_candidate_checks_pass": true,
+      "evidence_pass": true,
+      "whole_report_pass": true
+    },
+    {
+      "report_id": "TV002",
+      "status": "ok",
+      "emitted_candidates": 1,
+      "normalized_observations": 1,
+      "normalized_values_and_structure_pass": true,
+      "unique_candidate_values_and_structure_pass": true,
+      "automatic_candidate_checks_pass": true,
+      "evidence_pass": true,
+      "whole_report_pass": true
+    },
+    {
+      "report_id": "TV003",
+      "status": "ok",
+      "emitted_candidates": 1,
+      "normalized_observations": 1,
+      "normalized_values_and_structure_pass": true,
+      "unique_candidate_values_and_structure_pass": true,
+      "automatic_candidate_checks_pass": true,
+      "evidence_pass": true,
+      "whole_report_pass": true
+    },
+    {
+      "report_id": "TV004",
+      "status": "ok",
+      "emitted_candidates": 1,
+      "normalized_observations": 1,
+      "normalized_values_and_structure_pass": true,
+      "unique_candidate_values_and_structure_pass": true,
+      "automatic_candidate_checks_pass": true,
+      "evidence_pass": true,
+      "whole_report_pass": true
+    },
+    {
+      "report_id": "TV005",
+      "status": "ok",
+      "emitted_candidates": 1,
+      "normalized_observations": 1,
+      "normalized_values_and_structure_pass": true,
+      "unique_candidate_values_and_structure_pass": true,
+      "automatic_candidate_checks_pass": true,
+      "evidence_pass": true,
+      "whole_report_pass": true
+    },
+    {
+      "report_id": "TV006",
+      "status": "ok",
+      "emitted_candidates": 2,
+      "normalized_observations": 2,
+      "normalized_values_and_structure_pass": true,
+      "unique_candidate_values_and_structure_pass": true,
+      "automatic_candidate_checks_pass": true,
+      "evidence_pass": true,
+      "whole_report_pass": true
+    },
+    {
+      "report_id": "TV007",
+      "status": "error",
+      "emitted_candidates": 2,
+      "normalized_observations": 0,
+      "normalized_values_and_structure_pass": false,
+      "unique_candidate_values_and_structure_pass": true,
+      "automatic_candidate_checks_pass": false,
+      "evidence_pass": false,
+      "whole_report_pass": false
+    },
+    {
+      "report_id": "TV008",
+      "status": "ok",
+      "emitted_candidates": 2,
+      "normalized_observations": 2,
+      "normalized_values_and_structure_pass": true,
+      "unique_candidate_values_and_structure_pass": true,
+      "automatic_candidate_checks_pass": true,
+      "evidence_pass": true,
+      "whole_report_pass": true
+    },
+    {
+      "report_id": "TV009",
+      "status": "ok",
+      "emitted_candidates": 2,
+      "normalized_observations": 2,
+      "normalized_values_and_structure_pass": true,
+      "unique_candidate_values_and_structure_pass": true,
+      "automatic_candidate_checks_pass": true,
+      "evidence_pass": true,
+      "whole_report_pass": true
+    },
+    {
+      "report_id": "TV010",
+      "status": "ok",
+      "emitted_candidates": 2,
+      "normalized_observations": 2,
+      "normalized_values_and_structure_pass": true,
+      "unique_candidate_values_and_structure_pass": true,
+      "automatic_candidate_checks_pass": true,
+      "evidence_pass": true,
+      "whole_report_pass": true
+    }
+  ],
+  "decision": "Keep the Python fix. Retain the short prompt as an unpromoted experiment because it removes duplicates but loses a previously usable report through invalid evidence."
+}

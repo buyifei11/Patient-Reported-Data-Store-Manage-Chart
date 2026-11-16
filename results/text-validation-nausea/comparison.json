@@ -1,0 +1,98 @@
+{
+  "stages": [
+    "saved_compact",
+    "python_replay",
+    "new_prompt_fixed_python"
+  ],
+  "new_model_requests": 10,
+  "stage_1_model_requests": 0,
+  "same_source_gold_model_settings": true,
+  "stage_2_same_normalization_runtime": true,
+  "raw_baseline_reused_not_rerun": true,
+  "metrics": {
+    "raw_candidate_count": [
+      17,
+      17,
+      15
+    ],
+    "normalized_observation_count": [
+      17,
+      15,
+      13
+    ],
+    "normalized_core_fields_correct_out_of_135": [
+      126,
+      135,
+      117
+    ],
+    "direct_unique_candidate_fields_correct_out_of_165": [
+      143,
+      143,
+      165
+    ],
+    "automatic_candidate_fields_correct_out_of_165": [
+      154,
+      154,
+      154
+    ],
+    "normalized_correct_reports_out_of_10": [
+      8,
+      10,
+      9
+    ],
+    "whole_report_pass_out_of_10": [
+      8,
+      8,
+      9
+    ],
+    "valid_retained_quotes": [
+      {
+        "correct": 17,
+        "total": 17
+      },
+      {
+        "correct": 17,
+        "total": 17
+      },
+      {
+        "valid_complete_quotes": 14,
+        "total_emitted_quotes": 15,
+        "reference_observations_with_unique_complete_values_and_evidence": 14,
+        "total_reference_observations": 15
+      }
+    ]
+  },
+  "distinction": "Normalized-only correctness improved to 10/10 after Python replay, but the frozen whole-report rule remains 8/10 because raw duplicates persist. The new prompt improves the strict whole-report rate to 9/10 while reducing usable normalized reports to 9/10; these are different metrics.",
+  "per_report_changes": {
+    "python_replay": [
+      "TV007",
+      "TV009"
+    ],
+    "new_prompt_raw_duplicates_removed": [
+      "TV007",
+      "TV009"
+    ],
+    "new_prompt_invalid_evidence": [
+      "TV007"
+    ]
+  },
+  "decision": "Keep the Python fix. Retain the short prompt as an unpromoted experiment because it removes duplicates but loses a previously usable report through invalid evidence.",
+  "default_prompt_changed": false,
+  "dashboard_inputs_changed": false,
+  "no_model_fine_tuning": true,
+  "limitations": [
+    "Known synthetic regression examples, not a held-out test.",
+    "One saved baseline and one new call per report cannot distinguish prompt effects from model sampling variation.",
+    "Raw extraction and normalized metrics must be reported separately; Python replay cannot improve raw model output."
+  ],
+  "artifact_hashes": {
+    "results/text-validation-nausea/protocol.json": "b8673a9621413cc747bcea126ddec2c53837e2bc90cc6dea76b6180dd0aabef2",
+    "results/text-validation-nausea/prompt/protocol.json": "e15f2d3855dd96b9947707672d8abe2a66f9e8caa6157e8511c60ef91eff2eac",
+    "results/text-validation-nausea/prompt/predictions.jsonl": "2d1660e792ecc77b319c324821d1d24649bc699a12afd24337cb00108569ed71",
+    "results/text-validation-nausea/prompt/metrics.json": "2ff0b131e1ff41460d202081824950f39ac68364fe0fd1eb75fab676c0278965",
+    "results/text-validation-nausea/prompt/review.json": "9a286914fb2e14772aee948f80674c0254810795b163752417e2005afe24c918",
+    "results/text-validation-nausea/prompt/summary.json": "3c98079696f06d88fec22f4aba206df4b3fb34875a48045efaca968997144998",
+    "results/text-validation-nausea/python-replay/predictions.jsonl": "48400c2b44d0a47ee9907fd46babeee3fbd9a0eee536375ee370af78c474dd33",
+    "results/text-validation-nausea/python-replay/summary.json": "b4c6ca3a9b40cf3b76ebfa6fcc7074a5496b556a3b394ae42e79abed6843753f"
+  }
+}

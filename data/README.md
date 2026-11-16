@@ -32,7 +32,11 @@ in that role: fragmentation decreased, but new errors reduced whole-report passe
 from 8/10 to 7/10. A [compact grouping follow-up](../results/text-validation-compact/README.md)
 returns to 8/10, with nausea duplicates still unresolved. Its saved-output diagnosis
 traces a conservative daily-context merge gate; no runtime fix was applied during
-the prompt comparison. Sources and labels remain unchanged.
+that prompt comparison. A [two-stage follow-up](../results/text-validation-nausea/README.md)
+then fixes Python and replays the saved candidates (10/10 correct normalized
+reports). A separate prompt-only addition removes duplicates but introduces an
+invalid quote (9/10 usable reports). The Python fix is retained; the new prompt
+remains experimental. Sources and labels remain unchanged.
 
 | Set | Sources | References | Reports | Reference observations | Targeted extraction checks |
 | --- | --- | --- | ---: | ---: | ---: |

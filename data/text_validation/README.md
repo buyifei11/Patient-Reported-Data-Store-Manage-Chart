@@ -6,6 +6,12 @@ were frozen. One LLM generation request produced the texts; references were then
 authored from those texts and the data contract and checked by a separate agent.
 All ten generated texts were accepted without editorial changes.
 
+The later [two-stage nausea experiment](../../results/text-validation-nausea/README.md)
+separates deterministic repair from prompt tuning: Python replay resolves the
+two duplicate normalized records; a new prompt eliminates raw duplicates but
+introduces a noncontiguous quote in TV007. All original texts and references are
+still unchanged. These results do not convert the set back into held-out data.
+
 These began as targeted synthetic validation cases, not a final independent test set.
 They extend the [five development examples](../text_pilot/README.md) with different
 sentence layouts. They are newly authored facts, not ten more conversions of the
