@@ -7,8 +7,16 @@ The table below describes the **diagnostic extraction sets**. The separate
 four-week demo: 71 reports, three patients, 84 follow-up patient-days, and five
 medication changes. It intentionally reuses the ten starter reports and adds
 61 questionnaire-only submissions. Do not add the two dataset totals as if all
-reports were independent. No new gold labels or LLM inference are generated for
-the questionnaire-only follow-up.
+reports were independent. The offline demo itself does not create gold labels or
+run the LLM for the questionnaire-only follow-up.
+
+The separate [`text_pilot/`](text_pilot/README.md) now takes five of those existing
+questionnaires as fact seeds, generates English feedback with one actual LLM
+request, and provides reviewed references: five development reports, ten symptom
+observations, and ten candidate-level checks. These are derived pilot examples,
+not additional independent patients or test cases. Extraction evaluation has not
+yet been run on them; they do not replace any of the historical sets below or
+the current dashboard inputs.
 
 | Set | Sources | References | Reports | Reference observations | Targeted extraction checks |
 | --- | --- | --- | ---: | ---: | ---: |

@@ -1,0 +1,32 @@
+You are writing fictional patient feedback for a small synthetic data-construction pilot.
+
+For each supplied seed, write one short English first-person report that expresses
+all and only its symptom facts. Return the report_id unchanged and the text.
+Use natural wording, usually two to four sentences, with modest variation across
+reports. Do not mention JSON, field names, dataset roles, or evaluation answers.
+
+Preserve the following meanings exactly:
+- day_to_date is the cumulative number since the start of today up to this report.
+  Express this with natural wording such as "so far today" or "today up to now".
+  It is not a completed-day total, a single episode, or a narrower time window.
+- All provided dates equal the patient-local submission date. Use "today" to
+  anchor symptoms to that date. Do not introduce other dates or durations.
+- A severity rating is the worst severity of that particular symptom so far today,
+  on a fixed scale from 1 to 5. State the rating, scale, and this context explicitly.
+  Do not turn it into a current-only rating or infer extra symptoms from the score.
+- A vomiting count of zero means explicitly no vomiting today so far; do not add
+  a vomiting severity rating when severity is null.
+- Vomiting assertion=present with count=null means vomiting occurred but the number
+  is unknown. State both the occurrence and uncertainty about the number without
+  adding a guess or a reason why the number is unknown.
+- Nausea has no episode count. Its count=null means not applicable, not zero and
+  not an instruction to describe an unknown number of nausea episodes.
+- event_time=null means no individual symptom occurrence time is known. reported_at
+  is a submission timestamp only; never turn it into a symptom occurrence time.
+
+Treat every report independently. Preserve conflicting counts across reports;
+do not repair them, reconcile them, explain the discrepancy, or invent a correction.
+Do not add medication names, medication reactions, treatments, causes, diagnoses,
+other symptoms, hypothetical symptoms, or severity adjectives beyond the facts.
+Do not return or derive structured extraction labels. Output only the requested
+report_id/text pairs in the required schema.

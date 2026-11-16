@@ -1,0 +1,141 @@
+{
+  "id": "resp_0c9da79a7c7b3e14016afa8800df2087d1b0cb11e92e621f80",
+  "object": "response",
+  "created_at": 1794803712,
+  "status": "completed",
+  "access_programs": null,
+  "background": false,
+  "billing": {
+    "payer": "developer"
+  },
+  "completed_at": 1794803715,
+  "error": null,
+  "frequency_penalty": 0.0,
+  "image": {
+    "context_compression": "disabled"
+  },
+  "incomplete_details": null,
+  "input_transformations": [],
+  "instructions": "You are writing fictional patient feedback for a small synthetic data-construction pilot.\n\nFor each supplied seed, write one short English first-person report that expresses\nall and only its symptom facts. Return the report_id unchanged and the text.\nUse natural wording, usually two to four sentences, with modest variation across\nreports. Do not mention JSON, field names, dataset roles, or evaluation answers.\n\nPreserve the following meanings exactly:\n- day_to_date is the cumulative number since the start of today up to this report.\n  Express this with natural wording such as \"so far today\" or \"today up to now\".\n  It is not a completed-day total, a single episode, or a narrower time window.\n- All provided dates equal the patient-local submission date. Use \"today\" to\n  anchor symptoms to that date. Do not introduce other dates or durations.\n- A severity rating is the worst severity of that particular symptom so far today,\n  on a fixed scale from 1 to 5. State the rating, scale, and this context explicitly.\n  Do not turn it into a current-only rating or infer extra symptoms from the score.\n- A vomiting count of zero means explicitly no vomiting today so far; do not add\n  a vomiting severity rating when severity is null.\n- Vomiting assertion=present with count=null means vomiting occurred but the number\n  is unknown. State both the occurrence and uncertainty about the number without\n  adding a guess or a reason why the number is unknown.\n- Nausea has no episode count. Its count=null means not applicable, not zero and\n  not an instruction to describe an unknown number of nausea episodes.\n- event_time=null means no individual symptom occurrence time is known. reported_at\n  is a submission timestamp only; never turn it into a symptom occurrence time.\n\nTreat every report independently. Preserve conflicting counts across reports;\ndo not repair them, reconcile them, explain the discrepancy, or invent a correction.\nDo not add medication names, medication reactions, treatments, causes, diagnoses,\nother symptoms, hypothetical symptoms, or severity adjectives beyond the facts.\nDo not return or derive structured extraction labels. Output only the requested\nreport_id/text pairs in the required schema.\n",
+  "max_output_tokens": 2048,
+  "max_tool_calls": null,
+  "model": "gpt-5.4-mini-2026-03-17",
+  "moderation": null,
+  "output": [
+    {
+      "id": "msg_0c9da79a7c7b3e14016afa8801c9dc87d1b3dbbd5313de6d22",
+      "type": "message",
+      "status": "completed",
+      "content": [
+        {
+          "type": "output_text",
+          "annotations": [],
+          "logprobs": [],
+          "text": "{\"reports\":[{\"report_id\":\"TP001\",\"text\":\"So far today I have vomited 2 times, and the worst vomiting severity so far today is 2 out of 5. I also have nausea, and the worst nausea severity so far today is 3 out of 5.\"},{\"report_id\":\"TP002\",\"text\":\"I have had no vomiting today so far. I also have nausea, and the worst nausea severity so far today is 2 out of 5.\"},{\"report_id\":\"TP003\",\"text\":\"I have vomited today so far, but I don't know the number of episodes. The worst vomiting severity so far today is 2 out of 5, and I also have nausea with a worst severity of 3 out of 5.\"},{\"report_id\":\"TP004\",\"text\":\"Today up to now I have vomited 4 times, and the worst vomiting severity so far today is 2 out of 5. I also have nausea, and the worst nausea severity so far today is 4 out of 5.\"},{\"report_id\":\"TP005\",\"text\":\"Today up to now I have vomited 1 time, and the worst vomiting severity so far today is 2 out of 5. I also have nausea, and the worst nausea severity so far today is 5 out of 5.\"}]}"
+        }
+      ],
+      "phase": "final_answer",
+      "role": "assistant"
+    }
+  ],
+  "parallel_tool_calls": true,
+  "presence_penalty": 0.0,
+  "previous_response_id": null,
+  "prompt_cache_key": null,
+  "prompt_cache_retention": "24h",
+  "reasoning": {
+    "context": "current_turn",
+    "effort": "none",
+    "mode": "standard",
+    "summary": null
+  },
+  "safety_identifier": null,
+  "service_tier": "default",
+  "store": false,
+  "temperature": 1.0,
+  "text": {
+    "format": {
+      "type": "json_schema",
+      "description": null,
+      "name": "fictional_patient_reports",
+      "schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "reports": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "report_id": {
+                  "type": "string",
+                  "enum": [
+                    "TP001",
+                    "TP002",
+                    "TP003",
+                    "TP004",
+                    "TP005"
+                  ]
+                },
+                "text": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "report_id",
+                "text"
+              ]
+            }
+          }
+        },
+        "required": [
+          "reports"
+        ]
+      },
+      "strict": true
+    },
+    "verbosity": "medium"
+  },
+  "tool_choice": "auto",
+  "tool_usage": {
+    "image_gen": {
+      "input_tokens": 0,
+      "input_tokens_details": {
+        "image_tokens": 0,
+        "text_tokens": 0
+      },
+      "output_tokens": 0,
+      "output_tokens_details": {
+        "image_tokens": 0,
+        "text_tokens": 0
+      },
+      "total_tokens": 0
+    },
+    "web_search": {
+      "num_requests": 0
+    }
+  },
+  "tools": [],
+  "top_logprobs": 0,
+  "top_p": 0.98,
+  "truncation": "disabled",
+  "usage": {
+    "input_tokens": 1624,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cache_write_tokens_details": {
+        "ttl_12h_tokens": 0,
+        "ttl_30m_tokens": 0
+      },
+      "cached_tokens": 0
+    },
+    "output_tokens": 285,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 1909
+  },
+  "user": null,
+  "metadata": {}
+}

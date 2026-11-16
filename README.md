@@ -5,6 +5,11 @@ validate them, preserve history in SQLite, apply counting/correction rules, and
 show patient trends with coverage and unresolved values. All deliverables are in
 English. No real patient information is used.
 
+A separate [five-report text pilot](data/text_pilot/README.md) now contains actual
+LLM-generated feedback, reviewed references, and generation provenance. It is a
+data-preparation step: extraction evaluation has not yet run, and the existing
+offline dashboard below still uses its original mixed-input dataset.
+
 ## Run the complete offline demo
 
 Use Python 3.11 or newer; tested with Python 3.14.

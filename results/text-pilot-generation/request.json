@@ -1,0 +1,58 @@
+{
+  "model": "gpt-5.4-mini-2026-03-17",
+  "instructions": "You are writing fictional patient feedback for a small synthetic data-construction pilot.\n\nFor each supplied seed, write one short English first-person report that expresses\nall and only its symptom facts. Return the report_id unchanged and the text.\nUse natural wording, usually two to four sentences, with modest variation across\nreports. Do not mention JSON, field names, dataset roles, or evaluation answers.\n\nPreserve the following meanings exactly:\n- day_to_date is the cumulative number since the start of today up to this report.\n  Express this with natural wording such as \"so far today\" or \"today up to now\".\n  It is not a completed-day total, a single episode, or a narrower time window.\n- All provided dates equal the patient-local submission date. Use \"today\" to\n  anchor symptoms to that date. Do not introduce other dates or durations.\n- A severity rating is the worst severity of that particular symptom so far today,\n  on a fixed scale from 1 to 5. State the rating, scale, and this context explicitly.\n  Do not turn it into a current-only rating or infer extra symptoms from the score.\n- A vomiting count of zero means explicitly no vomiting today so far; do not add\n  a vomiting severity rating when severity is null.\n- Vomiting assertion=present with count=null means vomiting occurred but the number\n  is unknown. State both the occurrence and uncertainty about the number without\n  adding a guess or a reason why the number is unknown.\n- Nausea has no episode count. Its count=null means not applicable, not zero and\n  not an instruction to describe an unknown number of nausea episodes.\n- event_time=null means no individual symptom occurrence time is known. reported_at\n  is a submission timestamp only; never turn it into a symptom occurrence time.\n\nTreat every report independently. Preserve conflicting counts across reports;\ndo not repair them, reconcile them, explain the discrepancy, or invent a correction.\nDo not add medication names, medication reactions, treatments, causes, diagnoses,\nother symptoms, hypothetical symptoms, or severity adjectives beyond the facts.\nDo not return or derive structured extraction labels. Output only the requested\nreport_id/text pairs in the required schema.\n",
+  "input": [
+    {
+      "role": "user",
+      "content": "{\"seeds\": [{\"report_id\": \"TP001\", \"context\": {\"patient_id\": \"P001\", \"reported_at\": \"2026-11-04T20:30:00-06:00\", \"patient_timezone\": \"America/Chicago\", \"supersedes_report_id\": null}, \"facts\": [{\"symptom\": \"vomiting\", \"assertion\": \"present\", \"count\": 2, \"count_scope\": \"day_to_date\", \"severity\": 2, \"severity_scale_max\": 5, \"severity_context\": \"worst_today_so_far\", \"event_date\": \"2026-11-04\", \"event_time\": null}, {\"symptom\": \"nausea\", \"assertion\": \"present\", \"count\": null, \"count_scope\": null, \"severity\": 3, \"severity_scale_max\": 5, \"severity_context\": \"worst_today_so_far\", \"event_date\": \"2026-11-04\", \"event_time\": null}], \"style\": \"Brief, plain-language daily update.\"}, {\"report_id\": \"TP002\", \"context\": {\"patient_id\": \"P002\", \"reported_at\": \"2026-11-22T20:30:00-06:00\", \"patient_timezone\": \"America/Chicago\", \"supersedes_report_id\": null}, \"facts\": [{\"symptom\": \"vomiting\", \"assertion\": \"absent\", \"count\": 0, \"count_scope\": \"day_to_date\", \"severity\": null, \"severity_scale_max\": null, \"severity_context\": null, \"event_date\": \"2026-11-22\", \"event_time\": null}, {\"symptom\": \"nausea\", \"assertion\": \"present\", \"count\": null, \"count_scope\": null, \"severity\": 2, \"severity_scale_max\": 5, \"severity_context\": \"worst_today_so_far\", \"event_date\": \"2026-11-22\", \"event_time\": null}], \"style\": \"Conversational wording with explicit absence of vomiting.\"}, {\"report_id\": \"TP003\", \"context\": {\"patient_id\": \"P003\", \"reported_at\": \"2026-11-14T20:30:00-06:00\", \"patient_timezone\": \"America/Chicago\", \"supersedes_report_id\": null}, \"facts\": [{\"symptom\": \"vomiting\", \"assertion\": \"present\", \"count\": null, \"count_scope\": \"day_to_date\", \"severity\": 2, \"severity_scale_max\": 5, \"severity_context\": \"worst_today_so_far\", \"event_date\": \"2026-11-14\", \"event_time\": null}, {\"symptom\": \"nausea\", \"assertion\": \"present\", \"count\": null, \"count_scope\": null, \"severity\": 3, \"severity_scale_max\": 5, \"severity_context\": \"worst_today_so_far\", \"event_date\": \"2026-11-14\", \"event_time\": null}], \"style\": \"Natural wording that keeps the number of vomiting episodes unknown.\"}, {\"report_id\": \"TP004\", \"context\": {\"patient_id\": \"P001\", \"reported_at\": \"2026-11-10T10:00:00-06:00\", \"patient_timezone\": \"America/Chicago\", \"supersedes_report_id\": null}, \"facts\": [{\"symptom\": \"vomiting\", \"assertion\": \"present\", \"count\": 4, \"count_scope\": \"day_to_date\", \"severity\": 2, \"severity_scale_max\": 5, \"severity_context\": \"worst_today_so_far\", \"event_date\": \"2026-11-10\", \"event_time\": null}, {\"symptom\": \"nausea\", \"assertion\": \"present\", \"count\": null, \"count_scope\": null, \"severity\": 4, \"severity_scale_max\": 5, \"severity_context\": \"worst_today_so_far\", \"event_date\": \"2026-11-10\", \"event_time\": null}], \"style\": \"A concise current update; do not refer to another report.\"}, {\"report_id\": \"TP005\", \"context\": {\"patient_id\": \"P001\", \"reported_at\": \"2026-11-10T20:30:00-06:00\", \"patient_timezone\": \"America/Chicago\", \"supersedes_report_id\": null}, \"facts\": [{\"symptom\": \"vomiting\", \"assertion\": \"present\", \"count\": 1, \"count_scope\": \"day_to_date\", \"severity\": 2, \"severity_scale_max\": 5, \"severity_context\": \"worst_today_so_far\", \"event_date\": \"2026-11-10\", \"event_time\": null}, {\"symptom\": \"nausea\", \"assertion\": \"present\", \"count\": null, \"count_scope\": null, \"severity\": 5, \"severity_scale_max\": 5, \"severity_context\": \"worst_today_so_far\", \"event_date\": \"2026-11-10\", \"event_time\": null}], \"style\": \"A slightly different wording of a current update; do not explain or correct another report.\"}]}"
+    }
+  ],
+  "text": {
+    "format": {
+      "type": "json_schema",
+      "name": "fictional_patient_reports",
+      "schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "reports": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "report_id": {
+                  "type": "string",
+                  "enum": [
+                    "TP001",
+                    "TP002",
+                    "TP003",
+                    "TP004",
+                    "TP005"
+                  ]
+                },
+                "text": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "report_id",
+                "text"
+              ]
+            }
+          }
+        },
+        "required": [
+          "reports"
+        ]
+      },
+      "strict": true
+    }
+  },
+  "reasoning": {
+    "effort": "none"
+  },
+  "max_output_tokens": 2048,
+  "store": false,
+  "stream": false
+}
