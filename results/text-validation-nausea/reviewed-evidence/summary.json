@@ -1,0 +1,69 @@
+{
+  "kind": "review_assisted_evidence_acceptance",
+  "model_requests": 0,
+  "reviewed_reports": [
+    "TV007"
+  ],
+  "semantic_candidate_fields_changed": false,
+  "raw_candidates_responses_metadata_unchanged": true,
+  "other_nine_reports_unchanged": true,
+  "production_normalizer_evaluator_prompt_unchanged": true,
+  "normalized_report_completion": {
+    "total": 10,
+    "ok": 10,
+    "error": 0,
+    "missing": 0,
+    "rate": 1.0
+  },
+  "normalized_observations": 15,
+  "normalized_core_fields": {
+    "known": {
+      "correct": 89,
+      "total": 89
+    },
+    "null": {
+      "correct": 46,
+      "total": 46
+    }
+  },
+  "observation_detection": {
+    "true_positive": 15,
+    "false_positive": 0,
+    "false_negative": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  },
+  "original_strict_whole_report_pass": {
+    "correct": 9,
+    "total": 10,
+    "unchanged": true
+  },
+  "reviewed_semantic_acceptance": {
+    "correct": 10,
+    "total": 10,
+    "interpretation": "Nine automatically accepted reports plus one source-reviewed evidence exception; not ten autonomous strict passes."
+  },
+  "raw_automatic_candidate_fields": {
+    "correct": 154,
+    "total": 165,
+    "interpretation": "Unchanged because raw candidates and strict quote matching remain unchanged."
+  },
+  "next_step": "Do not tune the prompt or rerun the model for this verified harmless skipped sentence. Accept the reviewed report for downstream use; maintain visibility of the evidence-only exception.",
+  "full_offline_tests": {
+    "passed": 241,
+    "failed": 0
+  },
+  "hashes": {
+    "results/text-validation-nausea/prompt/predictions.jsonl": "2d1660e792ecc77b319c324821d1d24649bc699a12afd24337cb00108569ed71",
+    "results/text-validation-nausea/reviewed-evidence/review.json": "2057a7ed6a93b57a54afca0f19f5b28a7231f57a6b6196d38fe07fd0f202eb29",
+    "results/text-validation-nausea/reviewed-evidence/predictions.jsonl": "a74f0b3cb9e598221439053665fc9c684ec8465147c3b85a69cafa3bbbc83b91",
+    "results/text-validation-nausea/reviewed-evidence/metrics.json": "ea3b384aa3389193146b45430089ca8f8af3449808ce91476545da04d3df89e9",
+    "scripts/replay_reviewed_evidence.py": "7956cbbc901c452933c0ab835b11d722a2eff62fd814ac0e07db9d7a91185fc9"
+  },
+  "limitations": [
+    "This is an explicit source-reviewed exception, not a general semantic checker for skipped text.",
+    "Changed sources or candidate values invalidate this review; unreviewed failures are not waived.",
+    "The ten reports are known synthetic regression examples, not a new held-out test."
+  ]
+}

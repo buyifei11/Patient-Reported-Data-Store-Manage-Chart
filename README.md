@@ -22,7 +22,11 @@ daily-context Python gap first: replaying the saved compact output yields correc
 normalized values and structure for 10/10 reports, while preserving raw duplicate
 candidates. A separate one-rule prompt trial removes those duplicates but creates
 one invalid quote, leaving 9/10 usable reports. Keep the Python fix and retain the
-new prompt as experimental. Sources, references, and the default prompt remain
+new prompt as experimental. The user subsequently accepted the verified TV007
+quotation omission as an evidence-only exception: a separate
+[reviewed replay](results/text-validation-nausea/reviewed-evidence/README.md)
+contains 10/10 accepted reports with unchanged semantic values, and no new model
+calls. The original strict score remains 9/10. Sources, references, and the default prompt remain
 unchanged. These cases are known development/regression material, not a fresh
 evaluation set; normalized correctness and strict whole-report correctness are
 reported separately.

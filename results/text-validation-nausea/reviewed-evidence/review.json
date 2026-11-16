@@ -1,0 +1,14 @@
+{
+  "report_id": "TV007",
+  "source_sha256": "f8ab7b293315a9619e09c78a43266a2fd0e6a105cb5ee0b4cbc8a65b20c6ca68",
+  "candidate_sha256": "2dfd829f4ae38ff9d22440f2dcecb835f2f65776b94307fb78c3fc17d56549a3",
+  "original_fragments": [
+    "I’ve had nausea today up to now.",
+    "My nausea is 5 out of 5 at its worst so far today."
+  ],
+  "accepted_source_span": "I’ve had nausea today up to now. I’ve vomited 2 times so far today, and the worst vomiting severity today up to now is 2 out of 5. My nausea is 5 out of 5 at its worst so far today.",
+  "reason": "The omitted middle sentence describes vomiting only. The nausea occurrence, today-to-submission timing, worst severity 5/5, and all other candidate fields remain supported without a negation, correction, or conflicting temporal qualifier. Accept as an evidence-format exception; restore the intervening source sentence for downstream provenance.",
+  "review_method": "Source-based review by root and an independent agent; user accepts this verified class of harmless skipped-sentence quotation. No reference answers used to restore evidence.",
+  "decision": "Accept this source- and candidate-bound evidence exception; no prompt retuning or model rerun. Do not silently waive unreviewed omissions.",
+  "semantic_fields_changed": false
+}

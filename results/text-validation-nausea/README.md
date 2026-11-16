@@ -1,6 +1,13 @@
 # Daily nausea: separate Python and prompt experiments
 
-**Keep the Python fix. Keep the new prompt experimental.** Offline replay repairs
+**Follow-up decision:** the user accepts TV007's verified harmless quotation
+omission as an evidence-format exception. A separate
+[reviewed replay](reviewed-evidence/README.md) now accepts all ten reports with
+unchanged semantic candidate fields. No further prompt tuning or model calls
+are needed for this omission. The original results below remain as recorded.
+
+**Original two-stage conclusion, before reviewed acceptance:** keep the Python
+fix and retain the new prompt as experimental. Offline replay repairs
 TV007 and TV009 without changing the model's saved output. The subsequent prompt
 run removes duplicate candidates but produces a noncontiguous quote in TV007,
 which correctly fails validation. No retries, reference-assisted repairs, model

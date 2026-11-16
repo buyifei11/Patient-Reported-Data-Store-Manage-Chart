@@ -180,6 +180,13 @@ model inference or independent generalization.
 
 ## Follow-up scope and evidence experiment
 
+For the later ten-report nausea experiment, one verified harmless skipped-sentence
+quote is accepted through an explicit [source-reviewed evidence exception](../results/text-validation-nausea/reviewed-evidence/README.md).
+The original strict score remains 9/10; the separately labeled reviewed output
+accepts 10/10 reports. Its original candidates remain unchanged and the restored
+continuous source span is used only for normalization. This does not change the
+automatic evaluator or waive unreviewed evidence failures.
+
 The [v3 comparison](prompt_v3_comparison.md) uses the same evaluator and corrected
 normalizer for both prompts: 50 known regression reports and 20 newly authored
 validation reports, two rounds per arm. `scripts/run_prompt_v3.py` preserves full
