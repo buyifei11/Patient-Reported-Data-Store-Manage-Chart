@@ -1,15 +1,18 @@
-# Twenty fresh text cases: prepared, not extracted
+# Twenty text cases: preparation and first frozen evaluation
 
-**Status: 20 reviewed source/reference pairs; zero extraction calls.** This set
-checks the frozen nausea-grouping prompt and current Python handling on new
-synthetic cases. Preparing valid answers is not an extraction accuracy result.
+**Status: the [first frozen extraction run](../../results/text-holdout-extraction/README.md)
+is complete.** All 20 reports processed; 18 are fully correct, with two semantic
+field errors (TH005 count scope and TH012 morning/current context). All 29
+normalized observations are present. No quote exception, retry, or tuning was
+used. The original sources and references below remain unchanged.
 
-The intended next extraction model is `gpt-5.4-mini-2026-03-17`, using
+The evaluated extraction model is `gpt-5.4-mini-2026-03-17`, using
 [`extraction_nausea_grouping.txt`](../../prompts/extraction_nausea_grouping.txt),
 reasoning effort `none`, and a 2,048-output-token cap. The selected prompt and
 runtime were frozen before text generation in [preparation.json](preparation.json).
-This selects an experimental prompt for the next evaluation; it does not change
-the CLI default or the dashboard dataset.
+The preparation manifest and review record remain pre-inference snapshots; the
+linked result directory records the subsequent run. Evaluating this experimental
+prompt does not change the CLI default or the dashboard dataset.
 
 ## What the counts mean
 

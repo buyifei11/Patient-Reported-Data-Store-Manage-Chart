@@ -31,11 +31,12 @@ unchanged. These cases are known development/regression material, not a fresh
 evaluation set; normalized correctness and strict whole-report correctness are
 reported separately.
 
-A new [twenty-report validation set](data/text_holdout/README.md) is now prepared
-with reviewed references and a frozen extraction setup. It covers ordinary
-reports, grouping, distinct time contexts, conflicts, missing values, and an
-empty-target control. **No extraction has been run on these twenty cases.**
-The next step is to review them before a separate model evaluation.
+The [twenty-report validation set](data/text_holdout/README.md) now has a
+[first frozen extraction result](results/text-holdout-extraction/README.md):
+20/20 reports processed, 18/20 fully correct, 339/341 candidate fields correct,
+and 260/261 normalized core fields correct. An unknown-count scope omission and
+a morning/current context error remain. All 29 observations and seven issue
+flags are present; no quote waiver, retry, or post-result tuning was used.
 
 ## Run the complete offline demo
 

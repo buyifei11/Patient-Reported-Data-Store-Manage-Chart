@@ -1,0 +1,1652 @@
+{
+  "model": "gpt-5.4-mini-2026-03-17",
+  "prompt_file": "prompts/extraction_nausea_grouping.txt",
+  "case_set_role": "fresh_targeted_synthetic_validation_for_a_frozen_pipeline_not_independent_clinical_test",
+  "runtime_sha256": "0b334440ad39c4114305d6c46e8459eb782df10baaf7094fc5d8d4f08ca5e724",
+  "model_requests": 20,
+  "attempts_per_report": 1,
+  "usage": {
+    "input_tokens": 46553,
+    "output_tokens": 3003,
+    "total_tokens": 49556
+  },
+  "report_completion": {
+    "total": 20,
+    "ok": 20,
+    "error": 0,
+    "missing": 0,
+    "rate": 1.0
+  },
+  "emitted_candidates": 31,
+  "expected_candidate_groups": 31,
+  "normalized_observations": 29,
+  "expected_normalized_observations": 29,
+  "automatic_candidate_fields": {
+    "correct": 339,
+    "total": 341,
+    "accuracy": 0.9941348973607038,
+    "fields": {
+      "assertion": {
+        "correct": 31,
+        "total": 31,
+        "accuracy": 1.0
+      },
+      "clock_time": {
+        "correct": 31,
+        "total": 31,
+        "accuracy": 1.0
+      },
+      "count": {
+        "correct": 31,
+        "total": 31,
+        "accuracy": 1.0
+      },
+      "count_scope": {
+        "correct": 30,
+        "total": 31,
+        "accuracy": 0.967741935483871
+      },
+      "day_reference": {
+        "correct": 31,
+        "total": 31,
+        "accuracy": 1.0
+      },
+      "explicit_date": {
+        "correct": 31,
+        "total": 31,
+        "accuracy": 1.0
+      },
+      "medication_relation": {
+        "correct": 31,
+        "total": 31,
+        "accuracy": 1.0
+      },
+      "severity_context": {
+        "correct": 30,
+        "total": 31,
+        "accuracy": 0.967741935483871
+      },
+      "severity_scale_max": {
+        "correct": 31,
+        "total": 31,
+        "accuracy": 1.0
+      },
+      "severity_value": {
+        "correct": 31,
+        "total": 31,
+        "accuracy": 1.0
+      },
+      "symptom": {
+        "correct": 31,
+        "total": 31,
+        "accuracy": 1.0
+      }
+    }
+  },
+  "candidate_checks": {
+    "passed": 29,
+    "total": 31,
+    "accuracy": 0.9354838709677419
+  },
+  "normalized_core_fields": {
+    "known": {
+      "correct": 158,
+      "total": 159
+    },
+    "null": {
+      "correct": 102,
+      "total": 102
+    }
+  },
+  "observation_detection": {
+    "true_positive": 29,
+    "false_positive": 0,
+    "false_negative": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  },
+  "issue_detection": {
+    "true_positive": 7,
+    "false_positive": 0,
+    "false_negative": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  },
+  "unknown_overfill": {
+    "errors": 0,
+    "reference_null_fields": 102,
+    "rate": 0.0
+  },
+  "exact_time_text": {
+    "reference_known": {
+      "correct": 28,
+      "total": 29,
+      "accuracy": 0.9655172413793104
+    },
+    "reference_null": {
+      "correct": 0,
+      "total": 0,
+      "accuracy": null,
+      "overfilled": 0
+    },
+    "missing_predictions": 0
+  },
+  "evidence_review": {
+    "exact_continuous_quotes": 31,
+    "total_emitted_quotes": 31,
+    "populated_claims_supported": 30,
+    "complete_reference_semantics": 29,
+    "source_reviewed_exceptions": 0,
+    "reviewed_replay": false
+  },
+  "whole_reports": {
+    "strict_correct": 18,
+    "normalized_values_and_structure_correct": 19,
+    "source_reviewed_factual_correct": 18,
+    "total": 20
+  },
+  "reports": [
+    {
+      "report_id": "TH001",
+      "status": "ok",
+      "candidate_count": 1,
+      "expected_candidate_count": 1,
+      "normalized_observation_count": 1,
+      "expected_observation_count": 1,
+      "candidate_checks": {
+        "passed": 1,
+        "total": 1,
+        "accuracy": 1.0,
+        "fields": {
+          "assertion": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "clock_time": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "count": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "count_scope": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "day_reference": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "explicit_date": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "medication_relation": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "severity_context": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "severity_scale_max": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "severity_value": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "symptom": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          }
+        }
+      },
+      "candidate_structure_correct": true,
+      "normalized_values_and_structure_pass": true,
+      "semantic_evidence_pass": true,
+      "strict_whole_report_pass": true,
+      "source_reviewed_factual_pass": true,
+      "normalization_mismatches": []
+    },
+    {
+      "report_id": "TH002",
+      "status": "ok",
+      "candidate_count": 1,
+      "expected_candidate_count": 1,
+      "normalized_observation_count": 1,
+      "expected_observation_count": 1,
+      "candidate_checks": {
+        "passed": 1,
+        "total": 1,
+        "accuracy": 1.0,
+        "fields": {
+          "assertion": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "clock_time": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "count": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "count_scope": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "day_reference": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "explicit_date": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "medication_relation": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "severity_context": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "severity_scale_max": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "severity_value": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "symptom": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          }
+        }
+      },
+      "candidate_structure_correct": true,
+      "normalized_values_and_structure_pass": true,
+      "semantic_evidence_pass": true,
+      "strict_whole_report_pass": true,
+      "source_reviewed_factual_pass": true,
+      "normalization_mismatches": []
+    },
+    {
+      "report_id": "TH003",
+      "status": "ok",
+      "candidate_count": 2,
+      "expected_candidate_count": 2,
+      "normalized_observation_count": 2,
+      "expected_observation_count": 2,
+      "candidate_checks": {
+        "passed": 2,
+        "total": 2,
+        "accuracy": 1.0,
+        "fields": {
+          "assertion": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "clock_time": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "count": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "count_scope": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "day_reference": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "explicit_date": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "medication_relation": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "severity_context": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "severity_scale_max": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "severity_value": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "symptom": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          }
+        }
+      },
+      "candidate_structure_correct": true,
+      "normalized_values_and_structure_pass": true,
+      "semantic_evidence_pass": true,
+      "strict_whole_report_pass": true,
+      "source_reviewed_factual_pass": true,
+      "normalization_mismatches": []
+    },
+    {
+      "report_id": "TH004",
+      "status": "ok",
+      "candidate_count": 1,
+      "expected_candidate_count": 1,
+      "normalized_observation_count": 1,
+      "expected_observation_count": 1,
+      "candidate_checks": {
+        "passed": 1,
+        "total": 1,
+        "accuracy": 1.0,
+        "fields": {
+          "assertion": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "clock_time": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "count": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "count_scope": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "day_reference": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "explicit_date": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "medication_relation": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "severity_context": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "severity_scale_max": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "severity_value": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "symptom": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          }
+        }
+      },
+      "candidate_structure_correct": true,
+      "normalized_values_and_structure_pass": true,
+      "semantic_evidence_pass": true,
+      "strict_whole_report_pass": true,
+      "source_reviewed_factual_pass": true,
+      "normalization_mismatches": []
+    },
+    {
+      "report_id": "TH005",
+      "status": "ok",
+      "candidate_count": 2,
+      "expected_candidate_count": 2,
+      "normalized_observation_count": 2,
+      "expected_observation_count": 2,
+      "candidate_checks": {
+        "passed": 1,
+        "total": 2,
+        "accuracy": 0.5,
+        "fields": {
+          "assertion": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "clock_time": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "count": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "count_scope": {
+            "correct": 1,
+            "total": 2,
+            "accuracy": 0.5
+          },
+          "day_reference": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "explicit_date": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "medication_relation": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "severity_context": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "severity_scale_max": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "severity_value": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "symptom": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          }
+        }
+      },
+      "candidate_structure_correct": true,
+      "normalized_values_and_structure_pass": false,
+      "semantic_evidence_pass": true,
+      "strict_whole_report_pass": false,
+      "source_reviewed_factual_pass": false,
+      "normalization_mismatches": [
+        {
+          "report_id": "TH005",
+          "reference_index": 1,
+          "reference_id": "TH005-O2",
+          "prediction_index": 1,
+          "kind": "field",
+          "field": "count_scope",
+          "expected": "day_to_date",
+          "predicted": null,
+          "prediction_missing": false
+        }
+      ]
+    },
+    {
+      "report_id": "TH006",
+      "status": "ok",
+      "candidate_count": 1,
+      "expected_candidate_count": 1,
+      "normalized_observation_count": 1,
+      "expected_observation_count": 1,
+      "candidate_checks": {
+        "passed": 1,
+        "total": 1,
+        "accuracy": 1.0,
+        "fields": {
+          "assertion": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "clock_time": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "count": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "count_scope": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "day_reference": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "explicit_date": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "medication_relation": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "severity_context": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "severity_scale_max": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "severity_value": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "symptom": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          }
+        }
+      },
+      "candidate_structure_correct": true,
+      "normalized_values_and_structure_pass": true,
+      "semantic_evidence_pass": true,
+      "strict_whole_report_pass": true,
+      "source_reviewed_factual_pass": true,
+      "normalization_mismatches": []
+    },
+    {
+      "report_id": "TH007",
+      "status": "ok",
+      "candidate_count": 1,
+      "expected_candidate_count": 1,
+      "normalized_observation_count": 1,
+      "expected_observation_count": 1,
+      "candidate_checks": {
+        "passed": 1,
+        "total": 1,
+        "accuracy": 1.0,
+        "fields": {
+          "assertion": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "clock_time": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "count": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "count_scope": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "day_reference": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "explicit_date": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "medication_relation": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "severity_context": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "severity_scale_max": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "severity_value": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "symptom": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          }
+        }
+      },
+      "candidate_structure_correct": true,
+      "normalized_values_and_structure_pass": true,
+      "semantic_evidence_pass": true,
+      "strict_whole_report_pass": true,
+      "source_reviewed_factual_pass": true,
+      "normalization_mismatches": []
+    },
+    {
+      "report_id": "TH008",
+      "status": "ok",
+      "candidate_count": 2,
+      "expected_candidate_count": 2,
+      "normalized_observation_count": 2,
+      "expected_observation_count": 2,
+      "candidate_checks": {
+        "passed": 2,
+        "total": 2,
+        "accuracy": 1.0,
+        "fields": {
+          "assertion": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "clock_time": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "count": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "count_scope": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "day_reference": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "explicit_date": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "medication_relation": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "severity_context": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "severity_scale_max": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "severity_value": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "symptom": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          }
+        }
+      },
+      "candidate_structure_correct": true,
+      "normalized_values_and_structure_pass": true,
+      "semantic_evidence_pass": true,
+      "strict_whole_report_pass": true,
+      "source_reviewed_factual_pass": true,
+      "normalization_mismatches": []
+    },
+    {
+      "report_id": "TH009",
+      "status": "ok",
+      "candidate_count": 2,
+      "expected_candidate_count": 2,
+      "normalized_observation_count": 2,
+      "expected_observation_count": 2,
+      "candidate_checks": {
+        "passed": 2,
+        "total": 2,
+        "accuracy": 1.0,
+        "fields": {
+          "assertion": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "clock_time": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "count": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "count_scope": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "day_reference": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "explicit_date": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "medication_relation": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "severity_context": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "severity_scale_max": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "severity_value": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "symptom": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          }
+        }
+      },
+      "candidate_structure_correct": true,
+      "normalized_values_and_structure_pass": true,
+      "semantic_evidence_pass": true,
+      "strict_whole_report_pass": true,
+      "source_reviewed_factual_pass": true,
+      "normalization_mismatches": []
+    },
+    {
+      "report_id": "TH010",
+      "status": "ok",
+      "candidate_count": 2,
+      "expected_candidate_count": 2,
+      "normalized_observation_count": 2,
+      "expected_observation_count": 2,
+      "candidate_checks": {
+        "passed": 2,
+        "total": 2,
+        "accuracy": 1.0,
+        "fields": {
+          "assertion": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "clock_time": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "count": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "count_scope": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "day_reference": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "explicit_date": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "medication_relation": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "severity_context": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "severity_scale_max": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "severity_value": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "symptom": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          }
+        }
+      },
+      "candidate_structure_correct": true,
+      "normalized_values_and_structure_pass": true,
+      "semantic_evidence_pass": true,
+      "strict_whole_report_pass": true,
+      "source_reviewed_factual_pass": true,
+      "normalization_mismatches": []
+    },
+    {
+      "report_id": "TH011",
+      "status": "ok",
+      "candidate_count": 2,
+      "expected_candidate_count": 2,
+      "normalized_observation_count": 2,
+      "expected_observation_count": 2,
+      "candidate_checks": {
+        "passed": 2,
+        "total": 2,
+        "accuracy": 1.0,
+        "fields": {
+          "assertion": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "clock_time": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "count": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "count_scope": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "day_reference": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "explicit_date": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "medication_relation": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "severity_context": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "severity_scale_max": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "severity_value": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "symptom": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          }
+        }
+      },
+      "candidate_structure_correct": true,
+      "normalized_values_and_structure_pass": true,
+      "semantic_evidence_pass": true,
+      "strict_whole_report_pass": true,
+      "source_reviewed_factual_pass": true,
+      "normalization_mismatches": []
+    },
+    {
+      "report_id": "TH012",
+      "status": "ok",
+      "candidate_count": 2,
+      "expected_candidate_count": 2,
+      "normalized_observation_count": 2,
+      "expected_observation_count": 2,
+      "candidate_checks": {
+        "passed": 1,
+        "total": 2,
+        "accuracy": 0.5,
+        "fields": {
+          "assertion": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "clock_time": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "count": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "count_scope": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "day_reference": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "explicit_date": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "medication_relation": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "severity_context": {
+            "correct": 1,
+            "total": 2,
+            "accuracy": 0.5
+          },
+          "severity_scale_max": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "severity_value": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "symptom": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          }
+        }
+      },
+      "candidate_structure_correct": true,
+      "normalized_values_and_structure_pass": true,
+      "semantic_evidence_pass": false,
+      "strict_whole_report_pass": false,
+      "source_reviewed_factual_pass": false,
+      "normalization_mismatches": []
+    },
+    {
+      "report_id": "TH013",
+      "status": "ok",
+      "candidate_count": 2,
+      "expected_candidate_count": 2,
+      "normalized_observation_count": 2,
+      "expected_observation_count": 2,
+      "candidate_checks": {
+        "passed": 2,
+        "total": 2,
+        "accuracy": 1.0,
+        "fields": {
+          "assertion": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "clock_time": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "count": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "count_scope": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "day_reference": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "explicit_date": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "medication_relation": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "severity_context": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "severity_scale_max": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "severity_value": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "symptom": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          }
+        }
+      },
+      "candidate_structure_correct": true,
+      "normalized_values_and_structure_pass": true,
+      "semantic_evidence_pass": true,
+      "strict_whole_report_pass": true,
+      "source_reviewed_factual_pass": true,
+      "normalization_mismatches": []
+    },
+    {
+      "report_id": "TH014",
+      "status": "ok",
+      "candidate_count": 2,
+      "expected_candidate_count": 2,
+      "normalized_observation_count": 2,
+      "expected_observation_count": 2,
+      "candidate_checks": {
+        "passed": 2,
+        "total": 2,
+        "accuracy": 1.0,
+        "fields": {
+          "assertion": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "clock_time": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "count": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "count_scope": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "day_reference": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "explicit_date": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "medication_relation": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "severity_context": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "severity_scale_max": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "severity_value": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "symptom": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          }
+        }
+      },
+      "candidate_structure_correct": true,
+      "normalized_values_and_structure_pass": true,
+      "semantic_evidence_pass": true,
+      "strict_whole_report_pass": true,
+      "source_reviewed_factual_pass": true,
+      "normalization_mismatches": []
+    },
+    {
+      "report_id": "TH015",
+      "status": "ok",
+      "candidate_count": 2,
+      "expected_candidate_count": 2,
+      "normalized_observation_count": 2,
+      "expected_observation_count": 2,
+      "candidate_checks": {
+        "passed": 2,
+        "total": 2,
+        "accuracy": 1.0,
+        "fields": {
+          "assertion": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "clock_time": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "count": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "count_scope": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "day_reference": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "explicit_date": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "medication_relation": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "severity_context": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "severity_scale_max": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "severity_value": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "symptom": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          }
+        }
+      },
+      "candidate_structure_correct": true,
+      "normalized_values_and_structure_pass": true,
+      "semantic_evidence_pass": true,
+      "strict_whole_report_pass": true,
+      "source_reviewed_factual_pass": true,
+      "normalization_mismatches": []
+    },
+    {
+      "report_id": "TH016",
+      "status": "ok",
+      "candidate_count": 2,
+      "expected_candidate_count": 2,
+      "normalized_observation_count": 1,
+      "expected_observation_count": 1,
+      "candidate_checks": {
+        "passed": 2,
+        "total": 2,
+        "accuracy": 1.0,
+        "fields": {
+          "assertion": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "clock_time": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "count": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "count_scope": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "day_reference": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "explicit_date": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "medication_relation": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "severity_context": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "severity_scale_max": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "severity_value": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "symptom": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          }
+        }
+      },
+      "candidate_structure_correct": true,
+      "normalized_values_and_structure_pass": true,
+      "semantic_evidence_pass": true,
+      "strict_whole_report_pass": true,
+      "source_reviewed_factual_pass": true,
+      "normalization_mismatches": []
+    },
+    {
+      "report_id": "TH017",
+      "status": "ok",
+      "candidate_count": 2,
+      "expected_candidate_count": 2,
+      "normalized_observation_count": 1,
+      "expected_observation_count": 1,
+      "candidate_checks": {
+        "passed": 2,
+        "total": 2,
+        "accuracy": 1.0,
+        "fields": {
+          "assertion": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "clock_time": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "count": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "count_scope": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "day_reference": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "explicit_date": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "medication_relation": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "severity_context": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "severity_scale_max": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "severity_value": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          "symptom": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          }
+        }
+      },
+      "candidate_structure_correct": true,
+      "normalized_values_and_structure_pass": true,
+      "semantic_evidence_pass": true,
+      "strict_whole_report_pass": true,
+      "source_reviewed_factual_pass": true,
+      "normalization_mismatches": []
+    },
+    {
+      "report_id": "TH018",
+      "status": "ok",
+      "candidate_count": 1,
+      "expected_candidate_count": 1,
+      "normalized_observation_count": 1,
+      "expected_observation_count": 1,
+      "candidate_checks": {
+        "passed": 1,
+        "total": 1,
+        "accuracy": 1.0,
+        "fields": {
+          "assertion": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "clock_time": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "count": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "count_scope": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "day_reference": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "explicit_date": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "medication_relation": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "severity_context": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "severity_scale_max": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "severity_value": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "symptom": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          }
+        }
+      },
+      "candidate_structure_correct": true,
+      "normalized_values_and_structure_pass": true,
+      "semantic_evidence_pass": true,
+      "strict_whole_report_pass": true,
+      "source_reviewed_factual_pass": true,
+      "normalization_mismatches": []
+    },
+    {
+      "report_id": "TH019",
+      "status": "ok",
+      "candidate_count": 1,
+      "expected_candidate_count": 1,
+      "normalized_observation_count": 1,
+      "expected_observation_count": 1,
+      "candidate_checks": {
+        "passed": 1,
+        "total": 1,
+        "accuracy": 1.0,
+        "fields": {
+          "assertion": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "clock_time": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "count": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "count_scope": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "day_reference": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "explicit_date": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "medication_relation": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "severity_context": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "severity_scale_max": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "severity_value": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          "symptom": {
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          }
+        }
+      },
+      "candidate_structure_correct": true,
+      "normalized_values_and_structure_pass": true,
+      "semantic_evidence_pass": true,
+      "strict_whole_report_pass": true,
+      "source_reviewed_factual_pass": true,
+      "normalization_mismatches": []
+    },
+    {
+      "report_id": "TH020",
+      "status": "ok",
+      "candidate_count": 0,
+      "expected_candidate_count": 0,
+      "normalized_observation_count": 0,
+      "expected_observation_count": 0,
+      "candidate_checks": {
+        "passed": 0,
+        "total": 0,
+        "accuracy": null,
+        "fields": {}
+      },
+      "candidate_structure_correct": true,
+      "normalized_values_and_structure_pass": true,
+      "semantic_evidence_pass": true,
+      "strict_whole_report_pass": true,
+      "source_reviewed_factual_pass": true,
+      "normalization_mismatches": []
+    }
+  ],
+  "semantic_error_reports": [
+    "TH005",
+    "TH012"
+  ],
+  "decision": "Preserve this first frozen result. Do not retune or retry on these20cases in this run; keep the two bounded semantic errors visible. This supports moving to the longitudinal text pipeline with known limitations, not a claim of perfect general extraction or silent default promotion.",
+  "provenance": {
+    "protocol_sha256": "14d80a47138d3bd6f884e73ee62f5ad757ea17c830e67776f78828181f1748b5",
+    "predictions_sha256": "cc1061861ab6885f033d1cf2fd1b0c5def3d249505ebd21a1dbcb748022f6924",
+    "metrics_sha256": "2176f38bf5f5da36cdd88d8c3bb2412072bb5c18b54f1ace8fa59285177db3c6",
+    "review_sha256": "08347a48e45f61cb9f4a1d389733bcebb3517270e415c60a95d5bfd92a45bba7",
+    "source_dataset_sha256": "bd9b8f9c3ebaadf1ca3be8b31f8c34f8f4b9cce9446a636c5e2f3186b3e09309",
+    "gold_dataset_sha256": "3525dc8a7bf0b41b59c302f5b3ae113b7ca42c41263629bdc2ea2c3a19227f6a",
+    "frozen_inputs_unchanged": true,
+    "default_prompt_changed": false,
+    "dashboard_inputs_changed": false
+  },
+  "limitations": [
+    "Deliberately targeted small synthetic sample, not random patient data.",
+    "Generation and extraction may use the same model family.",
+    "Authors know scenario categories; only extraction prompts/runtime are frozen before text generation.",
+    "Coverage omits correction chains, multi-day allocation, time-zone boundary changes, and hypothetical reports.",
+    "One attempt per report; no stability estimate.",
+    "20synthetic reports, not clinical generalization or a held-out population sample."
+  ]
+}
