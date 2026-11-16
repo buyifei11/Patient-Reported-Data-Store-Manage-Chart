@@ -1,8 +1,8 @@
 # Track B: Patient-Reported Data Prototype Design (v0.2)
 
-This document defines the data contract before implementation of the parser, database, and charts. All patients, reports, and medication labels are fictional. All submission artifacts, including documentation, sample text, code comments, prompts, and interface labels, must be in English.
+This document defines the data contract for extraction, normalization, and the planned database and charts. All patients, reports, and medication labels are fictional. All submission artifacts, including documentation, sample text, code comments, prompts, and interface labels, must be in English.
 
-Current deliverables: this design, 10 source reports from three fictional patients, 15 expected observations, and three targeted extraction checks. The examples and reference answers were drafted with AI assistance and reviewed against these rules, but have not been independently annotated by a human reviewer. They are development fixtures, not a held-out test set. No application parser, executable schema, database, query, chart, or reusable test suite has been implemented.
+Current deliverables: this design, 10 source reports from three fictional patients, 15 expected observations, three targeted extraction checks, executable schemas, cloud/local extraction adapters, deterministic normalization, evaluation, and offline tests. The examples and reference answers were drafted with AI assistance and reviewed against these rules, but have not been independently annotated by a human reviewer. They are development fixtures, not a held-out test set. The first cloud run is recorded in [development_run.md](development_run.md). Database storage, cross-report aggregation, SQL queries, and charts remain unimplemented.
 
 ## 1. Scope and changes in v0.2
 
@@ -21,7 +21,7 @@ The source fixtures were deliberately revised for this version; their earlier ve
 
 ## 2. Processing stages and dataset roles
 
-The diagram is the intended architecture, not an implemented pipeline.
+The extraction, normalization, and evaluation stages are implemented. Database, cross-report aggregation, and trend stages in this diagram remain planned.
 
 ```mermaid
 flowchart TD
@@ -40,7 +40,7 @@ flowchart TD
 | --- | --- | --- |
 | Source reports | `data/raw/reports.jsonl` | Original text, structured questionnaire answers, and submission metadata. |
 | Expected results (gold) | `data/gold/expected.jsonl` | Authored reference answers and a few source-specific checks. Never passed to the parser as input. |
-| Processed results | To be generated | Actual outputs of the implemented pipeline. Copying gold is not successful extraction. |
+| Processed results | `data/processed/`; selected run in `results/gpt54mini-dev-v1/` | Actual outputs of the implemented pipeline. Copying gold is not successful extraction. |
 
 Each existing JSONL file contains 10 records, one JSON object per line. Records are linked by `report_id`.
 
@@ -165,6 +165,8 @@ For example, R002 has `assertion=present` for nausea, but `severity=null` and `{
 5. Unknown dates and unsupported ranges are retained for inspection but excluded from single-day allocation.
 6. Resolve only fields supported by the sources. A conflict in severity must not invalidate a consistent count or date.
 
+When compatible daily claims contain a text score rejected for its scale or context and an independently valid questionnaire score, the normalized severity may use the questionnaire value. Retain the rejected text score's evidence and issue as source diagnostics; this is not a score conversion. Only disagreements between eligible severity values create a severity conflict. An unsupported-score issue therefore does not, by itself, exclude an independently supported non-null severity from a future trend. Exact events, narrower windows, and earlier within-day cumulative snapshots remain separate from a submission-time daily answer.
+
 ### Complete report replacement
 
 `supersedes_report_id` is supplied by an explicit edit operation that submits the entire revised text and questionnaire payload. The replacement must repeat information that remains valid. In the current fixtures, R006 changes R005's vomiting count from 3 to 2 and explicitly repeats nausea severity 4.
@@ -192,7 +194,7 @@ Future storage will assign or retain identifiers within a stored report version.
 
 Each targeted extraction check contains `source` (a `{path, value}` reference) and `expected_fields` (only the candidate fields being checked). Current checks cover R001's complete-day count, R002's text rating of 2/5, and R009's text count of 1. These checks are evaluated before questionnaire reconciliation; then compare normalized observations to gold. No additional full candidate dataset is required.
 
-Format validation and semantic evaluation are separate. Parse failures must remain distinguishable from a successful extraction with no relevant symptoms. Future run diagnostics will record such failures; a model error must not become a symptom-free report. Reference answers can be revised with a documented reason and are not independent clinical ground truth.
+Format validation and semantic evaluation are separate. Run diagnostics distinguish parse failures from a successful extraction with no relevant symptoms; a model error must not become a symptom-free report. Reference answers can be revised with a documented reason and are not independent clinical ground truth. [evaluation.md](evaluation.md) defines implemented matching and denominators.
 
 ## 8. Starter examples and acceptance expectations
 
@@ -211,7 +213,7 @@ Format validation and semantic evaluation are separate. Parse failures must rema
 
 All dates are in 2026. Across R004, R005, and R006, effective cumulative vomiting counts progress 2 -> 3 -> 2; they are never summed. Nausea severity from the corrected report is retained at 4.
 
-Additional examples to add before claiming broader coverage include multi-day counts, ambiguous incremental reports, incompatible severity scales or contexts, incomplete corrections, and decreasing cumulative counts without a correction. These rules are specified but not yet represented by a complete test suite or held-out dataset.
+Additional model-evaluation examples are needed before claiming broader coverage: multi-day counts, ambiguous incremental reports, incompatible severity scales or contexts, incomplete corrections, and decreasing cumulative counts without a correction. Offline tests cover several normalization boundaries, but these are not held-out model outputs. Cross-report correction and aggregation behavior still requires implementation.
 
 ## 9. Remaining inputs and implementation work
 
@@ -219,4 +221,4 @@ The full prototype still needs patient follow-up start and end dates for coverag
 
 Planned SQL queries are weekly reported vomiting counts with coverage and unresolved records, and symptoms occurring after a known medication change. A symptom date without a clock time may be insufficient to establish order relative to a same-day medication change. A patient-reported "after taking" relationship is not a substitute for a medication-change record.
 
-Next, implement the executable data structures and validators, text parser, storage, queries, and chart. Add multi-week source data and independent evaluation cases. Charts will read stored query results and distinguish counts, compatible severity scores, missing information, and source evidence. The current development fixtures do not establish parser accuracy, clinical validity, or completion of the working prototype.
+Next, address observed extraction errors and add independent evaluation cases. Then implement storage, cross-report aggregation, queries, and a chart, with multi-week source data. Charts will read stored query results and distinguish counts, compatible severity scores, missing information, and source evidence. The current development fixtures do not establish generalizable parser accuracy, clinical validity, or completion of the working prototype.
