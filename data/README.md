@@ -38,6 +38,14 @@ reports). A separate prompt-only addition removes duplicates but introduces an
 invalid quote (9/10 usable reports). The Python fix is retained; the new prompt
 remains experimental. Sources and labels remain unchanged.
 
+[`text_holdout/`](text_holdout/README.md) is the next fresh targeted synthetic set:
+20 reports, 31 candidate checks, and 29 normalized reference observations. The
+selected nausea-grouping prompt and runtime were frozen before text generation.
+Twelve generated texts are unchanged; eight edits are disclosed before any
+extraction. Sources and references have separate agent review. **No extraction
+run or accuracy result exists yet.** It is separate from the older 70-report
+diagnostic table below and from the dashboard inputs.
+
 | Set | Sources | References | Reports | Reference observations | Targeted extraction checks |
 | --- | --- | --- | ---: | ---: | ---: |
 | Original development | `raw/reports.jsonl` | `gold/expected.jsonl` | 10 | 15 | 3 |

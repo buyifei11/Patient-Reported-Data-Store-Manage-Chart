@@ -1,0 +1,71 @@
+{
+  "status": "prepared_and_independently_reviewed_not_extracted",
+  "reviewed_at_utc": "2026-11-16T20:17:00.117506+00:00",
+  "role": "fresh_targeted_synthetic_validation_for_a_frozen_pipeline_not_independent_clinical_test",
+  "reports": 20,
+  "candidate_checks": 31,
+  "candidate_semantic_field_expectations": 341,
+  "normalized_observations": 29,
+  "normalized_core_fields": {
+    "total": 261,
+    "known": 159,
+    "null": 102
+  },
+  "exact_source_evidence_entries": 62,
+  "generation_requests": 1,
+  "extraction_requests": 0,
+  "training_requests": 0,
+  "authorship": {
+    "fact_seed_design": "Root agent",
+    "text_generation": "One pinned-model request",
+    "source_edits": "Root agent; eight disclosed edits before label authoring",
+    "reference_author": "Separate agent, from final texts and written contract",
+    "independent_reviewer": "Different agent reviewed all sources, edits and labels",
+    "normalizer_used_to_author_or_validate_labels": false
+  },
+  "checks": {
+    "source_and_gold_schema_and_linkage": "pass",
+    "semantic_source_reference_review": "pass",
+    "evidence_provenance": "pass",
+    "ids_and_patients_unique": true,
+    "questionnaire_entries": 0,
+    "older_nonempty_source_rows_compared": 95,
+    "exact_text_duplicates": 0,
+    "case_punctuation_normalized_duplicates": 0,
+    "edited_texts": 8,
+    "unchanged_generated_texts": 12,
+    "discarded_or_regenerated_reports": 0
+  },
+  "extraction_freeze": {
+    "model": "gpt-5.4-mini-2026-03-17",
+    "prompt_file": "prompts/extraction_nausea_grouping.txt",
+    "prompt_sha256": "64c6dfe9d09fa225aac6b74045a024350ca09aa13f36889dcab95d935febc33f",
+    "system_prompt_sha256": "a20e2fc8901e6a50438127c1f7209516e4a1293a95ee82e2482833ea487970bc",
+    "runtime_sha256": "0b334440ad39c4114305d6c46e8459eb782df10baaf7094fc5d8d4f08ca5e724",
+    "reasoning_effort": "none",
+    "max_output_tokens": 2048,
+    "source_dataset_sha256": "bd9b8f9c3ebaadf1ca3be8b31f8c34f8f4b9cce9446a636c5e2f3186b3e09309",
+    "gold_dataset_sha256": "3525dc8a7bf0b41b59c302f5b3ae113b7ca42c41263629bdc2ea2c3a19227f6a",
+    "reviewed_evidence_script_sha256": "7956cbbc901c452933c0ab835b11d722a2eff62fd814ac0e07db9d7a91185fc9"
+  },
+  "file_hashes": {
+    "data/text_holdout/seeds.jsonl": "4bb071e11d0cfe0b0fefa14fb563c23c437c3b2add188f9f0d4d9a280bea2003",
+    "data/text_holdout/reports.jsonl": "196882772250d56dca8b7492146ea1f8ce5a638a5ad366b604f5574624a1bdfa",
+    "data/text_holdout/expected.jsonl": "2527cde89aa32411332505825c7dcb4b3a5bea687c2b8841099d94b484798cd1",
+    "data/text_holdout/editorial_review.json": "061ace99b5edf0c55e70465663c0bba95fe2977240f68cd4d18fc1c0e2b901c4",
+    "data/text_holdout/preparation.json": "b2b1264c2e10176b2ed73b6e7975112ea7ccfd1d9f64851ed9650e450072cbbf",
+    "results/text-holdout-generation/request.json": "0ef4f29694a358db4ce921f00dcb43f1ac42f7a61291fb9014ff8eb7cfcf0bbf",
+    "results/text-holdout-generation/response.json": "bb2dc39f9008b9be0440c1898f28d0ecb1d9c8742288dd54311d399d9dda8923",
+    "results/text-holdout-generation/generated_texts.jsonl": "83ed5ee8d8f02b3e76015b8ae399ad7131a6a00d778cc40ac6294c6efd61f1d4",
+    "results/text-holdout-generation/manifest.json": "7196ce0d28bd1a7560a0b821d3ce1956cb5964a6d756a07092e589b501b6030c",
+    "prompts/generate_feedback_holdout.txt": "363baddcfa44bf6b89a0f11bd7aea090e93b9042e507ddd02ef1b7c15f85acbe",
+    "prompts/extraction_nausea_grouping.txt": "64c6dfe9d09fa225aac6b74045a024350ca09aa13f36889dcab95d935febc33f"
+  },
+  "limitations": [
+    "Deliberately targeted small synthetic sample, not random patient data.",
+    "Generation and extraction may use the same model family.",
+    "Authors know scenario categories; only extraction prompts/runtime are frozen before text generation.",
+    "Coverage omits correction chains, multi-day allocation, time-zone boundary changes, and hypothetical reports.",
+    "No model accuracy is measured during data preparation."
+  ]
+}

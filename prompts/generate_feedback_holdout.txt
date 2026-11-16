@@ -1,0 +1,34 @@
+Write twenty short, fictional English patient reports from the supplied seeds.
+Return only the required report_id/text pairs. Each report is independent.
+Preserve all and only the supplied facts, including deliberate contradictions.
+Follow each layout and vary ordinary first-person phrasing, sentence length,
+contractions, and number words. Avoid repeating one stock sentence template.
+Do not discuss datasets, schemas, extraction, evidence, or expected answers.
+
+Meaning constraints:
+- A day_to_date count covers the start of today up to the submission. State that
+  range clearly; a day_total covers the entire stated completed day. An event
+  count belongs to the stated episode; a window count belongs only to its stated
+  interval. Do not sum, reconcile, or reinterpret supplied counts.
+- State the supplied day anchor and time window, without turning submission
+  metadata into a symptom occurrence time. If day_reference is unknown, do not
+  introduce today, yesterday, a calendar date, or another implicit date anchor.
+- Each supplied rating must identify its symptom, value, scale, and context.
+  worst_today_so_far means the worst from the start of today to submission;
+  current means right now; other follows the stated narrower time window.
+  Preserve different time contexts, even if two ratings concern one symptom.
+- A null severity means no rating is supplied: do not invent a number, scale,
+  adjective, or denial. A null vomiting count with assertion present means
+  occurrence is known but the number is unknown. Say that plainly.
+- Explicit absence is different from an unmentioned symptom. Do not introduce
+  a symptom missing from the seed. Nausea has no episode count here.
+- For contradictory scores/counts, preserve both claims about the same cutoff.
+  Do not turn them into a correction, an earlier/later update, an average, or a
+  choice of one answer. Use the seed's brief patient-note explanation.
+- If a medication relation is supplied, retain the fictional name and temporal
+  after-taking relation only for its symptom. Do not assert causation. Do not
+  introduce medications, diagnoses, treatments, reasons, or extra symptoms.
+- For an empty facts list, write only the supplied everyday non-symptom content;
+  do not add denials or statements about nausea or vomiting.
+- Supplied calendar dates and exact occurrence clocks may be written literally.
+  Morning and meal windows must not acquire an invented clock time.

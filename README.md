@@ -31,6 +31,12 @@ unchanged. These cases are known development/regression material, not a fresh
 evaluation set; normalized correctness and strict whole-report correctness are
 reported separately.
 
+A new [twenty-report validation set](data/text_holdout/README.md) is now prepared
+with reviewed references and a frozen extraction setup. It covers ordinary
+reports, grouping, distinct time contexts, conflicts, missing values, and an
+empty-target control. **No extraction has been run on these twenty cases.**
+The next step is to review them before a separate model evaluation.
+
 ## Run the complete offline demo
 
 Use Python 3.11 or newer; tested with Python 3.14.

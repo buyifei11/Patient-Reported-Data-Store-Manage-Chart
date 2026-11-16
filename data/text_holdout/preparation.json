@@ -1,0 +1,61 @@
+{
+  "purpose": "prepare_twenty_fresh_synthetic_cases_without_extraction",
+  "frozen_at_utc": "2026-11-16T20:10:02.070072+00:00",
+  "repository_commit": "d4b92ebc71824a78c49e3d1bc5f892275569cc9a",
+  "planned_extraction_model": "gpt-5.4-mini-2026-03-17",
+  "reasoning_effort": "none",
+  "max_output_tokens": 2048,
+  "extraction_prompt": "prompts/extraction_nausea_grouping.txt",
+  "extraction_prompt_sha256": "64c6dfe9d09fa225aac6b74045a024350ca09aa13f36889dcab95d935febc33f",
+  "runtime_sha256": "0b334440ad39c4114305d6c46e8459eb782df10baaf7094fc5d8d4f08ca5e724",
+  "reviewed_evidence_script_sha256": "7956cbbc901c452933c0ab835b11d722a2eff62fd814ac0e07db9d7a91185fc9",
+  "default_prompt_sha256": "d88b76baa0f7454fd31495e03df07a5a607651718714bc24ec67b5103fa55cd7",
+  "generation_prompt": "prompts/generate_feedback_holdout.txt",
+  "generation_prompt_sha256": "363baddcfa44bf6b89a0f11bd7aea090e93b9042e507ddd02ef1b7c15f85acbe",
+  "seed_file_sha256": "4bb071e11d0cfe0b0fefa14fb563c23c437c3b2add188f9f0d4d9a280bea2003",
+  "report_count": 20,
+  "expected_raw_claim_groups": 31,
+  "expected_normalized_observations": 29,
+  "intended_role": "fresh_targeted_synthetic_validation_for_a_frozen_pipeline_not_independent_clinical_test",
+  "generation_input": [
+    "report_id",
+    "context",
+    "facts",
+    "layout",
+    "style"
+  ],
+  "forbidden_generation_input": [
+    "extraction_prompts",
+    "previous_texts",
+    "previous_extractor_outputs",
+    "reference_labels"
+  ],
+  "allowed_model_work": "one_batch_text_generation_request_only",
+  "extraction_requests": 0,
+  "training_requests": 0,
+  "label_method": "Separate agent authors gold from actual generated text and written contract, followed by independent source review. No extractor or normalizer may generate the answers.",
+  "future_run_policy": {
+    "attempts_per_report": 1,
+    "order": "all 20 in source order",
+    "tuning": "No prompt or runtime change while evaluating this set; if used to tune, reclassify as development.",
+    "model_input": "Only report text, never seeds or gold; questionnaires remain empty.",
+    "metrics": [
+      "candidate semantic field checks",
+      "normalized fields with known/null denominators",
+      "missing and extra observations",
+      "automatic report completion",
+      "source-reviewed factual acceptance",
+      "issues",
+      "evidence validity separately from semantic correctness"
+    ],
+    "evidence_policy": "A verified harmless skipped-sentence quote may be accepted only in a separately recorded, source-bound review-assisted replay; preserve raw outputs and original strict metrics. It is not automatically a factual error. Invented facts, dropped negations, changed timing, contradictions, and wrong symptom attribution are not waived.",
+    "failures": "Preserve all failures and denominators; no retry or cherry-picking."
+  },
+  "limitations": [
+    "Deliberately targeted small synthetic sample, not random patient data.",
+    "Generation and extraction may use the same model family.",
+    "Authors know scenario categories; only extraction prompts/runtime are frozen before text generation.",
+    "Coverage omits correction chains, multi-day allocation, time-zone boundary changes, and hypothetical reports.",
+    "No model accuracy is measured during data preparation."
+  ]
+}

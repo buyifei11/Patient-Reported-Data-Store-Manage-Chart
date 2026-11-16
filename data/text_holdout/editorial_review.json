@@ -1,0 +1,79 @@
+{
+  "reviewed_at_utc": "2026-11-16T20:12:29.129683+00:00",
+  "generation_requests": 1,
+  "extraction_requests": 0,
+  "accepted_reports": 20,
+  "unchanged_texts": 12,
+  "edited_texts": 8,
+  "rejected_reports": 0,
+  "regenerated_reports": 0,
+  "selection_basis": "Seed fidelity, unambiguous scope, and natural wording before any extraction; no outcome-based selection.",
+  "edits": [
+    {
+      "report_id": "TH003",
+      "original_text": "I’ve had nausea today, and the worst today so far is 4 out of 5. I’ve vomited three times today so far, with vomiting at 2 out of 5.",
+      "reviewed_text": "I’ve had nausea today, and the worst today so far is 4 out of 5. I’ve vomited three times today so far, with the worst vomiting today so far at 2 out of 5.",
+      "reason": "Restore the explicitly seeded worst-today-so-far context for vomiting; original rating omitted worst context.",
+      "stage": "before_reference_authoring_and_before_any_extraction",
+      "changed_numeric_facts": false
+    },
+    {
+      "report_id": "TH005",
+      "original_text": "I’ve vomited today so far, but I can’t recall the number. The worst vomiting today so far has been 2 out of 5. I’ve also had nausea, worst at 3 out of 5.",
+      "reviewed_text": "I’ve vomited today so far, but I can’t recall the number. The worst vomiting today so far has been 2 out of 5. I’ve also had nausea today so far, and the worst nausea today so far has been 3 out of 5.",
+      "reason": "Restore nausea’s own day anchor and worst-today-so-far rating context, rather than borrowing vomiting context.",
+      "stage": "before_reference_authoring_and_before_any_extraction",
+      "changed_numeric_facts": false
+    },
+    {
+      "report_id": "TH007",
+      "original_text": "My vomiting is 4 out of 5. I’ve thrown up once today so far.",
+      "reviewed_text": "My worst vomiting today so far is 4 out of 5. I’ve thrown up once today so far.",
+      "reason": "Original first sentence did not identify any worst-so-far rating context.",
+      "stage": "before_reference_authoring_and_before_any_extraction",
+      "changed_numeric_facts": false
+    },
+    {
+      "report_id": "TH008",
+      "original_text": "I’ve vomited four times today so far. My nausea today so far has been 2 out of 5. The worst vomiting today so far is 5 out of 5.",
+      "reviewed_text": "I’ve vomited four times today so far. My worst nausea today so far has been 2 out of 5. The worst vomiting today so far is 5 out of 5.",
+      "reason": "Restore the seeded daily-worst nausea context; preserve the interleaving.",
+      "stage": "before_reference_authoring_and_before_any_extraction",
+      "changed_numeric_facts": false
+    },
+    {
+      "report_id": "TH011",
+      "original_text": "Right now, my nausea is 2 out of 5. The worst nausea today so far has been 4 out of 5.",
+      "reviewed_text": "Today my nausea is 2 out of 5 right now. The worst nausea today so far has been 4 out of 5.",
+      "reason": "Add the seeded today anchor to the current-only sentence; now alone does not establish a calendar day in this contract.",
+      "stage": "before_reference_authoring_and_before_any_extraction",
+      "changed_numeric_facts": false
+    },
+    {
+      "report_id": "TH016",
+      "original_text": "I’ve had nausea today so far, and one note says 2 out of 5 while another says 4 out of 5. Both cover the same period, and I can’t confirm which score is right.",
+      "reviewed_text": "One note says, \"My worst nausea today so far was 2 out of 5.\" The other says, \"My worst nausea today so far was 4 out of 5.\" Both cover the same period, and I can’t confirm which score is right.",
+      "reason": "Restore worst context and explicit symptom/time anchors to both conflicting scores. Preserve both values and unresolved same-period conflict.",
+      "stage": "before_reference_authoring_and_before_any_extraction",
+      "changed_numeric_facts": false
+    },
+    {
+      "report_id": "TH017",
+      "original_text": "I’ve vomited twice today so far, and another entry says five. Both refer to the same cutoff, and I can’t confirm the number.",
+      "reviewed_text": "One entry says, \"I’ve vomited twice today so far.\" Another says, \"I’ve vomited five times today so far.\" Both refer to the same cutoff, and I can’t confirm the number.",
+      "reason": "Make each conflicting count claim independently identifiable in its source span. Values and same-cutoff conflict are unchanged.",
+      "stage": "before_reference_authoring_and_before_any_extraction",
+      "changed_numeric_facts": false
+    },
+    {
+      "report_id": "TH019",
+      "original_text": "I vomited once after lunch on an unspecified day.",
+      "reviewed_text": "I vomited once after lunch.",
+      "reason": "Remove the generator’s unnatural phrase on an unspecified day. The date remains unstated; this is a style edit, not an inferred date.",
+      "stage": "before_reference_authoring_and_before_any_extraction",
+      "changed_numeric_facts": false
+    }
+  ],
+  "source_file_sha256": "196882772250d56dca8b7492146ea1f8ce5a638a5ad366b604f5574624a1bdfa",
+  "raw_generation_file_sha256": "83ed5ee8d8f02b3e76015b8ae399ad7131a6a00d778cc40ac6294c6efd61f1d4"
+}
