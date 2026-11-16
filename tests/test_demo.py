@@ -10,7 +10,7 @@ from unittest.mock import patch
 
 from src.dashboard import write_dashboard
 from src.demo import ROOT, _csv, build, prepare_predictions
-from src.pipeline import read_jsonl
+from src.pipeline import _digest, read_jsonl
 from src import store
 
 
@@ -23,6 +23,10 @@ class DemoTests(unittest.TestCase):
                 summary = build(out)
             self.assertEqual((summary["patients"], summary["reports"], summary["followup_patient_days"]), (3, 71, 84))
             self.assertEqual(summary["model_requests"], 0)
+            self.assertEqual(summary["metadata"]["cached_text_reports"], 10)
+            self.assertEqual(summary["metadata"]["questionnaire_reports"], 61)
+            self.assertEqual(summary["metadata"]["reviewed_evidence_reports"], 0)
+            self.assertIn("plus structured questionnaires", summary["metadata"]["description"])
             connection = store.connect(out / "patient_reports.sqlite")
             try:
                 rows = {(r["patient_id"], r["event_date"]): r for r in store.daily_records(connection, "longitudinal-v1")}
@@ -67,6 +71,96 @@ class DemoTests(unittest.TestCase):
             result = prepare_predictions([source], cache)[0]
             self.assertEqual(next(o["count"] for o in result["observations"] if o["symptom"] == "vomiting"), 2)
             self.assertEqual(result["metadata"]["model_requests"], 0)
+
+    def _reviewed_example(self):
+        source = next(r for r in read_jsonl(ROOT / "data/text_validation/reports.jsonl")
+                      if r["report_id"] == "TV007")
+        saved = next(r for r in read_jsonl(ROOT / "results/text-validation-nausea/reviewed-evidence/predictions.jsonl")
+                     if r["report_id"] == "TV007")
+        return source, saved
+
+    def test_reviewed_quote_is_reapplied_without_trusting_cached_values(self):
+        source, saved = self._reviewed_example()
+        next(o for o in saved["observations"] if o["symptom"] == "nausea")["severity"] = 1
+        original = copy.deepcopy(saved)
+        with tempfile.TemporaryDirectory() as tmp:
+            cache = Path(tmp) / "cache.jsonl"
+            cache.write_text(json.dumps(saved) + "\n")
+            result = prepare_predictions([source], cache)[0]
+        self.assertEqual(result["status"], "ok")
+        nausea = next(o for o in result["observations"] if o["symptom"] == "nausea")
+        self.assertEqual(nausea["severity"], 5)
+        self.assertEqual(nausea["evidence"], [{"path": "text", "value": source["text"]}])
+        self.assertEqual(result["candidates"], saved["candidates"])
+        self.assertEqual(result["raw_response"], saved["raw_response"])
+        self.assertEqual(result["evidence_review"]["review"], saved["evidence_review"]["review"])
+        self.assertEqual(result["metadata"]["original_inference_metadata"], saved["metadata"])
+        self.assertEqual(result["metadata"]["processing_mode"], "reviewed_candidate_replay")
+        self.assertEqual(result["metadata"]["model_requests"], 0)
+        self.assertEqual(saved, original)
+
+    def test_unreviewed_noncontiguous_quote_stays_failed(self):
+        source, saved = self._reviewed_example()
+        saved.pop("evidence_review")
+        with tempfile.TemporaryDirectory() as tmp:
+            cache = Path(tmp) / "cache.jsonl"
+            cache.write_text(json.dumps(saved) + "\n")
+            result = prepare_predictions([source], cache)[0]
+        self.assertEqual(result["status"], "error")
+        self.assertEqual(result["error_code"], "normalization_error")
+        self.assertEqual(result["observations"], [])
+
+    def test_reviewed_cache_rejects_changed_hash_source_or_candidate(self):
+        for alteration in ("envelope", "review_hash", "source_hash", "candidate"):
+            source, saved = self._reviewed_example()
+            envelope = saved["evidence_review"]
+            if alteration == "envelope":
+                envelope["kind"] = "unreviewed"
+            elif alteration == "review_hash":
+                envelope["review_sha256"] = "changed"
+            elif alteration == "source_hash":
+                envelope["review"]["source_sha256"] = "changed"
+                envelope["review_sha256"] = _digest(envelope["review"])
+            else:
+                next(c for c in saved["candidates"] if c["symptom"] == "nausea")["severity_value"] = 1
+            with self.subTest(alteration=alteration), tempfile.TemporaryDirectory() as tmp:
+                cache = Path(tmp) / "cache.jsonl"
+                cache.write_text(json.dumps(saved) + "\n")
+                with self.assertRaises(ValueError):
+                    prepare_predictions([source], cache)
+
+    def test_all_text_build_preserves_review_and_labels_its_data_source(self):
+        source, saved = self._reviewed_example()
+        with tempfile.TemporaryDirectory() as tmp:
+            directory = Path(tmp)
+            dataset = directory / "sources"
+            dataset.mkdir()
+            (dataset / "reports.jsonl").write_text(json.dumps(source) + "\n")
+            (dataset / "patients.json").write_text(json.dumps([{
+                "patient_id": source["patient_id"], "display_name": "Fictional text patient",
+                "patient_timezone": source["patient_timezone"],
+                "followup_start": "2026-11-14", "followup_end": "2026-11-14",
+            }]))
+            (dataset / "medication_changes.json").write_text("[]\n")
+            cache = directory / "cache.jsonl"
+            cache.write_text(json.dumps(saved) + "\n")
+            with patch("socket.create_connection", side_effect=AssertionError("No network")), \
+                 patch("src.pipeline.load_settings", side_effect=AssertionError("No credentials")):
+                summary = build(directory / "demo", dataset, cache, "all-text-review")
+            self.assertEqual(summary["failed_reports"], 0)
+            self.assertEqual(summary["metadata"]["cached_text_reports"], 1)
+            self.assertEqual(summary["metadata"]["questionnaire_reports"], 0)
+            self.assertEqual(summary["metadata"]["reviewed_evidence_reports"], 1)
+            self.assertIn("all reports use saved LLM text extractions", summary["metadata"]["description"])
+            self.assertEqual(summary["model_requests"], 0)
+            connection = store.connect(directory / "demo/patient_reports.sqlite", read_only=True)
+            try:
+                stored = store.load_run(connection, "all-text-review")
+                self.assertEqual(stored["predictions"][0]["evidence_review"]["review"], saved["evidence_review"]["review"])
+                day = store.daily_records(connection, "all-text-review")[0]
+                self.assertEqual((day["vomiting_count"], day["nausea_severity"]), (2, 5))
+            finally:
+                connection.close()
 
     def test_dashboard_source_text_cannot_terminate_the_data_script(self):
         with tempfile.TemporaryDirectory() as tmp:

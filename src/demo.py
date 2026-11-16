@@ -27,6 +27,8 @@ def prepare_predictions(reports: list[dict], cache: Path) -> list[dict]:
 
     No reference labels, model client, or credentials are read. A new uncached
     text report is rejected rather than treated as a symptom-free submission.
+    Recorded evidence exceptions are verified and reapplied to working candidates;
+    cached normalized values never become the source of a chart value.
     """
     rows = read_jsonl(cache)
     indexed = {r["report_id"]: r for r in rows}
@@ -46,6 +48,23 @@ def prepare_predictions(reports: list[dict], cache: Path) -> list[dict]:
                         "original_inference_metadata": saved["metadata"], "model_requests": 0}
             if saved["status"] != "ok" and saved.get("error_code") != "normalization_error":
                 results.append({**saved, "observations": [], "metadata": {**metadata, "source_sha256": _digest(report)}})
+                continue
+            if "evidence_review" in saved:
+                envelope = saved["evidence_review"]
+                if not isinstance(envelope, dict) or envelope.get("kind") != "review_assisted_evidence_only_replay":
+                    raise ValueError(f"{report['report_id']}: invalid evidence review envelope.")
+                review = envelope.get("review")
+                if not isinstance(review, dict) or envelope.get("review_sha256") != _digest(review):
+                    raise ValueError(f"{report['report_id']}: evidence review hash does not match its content.")
+                # The helper validates exact source/candidate hashes and restores
+                # only the approved source span before running normalization. It
+                # preserves the original candidates, response, and review record.
+                from scripts.replay_reviewed_evidence import reviewed_replay
+
+                replayed = reviewed_replay(report, saved, review)
+                replayed["metadata"] = {**metadata, "source_sha256": _digest(report),
+                                        "processing_mode": "reviewed_candidate_replay"}
+                results.append(replayed)
                 continue
             extracted = {"candidates": saved["candidates"], "raw_response": saved.get("raw_response"), "metadata": {}}
         else:
@@ -85,9 +104,17 @@ def build(output: Path, dataset: Path = ROOT / "data/longitudinal",
     reports = validate_sources(read_jsonl(dataset / "reports.jsonl"))
     changes = json.loads((dataset / "medication_changes.json").read_text())
     predictions = prepare_predictions(reports, cache)
-    metadata = {"description": "Synthetic four-week follow-up; saved LLM candidates plus structured questionnaires",
-                "cached_text_reports": sum(bool(r["text"].strip()) for r in reports),
-                "questionnaire_reports": sum(not r["text"].strip() for r in reports),
+    text_reports = sum(bool(r["text"].strip()) for r in reports)
+    if text_reports == len(reports) and not any(r["questionnaire_answers"] for r in reports):
+        description = "Synthetic follow-up; all reports use saved LLM text extractions"
+    elif text_reports == 0:
+        description = "Synthetic follow-up; structured questionnaires"
+    else:
+        description = "Synthetic four-week follow-up; saved LLM candidates plus structured questionnaires"
+    metadata = {"description": description,
+                "cached_text_reports": text_reports,
+                "questionnaire_reports": len(reports) - text_reports,
+                "reviewed_evidence_reports": sum("evidence_review" in p for p in predictions),
                 "model_requests": 0, "runtime_sha256": _code_digest(), "cache_sha256": _sha(cache),
                 "dashboard_template_sha256": _sha(ROOT / "web/dashboard.html"),
                 "dataset_files": {name: _sha(dataset / name) for name in ("patients.json", "reports.jsonl", "medication_changes.json")}}
