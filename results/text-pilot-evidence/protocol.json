@@ -1,0 +1,78 @@
+{
+  "purpose": "One evidence-focused prompt change compared with the saved five-report extraction baseline",
+  "frozen_at_utc": "2026-11-16T04:58:40.255666+00:00",
+  "base_git_revision": "cc8aaf88ee0a3f05286fdf7526e67bc7f09fa560",
+  "case_set_role": "controlled_synthetic_development_pilot_not_held_out",
+  "report_ids": [
+    "TP001",
+    "TP002",
+    "TP003",
+    "TP004",
+    "TP005"
+  ],
+  "provider": "openai",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "reasoning_effort": "none",
+  "max_output_tokens": 2048,
+  "prompt_file": "prompts/extraction_evidence.txt",
+  "prompt_file_sha256": "20871c7ab93d939fd4dd5c1398f05fcb8a012b149f82ca99cc27c76988559036",
+  "system_prompt_sha256": "224f5b80f8e9c13e53d8c49e12ebeb70e3612bfad34e31bd060c8c752e239934",
+  "matches_original_model_and_prompt": false,
+  "source_file": "data/text_pilot/reports.jsonl",
+  "source_file_sha256": "d9a13eab768fccddbb74512cfad4ef691d39e247d79c324e4a87f41327809b49",
+  "gold_file": "data/text_pilot/expected.jsonl",
+  "gold_file_sha256": "900b90be5c206a49e7b1c3070e1ba2bfb6a5c951f733df19d927f9699e93374d",
+  "source_dataset_sha256": "dda79d181fc1596fa0bcead5ef0426640a13351aa59cd1f3c9998380bed1593f",
+  "gold_dataset_sha256": "be9b9117ad0e377235a1aaa8366ed5491d9f696328649f0f1373485d1d5a6b97",
+  "runtime_sha256": "df4534d4ed5f1f952ad24316982b8d1581b512b5055bcec12bbebf765b45f6f6",
+  "attempts_per_report": 1,
+  "selection_policy": "All five reports in source-file order; no selection by outcome",
+  "input_policy": "Each stateless request receives only the report text plus the extraction instructions/schema. No seed, gold, questionnaire, or generation conversation is supplied.",
+  "postprocessing_policy": "Use the existing current deterministic normalizer and report metadata, with empty questionnaire arrays. No reference-assisted repair.",
+  "primary_metrics": [
+    "report_completion",
+    "observation_detection precision/recall/F1",
+    "all 110 predeclared candidate semantic field checks with per-field counts",
+    "normalized core field accuracy, separately for known and null reference values",
+    "unknown_overfill",
+    "issue_detection"
+  ],
+  "normalized_core_fields": [
+    "symptom",
+    "assertion",
+    "count",
+    "count_scope",
+    "severity",
+    "event_date",
+    "event_time",
+    "date_basis",
+    "medication_relation"
+  ],
+  "separate_diagnostics": [
+    "Exact time_text span equality; keep differences visible without treating every wording boundary difference as a semantic extraction error",
+    "Quoted evidence must be an exact source substring and support the claimed fields; reference span boundaries need not be identical"
+  ],
+  "whole_report_semantic_pass": "Requires successful processing, no missing/extra observations, all candidate checks correct, all normalized core fields correct, matching issue flags, and source-supported evidence. Report exact time_text mismatches separately.",
+  "failure_policy": "Failed and missing reports remain in the denominators. Do not silently retry, drop cases, or rewrite output.",
+  "change_policy": "Only the candidate prompt differs from the saved baseline. Freeze sources, references, model settings, runtime, scoring rules, and review criteria. No retries, output repairs, training, or dashboard changes.",
+  "limits": [
+    "Five controlled development reports and ten symptom observations",
+    "Same model generated the synthetic text; independent extraction calls do not remove synthetic-style bias",
+    "TP003 has a disclosed pre-extraction editorial clarification",
+    "TP004 and TP005 are a related report pair, not independent patient samples",
+    "No claim about held-out performance or real clinical accuracy"
+  ],
+  "matches_original_model": true,
+  "baseline_directory": "results/text-pilot-extraction",
+  "baseline_file_hashes": {
+    "results/text-pilot-extraction/README.md": "6f37326c3a6c11ace1fe959cfd4dd661437b1894b32cef2179f4f425fb8360d4",
+    "results/text-pilot-extraction/metrics.json": "7a119ef16963eff09d8a241db7fc1656c6fe37f5f6de3018910294c075ef6091",
+    "results/text-pilot-extraction/predictions.jsonl": "0818f745a59b4416d696b70450a950f3d11b525c1557e5817c19795d7a842b03",
+    "results/text-pilot-extraction/protocol.json": "0b61d3799c9080d453d83edc30cb34ce9b7d99e27ebfe5722c2196efd4641ea2",
+    "results/text-pilot-extraction/review.json": "f040904fc6573667525be35ef09568b9905f2176341b4ce622d902bddae19588",
+    "results/text-pilot-extraction/summary.json": "8191a41c0cf2c7e3dd2584f97364e3f8b2ba88c4b3777a06dd974667fd7b323b"
+  },
+  "baseline_rerun": false,
+  "prompt_change": "Append evidence completeness check only. Require retained contiguous quotes to support every claimed field across sentences; preserve other extraction rules. No pilot examples or reference answers added.",
+  "comparison_interpretation": "One attempt per report for each prompt on five known development cases. Compare observed completeness and field regressions; sampling variation is not estimated and improvement does not establish generalization."
+}

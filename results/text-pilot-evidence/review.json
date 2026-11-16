@@ -1,0 +1,157 @@
+{
+  "method": "Source-based review by the main agent and an independent reviewing agent; not independent human annotation",
+  "performed_after_extraction": true,
+  "sources_references_and_model_outputs_unchanged": true,
+  "observation_evidence_checks": [
+    {
+      "report_id": "TP001",
+      "candidate_index": 0,
+      "symptom": "vomiting",
+      "quote": "So far today I have vomited 2 times, and the worst vomiting severity so far today is 2 out of 5.",
+      "exact_source_substring": true,
+      "all_claimed_fields_supported_by_quote": true,
+      "unsupported_in_retained_quote": [],
+      "review_note": "Quote states cumulative count 2, worst-so-far vomiting severity 2/5, and the today context."
+    },
+    {
+      "report_id": "TP001",
+      "candidate_index": 1,
+      "symptom": "nausea",
+      "quote": "I also have nausea, and the worst nausea severity so far today is 3 out of 5.",
+      "exact_source_substring": true,
+      "all_claimed_fields_supported_by_quote": true,
+      "unsupported_in_retained_quote": [],
+      "review_note": "Quote states nausea and its worst-so-far-today severity 3/5."
+    },
+    {
+      "report_id": "TP002",
+      "candidate_index": 0,
+      "symptom": "vomiting",
+      "quote": "no vomiting today so far",
+      "exact_source_substring": true,
+      "all_claimed_fields_supported_by_quote": true,
+      "unsupported_in_retained_quote": [],
+      "review_note": "Quote explicitly denies vomiting today so far, supporting absence and count zero; no rating is claimed."
+    },
+    {
+      "report_id": "TP002",
+      "candidate_index": 1,
+      "symptom": "nausea",
+      "quote": "I also have nausea, and the worst nausea severity so far today is 2 out of 5.",
+      "exact_source_substring": true,
+      "all_claimed_fields_supported_by_quote": true,
+      "unsupported_in_retained_quote": [],
+      "review_note": "Quote states nausea and its worst-so-far-today severity 2/5."
+    },
+    {
+      "report_id": "TP003",
+      "candidate_index": 0,
+      "symptom": "vomiting",
+      "quote": "I have vomited today so far, but I don't know the number of episodes. The worst vomiting severity so far today is 2 out of 5",
+      "exact_source_substring": true,
+      "all_claimed_fields_supported_by_quote": true,
+      "unsupported_in_retained_quote": [],
+      "review_note": "Quote now spans the occurrence/unknown-count sentence and the following vomiting severity 2/5 clause, including its worst-so-far-today context."
+    },
+    {
+      "report_id": "TP003",
+      "candidate_index": 1,
+      "symptom": "nausea",
+      "quote": "and I also have nausea with a worst severity so far today of 3 out of 5.",
+      "exact_source_substring": true,
+      "all_claimed_fields_supported_by_quote": true,
+      "unsupported_in_retained_quote": [],
+      "review_note": "Quote contains the nausea clause with explicit worst-so-far-today severity 3/5; values are not borrowed from vomiting."
+    },
+    {
+      "report_id": "TP004",
+      "candidate_index": 0,
+      "symptom": "vomiting",
+      "quote": "Today up to now I have vomited 4 times, and the worst vomiting severity so far today is 2 out of 5.",
+      "exact_source_substring": true,
+      "all_claimed_fields_supported_by_quote": true,
+      "unsupported_in_retained_quote": [],
+      "review_note": "Quote states cumulative count 4 and worst-so-far-today vomiting severity 2/5."
+    },
+    {
+      "report_id": "TP004",
+      "candidate_index": 1,
+      "symptom": "nausea",
+      "quote": "I also have nausea, and the worst nausea severity so far today is 4 out of 5.",
+      "exact_source_substring": true,
+      "all_claimed_fields_supported_by_quote": true,
+      "unsupported_in_retained_quote": [],
+      "review_note": "Quote states nausea and its worst-so-far-today severity 4/5."
+    },
+    {
+      "report_id": "TP005",
+      "candidate_index": 0,
+      "symptom": "vomiting",
+      "quote": "Today up to now I have vomited 1 time, and the worst vomiting severity so far today is 2 out of 5.",
+      "exact_source_substring": true,
+      "all_claimed_fields_supported_by_quote": true,
+      "unsupported_in_retained_quote": [],
+      "review_note": "Quote preserves this report's cumulative count 1 and worst-so-far-today severity 2/5; it does not reconcile another report."
+    },
+    {
+      "report_id": "TP005",
+      "candidate_index": 1,
+      "symptom": "nausea",
+      "quote": "I also have nausea, and the worst nausea severity so far today is 5 out of 5.",
+      "exact_source_substring": true,
+      "all_claimed_fields_supported_by_quote": true,
+      "unsupported_in_retained_quote": [],
+      "review_note": "Quote states nausea and its worst-so-far-today severity 5/5."
+    }
+  ],
+  "time_text_review": [],
+  "whole_report_rule": "Requires successful processing, no missing/extra observations, all candidate checks correct, all normalized core fields correct, matching issue flags, and source-supported evidence. Report exact time_text mismatches separately.",
+  "reports": [
+    {
+      "report_id": "TP001",
+      "expected_vomiting_count": 2,
+      "extracted_vomiting_count": 2,
+      "semantic_values_pass": true,
+      "evidence_complete": true,
+      "whole_report_pass": true,
+      "exact_time_text_mismatches": []
+    },
+    {
+      "report_id": "TP002",
+      "expected_vomiting_count": 0,
+      "extracted_vomiting_count": 0,
+      "semantic_values_pass": true,
+      "evidence_complete": true,
+      "whole_report_pass": true,
+      "exact_time_text_mismatches": []
+    },
+    {
+      "report_id": "TP003",
+      "expected_vomiting_count": null,
+      "extracted_vomiting_count": null,
+      "semantic_values_pass": true,
+      "evidence_complete": true,
+      "whole_report_pass": true,
+      "exact_time_text_mismatches": []
+    },
+    {
+      "report_id": "TP004",
+      "expected_vomiting_count": 4,
+      "extracted_vomiting_count": 4,
+      "semantic_values_pass": true,
+      "evidence_complete": true,
+      "whole_report_pass": true,
+      "exact_time_text_mismatches": []
+    },
+    {
+      "report_id": "TP005",
+      "expected_vomiting_count": 1,
+      "extracted_vomiting_count": 1,
+      "semantic_values_pass": true,
+      "evidence_complete": true,
+      "whole_report_pass": true,
+      "exact_time_text_mismatches": []
+    }
+  ],
+  "regression_review": "No missing/extra observations, semantic field regressions, cross-symptom value transfers, invented clocks/medication relations, or new evidence omissions were found on these five reports."
+}

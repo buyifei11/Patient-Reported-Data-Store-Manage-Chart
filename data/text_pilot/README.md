@@ -5,8 +5,9 @@ Five existing fictional questionnaires supply fact seeds. One actual LLM request
 turns those seeds into patient feedback. The text is then reviewed, and reference
 answers are authored from the reviewed text and the existing data contract.
 
-Preparation is complete, and the [first extraction baseline](../../results/text-pilot-extraction/README.md)
-is now recorded separately. No model training or dashboard replacement has been
+Preparation is complete. The [first extraction baseline](../../results/text-pilot-extraction/README.md)
+and a bounded [evidence-prompt comparison](../../results/text-pilot-evidence/README.md)
+are recorded separately. No model training or dashboard replacement has been
 performed for this pilot. These are development examples, not an independent
 test set or real patient data.
 
@@ -171,6 +172,8 @@ variation or generalization.
 
 The original extraction model has now been run with a frozen prompt. Its saved
 outputs and evaluation are in the separate baseline record linked above. All key
-values matched; one report retained incomplete supporting evidence. The next step
-is a bounded prompt-engineering comparison, not automatic replacement of the
-references or model fine-tuning.
+values matched; one report retained incomplete supporting evidence. The separate
+evidence-prompt comparison has now been completed: the candidate preserved all
+field values and supplied complete quotes for all ten observations in that run.
+Sources and references were not edited. Broader evaluation is still needed; these
+five known development examples do not demonstrate generalization.

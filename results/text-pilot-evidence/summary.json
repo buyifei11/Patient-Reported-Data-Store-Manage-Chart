@@ -1,0 +1,201 @@
+{
+  "run_id": "text-pilot-evidence-prompt",
+  "scope": "controlled_synthetic_development_pilot_not_held_out",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "prompt_file": "prompts/extraction_evidence.txt",
+  "model_requests": 5,
+  "attempts_per_report": 1,
+  "usage": {
+    "input_tokens": 10488,
+    "output_tokens": 1014,
+    "total_tokens": 11502
+  },
+  "report_completion": {
+    "total": 5,
+    "ok": 5,
+    "error": 0,
+    "missing": 0,
+    "rate": 1.0
+  },
+  "observation_detection": {
+    "true_positive": 10,
+    "false_positive": 0,
+    "false_negative": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  },
+  "candidate_semantic_fields": {
+    "correct": 110,
+    "total": 110
+  },
+  "candidate_fields": {
+    "assertion": {
+      "correct": 10,
+      "total": 10,
+      "accuracy": 1.0
+    },
+    "clock_time": {
+      "correct": 10,
+      "total": 10,
+      "accuracy": 1.0
+    },
+    "count": {
+      "correct": 10,
+      "total": 10,
+      "accuracy": 1.0
+    },
+    "count_scope": {
+      "correct": 10,
+      "total": 10,
+      "accuracy": 1.0
+    },
+    "day_reference": {
+      "correct": 10,
+      "total": 10,
+      "accuracy": 1.0
+    },
+    "explicit_date": {
+      "correct": 10,
+      "total": 10,
+      "accuracy": 1.0
+    },
+    "medication_relation": {
+      "correct": 10,
+      "total": 10,
+      "accuracy": 1.0
+    },
+    "severity_context": {
+      "correct": 10,
+      "total": 10,
+      "accuracy": 1.0
+    },
+    "severity_scale_max": {
+      "correct": 10,
+      "total": 10,
+      "accuracy": 1.0
+    },
+    "severity_value": {
+      "correct": 10,
+      "total": 10,
+      "accuracy": 1.0
+    },
+    "symptom": {
+      "correct": 10,
+      "total": 10,
+      "accuracy": 1.0
+    }
+  },
+  "normalized_core_fields": {
+    "known": {
+      "correct": 58,
+      "total": 58
+    },
+    "null": {
+      "correct": 32,
+      "total": 32
+    }
+  },
+  "unknown_overfill": {
+    "errors": 0,
+    "reference_null_fields": 32,
+    "rate": 0.0
+  },
+  "issue_detection": {
+    "true_positive": 1,
+    "false_positive": 0,
+    "false_negative": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  },
+  "exact_time_text": {
+    "reference_known": {
+      "correct": 10,
+      "total": 10,
+      "accuracy": 1.0
+    },
+    "reference_null": {
+      "correct": 0,
+      "total": 0,
+      "accuracy": null,
+      "overfilled": 0
+    },
+    "missing_predictions": 0
+  },
+  "evidence_review": {
+    "method": "agent_review_not_automated_metric_or_human_clinical_review",
+    "exact_substrings": 10,
+    "fully_supporting_quotes": 10,
+    "total_quotes": 10
+  },
+  "whole_reports": {
+    "semantic_values_correct": 5,
+    "including_evidence_complete": 5,
+    "total": 5
+  },
+  "reports": [
+    {
+      "report_id": "TP001",
+      "expected_vomiting_count": 2,
+      "extracted_vomiting_count": 2,
+      "semantic_values_pass": true,
+      "evidence_complete": true,
+      "whole_report_pass": true,
+      "exact_time_text_mismatches": []
+    },
+    {
+      "report_id": "TP002",
+      "expected_vomiting_count": 0,
+      "extracted_vomiting_count": 0,
+      "semantic_values_pass": true,
+      "evidence_complete": true,
+      "whole_report_pass": true,
+      "exact_time_text_mismatches": []
+    },
+    {
+      "report_id": "TP003",
+      "expected_vomiting_count": null,
+      "extracted_vomiting_count": null,
+      "semantic_values_pass": true,
+      "evidence_complete": true,
+      "whole_report_pass": true,
+      "exact_time_text_mismatches": []
+    },
+    {
+      "report_id": "TP004",
+      "expected_vomiting_count": 4,
+      "extracted_vomiting_count": 4,
+      "semantic_values_pass": true,
+      "evidence_complete": true,
+      "whole_report_pass": true,
+      "exact_time_text_mismatches": []
+    },
+    {
+      "report_id": "TP005",
+      "expected_vomiting_count": 1,
+      "extracted_vomiting_count": 1,
+      "semantic_values_pass": true,
+      "evidence_complete": true,
+      "whole_report_pass": true,
+      "exact_time_text_mismatches": []
+    }
+  ],
+  "provenance": {
+    "protocol_sha256": "1a9e6ddd8f51ba99f4120d7cd8aeebfe3e016da8bb732d871bc4aaa9cb6ad581",
+    "predictions_sha256": "0a17a7b5d5dfb15db2b9c7940767c91e6c522ccc08a861684d9f33d370a1584c",
+    "metrics_sha256": "2275308bc0d0e8c6b7aa8797ee27fa3d02ec6d603888bc8c8d093011bd4d557e",
+    "review_sha256": "ce081a582a66edd8b7475818a38b26fb80d413a2dba7af65490bc61f1c6d29ca",
+    "source_file_sha256": "d9a13eab768fccddbb74512cfad4ef691d39e247d79c324e4a87f41327809b49",
+    "gold_file_sha256": "900b90be5c206a49e7b1c3070e1ba2bfb6a5c951f733df19d927f9699e93374d",
+    "runtime_sha256": "df4534d4ed5f1f952ad24316982b8d1581b512b5055bcec12bbebf765b45f6f6"
+  },
+  "limitations": [
+    "Five controlled development reports and ten symptom observations",
+    "Same model generated the synthetic text; independent extraction calls do not remove synthetic-style bias",
+    "TP003 has a disclosed pre-extraction editorial clarification",
+    "TP004 and TP005 are a related report pair, not independent patient samples",
+    "No claim about held-out performance or real clinical accuracy",
+    "One attempt per report for each prompt on five known development cases. Compare observed completeness and field regressions; sampling variation is not estimated and improvement does not establish generalization."
+  ]
+}

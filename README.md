@@ -7,7 +7,8 @@ English. No real patient information is used.
 
 A separate [five-report text pilot](data/text_pilot/README.md) now contains actual
 LLM-generated feedback, reviewed references, and generation provenance. Its
-[first extraction baseline](results/text-pilot-extraction/README.md) is recorded
+[first extraction baseline](results/text-pilot-extraction/README.md) and a bounded
+[evidence-prompt comparison](results/text-pilot-evidence/README.md) are recorded
 separately; the existing offline dashboard below still uses its original
 mixed-input dataset.
 
