@@ -1,121 +1,143 @@
 # Patient-Reported Data: Store, Manage & Chart
 
-Track B prototype for structuring synthetic patient reports, storing them over time, and showing symptom trends. All submission artifacts are in English.
+A Track B prototype for fictional nausea/vomiting reports: extract source claims,
+validate them, preserve history in SQLite, apply counting/correction rules, and
+show patient trends with coverage and unresolved values. All deliverables are in
+English. No real patient information is used.
 
-## Current milestone
+## Run the complete offline demo
 
-The extraction and evaluation milestone is implemented: source validation, LLM text extraction, deterministic normalization, and comparison with authored reference answers. A controlled prompt experiment now adds separately authored data and two held-out rounds. See [the prompt-comparison report](docs/prompt_comparison.md) for gains, regressions, and the decision to retain v1 as the default. The [first-run report](docs/development_run.md) remains available unchanged.
-
-A subsequent [normalization fix](docs/normalization_fix.md) reconciles explicit midnight-to-submission daily counts with the questionnaire. Its offline replay uses the same saved candidates and preserves the original experiment artifacts.
-
-The [v3 scope/evidence comparison](docs/prompt_v3_comparison.md) is also complete: 280 paired calls on 50 known and 20 fresh reports. V3 improves evidence retention but introduces repeated count-scope errors, so the default remains v1. All outputs and failed cases are preserved.
-
-| Component | Status |
-| --- | --- |
-| Data contract | v0.2 design and executable strict schemas. |
-| Starter data | 10 reports, 3 fictional patients, 15 reference observations, 3 targeted extraction checks. |
-| Additional evaluation data | 20 development, 20 first held-out, and 20 fresh v3 validation reports; 70 reports and 83 reference observations across all sets. See [dataset roles](data/README.md). |
-| Model integration | OpenAI Responses API and optional local Ollama adapter; no automatic model fallback. |
-| Normalization | Relative dates, evidence checks, severity rules, and compatible source reconciliation. |
-| Evaluation | Detection, per-field known/null accuracy, assertions, issue detection, and pre-reconciliation checks. |
-| Offline tests | Schema, client failure paths, normalization, metrics, and CLI boundaries. No API charges for tests. |
-| Database, cross-report aggregation, SQL, charts | Not implemented yet. Correction links are validated, but effective versions and cumulative totals are not computed. |
-| Prompt comparison | 140 recorded calls with frozen prompts, data, code, and scoring; all failures retained. |
-| Scope/evidence comparison | A separate 280-call v1/v3 comparison with two rounds per split; v3 remains experimental. |
-| Four-week longitudinal data | Not prepared yet. |
-
-The original reports and reference answers are unchanged. They were drafted with AI assistance and reviewed against the documented rules; they are development fixtures, not independently annotated clinical ground truth. Model outputs and code-test success do not establish clinical validity.
-
-## Quick start
-
-Use Python 3.11 or newer. This milestone was tested with Python 3.14.
+Use Python 3.11 or newer; tested with Python 3.14.
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.txt
-python run_pipeline.py validate
-python run_pipeline.py validate --source data/dev/reports.jsonl --gold data/dev/expected.jsonl
-python run_pipeline.py validate --source data/heldout/reports.jsonl --gold data/heldout/expected.jsonl
 python -m unittest discover -s tests -q
+python run_demo.py build --output artifacts/demo
 ```
 
-Validation and tests work without credentials. Each JSONL file contains one object per line; records are linked by `report_id`.
+Open **`artifacts/demo/dashboard.html`** in a browser. No server, API key, or
+internet connection is needed after dependency installation. Use a new output
+directory for another build; existing runs are never overwritten.
 
-## Configure the cloud pilot
+The demo has **71 reports, three patients, and 28 follow-up days per patient**.
+It reuses ten actual saved LLM candidate batches and directly processes 61
+questionnaire-only reports. It does not use gold to fabricate predictions and
+does not make new model requests. Both the database and dashboard preserve the
+known limitations of the recorded extraction. See the
+[demo walkthrough](docs/demo_walkthrough.md) for a presentation sequence.
 
-The provisional model is `gpt-5.4-mini-2026-03-17`. See [model selection](docs/model_selection.md) for task fit, alternatives, cost assumptions, and the evidence required before final adoption. The installed `llama3:8b` is an optional baseline, not the default selection.
+![Generated patient dashboard](docs/dashboard-preview.png)
 
-If `.env` does not already exist, copy `.env.example` to `.env`. Open it in VS Code and set `OPENAI_API_KEY` locally. Create a key through the [OpenAI API dashboard](https://platform.openai.com/api-keys). Do not paste a key into chat, commit it, or include it in screenshots. `.env` is ignored by Git; `.env.example` contains no key.
+A selected [generated example](results/longitudinal-demo/dashboard.html), query
+exports, and [validation record](docs/prototype_validation.md) are also saved
+for review. Download the HTML file to open that snapshot locally; GitHub's file
+viewer does not execute the dashboard.
 
-The loader accepts `KEY=VALUE` entries, optional surrounding quotes, and comments on separate lines. It does not execute shell expressions or expand variables. Environment variables take precedence. Only `OPENAI_API_KEY` and `OPENAI_MODEL` are supported in this file.
-
-## Run extraction, then evaluation
+Generated files include `patient_reports.sqlite`, `predictions.jsonl`,
+`daily.csv`, `weekly_counts.csv`, `after_medication_change.csv`,
+`review_queue.csv`, `summary.json`, and the standalone dashboard.
 
 ```bash
-python run_pipeline.py extract \
-  --provider openai \
-  --model gpt-5.4-mini-2026-03-17 \
-  --limit 10 \
-  --output data/processed/my-dev-run.jsonl
-
-python run_pipeline.py evaluate \
-  --predictions data/processed/my-dev-run.jsonl \
-  --output artifacts/my-dev-run.metrics.json
+python run_demo.py query --db artifacts/demo/patient_reports.sqlite --query weekly
+python run_demo.py query --db artifacts/demo/patient_reports.sqlite --query medication
+python run_demo.py query --db artifacts/demo/patient_reports.sqlite --query review
 ```
 
-Use a new output filename for each run. Existing files are never overwritten. Extraction reads only source reports, sends only their text to the model, and saves actual candidates before normalization. It never reads gold. Evaluation is a separate command that reads saved output and references. `--limit` truncates extraction; evaluation still includes all reference reports, so unrequested reports count as missing unless you explicitly supply matching source and gold subsets.
+Queries open the database read-only. Weekly counts include reporting coverage;
+missing values do not become zeros. Medication timing distinguishes definite
+order from uncertainty and does not imply causation.
 
-The default prompt is v1. Select `--prompt-file prompts/extraction_v2.txt` for the experimental temporal revision, or `--prompt-file prompts/extraction_v3.txt` for the experimental scope/evidence revision. The selected file and its hash are recorded; a missing file fails before any API request. Neither revision passed its adoption gate. Do not interpret the retained default as a claim that v1 has no errors.
+## What is implemented
 
-Each result records `status`, candidates, observations, exact model output, an error code when needed, model/prompt/source/code metadata, and elapsed time. A failed report differs from a successful empty extraction. Valid candidates survive a normalization failure so the extraction stage can still be inspected. API/configuration failures stop the run; semantic failures are recorded per report. There are no automatic retries.
+| Component | Behavior |
+| --- | --- |
+| Data contract | Strict v0.2 schemas for source reports, candidates, normalized observations, and references. |
+| Text extraction | OpenAI Responses API and optional Ollama adapter, with source-only model input and explicit provenance. |
+| Normalization | Relative dates, literal evidence checks, clock-boundary checks, severity eligibility, and compatible text/form reconciliation. |
+| SQLite | Immutable source IDs and extraction runs; failed results, evidence, and correction history retained. |
+| Daily statistics | Complete replacements, cumulative no-sum rules, explicit zeros, missing days, field-specific eligibility, and review reasons. |
+| SQL | Weekly reported counts with coverage; symptoms relative to recorded medication changes. |
+| Dashboard | Patient selection, count/severity trends, medication markers, query tables, and expandable source records. |
+| Validation | Offline tests for schemas, clients, time boundaries, corrections, aggregation, database integrity, queries, and integration. |
 
-OpenAI requests use strict structured output, reasoning effort `none`, a 2,048 output-token cap, and `store=false`. This is a synthetic-data prototype; that storage flag alone is not a guarantee of zero provider retention.
+R006 corrects R005's vomiting count from 3 to 2 while retaining nausea severity 4.
+The original remains in the database, and the trend uses 2. The three cumulative
+records are not summed into 7. Unknown/conflicting counts and unresolved event
+overlap stay out of daily totals and remain reviewable.
 
-The optional local adapter requires an explicitly selected model already installed in Ollama:
+## Extraction experiments and model configuration
+
+The provisional cloud model is `gpt-5.4-mini-2026-03-17`. V1 remains the default
+prompt; v2 and v3 remain experimental because their measured improvements came
+with material regressions. No fine-tuning was performed. Historical experimental
+outputs are preserved unchanged; their frozen runtime is available in Git.
+
+| Evidence | Purpose |
+| --- | --- |
+| [First development run](docs/development_run.md) | Ten original reports and the first actual model outputs. |
+| [Temporal comparison](docs/prompt_comparison.md) | 140 paired calls comparing v1/v2. |
+| [Scope/evidence comparison](docs/prompt_v3_comparison.md) | 280 paired calls on 50 known and 20 fresh cases, v1/v3. |
+| [First normalization fix](docs/normalization_fix.md) | Offline replay of the midnight-to-submission reconciliation correction. |
+| [Time-boundary fixes](docs/time_boundaries.md) | Current range variants and rejection of cutoff/interval clocks as episode times. |
+
+For optional fresh cloud extraction, configure `.env` locally with
+`OPENAI_API_KEY` and `OPENAI_MODEL`; `.env.example` has the accepted keys. Never
+commit a key. Environment values take precedence over `.env`. No shell code or
+variable expansion is executed by the loader.
+
+```bash
+python run_pipeline.py extract --provider openai \
+  --model gpt-5.4-mini-2026-03-17 \
+  --output data/processed/new-text-run.jsonl
+
+python run_pipeline.py evaluate \
+  --predictions data/processed/new-text-run.jsonl \
+  --output artifacts/new-text-run.metrics.json
+```
+
+Extraction makes API requests; evaluation does not. It sends only source text,
+not questionnaires, metadata, or gold. Requests use strict output, reasoning
+effort `none`, a 2,048 output-token cap, and `store=false`; this flag alone is not
+a zero-retention guarantee. Errors remain explicit and there are no automatic
+retries. Choose a new output path each time. If using `--limit`, evaluation still
+includes all supplied reference reports, so unrequested reports count as missing.
+
+The optional local adapter requires an explicitly selected installed model:
 
 ```bash
 python run_pipeline.py extract --provider ollama --model YOUR_INSTALLED_MODEL \
-  --output data/processed/local-dev-run.jsonl
+  --output data/processed/local-run.jsonl
 ```
+
+See [model selection](docs/model_selection.md) for the selection rationale and
+limitations. Installation alone is not evidence of task suitability.
 
 ## Files to read
 
-| File | Purpose |
+| Location | Purpose |
 | --- | --- |
-| `docs/design.md` | Field meanings, responsibilities, and counting rules. |
-| `docs/model_selection.md` | Why a model is a candidate, and how adoption will be justified. |
-| `docs/evaluation.md` | Metric definitions, matching, and limitations. |
-| `docs/development_run.md` | Actual first-run results and error interpretation. |
-| `docs/prompt_experiment.md`, `docs/prompt_comparison.md` | Frozen experiment protocol and actual comparison findings. |
-| `docs/prompt_v3_experiment.md`, `docs/prompt_v3_comparison.md`, `scripts/run_prompt_v3.py` | Frozen scope/evidence protocol, measured results, and reproducible runner. |
-| `docs/normalization_fix.md`, `scripts/replay_normalization.py` | Daily-range reconciliation fix and reproducible offline replay of saved candidates. |
-| `data/README.md`, `data/dev/`, `data/heldout/`, `data/heldout_v3/` | Dataset roles, sources/references, case groups, and pre-inference reviews. |
-| `data/raw/reports.jsonl` | Original synthetic reports. |
-| `data/gold/expected.jsonl` | Authored answers; never model input. |
-| `prompts/extraction.txt`, `prompts/extraction_v1.txt`, `prompts/extraction_v2.txt`, `prompts/extraction_v3.txt` | Default baseline and explicitly versioned prompts. |
-| `src/schema.py` | Required fields, types, and input contracts. |
-| `src/openai_client.py`, `src/llm.py` | Cloud and local inference adapters. |
-| `src/normalization.py` | Code-owned dates, evidence, scopes, and reconciliation. |
-| `src/evaluation.py` | Comparison with reference answers. |
-| `src/pipeline.py`, `run_pipeline.py` | Configuration, JSONL I/O, and command orchestration. |
-| `src/experiment.py`, `run_experiment.py` | Frozen-input paired runs and separate artifact scoring. |
-| `tests/` | Offline behavioral tests using controlled inputs and mocked HTTP. |
+| `docs/design.md`, `docs/storage_and_trends.md` | Field meanings, schema, responsibilities, and counting rules. |
+| `docs/demo_walkthrough.md` | Setup, live walkthrough, query commands, and trade-offs. |
+| `data/longitudinal/` | Four-week sources, patients, medication changes, and generation notes. |
+| `data/raw/`, `data/gold/`, `data/dev/`, `data/heldout/`, `data/heldout_v3/` | Separate extraction-development and validation sources/references. |
+| `src/normalization.py`, `src/aggregation.py` | Code-owned time, reconciliation, correction, and eligibility rules. |
+| `src/store.py`, `sql/` | SQLite storage and executable queries. |
+| `src/demo.py`, `src/dashboard.py`, `web/dashboard.html` | Stored-data demo build and offline chart renderer. |
+| `docs/evaluation.md`, `results/` | Metric definitions and selected immutable experimental artifacts. |
+| `tests/` | Offline behavioral tests with mocked clients and temporary databases. |
 
-Routine outputs in `data/processed/` and `artifacts/` are ignored. A selected synthetic run is preserved in `results/gpt54mini-dev-v1/` for review without an API key. Re-score it with:
+The [dataset guide](data/README.md) distinguishes longitudinal sources from the
+70 diagnostic reports and explains overlap. Routine databases/exports are ignored
+under `artifacts/`; selected review artifacts are versioned under `results/`.
 
-```bash
-python run_pipeline.py evaluate \
-  --predictions results/gpt54mini-dev-v1/predictions.jsonl \
-  --output artifacts/review-dev-v1.metrics.json
-```
+## Practical limits
 
-## Limits and next step
-
-The initial R010 error did not recur for either prompt in the new paired run. More informative new cases show v2 improving `tonight` interpretation, including H004 in both held-out rounds. However, v2 also introduces bounded-window scope errors and one new exact-evidence failure. It remains experimental; the full report explains why aggregate date improvements are insufficient for default replacement.
-
-The experiment also exposed a shared normalization defect: H016's phrase `from midnight today through this submission` was treated as an incompatible earlier window, so a text/form count conflict was missed. The current normalizer fixes that gate while retaining earlier snapshots and preserving the extracted scope. The original experiment artifacts remain unchanged and reproduce at Git revision `be61143`. Evidence-based matching still makes the unresolved `window` output sensitive to excerpt length; see the [follow-up replay](docs/normalization_fix.md). The original small development run's high scores should not be generalized to these harder cases.
-
-Normalization supports a bounded set of English temporal expressions, ISO or English month/day/year dates, and explicit clock times. Unsupported or contradictory candidates fail visibly. Passing schema/evidence checks cannot prove that every semantic interpretation is correct. A single-day observation representation cannot allocate multi-day totals.
-
-The v3 experiment improves evidence retention but confirms that known scopes can be lost when counts are unknown. It also exposes further current-day range wording and interval-endpoint limitations in the code. Next, address those deterministic boundaries and isolate evidence changes from scope changes in a future prompt comparison. The reviewed cases are now known regression data if used for tuning; a future independent evaluation needs new cases. SQLite, correction-aware aggregation, SQL queries, charts, full follow-up coverage, and medication-change records remain future work.
+This is a local synthetic-data prototype, without authentication, clinical
+validation, or a manual review/write-back workflow. Event/window overlap is not
+automatically resolved, and unsupported interpretations stay visible for review.
+The model can still make semantic errors that pass structural checks. A passing
+code test or a completed extraction is not a claim of correct clinical data.
+Further prompt work should isolate changes and use new independent cases when
+making generalization claims, rather than silently retuning on reviewed outputs.

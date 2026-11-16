@@ -2,11 +2,11 @@
 
 This document defines the data contract for extraction, normalization, and the planned database and charts. All patients, reports, and medication labels are fictional. All submission artifacts, including documentation, sample text, code comments, prompts, and interface labels, must be in English.
 
-Current deliverables: this design, 10 source reports from three fictional patients, 15 expected observations, three targeted extraction checks, executable schemas, cloud/local extraction adapters, deterministic normalization, evaluation, and offline tests. The examples and reference answers were drafted with AI assistance and reviewed against these rules, but have not been independently annotated by a human reviewer. They are development fixtures, not a held-out test set. The first cloud run is recorded in [development_run.md](development_run.md). Database storage, cross-report aggregation, SQL queries, and charts remain unimplemented.
+Current deliverables include executable schemas, cloud/local extraction adapters, deterministic normalization, evaluation, SQLite storage, correction-aware aggregation, two SQL queries, and an offline dashboard. The longitudinal demo has 71 reports from three fictional patients over 28 days; the separate diagnostic sets contain 70 reports and 83 reference observations. Examples and references are AI-assisted synthetic material, not independently human-annotated clinical ground truth. See [storage and trend rules](storage_and_trends.md), [demo instructions](demo_walkthrough.md), and [dataset roles](../data/README.md). The original ten-report fixtures and historical model outputs remain unchanged.
 
 ## 1. Scope and changes in v0.2
 
-The scenario covers nausea (`nausea`) and vomiting (`vomiting`) during oncology treatment. The planned full prototype will cover three patients over four consecutive weeks. The current 10 reports are deliberately small examples, not the complete follow-up dataset. `Medication A` is a fictional label and makes no claim about a real drug, dosage, or treatment.
+The scenario covers nausea (`nausea`) and vomiting (`vomiting`) during oncology treatment. The implemented longitudinal demo covers three patients over four consecutive weeks. The original ten reports remain small extraction examples; the additional follow-up reports are structured questionnaires, not new LLM validation cases. `Medication A` is a fictional label and makes no claim about a real drug, dosage, or treatment.
 
 Version 0.2 makes six changes:
 
@@ -21,9 +21,9 @@ The source fixtures were deliberately revised for this version; their earlier ve
 
 ## 2. Processing stages and dataset roles
 
-The extraction, normalization, and evaluation stages are implemented. Database, cross-report aggregation, and trend stages in this diagram remain planned.
+All stages in this diagram are implemented. The offline demo replays saved model candidates for the original text and processes the additional questionnaires directly, then queries the stored data to produce trends.
 
-The original starter fixtures below remain unchanged. A later temporal-prompt experiment adds 20 development and 20 held-out reports, bringing the repository to 50 reports and 61 reference observations. Their roles and pre-inference reviews are documented in [data/README.md](../data/README.md); measured gains, regressions, and known code limitations are in [prompt_comparison.md](prompt_comparison.md). These additional diagnostic cases do not complete the four-week follow-up dataset.
+The original starter fixtures below remain unchanged. Later prompt experiments add 20 development, 20 first held-out, and 20 fresh v3 validation reports, bringing the diagnostic sets to 70 reports and 83 reference observations. Their roles and pre-inference reviews are documented in [data/README.md](../data/README.md); measured gains, regressions, and known code limitations are in [prompt_comparison.md](prompt_comparison.md). The separately documented `data/longitudinal/` dataset supplies four-week follow-up; diagnostic cases are not mixed into its patient trends.
 
 ```mermaid
 flowchart TD
@@ -112,7 +112,7 @@ Each observation contains:
 | `count_scope` | `event`, `window`, `day_to_date`, `day_total`, or `null`; determines how a count may be interpreted and aggregated. |
 | `severity` | Supported 1-5 worst-so-far-today rating under the fixed contract, or `null`. Independent of episode count. |
 | `event_date` | Patient-local date, `YYYY-MM-DD`, or `null`. Do not force a multi-day count into a single date. |
-| `event_time` | Explicit patient-local clock time, `HH:MM`, or `null`. Never invent a clock time for meals or parts of a day. |
+| `event_time` | Exact patient-local episode time, `HH:MM`, or `null`. A range endpoint or cumulative cutoff is not an episode time; retain it in `time_text`. Never invent a time for meals or parts of a day. |
 | `time_text` | Original time expression, or `null`, preserving context not represented by the date alone. |
 | `date_basis` | `relative_text`, `explicit_text`, `questionnaire`, or `unknown`; records how the single date was established. |
 | `medication_relation` | Object or `null`, preserving an explicitly reported temporal relationship without asserting causation. |
@@ -182,7 +182,7 @@ Reimporting an unchanged `report_id` must not create a duplicate. Changed conten
 ### Aggregation boundaries
 
 - An explicit absence over a known scope may contribute zero. Missing reports, unknown counts, and hypothetical symptoms must not be converted to zero.
-- Resolve valid replacements first. For compatible same-day cumulative snapshots, use the latest valid value without summing snapshots. A decrease without an explicit correction requires review.
+- Resolve valid replacements first. For compatible same-day cumulative snapshots, use the latest supported value without summing snapshots. A later unknown/conflicting claim blocks fallback to an earlier known value. A decrease without an explicit correction, or known occurrence contradicted by later daily absence, requires review.
 - A compatible `day_total` replaces earlier partial-day snapshots for that date in the total calculation; it is not added to them. If it contradicts a larger earlier count without an explicit correction, flag the inconsistency for review rather than choosing silently.
 - Do not add episode or window counts already covered by a cumulative count. Combine separate episodes or windows only when their non-overlap is supported; unresolved relationships stay out of the combined count and remain visible.
 - Clearly label partial reported counts and complete-day totals. "Reported count" is not proof that every real episode was captured.
@@ -192,7 +192,7 @@ Reimporting an unchanged `report_id` must not create a duplicate. Changed conten
 
 Gold `observation_id` values are reference labels, not medical identities and not fields an LLM must generate. For display, order observations by known date first, then known clock time, symptom, count scope, and assertion; use a canonical serialization of the remaining content to break ties. The current fixtures follow this ordering. Labels may change when source content or the schema changes; they are not guaranteed stable across reparsing versions.
 
-Future storage will assign or retain identifiers within a stored report version. Semantic evaluation matches observations by symptom, time, and source evidence, not by output-array position or a database ID. Different valid evidence excerpts should not automatically fail an otherwise correct extraction.
+SQLite stores observation identifiers under a processing run and report; their composite identity preserves processing versions. Semantic evaluation matches observations by symptom, time, and source evidence, not by output-array position or a database ID. Different valid evidence excerpts should not automatically fail an otherwise correct extraction.
 
 Each targeted extraction check contains `source` (a `{path, value}` reference) and `expected_fields` (only the candidate fields being checked). Current checks cover R001's complete-day count, R002's text rating of 2/5, and R009's text count of 1. These checks are evaluated before questionnaire reconciliation; then compare normalized observations to gold. No additional full candidate dataset is required.
 
@@ -215,12 +215,24 @@ Format validation and semantic evaluation are separate. Run diagnostics distingu
 
 All dates are in 2026. Across R004, R005, and R006, effective cumulative vomiting counts progress 2 -> 3 -> 2; they are never summed. Nausea severity from the corrected report is retained at 4.
 
-Additional model-evaluation examples are needed before claiming broader coverage: multi-day counts, ambiguous incremental reports, incompatible severity scales or contexts, incomplete corrections, and decreasing cumulative counts without a correction. Offline tests cover several normalization boundaries, but these are not held-out model outputs. Cross-report correction and aggregation behavior still requires implementation.
+Additional model-evaluation examples are needed before claiming broader coverage: multi-day counts, ambiguous incremental reports, incompatible severity scales or contexts, incomplete corrections, and decreasing cumulative counts without a correction. Offline tests cover several normalization boundaries, but these are not held-out model outputs. Cross-report correction and aggregation behavior is implemented with targeted boundary tests and conservative exclusion of unresolved counts.
 
-## 9. Remaining inputs and implementation work
+## 9. Implemented downstream inputs and remaining limits
 
-The full prototype still needs patient follow-up start and end dates for coverage denominators, and a separate medication-change table containing the patient, medication, change time, and change type. These belong in their own tables, not as repeated background fields on every symptom observation.
+`data/longitudinal/patients.json` defines follow-up and timezone metadata;
+`medication_changes.json` defines five fictional timestamped changes. SQLite
+preserves these separately from symptom observations. The weekly query includes
+coverage, partial counts, and review indicators. The medication query classifies
+known and indeterminate temporal order without asserting causation.
 
-Planned SQL queries are weekly reported vomiting counts with coverage and unresolved records, and symptoms occurring after a known medication change. A symptom date without a clock time may be insufficient to establish order relative to a same-day medication change. A patient-reported "after taking" relationship is not a substitute for a medication-change record.
+`src/aggregation.py` applies complete corrections, avoids cumulative double
+counting, and derives per-field eligibility. Date-changing or symptom-removing
+corrections remain outside the supported conservative replacement contract;
+they require review and do not deactivate the original. A manual review/write-back
+workflow and general event/window overlap resolution are not implemented.
 
-Next, address the reconciliation and extraction defects found in the frozen prompt experiment, with separately versioned regression checks and new independent evaluation when making further quality claims. Then implement storage, cross-report aggregation, queries, and a chart, with multi-week source data. Charts will read stored query results and distinguish counts, compatible severity scores, missing information, and source evidence. The current synthetic fixtures do not establish generalizable parser accuracy, clinical validity, or completion of the working prototype.
+The local HTML dashboard displays stored query results, gaps, explicit zeros,
+severity, medication markers, and source evidence. See [storage_and_trends.md](storage_and_trends.md)
+for the implemented rules and [time_boundaries.md](time_boundaries.md) for
+subsequent normalization fixes. Default v1 extraction still has documented
+semantic limitations; an error-free prototype or clinical validity is not claimed.

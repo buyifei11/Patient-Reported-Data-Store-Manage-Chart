@@ -1,0 +1,590 @@
+[
+  {
+    "run": "heldout_v3-v1-r1",
+    "report_id": "T011",
+    "candidates": [
+      {
+        "symptom": "vomiting",
+        "assertion": "present",
+        "count": 1,
+        "count_scope": "day_to_date",
+        "severity_value": null,
+        "severity_scale_max": null,
+        "severity_context": null,
+        "time_text": "By 09:00 today",
+        "day_reference": "today",
+        "explicit_date": null,
+        "clock_time": "09:00",
+        "quote": "By 09:00 today, I had vomited once in total.",
+        "medication_relation": null
+      },
+      {
+        "symptom": "vomiting",
+        "assertion": "present",
+        "count": 3,
+        "count_scope": "day_to_date",
+        "severity_value": null,
+        "severity_scale_max": null,
+        "severity_context": null,
+        "time_text": "Since midnight today up to the time of this report",
+        "day_reference": "today",
+        "explicit_date": null,
+        "clock_time": null,
+        "quote": "Since midnight today up to the time of this report, I have vomited three times in total.",
+        "medication_relation": null
+      }
+    ],
+    "before": {
+      "status": "ok",
+      "error_code": null,
+      "error": null,
+      "observations": [
+        {
+          "observation_id": "T011-O1",
+          "symptom": "vomiting",
+          "assertion": "present",
+          "count": 1,
+          "count_scope": "day_to_date",
+          "severity": null,
+          "event_date": "2026-11-14",
+          "event_time": "09:00",
+          "time_text": "By 09:00 today",
+          "date_basis": "relative_text",
+          "medication_relation": null,
+          "evidence": [
+            {
+              "path": "text",
+              "value": "By 09:00 today, I had vomited once in total."
+            }
+          ],
+          "issues": []
+        },
+        {
+          "observation_id": "T011-O2",
+          "symptom": "vomiting",
+          "assertion": "present",
+          "count": 3,
+          "count_scope": "day_to_date",
+          "severity": null,
+          "event_date": "2026-11-14",
+          "event_time": null,
+          "time_text": "Since midnight today up to the time of this report",
+          "date_basis": "relative_text",
+          "medication_relation": null,
+          "evidence": [
+            {
+              "path": "text",
+              "value": "Since midnight today up to the time of this report, I have vomited three times in total."
+            }
+          ],
+          "issues": []
+        },
+        {
+          "observation_id": "T011-O3",
+          "symptom": "vomiting",
+          "assertion": "present",
+          "count": 4,
+          "count_scope": "day_to_date",
+          "severity": null,
+          "event_date": "2026-11-14",
+          "event_time": null,
+          "time_text": null,
+          "date_basis": "questionnaire",
+          "medication_relation": null,
+          "evidence": [
+            {
+              "path": "questionnaire_answers.0.symptom",
+              "value": "vomiting"
+            },
+            {
+              "path": "questionnaire_answers.0.event_date",
+              "value": "2026-11-14"
+            },
+            {
+              "path": "questionnaire_answers.0.count",
+              "value": 4
+            }
+          ],
+          "issues": []
+        }
+      ]
+    },
+    "after": {
+      "status": "error",
+      "error_code": "normalization_error",
+      "error": "Candidates failed provenance or normalization checks; inspect the saved candidates.",
+      "observations": []
+    },
+    "first_rejection_before": null,
+    "first_rejection_after": "An exact clock time requires a matching explicit source time."
+  },
+  {
+    "run": "heldout_v3-v3-r1",
+    "report_id": "T008",
+    "candidates": [
+      {
+        "symptom": "vomiting",
+        "assertion": "present",
+        "count": 2,
+        "count_scope": "window",
+        "severity_value": null,
+        "severity_scale_max": null,
+        "severity_context": null,
+        "time_text": "During today's train ride from 10:00 to 11:00",
+        "day_reference": "today",
+        "explicit_date": null,
+        "clock_time": "10:00",
+        "quote": "During today's train ride from 10:00 to 11:00, I vomited twice: once just after boarding and once before arrival.",
+        "medication_relation": null
+      }
+    ],
+    "before": {
+      "status": "ok",
+      "error_code": null,
+      "error": null,
+      "observations": [
+        {
+          "observation_id": "T008-O1",
+          "symptom": "vomiting",
+          "assertion": "present",
+          "count": 2,
+          "count_scope": "window",
+          "severity": null,
+          "event_date": "2026-11-14",
+          "event_time": "10:00",
+          "time_text": "During today's train ride from 10:00 to 11:00",
+          "date_basis": "relative_text",
+          "medication_relation": null,
+          "evidence": [
+            {
+              "path": "text",
+              "value": "During today's train ride from 10:00 to 11:00, I vomited twice: once just after boarding and once before arrival."
+            }
+          ],
+          "issues": []
+        }
+      ]
+    },
+    "after": {
+      "status": "error",
+      "error_code": "normalization_error",
+      "error": "Candidates failed provenance or normalization checks; inspect the saved candidates.",
+      "observations": []
+    },
+    "first_rejection_before": null,
+    "first_rejection_after": "An exact clock time requires a matching explicit source time."
+  },
+  {
+    "run": "heldout_v3-v3-r1",
+    "report_id": "T011",
+    "candidates": [
+      {
+        "symptom": "vomiting",
+        "assertion": "present",
+        "count": 1,
+        "count_scope": "window",
+        "severity_value": null,
+        "severity_scale_max": null,
+        "severity_context": null,
+        "time_text": "By 09:00 today",
+        "day_reference": "today",
+        "explicit_date": null,
+        "clock_time": "09:00",
+        "quote": "By 09:00 today, I had vomited once in total.",
+        "medication_relation": null
+      },
+      {
+        "symptom": "vomiting",
+        "assertion": "present",
+        "count": 3,
+        "count_scope": "day_to_date",
+        "severity_value": null,
+        "severity_scale_max": null,
+        "severity_context": null,
+        "time_text": "Since midnight today up to the time of this report",
+        "day_reference": "today",
+        "explicit_date": null,
+        "clock_time": null,
+        "quote": "Since midnight today up to the time of this report, I have vomited three times in total.",
+        "medication_relation": null
+      }
+    ],
+    "before": {
+      "status": "ok",
+      "error_code": null,
+      "error": null,
+      "observations": [
+        {
+          "observation_id": "T011-O1",
+          "symptom": "vomiting",
+          "assertion": "present",
+          "count": 1,
+          "count_scope": "window",
+          "severity": null,
+          "event_date": "2026-11-14",
+          "event_time": "09:00",
+          "time_text": "By 09:00 today",
+          "date_basis": "relative_text",
+          "medication_relation": null,
+          "evidence": [
+            {
+              "path": "text",
+              "value": "By 09:00 today, I had vomited once in total."
+            }
+          ],
+          "issues": []
+        },
+        {
+          "observation_id": "T011-O2",
+          "symptom": "vomiting",
+          "assertion": "present",
+          "count": 3,
+          "count_scope": "day_to_date",
+          "severity": null,
+          "event_date": "2026-11-14",
+          "event_time": null,
+          "time_text": "Since midnight today up to the time of this report",
+          "date_basis": "relative_text",
+          "medication_relation": null,
+          "evidence": [
+            {
+              "path": "text",
+              "value": "Since midnight today up to the time of this report, I have vomited three times in total."
+            }
+          ],
+          "issues": []
+        },
+        {
+          "observation_id": "T011-O3",
+          "symptom": "vomiting",
+          "assertion": "present",
+          "count": 4,
+          "count_scope": "day_to_date",
+          "severity": null,
+          "event_date": "2026-11-14",
+          "event_time": null,
+          "time_text": null,
+          "date_basis": "questionnaire",
+          "medication_relation": null,
+          "evidence": [
+            {
+              "path": "questionnaire_answers.0.symptom",
+              "value": "vomiting"
+            },
+            {
+              "path": "questionnaire_answers.0.event_date",
+              "value": "2026-11-14"
+            },
+            {
+              "path": "questionnaire_answers.0.count",
+              "value": 4
+            }
+          ],
+          "issues": []
+        }
+      ]
+    },
+    "after": {
+      "status": "error",
+      "error_code": "normalization_error",
+      "error": "Candidates failed provenance or normalization checks; inspect the saved candidates.",
+      "observations": []
+    },
+    "first_rejection_before": null,
+    "first_rejection_after": "An exact clock time requires a matching explicit source time."
+  },
+  {
+    "run": "heldout_v3-v1-r2",
+    "report_id": "T011",
+    "candidates": [
+      {
+        "symptom": "vomiting",
+        "assertion": "present",
+        "count": 1,
+        "count_scope": "day_to_date",
+        "severity_value": null,
+        "severity_scale_max": null,
+        "severity_context": null,
+        "time_text": "By 09:00 today",
+        "day_reference": "today",
+        "explicit_date": null,
+        "clock_time": "09:00",
+        "quote": "By 09:00 today, I had vomited once in total.",
+        "medication_relation": null
+      },
+      {
+        "symptom": "vomiting",
+        "assertion": "present",
+        "count": 3,
+        "count_scope": "day_to_date",
+        "severity_value": null,
+        "severity_scale_max": null,
+        "severity_context": null,
+        "time_text": "Since midnight today up to the time of this report",
+        "day_reference": "today",
+        "explicit_date": null,
+        "clock_time": null,
+        "quote": "Since midnight today up to the time of this report, I have vomited three times in total.",
+        "medication_relation": null
+      }
+    ],
+    "before": {
+      "status": "ok",
+      "error_code": null,
+      "error": null,
+      "observations": [
+        {
+          "observation_id": "T011-O1",
+          "symptom": "vomiting",
+          "assertion": "present",
+          "count": 1,
+          "count_scope": "day_to_date",
+          "severity": null,
+          "event_date": "2026-11-14",
+          "event_time": "09:00",
+          "time_text": "By 09:00 today",
+          "date_basis": "relative_text",
+          "medication_relation": null,
+          "evidence": [
+            {
+              "path": "text",
+              "value": "By 09:00 today, I had vomited once in total."
+            }
+          ],
+          "issues": []
+        },
+        {
+          "observation_id": "T011-O2",
+          "symptom": "vomiting",
+          "assertion": "present",
+          "count": 3,
+          "count_scope": "day_to_date",
+          "severity": null,
+          "event_date": "2026-11-14",
+          "event_time": null,
+          "time_text": "Since midnight today up to the time of this report",
+          "date_basis": "relative_text",
+          "medication_relation": null,
+          "evidence": [
+            {
+              "path": "text",
+              "value": "Since midnight today up to the time of this report, I have vomited three times in total."
+            }
+          ],
+          "issues": []
+        },
+        {
+          "observation_id": "T011-O3",
+          "symptom": "vomiting",
+          "assertion": "present",
+          "count": 4,
+          "count_scope": "day_to_date",
+          "severity": null,
+          "event_date": "2026-11-14",
+          "event_time": null,
+          "time_text": null,
+          "date_basis": "questionnaire",
+          "medication_relation": null,
+          "evidence": [
+            {
+              "path": "questionnaire_answers.0.symptom",
+              "value": "vomiting"
+            },
+            {
+              "path": "questionnaire_answers.0.event_date",
+              "value": "2026-11-14"
+            },
+            {
+              "path": "questionnaire_answers.0.count",
+              "value": 4
+            }
+          ],
+          "issues": []
+        }
+      ]
+    },
+    "after": {
+      "status": "error",
+      "error_code": "normalization_error",
+      "error": "Candidates failed provenance or normalization checks; inspect the saved candidates.",
+      "observations": []
+    },
+    "first_rejection_before": null,
+    "first_rejection_after": "An exact clock time requires a matching explicit source time."
+  },
+  {
+    "run": "heldout_v3-v3-r2",
+    "report_id": "T008",
+    "candidates": [
+      {
+        "symptom": "vomiting",
+        "assertion": "present",
+        "count": 2,
+        "count_scope": "window",
+        "severity_value": null,
+        "severity_scale_max": null,
+        "severity_context": null,
+        "time_text": "During today's train ride from 10:00 to 11:00",
+        "day_reference": "today",
+        "explicit_date": null,
+        "clock_time": "10:00",
+        "quote": "During today's train ride from 10:00 to 11:00, I vomited twice: once just after boarding and once before arrival.",
+        "medication_relation": null
+      }
+    ],
+    "before": {
+      "status": "ok",
+      "error_code": null,
+      "error": null,
+      "observations": [
+        {
+          "observation_id": "T008-O1",
+          "symptom": "vomiting",
+          "assertion": "present",
+          "count": 2,
+          "count_scope": "window",
+          "severity": null,
+          "event_date": "2026-11-14",
+          "event_time": "10:00",
+          "time_text": "During today's train ride from 10:00 to 11:00",
+          "date_basis": "relative_text",
+          "medication_relation": null,
+          "evidence": [
+            {
+              "path": "text",
+              "value": "During today's train ride from 10:00 to 11:00, I vomited twice: once just after boarding and once before arrival."
+            }
+          ],
+          "issues": []
+        }
+      ]
+    },
+    "after": {
+      "status": "error",
+      "error_code": "normalization_error",
+      "error": "Candidates failed provenance or normalization checks; inspect the saved candidates.",
+      "observations": []
+    },
+    "first_rejection_before": null,
+    "first_rejection_after": "An exact clock time requires a matching explicit source time."
+  },
+  {
+    "run": "heldout_v3-v3-r2",
+    "report_id": "T011",
+    "candidates": [
+      {
+        "symptom": "vomiting",
+        "assertion": "present",
+        "count": 1,
+        "count_scope": "window",
+        "severity_value": null,
+        "severity_scale_max": null,
+        "severity_context": null,
+        "time_text": "By 09:00 today",
+        "day_reference": "today",
+        "explicit_date": null,
+        "clock_time": "09:00",
+        "quote": "By 09:00 today, I had vomited once in total.",
+        "medication_relation": null
+      },
+      {
+        "symptom": "vomiting",
+        "assertion": "present",
+        "count": 3,
+        "count_scope": "day_to_date",
+        "severity_value": null,
+        "severity_scale_max": null,
+        "severity_context": null,
+        "time_text": "Since midnight today up to the time of this report",
+        "day_reference": "today",
+        "explicit_date": null,
+        "clock_time": null,
+        "quote": "Since midnight today up to the time of this report, I have vomited three times in total.",
+        "medication_relation": null
+      }
+    ],
+    "before": {
+      "status": "ok",
+      "error_code": null,
+      "error": null,
+      "observations": [
+        {
+          "observation_id": "T011-O1",
+          "symptom": "vomiting",
+          "assertion": "present",
+          "count": 1,
+          "count_scope": "window",
+          "severity": null,
+          "event_date": "2026-11-14",
+          "event_time": "09:00",
+          "time_text": "By 09:00 today",
+          "date_basis": "relative_text",
+          "medication_relation": null,
+          "evidence": [
+            {
+              "path": "text",
+              "value": "By 09:00 today, I had vomited once in total."
+            }
+          ],
+          "issues": []
+        },
+        {
+          "observation_id": "T011-O2",
+          "symptom": "vomiting",
+          "assertion": "present",
+          "count": 3,
+          "count_scope": "day_to_date",
+          "severity": null,
+          "event_date": "2026-11-14",
+          "event_time": null,
+          "time_text": "Since midnight today up to the time of this report",
+          "date_basis": "relative_text",
+          "medication_relation": null,
+          "evidence": [
+            {
+              "path": "text",
+              "value": "Since midnight today up to the time of this report, I have vomited three times in total."
+            }
+          ],
+          "issues": []
+        },
+        {
+          "observation_id": "T011-O3",
+          "symptom": "vomiting",
+          "assertion": "present",
+          "count": 4,
+          "count_scope": "day_to_date",
+          "severity": null,
+          "event_date": "2026-11-14",
+          "event_time": null,
+          "time_text": null,
+          "date_basis": "questionnaire",
+          "medication_relation": null,
+          "evidence": [
+            {
+              "path": "questionnaire_answers.0.symptom",
+              "value": "vomiting"
+            },
+            {
+              "path": "questionnaire_answers.0.event_date",
+              "value": "2026-11-14"
+            },
+            {
+              "path": "questionnaire_answers.0.count",
+              "value": 4
+            }
+          ],
+          "issues": []
+        }
+      ]
+    },
+    "after": {
+      "status": "error",
+      "error_code": "normalization_error",
+      "error": "Candidates failed provenance or normalization checks; inspect the saved candidates.",
+      "observations": []
+    },
+    "first_rejection_before": null,
+    "first_rejection_after": "An exact clock time requires a matching explicit source time."
+  }
+]

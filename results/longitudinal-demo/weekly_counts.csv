@@ -1,0 +1,16 @@
+patient_id,display_name,week_start,followup_days,reported_days,count_covered_days,review_days,missing_count_days,partial_count_days,completed_count_days,reported_vomiting_count,count_coverage,interpretation
+P001,Demo patient 1,2026-10-26,1,1,1,0,0,0,1,2,1.0,complete_reported_days
+P001,Demo patient 1,2026-11-02,7,6,5,0,2,5,0,8,0.7143,partial_reporting
+P001,Demo patient 1,2026-11-09,7,7,6,1,0,6,0,15,0.8571,partial_reporting
+P001,Demo patient 1,2026-11-16,7,6,6,0,1,6,0,6,0.8571,partial_reporting
+P001,Demo patient 1,2026-11-23,6,5,5,0,1,5,0,6,0.8333,partial_reporting
+P002,Demo patient 2,2026-10-26,1,0,0,0,1,0,0,,0.0,partial_reporting
+P002,Demo patient 2,2026-11-02,7,5,4,1,2,4,0,8,0.5714,partial_reporting
+P002,Demo patient 2,2026-11-09,7,6,6,0,1,6,0,13,0.8571,partial_reporting
+P002,Demo patient 2,2026-11-16,7,6,6,0,1,6,0,11,0.8571,partial_reporting
+P002,Demo patient 2,2026-11-23,6,6,6,0,0,6,0,7,1.0,partial_reporting
+P003,Demo patient 3,2026-10-26,1,0,0,0,1,0,0,,0.0,partial_reporting
+P003,Demo patient 3,2026-11-02,7,4,0,2,5,0,0,,0.0,partial_reporting
+P003,Demo patient 3,2026-11-09,7,6,5,1,1,5,0,9,0.7143,partial_reporting
+P003,Demo patient 3,2026-11-16,7,6,6,0,1,6,0,11,0.8571,partial_reporting
+P003,Demo patient 3,2026-11-23,6,5,5,0,1,5,0,7,0.8333,partial_reporting

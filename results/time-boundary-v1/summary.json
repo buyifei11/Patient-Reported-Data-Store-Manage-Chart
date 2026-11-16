@@ -1,0 +1,237 @@
+{
+  "kind": "offline_time_boundary_replay",
+  "reference_role": "known_regression_data",
+  "created_at": "2026-11-16T02:20:23.994056+00:00",
+  "interpretation": "Same saved candidates under stricter time guards. More rejected reports mean unsupported clock claims are exposed, not that model extraction accuracy improved.",
+  "base_revision": "66a55605303a818a99c77d7f768006966351a01b",
+  "base_manifest_sha256": "30078111ab94c0a0ffc3296f6da18faa2a0f1594f0cd7216ed18720d34dbaf78",
+  "base_summary_sha256": "18bcf1408ffb75962ddbd3cb3b7ea2130ccadf60beaeaf2cf43e247b0ddcc835",
+  "base_code_sha256": "d9dedbf210c524f0783aa11470d2cf47a1f0a937c035dc5598c82adc39384ed6",
+  "current_code_sha256": "c81f7c9785e8f1d73ef8ac3022929c25680fa0b02dba59c35dec56a4c4e63de9",
+  "normalization_sha256": "08b28c5198bcb09415f73226d67b3a5f6b5db3639d0549676b6ac7be2bae2839",
+  "replay_script_sha256": "dd553a97a75d811eea4e7e47daac656487d5db3f652d6ad7c4f82acea8c540c6",
+  "replay_helper_sha256": "aa0c25e0e45c155ee72743aa5d79283625dde89c9c609a2bd4d4204afdc4ec62",
+  "model_requests": 0,
+  "unique_reports": 70,
+  "saved_outputs": 280,
+  "unchanged_extraction_payloads": 280,
+  "changed_outputs": 6,
+  "before_status_counts": {
+    "ok": 255,
+    "error": 25
+  },
+  "after_status_counts": {
+    "ok": 249,
+    "error": 31
+  },
+  "runs": {
+    "regression-v1-r1": {
+      "predictions_sha256": "dc6fa340aefd87aac06870a9b7ce9e97e233e1e05830a62e4c8f01fab56cce0a",
+      "original_metrics_sha256": "2374d508169a62d7b0d5f23ecaba784e336ead3544ea78f618b6e7359e1cca14",
+      "saved_outputs": 50,
+      "changed_report_ids": [],
+      "before_status_counts": {
+        "ok": 47,
+        "error": 3
+      },
+      "after_status_counts": {
+        "ok": 47,
+        "error": 3
+      },
+      "first_rejections_before": {
+        "D012": "A multi-day count must retain window scope.",
+        "H010": "Candidate time_text must be an exact substring of its quote.",
+        "H012": "An explicit date requires a matching calendar-date anchor."
+      },
+      "first_rejections_after": {
+        "D012": "A multi-day count must retain window scope.",
+        "H010": "Candidate time_text must be an exact substring of its quote.",
+        "H012": "An explicit date requires a matching calendar-date anchor."
+      }
+    },
+    "regression-v3-r1": {
+      "predictions_sha256": "441801cd65bd210cc87709a15b2326366dc08bf1f88a56d469a1ba78eef60296",
+      "original_metrics_sha256": "30900fd2d27112f5981344bee52342cd1b22a332855811b9548b26174def45da",
+      "saved_outputs": 50,
+      "changed_report_ids": [],
+      "before_status_counts": {
+        "ok": 48,
+        "error": 2
+      },
+      "after_status_counts": {
+        "ok": 48,
+        "error": 2
+      },
+      "first_rejections_before": {
+        "R002": "A day_total requires a completed calendar day before submission.",
+        "D012": "Only an explicit day reference may contain explicit_date."
+      },
+      "first_rejections_after": {
+        "R002": "A day_total requires a completed calendar day before submission.",
+        "D012": "Only an explicit day reference may contain explicit_date."
+      }
+    },
+    "regression-v1-r2": {
+      "predictions_sha256": "95397cb89998b4173364d12b997bada317059c43137e1a5da89414a05cf87230",
+      "original_metrics_sha256": "c242498daf6952fc709227ea3bf5e6142d7ed09187abf30e023e707ec57d9055",
+      "saved_outputs": 50,
+      "changed_report_ids": [],
+      "before_status_counts": {
+        "ok": 45,
+        "error": 5
+      },
+      "after_status_counts": {
+        "ok": 45,
+        "error": 5
+      },
+      "first_rejections_before": {
+        "D012": "A multi-day count must retain window scope.",
+        "H010": "Candidate time_text must be an exact substring of its quote.",
+        "H012": "An explicit date requires a matching calendar-date anchor.",
+        "H014": "Candidate time_text must be an exact substring of its quote.",
+        "H019": "Candidate time_text must be an exact substring of its quote."
+      },
+      "first_rejections_after": {
+        "D012": "A multi-day count must retain window scope.",
+        "H010": "Candidate time_text must be an exact substring of its quote.",
+        "H012": "An explicit date requires a matching calendar-date anchor.",
+        "H014": "Candidate time_text must be an exact substring of its quote.",
+        "H019": "Candidate time_text must be an exact substring of its quote."
+      }
+    },
+    "regression-v3-r2": {
+      "predictions_sha256": "4787b0c5adcf63f83282b4430e26cfabf3be05d0db0b5269573437454a1f4699",
+      "original_metrics_sha256": "81f3f67d59e5733bdf5ccf7d9f3a8ff9b28d584b9af0a3e2c01c55f59f227822",
+      "saved_outputs": 50,
+      "changed_report_ids": [],
+      "before_status_counts": {
+        "ok": 48,
+        "error": 2
+      },
+      "after_status_counts": {
+        "ok": 48,
+        "error": 2
+      },
+      "first_rejections_before": {
+        "R002": "A day_total requires a completed calendar day before submission.",
+        "D012": "Only an explicit day reference may contain explicit_date."
+      },
+      "first_rejections_after": {
+        "R002": "A day_total requires a completed calendar day before submission.",
+        "D012": "Only an explicit day reference may contain explicit_date."
+      }
+    },
+    "heldout_v3-v1-r1": {
+      "predictions_sha256": "d5b3e536e57f52d08bee6f6d3709af7d28d5a8831ea2986840531b86423ce8de",
+      "original_metrics_sha256": "d07a52531878ce28dfed55e2fe1280afc025d9f577f8194d052fb2b2620ef9a8",
+      "saved_outputs": 20,
+      "changed_report_ids": [
+        "T011"
+      ],
+      "before_status_counts": {
+        "ok": 15,
+        "error": 5
+      },
+      "after_status_counts": {
+        "ok": 14,
+        "error": 6
+      },
+      "first_rejections_before": {
+        "T008": "A today reference requires a supported same-day expression.",
+        "T009": "An explicit date requires a matching calendar-date anchor.",
+        "T010": "A today reference requires a supported same-day expression.",
+        "T019": "Candidate time_text must be an exact substring of its quote.",
+        "T020": "An explicit date requires a matching calendar-date anchor."
+      },
+      "first_rejections_after": {
+        "T008": "A today reference requires a supported same-day expression.",
+        "T009": "An explicit date requires a matching calendar-date anchor.",
+        "T010": "A today reference requires a supported same-day expression.",
+        "T011": "An exact clock time requires a matching explicit source time.",
+        "T019": "Candidate time_text must be an exact substring of its quote.",
+        "T020": "An explicit date requires a matching calendar-date anchor."
+      }
+    },
+    "heldout_v3-v3-r1": {
+      "predictions_sha256": "77d8a668f4a774ae521522a446adb27f90369762c8039236b357545cffec53de",
+      "original_metrics_sha256": "410eccacde7ed4ae941bf9204193b7e170544a264fa3eb1c51053b8f685634f2",
+      "saved_outputs": 20,
+      "changed_report_ids": [
+        "T008",
+        "T011"
+      ],
+      "before_status_counts": {
+        "error": 2,
+        "ok": 18
+      },
+      "after_status_counts": {
+        "error": 4,
+        "ok": 16
+      },
+      "first_rejections_before": {
+        "T001": "An exact clock time requires a matching explicit source time.",
+        "T005": "Only an explicit day reference may contain explicit_date."
+      },
+      "first_rejections_after": {
+        "T001": "An exact clock time requires a matching explicit source time.",
+        "T005": "Only an explicit day reference may contain explicit_date.",
+        "T008": "An exact clock time requires a matching explicit source time.",
+        "T011": "An exact clock time requires a matching explicit source time."
+      }
+    },
+    "heldout_v3-v1-r2": {
+      "predictions_sha256": "3d802611d9091d318763ffdd5b43955a00e1305f7f7372ec55113985c95ed160",
+      "original_metrics_sha256": "e00593a3f1af1dbda7a2d476671849b0a50115d9b9ec0b5a1a0c1901aa834041",
+      "saved_outputs": 20,
+      "changed_report_ids": [
+        "T011"
+      ],
+      "before_status_counts": {
+        "ok": 14,
+        "error": 6
+      },
+      "after_status_counts": {
+        "ok": 13,
+        "error": 7
+      },
+      "first_rejections_before": {
+        "T005": "A multi-day count must retain window scope.",
+        "T008": "A today reference requires a supported same-day expression.",
+        "T009": "An explicit date requires a matching calendar-date anchor.",
+        "T010": "A today reference requires a supported same-day expression.",
+        "T019": "Candidate time_text must be an exact substring of its quote.",
+        "T020": "An explicit date requires a matching calendar-date anchor."
+      },
+      "first_rejections_after": {
+        "T005": "A multi-day count must retain window scope.",
+        "T008": "A today reference requires a supported same-day expression.",
+        "T009": "An explicit date requires a matching calendar-date anchor.",
+        "T010": "A today reference requires a supported same-day expression.",
+        "T011": "An exact clock time requires a matching explicit source time.",
+        "T019": "Candidate time_text must be an exact substring of its quote.",
+        "T020": "An explicit date requires a matching calendar-date anchor."
+      }
+    },
+    "heldout_v3-v3-r2": {
+      "predictions_sha256": "93e5c45de13c8de7d46d8fdf98189725ff91a454680609f57bbc8cd41af9a09d",
+      "original_metrics_sha256": "d758db150fa8059c3cc7c49234e12a41a9499d92d717ac51667862ab942ff719",
+      "saved_outputs": 20,
+      "changed_report_ids": [
+        "T008",
+        "T011"
+      ],
+      "before_status_counts": {
+        "ok": 20
+      },
+      "after_status_counts": {
+        "ok": 18,
+        "error": 2
+      },
+      "first_rejections_before": {},
+      "first_rejections_after": {
+        "T008": "An exact clock time requires a matching explicit source time.",
+        "T011": "An exact clock time requires a matching explicit source time."
+      }
+    }
+  }
+}

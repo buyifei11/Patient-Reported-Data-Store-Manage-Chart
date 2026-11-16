@@ -1,0 +1,36 @@
+{
+  "run_id": "longitudinal-v1",
+  "model_requests": 0,
+  "patients": 3,
+  "reports": 71,
+  "normalized_observations": 137,
+  "failed_reports": 0,
+  "followup_patient_days": 84,
+  "usable_count_days": 61,
+  "count_review_days": 5,
+  "missing_count_days": 18,
+  "review_items": 14,
+  "corrections": [
+    {
+      "report_id": "R006",
+      "target_report_id": "R005",
+      "status": "applied",
+      "reason": null
+    }
+  ],
+  "database_integrity": "ok",
+  "metadata": {
+    "description": "Synthetic four-week follow-up; saved LLM candidates plus structured questionnaires",
+    "cached_text_reports": 10,
+    "questionnaire_reports": 61,
+    "model_requests": 0,
+    "runtime_sha256": "c81f7c9785e8f1d73ef8ac3022929c25680fa0b02dba59c35dec56a4c4e63de9",
+    "cache_sha256": "c30a5c62d134b93d0c9bbe327a00d33f0c43e1001848da6f56be643ab090fcb3",
+    "dashboard_template_sha256": "c27a6e069f61117baac093c568052395d33bfabfb5e91ebeedd468e33ed7b6cf",
+    "dataset_files": {
+      "patients.json": "80e1b0b842ee627c27a9734b8e2ee6f382b5c00be9bd1c6595c654a0ffb3c41c",
+      "reports.jsonl": "701689d9a72120c5eb59d83bc0ebd58e9122f53c6e7c97920b674c605769f9d3",
+      "medication_changes.json": "beb022356f1e5b9d58727b7727dcbb0f124ea96b31b1daecceb4f9034627e2be"
+    }
+  }
+}

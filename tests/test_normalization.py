@@ -311,6 +311,63 @@ class NormalizationTests(unittest.TestCase):
         self.assertEqual(issues(result[0]), {("count", "conflicting_sources")})
         self.assertEqual(len(result[0]["evidence"]), 2)
 
+    def test_equivalent_explicit_start_to_current_ranges_reconcile(self):
+        for timing in (
+            "Since midnight today up to the time of this report",
+            "since midnight today through this message",
+            "from midnight today up until now",
+            "from the start of today to this submission",
+            "SINCE THE START OF TODAY UNTIL THE TIME OF THIS SUBMISSION",
+        ):
+            with self.subTest(timing=timing):
+                text = f"{timing}, I have vomited three times in total."
+                source = report(text, [answer(count=4)])
+                values = [candidate(text, count=3, count_scope="day_to_date", time_text=timing)]
+                original = copy.deepcopy((source, values))
+                result = normalize_report(source, values)
+                self.assertEqual(len(result), 1)
+                self.assertIsNone(result[0]["count"])
+                self.assertEqual(result[0]["assertion"], "present")
+                self.assertEqual(result[0]["time_text"], timing)
+                self.assertEqual(issues(result[0]), {("count", "conflicting_sources")})
+                self.assertEqual(result[0]["evidence"][0], {"path": "text", "value": text})
+                self.assertEqual(result[0]["evidence"][-1], {"path": "questionnaire_answers.0.count", "value": 4})
+                self.assertEqual((source, values), original)
+
+    def test_since_range_with_earlier_or_unclear_endpoint_is_not_current_total(self):
+        for timing in (
+            "since midnight today until noon",
+            "since midnight today up to 09:00",
+            "since midnight today through breakfast",
+            "since midnight today",
+            "from the start of today until 09:00",
+        ):
+            with self.subTest(timing=timing):
+                text = f"I had vomited once {timing}."
+                result = normalize_report(report(text, [answer(count=3)]), [
+                    candidate(text, count_scope="day_to_date", time_text=timing),
+                ])
+                self.assertEqual(len(result), 2)
+                self.assertEqual(sorted(o["count"] for o in result), [1, 3])
+                self.assertTrue(all(not o["issues"] for o in result))
+
+    def test_current_since_range_does_not_override_other_earlier_qualifiers(self):
+        text = ("By 09:00 today I had vomited once. "
+                "This report covers since midnight today up to the time of this report.")
+        result = normalize_report(report(text, [answer(count=3)]), [
+            candidate(text, count_scope="day_to_date", time_text="By 09:00 today"),
+        ])
+        self.assertEqual(len(result), 2)
+        self.assertEqual(sorted(o["count"] for o in result), [1, 3])
+
+    def test_current_since_range_does_not_override_extracted_window_scope(self):
+        text = "Since midnight today up to the time of this report, I have vomited three times."
+        result = normalize_report(report(text, [answer(count=4)]), [
+            candidate(text, count=3, count_scope="window"),
+        ])
+        self.assertEqual(len(result), 2)
+        self.assertEqual({(o["count"], o["count_scope"]) for o in result}, {(3, "window"), (4, "day_to_date")})
+
     def test_valid_form_severity_does_not_hide_rejected_text_score(self):
         text = "My nausea at its worst today was 6 out of 10."
         result = normalize_report(report(text, [answer("nausea", severity=3)]), [nausea(text, severity_value=6, severity_scale_max=10, severity_context="worst_today_so_far")])[0]
@@ -390,6 +447,59 @@ class NormalizationTests(unittest.TestCase):
                 result = normalize_report(report(text), [candidate(text, time_text=f"today at {timing}")])[0]
                 self.assertIsNone(result["event_time"])
                 self.assertEqual(result["time_text"], f"today at {timing}")
+
+    def test_both_interval_endpoints_are_not_episode_times(self):
+        for timing in (
+            "between 06:00 and 09:00", "from 06:00 to 09:00",
+            "06:00-09:00", "06:00–09:00", "06:00 to 09:00",
+            "from 6:00 am until 9:00 am", "between 6:00 am and 9:00 am",
+        ):
+            text = f"I vomited twice today {timing}."
+            source = report(text)
+            for clock in ("06:00", "09:00"):
+                values = [candidate(text, count=2, count_scope="window", clock_time=clock, time_text=timing)]
+                original = copy.deepcopy((source, values))
+                with self.subTest(timing=timing, clock=clock), self.assertRaises(NormalizationError):
+                    normalize_report(source, values)
+                self.assertEqual((source, values), original)
+            result = normalize_report(source, [candidate(text, count=2, count_scope="window", time_text=timing)])[0]
+            self.assertIsNone(result["event_time"])
+            self.assertEqual(result["time_text"], timing)
+
+    def test_cutoff_and_range_boundary_clocks_are_not_episode_times(self):
+        for timing in (
+            "by 09:00", "as of 09:00", "until 09:00", "up to 09:00",
+            "through 09:00", "since 09:00", "before 09:00", "after 09:00",
+            "from 09:00 until lunch", "between breakfast and 09:00",
+        ):
+            text = f"I had vomited once in total today {timing}."
+            with self.subTest(timing=timing):
+                with self.assertRaises(NormalizationError):
+                    normalize_report(report(text), [candidate(text, count_scope="day_to_date", clock_time="09:00", time_text=timing)])
+                result = normalize_report(report(text), [candidate(text, count_scope="day_to_date", time_text=timing)])[0]
+                self.assertIsNone(result["event_time"])
+                self.assertEqual(result["time_text"], timing)
+
+    def test_actual_episode_time_survives_a_different_cutoff_in_same_quote(self):
+        text = "Today at 10:00 I vomited; by 11:00 I had recorded one episode in total."
+        result = normalize_report(report(text), [candidate(text, clock_time="10:00", time_text="Today at 10:00")])[0]
+        self.assertEqual(result["event_time"], "10:00")
+        with self.assertRaises(NormalizationError):
+            normalize_report(report(text), [candidate(text, clock_time="11:00", time_text="by 11:00")])
+
+    def test_actual_episode_at_same_time_as_boundary_has_its_own_support(self):
+        text = "Between 09:00 and 10:00 today I vomited once, specifically at 09:00."
+        result = normalize_report(report(text), [candidate(text, count_scope="window", clock_time="09:00")])[0]
+        self.assertEqual(result["event_time"], "09:00")
+        self.assertEqual(result["count_scope"], "window")
+        with self.assertRaises(NormalizationError):
+            normalize_report(report(text), [candidate(text, count_scope="window", clock_time="10:00")])
+
+    def test_completed_daily_total_can_locate_its_only_episode_explicitly(self):
+        text = "Yesterday I vomited once at 15:25; that was my only episode during the whole day."
+        result = normalize_report(report(text), [candidate(text, count_scope="day_total", day_reference="yesterday", time_text="Yesterday", clock_time="15:25")])[0]
+        self.assertEqual(result["event_time"], "15:25")
+        self.assertEqual(result["count_scope"], "day_total")
 
     def test_medication_relation_keeps_label_without_inventing_time(self):
         text = "I felt nauseous after taking Medication Z this morning."

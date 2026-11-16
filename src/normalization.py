@@ -52,6 +52,14 @@ def _explicit_date_supported(value: str, quote: str) -> bool:
 def _clock_supported(value: str, quote: str) -> bool:
     hour, minute = map(int, value.split(":"))
     pattern = r"(?<!\d)(\d{1,2}):(\d{2})(?:\s*([ap]\.?m\.?))?(?!\w)"
+    clock_token = r"\d{1,2}:\d{2}(?:\s*[ap]\.?m\.?)?"
+    # Both endpoints describe a range, not an occurrence. Track their spans so
+    # an independently stated occurrence at the same numeric time can survive.
+    ranges = [match.span() for match in re.finditer(
+        rf"\bbetween\s+{clock_token}\s+and\s+{clock_token}(?!\w)|"
+        rf"(?<!\d){clock_token}\s*(?:[-–—]|\b(?:to|through|until|till)\b)\s*{clock_token}(?!\w)",
+        quote, flags=re.IGNORECASE,
+    )]
     for match in re.finditer(pattern, quote, flags=re.IGNORECASE):
         source_hour, source_minute = int(match[1]), int(match[2])
         meridiem = match[3]
@@ -62,6 +70,15 @@ def _clock_supported(value: str, quote: str) -> bool:
         if (source_hour, source_minute) != (hour, minute):
             continue
         before, after = quote[:match.start()], quote[match.end():]
+        boundary_before = re.search(
+            r"\b(?:between|from|since|to|until|till|through|before|after|by|as\s+of|"
+            r"up\s+to|starting(?:\s+at)?|ending(?:\s+at)?)\s*(?:at\s*)?$|"
+            r"\bbetween\s+(?:breakfast|lunch|dinner|noon|midnight)\s+and\s*$",
+            before, re.IGNORECASE,
+        )
+        boundary_after = re.match(r"\s*(?:cutoff|deadline|start|end)\b", after, re.IGNORECASE)
+        if boundary_before or boundary_after or any(start <= match.start() < end for start, end in ranges):
+            continue
         approximate_before = re.search(
             r"(?:\b(?:around|about|roughly|approximately|approx\.?|circa|between)|~)\s*(?:at\s*)?$",
             before, re.IGNORECASE,
@@ -215,14 +232,18 @@ def _compatible_with_questionnaire(candidate: dict, observation: dict, questionn
         # only this explicit start-to-present phrase for the snapshot check;
         # keep source evidence intact and inspect any remaining qualifiers.
         snapshot_context = re.sub(
-            r"\bfrom\s+midnight\s+today\s+(?:through|until|to)\s+(?:this\s+submission|now)\b",
+            r"\b(?:from|since)\s+(?:midnight\s+today|(?:the\s+)?start\s+of\s+today)\s+"
+            r"(?:through|until|to|up\s+to|up\s+until)\s+"
+            r"(?:now|this\s+(?:submission|report|message)|"
+            r"(?:the\s+)?time\s+of\s+this\s+(?:submission|report|message))\b",
             " ", candidate["quote"], flags=re.IGNORECASE,
         )
         # Earlier within-day snapshots and a submission-time form answer can
         # both be correct. Do not collapse their different reporting windows.
         return not re.search(
             r"\b(?:earlier|previously|before|after|morning|afternoon|evening|tonight|"
-            r"breakfast|lunch|dinner|noon|midnight|as\s+of)\b|\b(?:by|at)\s+\d",
+            r"breakfast|lunch|dinner|noon|midnight|as\s+of)\b|\b(?:by|at)\s+\d|"
+            r"\b(?:until|through|to|from|since)\s+\d{1,2}:\d{2}",
             snapshot_context,
             re.IGNORECASE,
         )

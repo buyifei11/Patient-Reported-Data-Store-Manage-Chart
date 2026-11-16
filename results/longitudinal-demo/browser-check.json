@@ -1,0 +1,13 @@
+{
+  "patientsChecked": [
+    "P001",
+    "P002",
+    "P003"
+  ],
+  "chartValuesMatchStoredDailyRecords": true,
+  "indeterminateRows": 2,
+  "desktopWidth": 1440,
+  "mobileWidth": 390,
+  "scriptErrors": [],
+  "remoteRequests": []
+}
