@@ -1,0 +1,55 @@
+{
+  "method": "Read-only replay of saved candidates through existing compatibility gate; no model calls, output edits, or gold-assisted repair.",
+  "runtime_file": "src/normalization.py",
+  "runtime_file_sha256": "08b28c5198bcb09415f73226d67b3a5f6b5db3639d0549676b6ac7be2bae2839",
+  "cases": [
+    {
+      "report_id": "TV007",
+      "candidate_index": 0,
+      "severity_value": null,
+      "severity_context": null,
+      "time_text": "today up to now",
+      "quote": "I’ve had nausea today up to now.",
+      "daily_merge_eligible": false
+    },
+    {
+      "report_id": "TV007",
+      "candidate_index": 2,
+      "severity_value": 5,
+      "severity_context": "worst_today_so_far",
+      "time_text": "at its worst so far today",
+      "quote": "My nausea is 5 out of 5 at its worst so far today.",
+      "daily_merge_eligible": true
+    },
+    {
+      "report_id": "TV009",
+      "candidate_index": 1,
+      "severity_value": null,
+      "severity_context": null,
+      "time_text": "today up to now",
+      "quote": "I’ve had nausea today up to now, and my worst nausea severity so far today is 3 out of 5.",
+      "daily_merge_eligible": false
+    },
+    {
+      "report_id": "TV009",
+      "candidate_index": 2,
+      "severity_value": 3,
+      "severity_context": "worst_today_so_far",
+      "time_text": "so far today",
+      "quote": "I’ve had nausea today up to now, and my worst nausea severity so far today is 3 out of 5.",
+      "daily_merge_eligible": true
+    }
+  ],
+  "confirmed_mechanism": "Unscored nausea candidates have null severity_context and time_text=\"today up to now\". The fallback gate rejects the word now; scored worst_today_so_far candidates pass an earlier branch. Only eligible records enter daily_groups, so the pair remains separate. Exact-object deduplication cannot remove unequal candidates.",
+  "interpretation": "The model caused duplicate candidates. The conservative gate lets them persist and does not distinguish this cumulative phrase from current-only timing. This is a deterministic handling gap; do not assume every same-day pair is interchangeable.",
+  "recommended_next_step": "Define a narrow duplicate/subsumption policy using same report, symptom, assertion, compatible context, supported non-null values and source evidence; preserve all raw candidates. Recognize explicit cumulative-today phrases without treating right now/current/morning statements as daily summaries. Flag uncertain cases instead of silently dropping them. Keep raw extraction and normalized metrics separate.",
+  "required_negative_controls": [
+    "Current nausea now versus a daily worst rating",
+    "Morning-only versus full-day context",
+    "Different event dates or clock times",
+    "Different assertions or medication relations",
+    "Conflicting known severity values",
+    "Identical quotes with distinct current-versus-daily assertions"
+  ],
+  "implemented": false
+}

@@ -1,0 +1,145 @@
+{
+  "report_ids": [
+    "TV001",
+    "TV002",
+    "TV003",
+    "TV004",
+    "TV005",
+    "TV006",
+    "TV007",
+    "TV008",
+    "TV009",
+    "TV010"
+  ],
+  "expected_observations": 15,
+  "provider": "openai",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "reasoning_effort": "none",
+  "max_output_tokens": 2048,
+  "source_file": "data/text_validation/reports.jsonl",
+  "source_file_sha256": "907d09c1292d7ed1d42c8fa8b731585c358e6ca6bafc082fda4088ff1ac10cd6",
+  "gold_file": "data/text_validation/expected.jsonl",
+  "gold_file_sha256": "0c975a58177f44ef2822d09fae299672daaf0dabd97c467b8efdb53276a65ea6",
+  "source_dataset_sha256": "a93f7524592612ec6d6946d7b1e13676682455297cbedcf685200d8db9030e6e",
+  "gold_dataset_sha256": "ba106ae74de42664b438f6ee9e62b70ce3d4a83172d275604c8785a09eda5a33",
+  "runtime_sha256": "df4534d4ed5f1f952ad24316982b8d1581b512b5055bcec12bbebf765b45f6f6",
+  "input_policy": "Each stateless extraction request receives only patient text and its frozen instructions/schema. No seeds, gold, questionnaires, metadata, or generation conversation enter the model.",
+  "postprocessing_policy": "Existing deterministic normalizer resolves dates from submission metadata; questionnaire arrays are empty. No reference-assisted repair.",
+  "primary_metrics": [
+    "Report completion out of 10",
+    "Observation detection precision/recall/F1 out of 15 references, including extras",
+    "All 165 candidate semantic field expectations, with per-field breakdown",
+    "135 normalized core fields, with known and null references separated",
+    "Unknown overfill and issue detection",
+    "Exact-source-substring validity and separate source-based evidence-completeness review",
+    "Whole-report pass including evidence out of 10"
+  ],
+  "normalized_core_fields": [
+    "symptom",
+    "assertion",
+    "count",
+    "count_scope",
+    "severity",
+    "event_date",
+    "event_time",
+    "date_basis",
+    "medication_relation"
+  ],
+  "expected_normalized_core_denominators": {
+    "known": 89,
+    "null": 46,
+    "total": 135
+  },
+  "evidence_rule": "The retained quote must be an exact contiguous source substring and itself support every claimed field. No cross-symptom value borrowing. Shorter or longer sufficient spans are valid; exact equality to the gold quote is not required.",
+  "evidence_denominators": "Report observed-quote support out of all emitted candidates, and reference observation coverage out of all 15 expected observations. Missing/error cases cannot inflate coverage; extras remain visible.",
+  "whole_report_rule": "Successful processing; no missing/extra observations or candidates; all candidate checks and normalized core fields correct; issue flags match; all quotes exact and complete. Exact time_text differences reported separately and reviewed for semantic validity.",
+  "direct_candidate_value_diagnostic": {
+    "purpose": "Separate field-value correctness from quote-overlap alignment; evidence completeness remains an independent requirement.",
+    "matching_rule": "For each reference symptom, compare its 11 declared fields only when exactly one expected check and exactly one emitted candidate of that symptom exist. Ambiguous, missing, or failed extractions receive no credit; extra candidates are counted separately. Never choose the most accurate candidate.",
+    "denominator": 165,
+    "status_policy": "Use validated candidates from ok rows or normalization_error rows, matching the existing evaluator. Other error or missing rows receive no credit.",
+    "reporting_policy": "Publish this alongside the unchanged automatic evaluator, with any disagreement attributed explicitly to matching/evidence, not repaired model output."
+  },
+  "separate_diagnostics": [
+    "Exact time_text equality is diagnostic; source-supported alternatives with the same meaning are reviewed separately.",
+    "The automatic evaluator retains its historical development_fixtures label; these cases are now explicitly known development/regression data."
+  ],
+  "failure_policy": "No automatic retry or output repair. Preserve failed calls and remaining missing reports in denominators. Stop an arm on service/configuration failure as the existing CLI does.",
+  "purpose": "Test a shorter vomiting-specific grouping block while preserving contiguous evidence and nausea null-count constraints",
+  "frozen_at_utc": "2026-11-16T19:02:08.480161+00:00",
+  "base_git_revision": "a03db2ab28dd3b30bc017581c8a2d1766011ee64",
+  "case_set_role": "known_development_regression_after_prompt_tuning",
+  "prompt_file": "prompts/extraction_grouping_compact.txt",
+  "prompt_file_sha256": "5744662feff442cc42aebad000b0e3da8de93f4a3efcc084f794dc65cb7ac441",
+  "system_prompt_sha256": "ea6289809cc015e5dc7cbd1fad9ed8d2126afe4cac5bf8754c70fbbd9af5cee5",
+  "unchanged_prompt_hashes": {
+    "prompts/extraction.txt": "d88b76baa0f7454fd31495e03df07a5a607651718714bc24ec67b5103fa55cd7",
+    "prompts/extraction_evidence.txt": "20871c7ab93d939fd4dd5c1398f05fcb8a012b149f82ca99cc27c76988559036",
+    "prompts/extraction_grouping.txt": "2ea00d9e6508ab8920356d71492b92b49402781f93dabe8d8828bc97bffc31d0"
+  },
+  "comparator_file_hashes": {
+    "results/text-validation-comparison/README.md": "a8ab6e677e2368d3cd4baf1787a442304b4a8fc1140ea5fd1f74b90ea954be19",
+    "results/text-validation-comparison/baseline/metrics.json": "06269d326e6a538dbaffdcb34881f30c33868dd905a00bbd96727d993928bae7",
+    "results/text-validation-comparison/baseline/predictions.jsonl": "0b754a9d9446b49d111303fe83576bb12042fb978a6e32d32db83455ba3bdf2e",
+    "results/text-validation-comparison/evidence/metrics.json": "35d8f4523960755b1162ffe2fc6921116f53c1c08c07724d6c9b393423dce8eb",
+    "results/text-validation-comparison/evidence/predictions.jsonl": "fb55bd85746c85a0d4cc1213f97d394cddc886cfc97497fb93e991cfbb888619",
+    "results/text-validation-comparison/protocol.json": "7950103197844ea063750d59a99fa9f7a9387c9ce9e3584a1c17a6850eb0f4a1",
+    "results/text-validation-comparison/review.json": "09ddba1da80a4ec65a755d0515489827117eae38baa874f93017cbc9e898833a",
+    "results/text-validation-comparison/summary.json": "9c20a61d892bcb5b3e0c4360bed58fd774f6cc709f7a65f309341e9e210ae620",
+    "results/text-validation-grouping/README.md": "e4d5d4d8266cd737410aa512e35409b0dd1536892be3a8fef685221bea59755e",
+    "results/text-validation-grouping/comparison.json": "aae68bea84edf83b04d66d06f726ed2e3813e7fdaf6281b535d0fdc2fc3dfb89",
+    "results/text-validation-grouping/metrics.json": "0205a33e446cc583fbec826395d7bc846b2fb894ebcea18f444666163a908849",
+    "results/text-validation-grouping/predictions.jsonl": "8ad7cb9634437ea539c610307bf6414d376b37cebb56981a2c10ad43e65ae83c",
+    "results/text-validation-grouping/protocol.json": "fbc7390e8c75404fc725d303a4797a5549e792e78c6da4d415a230a4a36b1a43",
+    "results/text-validation-grouping/review.json": "e197c32dda24b75181fabfe6e59ed0b467eddc0e89f571223cffe579aad8e53d",
+    "results/text-validation-grouping/summary.json": "e9d67d467a39f22e7839badf10d05ac54137e0dc6c81ead53441120c4cabd98d"
+  },
+  "comparators": {
+    "saved_evidence": {
+      "directory": "results/text-validation-comparison/evidence",
+      "summary_file": "results/text-validation-comparison/summary.json",
+      "summary_arm": "evidence"
+    },
+    "saved_grouping": {
+      "directory": "results/text-validation-grouping",
+      "summary_file": "results/text-validation-grouping/summary.json",
+      "summary_arm": null
+    }
+  },
+  "comparator_reruns": false,
+  "attempts_per_report": 1,
+  "planned_extraction_requests": 10,
+  "selection_policy": "All ten reports in source-file order, one attempt each; preserve all failures and do not select outputs by outcome.",
+  "prompt_change": "Replace the prior broad grouping block with four shorter vomiting-specific bullets starting from the evidence prompt. Explicitly retain nausea count/count_scope null and uninterrupted source copying. Preserve field definitions and evidence block byte-for-byte; no source texts, report IDs, or reference numeric answers added.",
+  "prompt_length": {
+    "measure": "Whitespace-separated words, grouping headings included; not tokenizer counts",
+    "previous_grouping_block": 326,
+    "compact_grouping_block": 146,
+    "previous_full_prompt": 1106,
+    "compact_full_prompt": 926
+  },
+  "pre_run_analysis": {
+    "observed": "Same-ten whole-report passes were 2/10, 8/10, then 7/10. The last change fixed candidate fragmentation but introduced two noncontiguous quotes and a nausea scope error. Whole-report rejection removed six downstream observations.",
+    "plausible_mechanisms": [
+      "The generic symptom wording allowed count grouping to be misapplied to nausea.",
+      "Combining semantic facts was accompanied by joining evidence fragments, despite an explicit prohibition."
+    ],
+    "uncertainty": "These are mechanisms consistent with outputs, not proven causes. One run per prompt and a combined revision cannot isolate prompt length, wording specificity, or sampling variability. No model weights or runtime changed."
+  },
+  "pre_run_independent_review": "Separate agent reviewed historical failure mechanisms and the concrete compact diff; no blocking issue found. Guardrails remain untested on distinct-context negative controls.",
+  "change_policy": "Only the new candidate prompt changes. Freeze data, gold, model/settings, runtime, evaluator/review criteria, comparator artifacts, old/default prompts, and dashboard. No retries or reference-assisted output repair.",
+  "success_focus": [
+    "Keep count and rating together in TV003 and TV006.",
+    "Retain continuous source evidence, especially across intervening symptoms.",
+    "Keep nausea count and count_scope null, including TV010.",
+    "Preserve all other source facts, scope, issue flags, and explicit zero/unknown distinctions."
+  ],
+  "limitations": [
+    "The ten examples are known synthetic development/regression data; not fresh validation or independent human clinical annotation.",
+    "Text generator and extractor share a model family; wording is controlled and repetitive.",
+    "One new attempt per report against saved single attempts; no stability estimate or causal isolation of shortening.",
+    "This is a combined change in length, specificity, and copying instructions; improvement cannot be attributed to length alone.",
+    "No distinct-date/window/event/medication negative controls here; no broad overmerge-safety claim.",
+    "A better result here does not alone justify replacing the default or deploying to the dashboard."
+  ]
+}

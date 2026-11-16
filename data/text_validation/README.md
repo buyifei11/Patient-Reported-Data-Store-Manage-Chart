@@ -1,6 +1,6 @@
-# Ten fresh texts for evidence-completeness validation
+# Ten text cases: preparation and regression experiments
 
-**Preparation, the [two-prompt comparison](../../results/text-validation-comparison/README.md), and a [grouping follow-up](../../results/text-validation-grouping/README.md) are complete. These cases are now known development/regression material.**
+**Preparation, the [two-prompt comparison](../../results/text-validation-comparison/README.md), [grouping follow-up](../../results/text-validation-grouping/README.md), and [compact follow-up](../../results/text-validation-compact/README.md) are complete. These cases are known development/regression material.**
 They are new, fictional cases authored after the two existing extraction prompts
 were frozen. One LLM generation request produced the texts; references were then
 authored from those texts and the data contract and checked by a separate agent.
@@ -19,6 +19,12 @@ development experiment. It removed fragmented candidates but reduced whole-repor
 passes from 8/10 to 7/10, due to two invalid quotes and one nausea scope error.
 That candidate was not promoted. Historical seed `split=validation` labels record
 the preparation role; the follow-up protocol explicitly records the current role.
+
+The compact follow-up returns to 8/10 whole-report passes. Vomiting grouping,
+continuous quotes, and nausea count-scope constraints pass this run, but TV007
+and TV009 emit duplicate nausea candidates. A separate offline diagnosis explains
+why the unchanged normalizer retains those duplicates; no program fix or output
+repair was included in the prompt comparison.
 
 ## What the ten cases cover
 
@@ -176,7 +182,7 @@ The key distinctions are:
 
 New seed metadata uses `origin=new_synthetic_case` rather than claiming an
 original questionnaire ID. `group_id` keeps future paraphrases of a seed in one
-split; `split=validation` records the intended role. Fictional patient IDs are
+split; `split=validation` records the initial intended role. Fictional patient IDs are
 VAL-P001–VAL-P010, not ten independently sampled real patients. `focus`, `layout`,
 and `style` describe case construction and never enter the extraction input.
 
@@ -197,5 +203,5 @@ than ordinary feedback. It does not test broad clinical language, medication
 relations, occurrence clocks, corrections, or ambiguous dates. The texts and labels
 are AI-assisted, not independent human clinical annotations. Generation uses the
 same model family as the planned extractor, which further limits independence.
-If results are later used to tune the prompt, these become development examples;
-a final generalization claim would need another untouched evaluation set.
+These results have now been used to tune prompts, making the cases development
+examples. A generalization claim needs another untouched evaluation set.

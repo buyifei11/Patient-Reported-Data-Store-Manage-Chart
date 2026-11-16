@@ -1,0 +1,373 @@
+{
+  "comparators": {
+    "saved_evidence": {
+      "directory": "results/text-validation-comparison/evidence",
+      "summary_file": "results/text-validation-comparison/summary.json",
+      "summary_arm": "evidence"
+    },
+    "saved_grouping": {
+      "directory": "results/text-validation-grouping",
+      "summary_file": "results/text-validation-grouping/summary.json",
+      "summary_arm": null
+    }
+  },
+  "comparator_reruns": false,
+  "new_model_requests": 10,
+  "same_source_gold_model_runtime": true,
+  "candidate_summary_sha256": "0c1191692b9cbf7cf338e71594cf6843aa549d0797a7d639593c86ecc6ad2086",
+  "metrics": {
+    "report_completion": {
+      "saved_evidence": {
+        "total": 10,
+        "ok": 10,
+        "error": 0,
+        "missing": 0,
+        "rate": 1.0
+      },
+      "saved_grouping": {
+        "total": 10,
+        "ok": 7,
+        "error": 3,
+        "missing": 0,
+        "rate": 0.7
+      },
+      "compact": {
+        "total": 10,
+        "ok": 10,
+        "error": 0,
+        "missing": 0,
+        "rate": 1.0
+      }
+    },
+    "observation_detection": {
+      "saved_evidence": {
+        "true_positive": 15,
+        "false_positive": 2,
+        "false_negative": 0,
+        "precision": 0.8823529411764706,
+        "recall": 1.0,
+        "f1": 0.9375
+      },
+      "saved_grouping": {
+        "true_positive": 9,
+        "false_positive": 0,
+        "false_negative": 6,
+        "precision": 1.0,
+        "recall": 0.6,
+        "f1": 0.75
+      },
+      "compact": {
+        "true_positive": 14,
+        "false_positive": 3,
+        "false_negative": 1,
+        "precision": 0.8235294117647058,
+        "recall": 0.9333333333333333,
+        "f1": 0.875
+      }
+    },
+    "emitted_candidates": {
+      "saved_evidence": 17,
+      "saved_grouping": 15,
+      "compact": 17
+    },
+    "normalized_observations": {
+      "saved_evidence": 17,
+      "saved_grouping": 9,
+      "compact": 17
+    },
+    "automatic_candidate_fields": {
+      "saved_evidence": {
+        "correct": 161,
+        "total": 165
+      },
+      "saved_grouping": {
+        "correct": 142,
+        "total": 165
+      },
+      "compact": {
+        "correct": 154,
+        "total": 165
+      }
+    },
+    "normalized_core_fields": {
+      "saved_evidence": {
+        "known": {
+          "correct": 85,
+          "total": 89
+        },
+        "null": {
+          "correct": 46,
+          "total": 46
+        }
+      },
+      "saved_grouping": {
+        "known": {
+          "correct": 54,
+          "total": 89
+        },
+        "null": {
+          "correct": 27,
+          "total": 46
+        }
+      },
+      "compact": {
+        "known": {
+          "correct": 84,
+          "total": 89
+        },
+        "null": {
+          "correct": 42,
+          "total": 46
+        }
+      }
+    },
+    "unknown_overfill": {
+      "saved_evidence": {
+        "errors": 0,
+        "reference_null_fields": 46,
+        "rate": 0.0
+      },
+      "saved_grouping": {
+        "errors": 0,
+        "reference_null_fields": 46,
+        "rate": 0.0
+      },
+      "compact": {
+        "errors": 0,
+        "reference_null_fields": 46,
+        "rate": 0.0
+      }
+    },
+    "issue_detection": {
+      "saved_evidence": {
+        "true_positive": 1,
+        "false_positive": 2,
+        "false_negative": 0,
+        "precision": 0.3333333333333333,
+        "recall": 1.0,
+        "f1": 0.5
+      },
+      "saved_grouping": {
+        "true_positive": 0,
+        "false_positive": 0,
+        "false_negative": 1,
+        "precision": null,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "compact": {
+        "true_positive": 1,
+        "false_positive": 0,
+        "false_negative": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      }
+    },
+    "exact_time_text": {
+      "saved_evidence": {
+        "reference_known": {
+          "correct": 8,
+          "total": 15,
+          "accuracy": 0.5333333333333333
+        },
+        "reference_null": {
+          "correct": 0,
+          "total": 0,
+          "accuracy": null,
+          "overfilled": 0
+        },
+        "missing_predictions": 0
+      },
+      "saved_grouping": {
+        "reference_known": {
+          "correct": 4,
+          "total": 15,
+          "accuracy": 0.26666666666666666
+        },
+        "reference_null": {
+          "correct": 0,
+          "total": 0,
+          "accuracy": null,
+          "overfilled": 0
+        },
+        "missing_predictions": 6
+      },
+      "compact": {
+        "reference_known": {
+          "correct": 8,
+          "total": 15,
+          "accuracy": 0.5333333333333333
+        },
+        "reference_null": {
+          "correct": 0,
+          "total": 0,
+          "accuracy": null,
+          "overfilled": 0
+        },
+        "missing_predictions": 1
+      }
+    },
+    "whole_reports": {
+      "saved_evidence": {
+        "normalized_values_and_structure_correct": 8,
+        "candidate_values_and_structure_correct": 8,
+        "including_evidence_complete": 8,
+        "total": 10
+      },
+      "saved_grouping": {
+        "normalized_values_and_structure_correct": 7,
+        "candidate_values_and_structure_correct": 9,
+        "including_evidence_complete": 7,
+        "total": 10
+      },
+      "compact": {
+        "normalized_values_and_structure_correct": 8,
+        "candidate_values_and_structure_correct": 8,
+        "including_evidence_complete": 8,
+        "total": 10
+      }
+    },
+    "usage": {
+      "saved_evidence": {
+        "input_tokens": 20897,
+        "output_tokens": 1841,
+        "total_tokens": 22738
+      },
+      "saved_grouping": {
+        "input_tokens": 25217,
+        "output_tokens": 1670,
+        "total_tokens": 26887
+      },
+      "compact": {
+        "input_tokens": 22987,
+        "output_tokens": 1847,
+        "total_tokens": 24834
+      }
+    }
+  },
+  "direct_unique_candidate_fields": {
+    "saved_evidence": {
+      "correct": 143,
+      "total": 165,
+      "unique_groups": 13
+    },
+    "saved_grouping": {
+      "correct": 164,
+      "total": 165,
+      "unique_groups": 15
+    },
+    "compact": {
+      "correct": 143,
+      "total": 165,
+      "unique_groups": 13
+    }
+  },
+  "quote_support": {
+    "saved_evidence": {
+      "correct": 17,
+      "total": 17
+    },
+    "saved_grouping": {
+      "correct": 12,
+      "total": 15
+    },
+    "compact": {
+      "correct": 17,
+      "total": 17
+    }
+  },
+  "reports": [
+    {
+      "report_id": "TV001",
+      "saved_evidence": true,
+      "saved_grouping": true,
+      "compact": true
+    },
+    {
+      "report_id": "TV002",
+      "saved_evidence": true,
+      "saved_grouping": true,
+      "compact": true
+    },
+    {
+      "report_id": "TV003",
+      "saved_evidence": false,
+      "saved_grouping": true,
+      "compact": true
+    },
+    {
+      "report_id": "TV004",
+      "saved_evidence": true,
+      "saved_grouping": true,
+      "compact": true
+    },
+    {
+      "report_id": "TV005",
+      "saved_evidence": true,
+      "saved_grouping": true,
+      "compact": true
+    },
+    {
+      "report_id": "TV006",
+      "saved_evidence": false,
+      "saved_grouping": false,
+      "compact": true
+    },
+    {
+      "report_id": "TV007",
+      "saved_evidence": true,
+      "saved_grouping": false,
+      "compact": false
+    },
+    {
+      "report_id": "TV008",
+      "saved_evidence": true,
+      "saved_grouping": true,
+      "compact": true
+    },
+    {
+      "report_id": "TV009",
+      "saved_evidence": true,
+      "saved_grouping": true,
+      "compact": false
+    },
+    {
+      "report_id": "TV010",
+      "saved_evidence": true,
+      "saved_grouping": false,
+      "compact": true
+    }
+  ],
+  "vs_evidence": {
+    "improved": [
+      "TV003",
+      "TV006"
+    ],
+    "regressed": [
+      "TV007",
+      "TV009"
+    ]
+  },
+  "vs_grouping": {
+    "improved": [
+      "TV006",
+      "TV010"
+    ],
+    "regressed": [
+      "TV009"
+    ],
+    "persistently_failed_with_changed_cause": [
+      "TV007"
+    ]
+  },
+  "observed_conclusion": "Targeted vomiting grouping, contiguous copying, and nausea scope recover. Two nausea duplicate groups remain; whole-report pass is 8/10, improving over the long grouping run and tying the earlier evidence run with different failures.",
+  "limitations": [
+    "The ten examples are known synthetic development/regression data; not fresh validation or independent human clinical annotation.",
+    "Text generator and extractor share a model family; wording is controlled and repetitive.",
+    "One new attempt per report against saved single attempts; no stability estimate or causal isolation of shortening.",
+    "This is a combined change in length, specificity, and copying instructions; improvement cannot be attributed to length alone.",
+    "No distinct-date/window/event/medication negative controls here; no broad overmerge-safety claim.",
+    "A better result here does not alone justify replacing the default or deploying to the dashboard."
+  ]
+}

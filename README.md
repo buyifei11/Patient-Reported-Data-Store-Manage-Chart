@@ -12,16 +12,15 @@ LLM-generated feedback, reviewed references, and generation provenance. Its
 separately; the existing offline dashboard below still uses its original
 mixed-input dataset.
 
-A separate [ten-report validation set](data/text_validation/README.md) now has a
-[two-prompt extraction comparison](results/text-validation-comparison/README.md).
-Whole-report passes increased from 2/10 to 8/10 with the evidence-focused prompt;
-two reports still split counts and ratings into separate records. Sources and
-references were unchanged, and the default extraction prompt remains in place.
-
-A subsequent [same-context grouping experiment](results/text-validation-grouping/README.md)
-removed fragmented candidates but reduced whole-report passes to 7/10 because of
-two invalid quotes and one nausea scope error. That candidate was not promoted.
-The ten cases are now known development/regression material.
+A separate [ten-report text set](data/text_validation/README.md) has recorded
+[original/evidence](results/text-validation-comparison/README.md),
+[broad grouping](results/text-validation-grouping/README.md), and
+[compact grouping](results/text-validation-compact/README.md) experiments.
+Whole-report passes were 2/10, 8/10, 7/10, and 8/10, respectively. The latest run
+repairs vomiting grouping and evidence failures, but duplicates nausea in two
+reports. An offline diagnosis identifies a daily-context normalization gap.
+Sources, references, runtime, and the default prompt remain unchanged. These ten
+cases are known development/regression material, not a fresh evaluation set.
 
 ## Run the complete offline demo
 

@@ -1,0 +1,460 @@
+{
+  "evaluation_version": "1.0",
+  "reference_role": "development_fixtures",
+  "report_completion": {
+    "total": 10,
+    "ok": 10,
+    "error": 0,
+    "missing": 0,
+    "rate": 1.0
+  },
+  "observation_detection": {
+    "true_positive": 14,
+    "false_positive": 3,
+    "false_negative": 1,
+    "precision": 0.8235294117647058,
+    "recall": 0.9333333333333333,
+    "f1": 0.875
+  },
+  "fields": {
+    "symptom": {
+      "reference_known": {
+        "correct": 14,
+        "total": 15,
+        "accuracy": 0.9333333333333333
+      },
+      "reference_null": {
+        "correct": 0,
+        "total": 0,
+        "accuracy": null,
+        "overfilled": 0
+      },
+      "missing_predictions": 1
+    },
+    "assertion": {
+      "reference_known": {
+        "correct": 14,
+        "total": 15,
+        "accuracy": 0.9333333333333333
+      },
+      "reference_null": {
+        "correct": 0,
+        "total": 0,
+        "accuracy": null,
+        "overfilled": 0
+      },
+      "missing_predictions": 1
+    },
+    "count": {
+      "reference_known": {
+        "correct": 7,
+        "total": 7,
+        "accuracy": 1.0
+      },
+      "reference_null": {
+        "correct": 7,
+        "total": 8,
+        "accuracy": 0.875,
+        "overfilled": 0
+      },
+      "missing_predictions": 1
+    },
+    "count_scope": {
+      "reference_known": {
+        "correct": 8,
+        "total": 8,
+        "accuracy": 1.0
+      },
+      "reference_null": {
+        "correct": 6,
+        "total": 7,
+        "accuracy": 0.8571428571428571,
+        "overfilled": 0
+      },
+      "missing_predictions": 1
+    },
+    "severity": {
+      "reference_known": {
+        "correct": 13,
+        "total": 14,
+        "accuracy": 0.9285714285714286
+      },
+      "reference_null": {
+        "correct": 1,
+        "total": 1,
+        "accuracy": 1.0,
+        "overfilled": 0
+      },
+      "missing_predictions": 1
+    },
+    "event_date": {
+      "reference_known": {
+        "correct": 14,
+        "total": 15,
+        "accuracy": 0.9333333333333333
+      },
+      "reference_null": {
+        "correct": 0,
+        "total": 0,
+        "accuracy": null,
+        "overfilled": 0
+      },
+      "missing_predictions": 1
+    },
+    "event_time": {
+      "reference_known": {
+        "correct": 0,
+        "total": 0,
+        "accuracy": null
+      },
+      "reference_null": {
+        "correct": 14,
+        "total": 15,
+        "accuracy": 0.9333333333333333,
+        "overfilled": 0
+      },
+      "missing_predictions": 1
+    },
+    "time_text": {
+      "reference_known": {
+        "correct": 8,
+        "total": 15,
+        "accuracy": 0.5333333333333333
+      },
+      "reference_null": {
+        "correct": 0,
+        "total": 0,
+        "accuracy": null,
+        "overfilled": 0
+      },
+      "missing_predictions": 1
+    },
+    "date_basis": {
+      "reference_known": {
+        "correct": 14,
+        "total": 15,
+        "accuracy": 0.9333333333333333
+      },
+      "reference_null": {
+        "correct": 0,
+        "total": 0,
+        "accuracy": null,
+        "overfilled": 0
+      },
+      "missing_predictions": 1
+    },
+    "medication_relation": {
+      "reference_known": {
+        "correct": 0,
+        "total": 0,
+        "accuracy": null
+      },
+      "reference_null": {
+        "correct": 14,
+        "total": 15,
+        "accuracy": 0.9333333333333333,
+        "overfilled": 0
+      },
+      "missing_predictions": 1
+    }
+  },
+  "assertion_accuracy": {
+    "correct": 14,
+    "total": 15,
+    "accuracy": 0.9333333333333333
+  },
+  "unknown_overfill": {
+    "errors": 0,
+    "reference_null_fields": 46,
+    "rate": 0.0
+  },
+  "issue_detection": {
+    "true_positive": 1,
+    "false_positive": 0,
+    "false_negative": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  },
+  "extraction_checks": {
+    "passed": 14,
+    "total": 15,
+    "accuracy": 0.9333333333333333,
+    "fields": {
+      "assertion": {
+        "correct": 14,
+        "total": 15,
+        "accuracy": 0.9333333333333333
+      },
+      "clock_time": {
+        "correct": 14,
+        "total": 15,
+        "accuracy": 0.9333333333333333
+      },
+      "count": {
+        "correct": 14,
+        "total": 15,
+        "accuracy": 0.9333333333333333
+      },
+      "count_scope": {
+        "correct": 14,
+        "total": 15,
+        "accuracy": 0.9333333333333333
+      },
+      "day_reference": {
+        "correct": 14,
+        "total": 15,
+        "accuracy": 0.9333333333333333
+      },
+      "explicit_date": {
+        "correct": 14,
+        "total": 15,
+        "accuracy": 0.9333333333333333
+      },
+      "medication_relation": {
+        "correct": 14,
+        "total": 15,
+        "accuracy": 0.9333333333333333
+      },
+      "severity_context": {
+        "correct": 14,
+        "total": 15,
+        "accuracy": 0.9333333333333333
+      },
+      "severity_scale_max": {
+        "correct": 14,
+        "total": 15,
+        "accuracy": 0.9333333333333333
+      },
+      "severity_value": {
+        "correct": 14,
+        "total": 15,
+        "accuracy": 0.9333333333333333
+      },
+      "symptom": {
+        "correct": 14,
+        "total": 15,
+        "accuracy": 0.9333333333333333
+      }
+    }
+  },
+  "matching": {
+    "ambiguous_groups": [
+      {
+        "report_id": "TV009",
+        "symptom": "nausea",
+        "reference_indexes": [
+          0
+        ],
+        "prediction_indexes": [
+          0,
+          1
+        ],
+        "reason": "No unique source-evidence alignment"
+      }
+    ]
+  },
+  "mismatches": [
+    {
+      "report_id": "TV001",
+      "reference_index": 0,
+      "reference_id": "TV001-O1",
+      "prediction_index": 0,
+      "kind": "field",
+      "field": "time_text",
+      "expected": "so far today",
+      "predicted": "so far today,",
+      "prediction_missing": false
+    },
+    {
+      "report_id": "TV002",
+      "reference_index": 0,
+      "reference_id": "TV002-O1",
+      "prediction_index": 0,
+      "kind": "field",
+      "field": "time_text",
+      "expected": "so far today",
+      "predicted": "today up to now",
+      "prediction_missing": false
+    },
+    {
+      "report_id": "TV005",
+      "reference_index": 0,
+      "reference_id": "TV005-O1",
+      "prediction_index": 0,
+      "kind": "field",
+      "field": "time_text",
+      "expected": "so far today",
+      "predicted": "today up to now",
+      "prediction_missing": false
+    },
+    {
+      "report_id": "TV007",
+      "reference_index": 0,
+      "reference_id": "TV007-O1",
+      "prediction_index": 1,
+      "kind": "field",
+      "field": "time_text",
+      "expected": "so far today",
+      "predicted": "at its worst so far today",
+      "prediction_missing": false
+    },
+    {
+      "report_id": "TV007",
+      "kind": "extra_observation",
+      "prediction_index": 0,
+      "symptom": "nausea",
+      "evidence": [
+        {
+          "path": "text",
+          "value": "I’ve had nausea today up to now."
+        }
+      ]
+    },
+    {
+      "report_id": "TV008",
+      "reference_index": 0,
+      "reference_id": "TV008-O1",
+      "prediction_index": 0,
+      "kind": "field",
+      "field": "time_text",
+      "expected": "so far today",
+      "predicted": "today up to now",
+      "prediction_missing": false
+    },
+    {
+      "report_id": "TV009",
+      "reference_index": 0,
+      "reference_id": "TV009-O1",
+      "prediction_index": null,
+      "kind": "missing_observation",
+      "symptom": "nausea",
+      "evidence": [
+        {
+          "path": "text",
+          "value": "I’ve had nausea today up to now, and my worst nausea severity so far today is 3 out of 5."
+        }
+      ]
+    },
+    {
+      "report_id": "TV009",
+      "kind": "extra_observation",
+      "prediction_index": 0,
+      "symptom": "nausea",
+      "evidence": [
+        {
+          "path": "text",
+          "value": "I’ve had nausea today up to now, and my worst nausea severity so far today is 3 out of 5."
+        }
+      ]
+    },
+    {
+      "report_id": "TV009",
+      "kind": "extra_observation",
+      "prediction_index": 1,
+      "symptom": "nausea",
+      "evidence": [
+        {
+          "path": "text",
+          "value": "I’ve had nausea today up to now, and my worst nausea severity so far today is 3 out of 5."
+        }
+      ]
+    },
+    {
+      "report_id": "TV009",
+      "kind": "extraction_check",
+      "check_index": 0,
+      "source": {
+        "path": "text",
+        "value": "I’ve had nausea today up to now, and my worst nausea severity so far today is 3 out of 5."
+      },
+      "candidate_found": false,
+      "ambiguous_candidates": true,
+      "differences": [
+        {
+          "field": "symptom",
+          "expected": "nausea",
+          "predicted": null,
+          "prediction_missing": true
+        },
+        {
+          "field": "assertion",
+          "expected": "present",
+          "predicted": null,
+          "prediction_missing": true
+        },
+        {
+          "field": "count",
+          "expected": null,
+          "predicted": null,
+          "prediction_missing": true
+        },
+        {
+          "field": "count_scope",
+          "expected": null,
+          "predicted": null,
+          "prediction_missing": true
+        },
+        {
+          "field": "severity_value",
+          "expected": 3,
+          "predicted": null,
+          "prediction_missing": true
+        },
+        {
+          "field": "severity_scale_max",
+          "expected": 5,
+          "predicted": null,
+          "prediction_missing": true
+        },
+        {
+          "field": "severity_context",
+          "expected": "worst_today_so_far",
+          "predicted": null,
+          "prediction_missing": true
+        },
+        {
+          "field": "day_reference",
+          "expected": "today",
+          "predicted": null,
+          "prediction_missing": true
+        },
+        {
+          "field": "explicit_date",
+          "expected": null,
+          "predicted": null,
+          "prediction_missing": true
+        },
+        {
+          "field": "clock_time",
+          "expected": null,
+          "predicted": null,
+          "prediction_missing": true
+        },
+        {
+          "field": "medication_relation",
+          "expected": null,
+          "predicted": null,
+          "prediction_missing": true
+        }
+      ]
+    },
+    {
+      "report_id": "TV010",
+      "reference_index": 0,
+      "reference_id": "TV010-O1",
+      "prediction_index": 0,
+      "kind": "field",
+      "field": "time_text",
+      "expected": "so far today",
+      "predicted": "today up to now",
+      "prediction_missing": false
+    }
+  ],
+  "provenance": {
+    "source_dataset_sha256": "a93f7524592612ec6d6946d7b1e13676682455297cbedcf685200d8db9030e6e",
+    "gold_dataset_sha256": "ba106ae74de42664b438f6ee9e62b70ce3d4a83172d275604c8785a09eda5a33",
+    "predictions_file_sha256": "2e5b990c047a3be1a3005d6c235bf8fee68dfcbdbbb0045b722120f609502394",
+    "evaluation_scope": "Development fixtures; not held-out or clinical validation"
+  }
+}

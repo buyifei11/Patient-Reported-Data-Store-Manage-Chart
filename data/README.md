@@ -29,7 +29,10 @@ validation cases, not a final independent clinical test. Further tuning based on
 their results makes them development/regression material. The subsequent
 [grouping experiment](../results/text-validation-grouping/README.md) now uses them
 in that role: fragmentation decreased, but new errors reduced whole-report passes
-from 8/10 to 7/10. Sources and labels remain unchanged.
+from 8/10 to 7/10. A [compact grouping follow-up](../results/text-validation-compact/README.md)
+returns to 8/10, with nausea duplicates still unresolved. Its saved-output diagnosis
+traces a conservative daily-context merge gate; no runtime fix was applied during
+the prompt comparison. Sources and labels remain unchanged.
 
 | Set | Sources | References | Reports | Reference observations | Targeted extraction checks |
 | --- | --- | --- | ---: | ---: | ---: |
