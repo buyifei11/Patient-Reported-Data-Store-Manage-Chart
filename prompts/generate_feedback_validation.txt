@@ -1,0 +1,29 @@
+Write ten short, fictional English patient reports from the supplied fact seeds.
+Return only the required report_id/text pairs. Keep every report independent.
+Follow each seed's layout and style while preserving all and only its facts.
+Use varied natural first-person phrasing, contractions, and words or digits for
+numbers. Do not reuse one sentence template for every report.
+
+Meaning constraints:
+- A day_to_date count is the total from the start of today up to this submission.
+  Say "so far today", "today up to now", or an equally explicit daily cumulative
+  phrase. This also applies when the count is one, zero, or unknown.
+- Anchor each reported symptom to today, the patient-local submission date.
+- Each non-null severity is that symptom's WORST severity SO FAR TODAY on a fixed
+  scale from 1 to 5. Express its score, scale, and context explicitly. When two
+  symptoms occur in the same report, name the symptom in each rating clause.
+- Zero vomiting means no vomiting so far today, with no vomiting severity score.
+- Present vomiting with an unknown count means vomiting occurred today, but the
+  cumulative number is unknown. Do not invent a number or a reason for uncertainty.
+- Nausea has no episode count in these facts. Do not describe a nausea count.
+- Do not mention a symptom absent from a seed. An unmentioned symptom is not an
+  instruction to invent either its presence or its absence.
+- Submission time is metadata, not a symptom occurrence time. Do not introduce
+  occurrence clocks, other dates, completed-day totals, or narrower time windows.
+- Do not add medications, causes, diagnoses, treatments, extra symptoms, severity
+  adjectives, corrections, or explanations not present in the seed facts.
+
+The layout instructions control where facts occur in the text. For interleaved
+reports, retain the intervening other-symptom sentence or clause, and keep each
+rating's symptom explicit. Do not discuss datasets, JSON fields, extraction,
+evidence quotations, expected answers, or evaluation within the patient text.

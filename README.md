@@ -12,6 +12,11 @@ LLM-generated feedback, reviewed references, and generation provenance. Its
 separately; the existing offline dashboard below still uses its original
 mixed-input dataset.
 
+A separate [ten-report validation set](data/text_validation/README.md) is now
+prepared with fresh texts and reviewed reference answers. Extraction has not
+been run on those ten reports; they target evidence completeness and correct
+assignment of counts and ratings to symptoms.
+
 ## Run the complete offline demo
 
 Use Python 3.11 or newer; tested with Python 3.14.

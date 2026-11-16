@@ -1,0 +1,63 @@
+{
+  "model": "gpt-5.4-mini-2026-03-17",
+  "instructions": "Write ten short, fictional English patient reports from the supplied fact seeds.\nReturn only the required report_id/text pairs. Keep every report independent.\nFollow each seed's layout and style while preserving all and only its facts.\nUse varied natural first-person phrasing, contractions, and words or digits for\nnumbers. Do not reuse one sentence template for every report.\n\nMeaning constraints:\n- A day_to_date count is the total from the start of today up to this submission.\n  Say \"so far today\", \"today up to now\", or an equally explicit daily cumulative\n  phrase. This also applies when the count is one, zero, or unknown.\n- Anchor each reported symptom to today, the patient-local submission date.\n- Each non-null severity is that symptom's WORST severity SO FAR TODAY on a fixed\n  scale from 1 to 5. Express its score, scale, and context explicitly. When two\n  symptoms occur in the same report, name the symptom in each rating clause.\n- Zero vomiting means no vomiting so far today, with no vomiting severity score.\n- Present vomiting with an unknown count means vomiting occurred today, but the\n  cumulative number is unknown. Do not invent a number or a reason for uncertainty.\n- Nausea has no episode count in these facts. Do not describe a nausea count.\n- Do not mention a symptom absent from a seed. An unmentioned symptom is not an\n  instruction to invent either its presence or its absence.\n- Submission time is metadata, not a symptom occurrence time. Do not introduce\n  occurrence clocks, other dates, completed-day totals, or narrower time windows.\n- Do not add medications, causes, diagnoses, treatments, extra symptoms, severity\n  adjectives, corrections, or explanations not present in the seed facts.\n\nThe layout instructions control where facts occur in the text. For interleaved\nreports, retain the intervening other-symptom sentence or clause, and keep each\nrating's symptom explicit. Do not discuss datasets, JSON fields, extraction,\nevidence quotations, expected answers, or evaluation within the patient text.\n",
+  "input": [
+    {
+      "role": "user",
+      "content": "{\"seeds\": [{\"report_id\": \"TV001\", \"context\": {\"patient_id\": \"VAL-P001\", \"reported_at\": \"2026-11-12T19:30:00-06:00\", \"patient_timezone\": \"America/Chicago\", \"supersedes_report_id\": null}, \"facts\": [{\"symptom\": \"vomiting\", \"assertion\": \"present\", \"count\": 3, \"count_scope\": \"day_to_date\", \"severity\": 1, \"severity_scale_max\": 5, \"severity_context\": \"worst_today_so_far\", \"event_date\": \"2026-11-12\", \"event_time\": null}], \"layout\": \"One sentence containing the cumulative vomiting count and rating.\", \"style\": \"Brief daily check-in; spell out the count.\"}, {\"report_id\": \"TV002\", \"context\": {\"patient_id\": \"VAL-P002\", \"reported_at\": \"2026-11-13T19:30:00-06:00\", \"patient_timezone\": \"America/Chicago\", \"supersedes_report_id\": null}, \"facts\": [{\"symptom\": \"nausea\", \"assertion\": \"present\", \"count\": null, \"count_scope\": null, \"severity\": 4, \"severity_scale_max\": 5, \"severity_context\": \"worst_today_so_far\", \"event_date\": \"2026-11-13\", \"event_time\": null}], \"layout\": \"One sentence reporting nausea and its rating. Mention no other symptom.\", \"style\": \"Natural first-person language; use nauseous if it reads naturally.\"}, {\"report_id\": \"TV003\", \"context\": {\"patient_id\": \"VAL-P003\", \"reported_at\": \"2026-11-14T19:30:00-06:00\", \"patient_timezone\": \"America/Chicago\", \"supersedes_report_id\": null}, \"facts\": [{\"symptom\": \"vomiting\", \"assertion\": \"present\", \"count\": 1, \"count_scope\": \"day_to_date\", \"severity\": 3, \"severity_scale_max\": 5, \"severity_context\": \"worst_today_so_far\", \"event_date\": \"2026-11-14\", \"event_time\": null}], \"layout\": \"Two sentences: cumulative vomiting count first, worst vomiting rating second.\", \"style\": \"Conversational update with a contraction; the count of one is today so far, not a single-event label.\"}, {\"report_id\": \"TV004\", \"context\": {\"patient_id\": \"VAL-P004\", \"reported_at\": \"2026-11-15T19:30:00-06:00\", \"patient_timezone\": \"America/Chicago\", \"supersedes_report_id\": null}, \"facts\": [{\"symptom\": \"vomiting\", \"assertion\": \"present\", \"count\": 2, \"count_scope\": \"day_to_date\", \"severity\": 4, \"severity_scale_max\": 5, \"severity_context\": \"worst_today_so_far\", \"event_date\": \"2026-11-15\", \"event_time\": null}], \"layout\": \"Two sentences: worst vomiting rating first, cumulative vomiting count second.\", \"style\": \"Lead with the rating; use thrown up as the count expression.\"}, {\"report_id\": \"TV005\", \"context\": {\"patient_id\": \"VAL-P005\", \"reported_at\": \"2026-11-12T19:30:00-06:00\", \"patient_timezone\": \"America/Chicago\", \"supersedes_report_id\": null}, \"facts\": [{\"symptom\": \"nausea\", \"assertion\": \"present\", \"count\": null, \"count_scope\": null, \"severity\": 2, \"severity_scale_max\": 5, \"severity_context\": \"worst_today_so_far\", \"event_date\": \"2026-11-12\", \"event_time\": null}], \"layout\": \"Two sentences: nausea occurrence today first, worst nausea rating second.\", \"style\": \"Short plain-language feedback; do not introduce a duration.\"}, {\"report_id\": \"TV006\", \"context\": {\"patient_id\": \"VAL-P006\", \"reported_at\": \"2026-11-13T19:30:00-06:00\", \"patient_timezone\": \"America/Chicago\", \"supersedes_report_id\": null}, \"facts\": [{\"symptom\": \"vomiting\", \"assertion\": \"present\", \"count\": 4, \"count_scope\": \"day_to_date\", \"severity\": 3, \"severity_scale_max\": 5, \"severity_context\": \"worst_today_so_far\", \"event_date\": \"2026-11-13\", \"event_time\": null}, {\"symptom\": \"nausea\", \"assertion\": \"present\", \"count\": null, \"count_scope\": null, \"severity\": 1, \"severity_scale_max\": 5, \"severity_context\": \"worst_today_so_far\", \"event_date\": \"2026-11-13\", \"event_time\": null}], \"layout\": \"Three sentences in order: cumulative vomiting count; nausea with its worst rating; worst vomiting rating.\", \"style\": \"Straightforward daily update with some numbers written as words.\"}, {\"report_id\": \"TV007\", \"context\": {\"patient_id\": \"VAL-P007\", \"reported_at\": \"2026-11-14T19:30:00-06:00\", \"patient_timezone\": \"America/Chicago\", \"supersedes_report_id\": null}, \"facts\": [{\"symptom\": \"nausea\", \"assertion\": \"present\", \"count\": null, \"count_scope\": null, \"severity\": 5, \"severity_scale_max\": 5, \"severity_context\": \"worst_today_so_far\", \"event_date\": \"2026-11-14\", \"event_time\": null}, {\"symptom\": \"vomiting\", \"assertion\": \"present\", \"count\": 2, \"count_scope\": \"day_to_date\", \"severity\": 2, \"severity_scale_max\": 5, \"severity_context\": \"worst_today_so_far\", \"event_date\": \"2026-11-14\", \"event_time\": null}], \"layout\": \"Three sentences in order: nausea occurrence today; cumulative vomiting count with worst vomiting rating; worst nausea rating.\", \"style\": \"Conversational; explicitly name nausea again in the final rating sentence.\"}, {\"report_id\": \"TV008\", \"context\": {\"patient_id\": \"VAL-P008\", \"reported_at\": \"2026-11-15T19:30:00-06:00\", \"patient_timezone\": \"America/Chicago\", \"supersedes_report_id\": null}, \"facts\": [{\"symptom\": \"vomiting\", \"assertion\": \"present\", \"count\": 5, \"count_scope\": \"day_to_date\", \"severity\": 1, \"severity_scale_max\": 5, \"severity_context\": \"worst_today_so_far\", \"event_date\": \"2026-11-15\", \"event_time\": null}, {\"symptom\": \"nausea\", \"assertion\": \"present\", \"count\": null, \"count_scope\": null, \"severity\": 3, \"severity_scale_max\": 5, \"severity_context\": \"worst_today_so_far\", \"event_date\": \"2026-11-15\", \"event_time\": null}], \"layout\": \"One sentence: cumulative vomiting count, an intervening parenthetical clause giving nausea and its worst rating, then the worst vomiting rating. Name both rated symptoms explicitly.\", \"style\": \"A longer informal sentence with a parenthetical aside, distinct from the three-sentence layout.\"}, {\"report_id\": \"TV009\", \"context\": {\"patient_id\": \"VAL-P009\", \"reported_at\": \"2026-11-12T19:30:00-06:00\", \"patient_timezone\": \"America/Chicago\", \"supersedes_report_id\": null}, \"facts\": [{\"symptom\": \"vomiting\", \"assertion\": \"absent\", \"count\": 0, \"count_scope\": \"day_to_date\", \"severity\": null, \"severity_scale_max\": null, \"severity_context\": null, \"event_date\": \"2026-11-12\", \"event_time\": null}, {\"symptom\": \"nausea\", \"assertion\": \"present\", \"count\": null, \"count_scope\": null, \"severity\": 3, \"severity_scale_max\": 5, \"severity_context\": \"worst_today_so_far\", \"event_date\": \"2026-11-12\", \"event_time\": null}], \"layout\": \"Two sentences: explicit absence of vomiting so far today; nausea and its worst rating.\", \"style\": \"Use a contraction to express no vomiting; do not give a vomiting rating.\"}, {\"report_id\": \"TV010\", \"context\": {\"patient_id\": \"VAL-P010\", \"reported_at\": \"2026-11-13T19:30:00-06:00\", \"patient_timezone\": \"America/Chicago\", \"supersedes_report_id\": null}, \"facts\": [{\"symptom\": \"vomiting\", \"assertion\": \"present\", \"count\": null, \"count_scope\": \"day_to_date\", \"severity\": 4, \"severity_scale_max\": 5, \"severity_context\": \"worst_today_so_far\", \"event_date\": \"2026-11-13\", \"event_time\": null}, {\"symptom\": \"nausea\", \"assertion\": \"present\", \"count\": null, \"count_scope\": null, \"severity\": 2, \"severity_scale_max\": 5, \"severity_context\": \"worst_today_so_far\", \"event_date\": \"2026-11-13\", \"event_time\": null}], \"layout\": \"Three sentences: vomiting occurred but its cumulative count is unknown; worst vomiting rating; nausea and its worst rating.\", \"style\": \"Clearly distinguish known occurrence from an unknown number, with natural everyday wording.\"}]}"
+    }
+  ],
+  "text": {
+    "format": {
+      "type": "json_schema",
+      "name": "fictional_patient_reports",
+      "schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "reports": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "report_id": {
+                  "type": "string",
+                  "enum": [
+                    "TV001",
+                    "TV002",
+                    "TV003",
+                    "TV004",
+                    "TV005",
+                    "TV006",
+                    "TV007",
+                    "TV008",
+                    "TV009",
+                    "TV010"
+                  ]
+                },
+                "text": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "report_id",
+                "text"
+              ]
+            }
+          }
+        },
+        "required": [
+          "reports"
+        ]
+      },
+      "strict": true
+    }
+  },
+  "reasoning": {
+    "effort": "none"
+  },
+  "max_output_tokens": 4096,
+  "store": false,
+  "stream": false
+}

@@ -19,6 +19,13 @@ not additional independent patients or test cases. Their
 recorded separately. They do not replace any historical set below or the current
 dashboard inputs.
 
+The separate [`text_validation/`](text_validation/README.md) contains ten newly
+authored synthetic cases, 15 observations, and 15 candidate-level checks. It
+extends the text pilot with varied sentence layouts and distinguishes zero,
+unknown count, and unmentioned symptoms. The two extraction prompts were frozen
+before generation. Sources and references are reviewed; extraction has not been
+run. These are targeted validation cases, not a final independent clinical test.
+
 | Set | Sources | References | Reports | Reference observations | Targeted extraction checks |
 | --- | --- | --- | ---: | ---: | ---: |
 | Original development | `raw/reports.jsonl` | `gold/expected.jsonl` | 10 | 15 | 3 |

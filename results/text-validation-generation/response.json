@@ -1,0 +1,146 @@
+{
+  "id": "resp_01ec15d7b8e8df73016afa907aeee087d198cad682822a413c",
+  "object": "response",
+  "created_at": 1794805882,
+  "status": "completed",
+  "access_programs": null,
+  "background": false,
+  "billing": {
+    "payer": "developer"
+  },
+  "completed_at": 1794805886,
+  "error": null,
+  "frequency_penalty": 0.0,
+  "image": {
+    "context_compression": "disabled"
+  },
+  "incomplete_details": null,
+  "input_transformations": [],
+  "instructions": "Write ten short, fictional English patient reports from the supplied fact seeds.\nReturn only the required report_id/text pairs. Keep every report independent.\nFollow each seed's layout and style while preserving all and only its facts.\nUse varied natural first-person phrasing, contractions, and words or digits for\nnumbers. Do not reuse one sentence template for every report.\n\nMeaning constraints:\n- A day_to_date count is the total from the start of today up to this submission.\n  Say \"so far today\", \"today up to now\", or an equally explicit daily cumulative\n  phrase. This also applies when the count is one, zero, or unknown.\n- Anchor each reported symptom to today, the patient-local submission date.\n- Each non-null severity is that symptom's WORST severity SO FAR TODAY on a fixed\n  scale from 1 to 5. Express its score, scale, and context explicitly. When two\n  symptoms occur in the same report, name the symptom in each rating clause.\n- Zero vomiting means no vomiting so far today, with no vomiting severity score.\n- Present vomiting with an unknown count means vomiting occurred today, but the\n  cumulative number is unknown. Do not invent a number or a reason for uncertainty.\n- Nausea has no episode count in these facts. Do not describe a nausea count.\n- Do not mention a symptom absent from a seed. An unmentioned symptom is not an\n  instruction to invent either its presence or its absence.\n- Submission time is metadata, not a symptom occurrence time. Do not introduce\n  occurrence clocks, other dates, completed-day totals, or narrower time windows.\n- Do not add medications, causes, diagnoses, treatments, extra symptoms, severity\n  adjectives, corrections, or explanations not present in the seed facts.\n\nThe layout instructions control where facts occur in the text. For interleaved\nreports, retain the intervening other-symptom sentence or clause, and keep each\nrating's symptom explicit. Do not discuss datasets, JSON fields, extraction,\nevidence quotations, expected answers, or evaluation within the patient text.\n",
+  "max_output_tokens": 4096,
+  "max_tool_calls": null,
+  "model": "gpt-5.4-mini-2026-03-17",
+  "moderation": null,
+  "output": [
+    {
+      "id": "msg_01ec15d7b8e8df73016afa907bec5087d193574f613bc25c7a",
+      "type": "message",
+      "status": "completed",
+      "content": [
+        {
+          "type": "output_text",
+          "annotations": [],
+          "logprobs": [],
+          "text": "{\"reports\":[{\"report_id\":\"TV001\",\"text\":\"I’ve vomited three times so far today, and the worst vomiting severity today up to now is 1 out of 5.\"},{\"report_id\":\"TV002\",\"text\":\"I’m nauseous today up to now, and my nausea is 4 out of 5 at its worst so far today.\"},{\"report_id\":\"TV003\",\"text\":\"I’ve vomited once so far today. The worst vomiting severity today up to now is 3 out of 5.\"},{\"report_id\":\"TV004\",\"text\":\"The worst vomiting severity so far today is 4 out of 5. I’ve thrown up 2 times today up to now.\"},{\"report_id\":\"TV005\",\"text\":\"I’ve had nausea today up to now. My worst nausea severity so far today is 2 out of 5.\"},{\"report_id\":\"TV006\",\"text\":\"I’ve vomited 4 times so far today. I’ve had nausea today up to now, and my worst nausea severity today up to now is 1 out of 5. The worst vomiting severity so far today is 3 out of 5.\"},{\"report_id\":\"TV007\",\"text\":\"I’ve had nausea today up to now. I’ve vomited 2 times so far today, and the worst vomiting severity today up to now is 2 out of 5. My nausea is 5 out of 5 at its worst so far today.\"},{\"report_id\":\"TV008\",\"text\":\"I’ve vomited 5 times so far today (I’ve had nausea today up to now, and my worst nausea severity so far today is 3 out of 5), and the worst vomiting severity today up to now is 1 out of 5.\"},{\"report_id\":\"TV009\",\"text\":\"I haven’t vomited so far today. I’ve had nausea today up to now, and my worst nausea severity so far today is 3 out of 5.\"},{\"report_id\":\"TV010\",\"text\":\"I’ve vomited today up to now, but the cumulative count is unknown. The worst vomiting severity so far today is 4 out of 5. I’ve had nausea today up to now, and my worst nausea severity so far today is 2 out of 5.\"}]}"
+        }
+      ],
+      "phase": "final_answer",
+      "role": "assistant"
+    }
+  ],
+  "parallel_tool_calls": true,
+  "presence_penalty": 0.0,
+  "previous_response_id": null,
+  "prompt_cache_key": null,
+  "prompt_cache_retention": "24h",
+  "reasoning": {
+    "context": "current_turn",
+    "effort": "none",
+    "mode": "standard",
+    "summary": null
+  },
+  "safety_identifier": null,
+  "service_tier": "default",
+  "store": false,
+  "temperature": 1.0,
+  "text": {
+    "format": {
+      "type": "json_schema",
+      "description": null,
+      "name": "fictional_patient_reports",
+      "schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "reports": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "report_id": {
+                  "type": "string",
+                  "enum": [
+                    "TV001",
+                    "TV002",
+                    "TV003",
+                    "TV004",
+                    "TV005",
+                    "TV006",
+                    "TV007",
+                    "TV008",
+                    "TV009",
+                    "TV010"
+                  ]
+                },
+                "text": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "report_id",
+                "text"
+              ]
+            }
+          }
+        },
+        "required": [
+          "reports"
+        ]
+      },
+      "strict": true
+    },
+    "verbosity": "medium"
+  },
+  "tool_choice": "auto",
+  "tool_usage": {
+    "image_gen": {
+      "input_tokens": 0,
+      "input_tokens_details": {
+        "image_tokens": 0,
+        "text_tokens": 0
+      },
+      "output_tokens": 0,
+      "output_tokens_details": {
+        "image_tokens": 0,
+        "text_tokens": 0
+      },
+      "total_tokens": 0
+    },
+    "web_search": {
+      "num_requests": 0
+    }
+  },
+  "tools": [],
+  "top_logprobs": 0,
+  "top_p": 0.98,
+  "truncation": "disabled",
+  "usage": {
+    "input_tokens": 2617,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cache_write_tokens_details": {
+        "ttl_12h_tokens": 0,
+        "ttl_30m_tokens": 0
+      },
+      "cached_tokens": 0
+    },
+    "output_tokens": 482,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 3099
+  },
+  "user": null,
+  "metadata": {}
+}

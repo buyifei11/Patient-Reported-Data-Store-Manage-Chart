@@ -1,0 +1,38 @@
+{
+  "purpose": "prepare_ten_fresh_targeted_validation_reports_without_extraction",
+  "frozen_at_utc": "2026-11-16T05:11:04.956111+00:00",
+  "repository_commit": "955ca78564ad90e5ae2e6d82677f97f1a0fa32d6",
+  "runtime_sha256": "df4534d4ed5f1f952ad24316982b8d1581b512b5055bcec12bbebf765b45f6f6",
+  "frozen_extraction_prompt_sha256": {
+    "prompts/extraction.txt": "d88b76baa0f7454fd31495e03df07a5a607651718714bc24ec67b5103fa55cd7",
+    "prompts/extraction_evidence.txt": "20871c7ab93d939fd4dd5c1398f05fcb8a012b149f82ca99cc27c76988559036"
+  },
+  "seed_sha256": "d54494512b4f7c250627937f35a5d3ce0756b00a0a0f62ed2202eb2951263534",
+  "generation_prompt_sha256": "693898e634eaaf2968cfe7c16883c13d56de8d0ed83b5dae21363527e83972b7",
+  "report_count": 10,
+  "observation_count": 15,
+  "intended_role": "targeted_synthetic_validation_not_final_independent_test",
+  "generation_input": [
+    "report_id",
+    "context",
+    "facts",
+    "layout",
+    "style"
+  ],
+  "forbidden_generation_input": [
+    "extraction_prompts",
+    "previous_texts",
+    "previous_extractor_outputs"
+  ],
+  "label_method": "agent_authored_from_reviewed_text_and_contract_with_separate_agent_review",
+  "allowed_model_work": "one_batch_text_generation_request_only",
+  "extraction_requests": 0,
+  "training_requests": 0,
+  "future_evaluation_rule": "Freeze reviewed sources and labels before extraction; use only reports as extraction input. Further tuning on these cases makes them development data.",
+  "limitations": [
+    "Small targeted sample, not a random patient sample.",
+    "AI-generated text and AI-assisted labels, not independent human clinical annotation.",
+    "Same model family may be used for generation and later extraction.",
+    "No medication, clock-time, correction, or ambiguous-date coverage."
+  ]
+}
