@@ -1,0 +1,13 @@
+event_date,field,observation_id,patient_id,reason,report_id
+2026-11-03,severity,TXT-R002-O1,P001,conflicting_sources,TXT-R002
+2026-11-10,count,TXT-L-P001-10-O2,P001,decreasing_or_conflicting_cumulative_count,TXT-L-P001-10
+2026-11-03,count,TXT-R003-O1,P002,unresolved_count_relationship,TXT-R003
+,event_date,TXT-R007-O1,P003,date_unallocated,TXT-R007
+,event_date,TXT-R007-O1,P003,date_unknown,TXT-R007
+2026-11-06,count,TXT-R008-O1,P003,count_unknown,TXT-R008
+2026-11-06,count,TXT-R008-O1,P003,latest_daily_count_unresolved,TXT-R008
+2026-11-07,assertion,TXT-R009-O1,P003,conflicting_sources,TXT-R009
+2026-11-07,count,TXT-R009-O1,P003,conflicting_sources,TXT-R009
+2026-11-07,count,TXT-R009-O1,P003,daily_count_conflict,TXT-R009
+2026-11-14,count,TXT-L-P003-14-O2,P003,count_unknown,TXT-L-P003-14
+2026-11-14,count,TXT-L-P003-14-O2,P003,latest_daily_count_unresolved,TXT-L-P003-14

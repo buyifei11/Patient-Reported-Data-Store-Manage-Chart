@@ -5,12 +5,22 @@ validate them, preserve history in SQLite, apply counting/correction rules, and
 show patient trends with coverage and unresolved values. All deliverables are in
 English. No real patient information is used.
 
+The current [all-text longitudinal demo](results/longitudinal-text-demo/README.md)
+uses **71 actual LLM text extractions, with zero directly processed questionnaires**.
+The former questionnaire facts were verbalized and reviewed before extraction;
+all ten original text reports were retained, including their conflicts and
+correction history. The frozen run recovered all 137 reference observations and
+all 1,233 normalized core fields. One repeated source claim produced an extra raw
+candidate that Python merged, and two time phrases differ only in wording.
+This is a synthetic integration result, not evidence of general 100% accuracy.
+See the [extraction results](results/longitudinal-text-extraction/README.md).
+
 A separate [five-report text pilot](data/text_pilot/README.md) now contains actual
 LLM-generated feedback, reviewed references, and generation provenance. Its
 [first extraction baseline](results/text-pilot-extraction/README.md) and a bounded
 [evidence-prompt comparison](results/text-pilot-evidence/README.md) are recorded
-separately; the existing offline dashboard below still uses its original
-mixed-input dataset.
+separately. The original mixed-input dashboard is preserved as a historical
+baseline alongside the new all-text demo.
 
 A separate [ten-report text set](data/text_validation/README.md) has recorded
 [original/evidence](results/text-validation-comparison/README.md),
@@ -21,8 +31,8 @@ Whole-report passes were 2/10, 8/10, 7/10, and 8/10, respectively. A subsequent
 daily-context Python gap first: replaying the saved compact output yields correct
 normalized values and structure for 10/10 reports, while preserving raw duplicate
 candidates. A separate one-rule prompt trial removes those duplicates but creates
-one invalid quote, leaving 9/10 usable reports. Keep the Python fix and retain the
-new prompt as experimental. The user subsequently accepted the verified TV007
+one invalid quote, leaving 9/10 usable reports. At that stage the Python fix was
+retained and the new prompt remained experimental. The user subsequently accepted the verified TV007
 quotation omission as an evidence-only exception: a separate
 [reviewed replay](results/text-validation-nausea/reviewed-evidence/README.md)
 contains 10/10 accepted reports with unchanged semantic values, and no new model
@@ -47,24 +57,24 @@ python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.txt
 python -m unittest discover -s tests -q
-python run_demo.py build --output artifacts/demo
+python run_demo.py build --dataset data/longitudinal_text \
+  --cached-predictions results/longitudinal-text-extraction/predictions.jsonl \
+  --run-id longitudinal-text-v1 --output artifacts/longitudinal-text-demo
 ```
 
-Open **`artifacts/demo/dashboard.html`** in a browser. No server, API key, or
+Open **`artifacts/longitudinal-text-demo/dashboard.html`** in a browser. No server, API key, or
 internet connection is needed after dependency installation. Use a new output
 directory for another build; existing runs are never overwritten.
 
 The demo has **71 reports, three patients, and 28 follow-up days per patient**.
-It reuses ten actual saved LLM candidate batches and directly processes 61
-questionnaire-only reports. It does not use gold to fabricate predictions and
-does not make new model requests. Both the database and dashboard preserve the
-known limitations of the recorded extraction. See the
+It replays all 71 saved model candidate batches through the current normalizer,
+then builds SQLite, daily summaries, SQL exports, and the dashboard. It never
+reads reference answers or fact seeds. Extraction made 71 API requests; this
+offline rebuild makes zero additional requests. See the
 [demo walkthrough](docs/demo_walkthrough.md) for a presentation sequence.
 
-![Generated patient dashboard](docs/dashboard-preview.png)
-
-A selected [generated example](results/longitudinal-demo/dashboard.html), query
-exports, and [validation record](docs/prototype_validation.md) are also saved
+A selected [generated example](results/longitudinal-text-demo/dashboard.html), query
+exports, and [validation record](results/longitudinal-text-demo/validation.json) are saved
 for review. Download the HTML file to open that snapshot locally; GitHub's file
 viewer does not execute the dashboard.
 
@@ -73,9 +83,9 @@ Generated files include `patient_reports.sqlite`, `predictions.jsonl`,
 `review_queue.csv`, `summary.json`, and the standalone dashboard.
 
 ```bash
-python run_demo.py query --db artifacts/demo/patient_reports.sqlite --query weekly
-python run_demo.py query --db artifacts/demo/patient_reports.sqlite --query medication
-python run_demo.py query --db artifacts/demo/patient_reports.sqlite --query review
+python run_demo.py query --db artifacts/longitudinal-text-demo/patient_reports.sqlite --run-id longitudinal-text-v1 --query weekly
+python run_demo.py query --db artifacts/longitudinal-text-demo/patient_reports.sqlite --run-id longitudinal-text-v1 --query medication
+python run_demo.py query --db artifacts/longitudinal-text-demo/patient_reports.sqlite --run-id longitudinal-text-v1 --query review
 ```
 
 Queries open the database read-only. Weekly counts include reporting coverage;
@@ -83,6 +93,12 @@ missing values do not become zeros. The medication query compares symptoms with
 recorded starts, stops, or dose changes, not each day's actual medication intake.
 It remains available through SQL, the CLI, and CSV exports; the dashboard uses
 labeled medication markers rather than a separate timing-comparison table.
+
+The [original mixed-input snapshot](results/longitudinal-demo/dashboard.html)
+and its [validation record](docs/prototype_validation.md) remain unchanged.
+`python run_demo.py build --output artifacts/original-mixed-demo` still builds
+that historical default: ten saved text extractions plus 61 direct questionnaires.
+Use the explicit dataset, cache, and run ID above for the current all-text demo.
 
 ## What is implemented
 
@@ -104,9 +120,11 @@ overlap stay out of daily totals and remain reviewable.
 
 ## Extraction experiments and model configuration
 
-The provisional cloud model is `gpt-5.4-mini-2026-03-17`. V1 remains the default
-prompt; v2 and v3 remain experimental because their measured improvements came
-with material regressions. No fine-tuning was performed. Historical experimental
+The cloud model used here is `gpt-5.4-mini-2026-03-17`. The current all-text run
+explicitly selects `prompts/extraction_nausea_grouping.txt`, evaluated on the
+separate 20-case set before this integration run. The CLI default remains the
+original v1 prompt for backward compatibility; v2/v3 experiments and their
+regressions are retained. No fine-tuning was performed. Historical experimental
 outputs are preserved unchanged; their frozen runtime is available in Git.
 
 | Evidence | Purpose |
@@ -123,11 +141,14 @@ commit a key. Environment values take precedence over `.env`. No shell code or
 variable expansion is executed by the loader.
 
 ```bash
-python run_pipeline.py extract --provider openai \
+python run_pipeline.py extract --source data/longitudinal_text/reports.jsonl \
+  --provider openai --prompt-file prompts/extraction_nausea_grouping.txt \
   --model gpt-5.4-mini-2026-03-17 \
   --output data/processed/new-text-run.jsonl
 
 python run_pipeline.py evaluate \
+  --source data/longitudinal_text/reports.jsonl \
+  --gold data/longitudinal_text/expected.jsonl \
   --predictions data/processed/new-text-run.jsonl \
   --output artifacts/new-text-run.metrics.json
 ```

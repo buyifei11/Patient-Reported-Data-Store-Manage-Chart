@@ -1,15 +1,16 @@
 # Storage, counting, and chart decisions
 
 The prototype now runs from source reports to normalized observations, SQLite,
-derived daily records, two SQL queries, and an offline dashboard. Extraction is
-held at the v1 baseline while deterministic boundaries and downstream behavior
-are developed. The demo makes no model requests and needs no API key.
+derived daily records, two SQL queries, and an offline dashboard. The current
+all-text demo replays 71 actual outputs from the frozen nausea-grouping prompt;
+the older mixed-input demo retains its v1 cache. An offline rebuild makes no
+additional model requests and needs no API key.
 
 ## Processing path
 
 ```mermaid
 flowchart LR
-    A[Original text + questionnaires] --> B[Saved text candidates / direct form values]
+    A[71 reviewed source texts] --> B[71 actual saved LLM candidate batches]
     B --> C[Current validation and normalization]
     C --> D[Immutable sources and run results in SQLite]
     D --> E[Correction and daily eligibility rules]
@@ -25,7 +26,9 @@ flowchart LR
 `src/demo.py` imports normalized results, reloads the stored run, computes its
 analysis, and persists those derived records. Both query exports and chart data
 come from SQLite. Gold fixtures are never read by this path. Free-text candidates
-are actual saved model output; additional questionnaire data are code-owned.
+are actual saved model output. The current `longitudinal_text` dataset has empty
+questionnaire arrays throughout. The original mixed-input dataset is still
+supported separately, with direct form processing only for empty-text reports.
 Uncached or changed free text fails explicitly instead of becoming an empty
 successful extraction. A fresh text extraction remains available through
 `run_pipeline.py extract` and an explicit new output path.

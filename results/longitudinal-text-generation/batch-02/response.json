@@ -1,0 +1,157 @@
+{
+  "id": "resp_0db3efbd82803be5016afb6908d48487d1839e219e315642e0",
+  "object": "response",
+  "created_at": 1794861320,
+  "status": "completed",
+  "access_programs": null,
+  "background": false,
+  "billing": {
+    "payer": "developer"
+  },
+  "completed_at": 1794861327,
+  "error": null,
+  "frequency_penalty": 0.0,
+  "image": {
+    "context_compression": "disabled"
+  },
+  "incomplete_details": null,
+  "input_transformations": [],
+  "instructions": "Write short fictional English patient feedback from each supplied questionnaire.\nReturn only report_id/text pairs. Each item is a separate submission. Preserve\nevery stated value, absence, and uncertainty; do not merge submissions.\n\nFor EVERY symptom entry, write its own complete first-person sentence(s):\n- A vomiting count is cumulative from the start of today to this submission.\n  State that explicitly using \"so far today\" or \"today up to now\". Positive\n  counts describe vomiting that happened; count zero explicitly denies vomiting\n  across today so far. A null count means vomiting happened but the patient does\n  not know how many times. Never turn an unknown count into zero.\n- Every non-null severity is the named symptom's WORST severity SO FAR TODAY,\n  measured out of 5. Explicitly name the symptom, say worst, identify today so\n  far, and give both the stated value and scale. Do not omit any of these to\n  shorten the wording. \"Nausea is 3/5\" alone is insufficient.\n- Nausea ratings imply nausea occurred today so far. Nausea has no episode\n  count: do not invent one. A null severity means no rating was supplied, not a\n  zero score. Do not add a vomiting rating to an explicit zero-count entry.\n- Keep each rating attached to its own symptom. A count does not determine a\n  severity. Do not borrow dates, counts, or ratings from another submission.\n- Use ordinary English, contractions, and either number words or digits. The\n  style instruction may change sentence order, but never facts or time scope.\n- Submission dates/times are metadata. Do not introduce symptom occurrence\n  clocks, meals, morning-only windows, completed-day totals, or other dates.\n- Do not add medications, causes, diagnoses, treatments, corrections, severity\n  adjectives, or symptoms that do not appear in the supplied questionnaire.\n- These statements may be appended to another source note. Do not describe\n  them as corrected, more recent, authoritative, or replacing another claim.\n\nBefore returning each item, verify that both symptom entries (when supplied)\nare present, all numerical values are unchanged, all scores explicitly identify\ntheir symptom/worst-today-so-far context/out-of-5 scale, and vomiting counts\nretain today's cumulative scope even when zero or unknown. Do not mention JSON,\ndatasets, extraction, prompts, or expected answers in the patient text.\n",
+  "max_output_tokens": 8192,
+  "max_tool_calls": null,
+  "model": "gpt-5.4-mini-2026-03-17",
+  "moderation": null,
+  "output": [
+    {
+      "id": "msg_0db3efbd82803be5016afb6909838487d1860581809ec43944",
+      "type": "message",
+      "status": "completed",
+      "content": [
+        {
+          "type": "output_text",
+          "annotations": [],
+          "logprobs": [],
+          "text": "{\"reports\":[{\"report_id\":\"TXT-L-P001-26\",\"text\":\"I felt nausea today so far, and nausea is 1/5 worst today so far on a scale of 5. I haven't vomited so far today.\"},{\"report_id\":\"TXT-L-P001-27\",\"text\":\"I vomited once so far today, and vomiting is 2/5 worst today so far on a scale of 5. I felt nausea today so far, and nausea is 2/5 worst today so far on a scale of 5.\"},{\"report_id\":\"TXT-L-P001-28\",\"text\":\"I vomited twice so far today, and vomiting is 2/5 worst today so far on a scale of 5. I felt nausea today so far, and nausea is 2/5 worst today so far on a scale of 5.\"},{\"report_id\":\"TXT-L-P002-05\",\"text\":\"I vomited twice so far today, and vomiting is 2/5 worst today so far on a scale of 5. I felt nausea today so far, and nausea is 3/5 worst today so far on a scale of 5.\"},{\"report_id\":\"TXT-L-P002-06\",\"text\":\"I felt nausea today so far, and nausea is 4/5 worst today so far on a scale of 5. I vomited 3 times so far today, and vomiting is 2/5 worst today so far on a scale of 5.\"},{\"report_id\":\"TXT-L-P002-08\",\"text\":\"I vomited once so far today, and vomiting is 2/5 worst today so far on a scale of 5. I felt nausea today so far, and nausea is 3/5 worst today so far on a scale of 5.\"},{\"report_id\":\"TXT-L-P002-09\",\"text\":\"I vomited twice so far today, and vomiting is 2/5 worst today so far on a scale of 5. I felt nausea today so far, and nausea is 3/5 worst today so far on a scale of 5.\"},{\"report_id\":\"TXT-L-P002-10\",\"text\":\"I vomited 3 times so far today, and vomiting is 2/5 worst today so far on a scale of 5. I felt nausea today so far, and nausea is 4/5 worst today so far on a scale of 5.\"},{\"report_id\":\"TXT-L-P002-11\",\"text\":\"I felt nausea today so far, and nausea is 3/5 worst today so far on a scale of 5. I vomited twice so far today, and vomiting is 2/5 worst today so far on a scale of 5.\"},{\"report_id\":\"TXT-L-P002-13\",\"text\":\"I vomited twice so far today, and vomiting is 2/5 worst today so far on a scale of 5. I felt nausea today so far, and nausea is 3/5 worst today so far on a scale of 5.\"},{\"report_id\":\"TXT-L-P002-14\",\"text\":\"I vomited 3 times so far today, and vomiting is 2/5 worst today so far on a scale of 5. I felt nausea today so far, and nausea is 3/5 worst today so far on a scale of 5.\"},{\"report_id\":\"TXT-L-P002-15\",\"text\":\"I vomited once so far today, and vomiting is 2/5 worst today so far on a scale of 5. I felt nausea today so far, and nausea is 3/5 worst today so far on a scale of 5.\"},{\"report_id\":\"TXT-L-P002-16\",\"text\":\"I felt nausea today so far, and nausea is 3/5 worst today so far on a scale of 5. I vomited twice so far today, and vomiting is 2/5 worst today so far on a scale of 5.\"},{\"report_id\":\"TXT-L-P002-17\",\"text\":\"I vomited 3 times so far today, and vomiting is 2/5 worst today so far on a scale of 5. I felt nausea today so far, and nausea is 4/5 worst today so far on a scale of 5.\"},{\"report_id\":\"TXT-L-P002-18\",\"text\":\"I vomited twice so far today, and vomiting is 2/5 worst today so far on a scale of 5. I felt nausea today so far, and nausea is 3/5 worst today so far on a scale of 5.\"},{\"report_id\":\"TXT-L-P002-19\",\"text\":\"I vomited once so far today, and vomiting is 2/5 worst today so far on a scale of 5. I felt nausea today so far, and nausea is 2/5 worst today so far on a scale of 5.\"},{\"report_id\":\"TXT-L-P002-21\",\"text\":\"I felt nausea today so far, and nausea is 3/5 worst today so far on a scale of 5. I vomited 3 times so far today, and vomiting is 2/5 worst today so far on a scale of 5.\"},{\"report_id\":\"TXT-L-P002-22\",\"text\":\"I haven't vomited so far today. I felt nausea today so far, and nausea is 2/5 worst today so far on a scale of 5.\"},{\"report_id\":\"TXT-L-P002-23\",\"text\":\"I vomited once so far today, and vomiting is 2/5 worst today so far on a scale of 5. I felt nausea today so far, and nausea is 2/5 worst today so far on a scale of 5.\"},{\"report_id\":\"TXT-L-P002-24\",\"text\":\"I vomited twice so far today, and vomiting is 2/5 worst today so far on a scale of 5. I felt nausea today so far, and nausea is 3/5 worst today so far on a scale of 5.\"},{\"report_id\":\"TXT-L-P002-25\",\"text\":\"I felt nausea today so far, and nausea is 2/5 worst today so far on a scale of 5. I vomited once so far today, and vomiting is 2/5 worst today so far on a scale of 5.\"}]}"
+        }
+      ],
+      "phase": "final_answer",
+      "role": "assistant"
+    }
+  ],
+  "parallel_tool_calls": true,
+  "presence_penalty": 0.0,
+  "previous_response_id": null,
+  "prompt_cache_key": null,
+  "prompt_cache_retention": "24h",
+  "reasoning": {
+    "context": "current_turn",
+    "effort": "none",
+    "mode": "standard",
+    "summary": null
+  },
+  "safety_identifier": null,
+  "service_tier": "default",
+  "store": false,
+  "temperature": 1.0,
+  "text": {
+    "format": {
+      "type": "json_schema",
+      "description": null,
+      "name": "fictional_questionnaire_feedback",
+      "schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "reports": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "report_id": {
+                  "type": "string",
+                  "enum": [
+                    "TXT-L-P001-26",
+                    "TXT-L-P001-27",
+                    "TXT-L-P001-28",
+                    "TXT-L-P002-05",
+                    "TXT-L-P002-06",
+                    "TXT-L-P002-08",
+                    "TXT-L-P002-09",
+                    "TXT-L-P002-10",
+                    "TXT-L-P002-11",
+                    "TXT-L-P002-13",
+                    "TXT-L-P002-14",
+                    "TXT-L-P002-15",
+                    "TXT-L-P002-16",
+                    "TXT-L-P002-17",
+                    "TXT-L-P002-18",
+                    "TXT-L-P002-19",
+                    "TXT-L-P002-21",
+                    "TXT-L-P002-22",
+                    "TXT-L-P002-23",
+                    "TXT-L-P002-24",
+                    "TXT-L-P002-25"
+                  ]
+                },
+                "text": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "report_id",
+                "text"
+              ]
+            }
+          }
+        },
+        "required": [
+          "reports"
+        ]
+      },
+      "strict": true
+    },
+    "verbosity": "medium"
+  },
+  "tool_choice": "auto",
+  "tool_usage": {
+    "image_gen": {
+      "input_tokens": 0,
+      "input_tokens_details": {
+        "image_tokens": 0,
+        "text_tokens": 0
+      },
+      "output_tokens": 0,
+      "output_tokens_details": {
+        "image_tokens": 0,
+        "text_tokens": 0
+      },
+      "total_tokens": 0
+    },
+    "web_search": {
+      "num_requests": 0
+    }
+  },
+  "tools": [],
+  "top_logprobs": 0,
+  "top_p": 0.98,
+  "truncation": "disabled",
+  "usage": {
+    "input_tokens": 3907,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cache_write_tokens_details": {
+        "ttl_12h_tokens": 0,
+        "ttl_30m_tokens": 0
+      },
+      "cached_tokens": 0
+    },
+    "output_tokens": 1334,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 5241
+  },
+  "user": null,
+  "metadata": {}
+}

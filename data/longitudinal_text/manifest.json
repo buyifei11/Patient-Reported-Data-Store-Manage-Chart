@@ -1,0 +1,47 @@
+{
+  "status": "reviewed_before_extraction",
+  "frozen_at_utc": "2026-11-16T20:42:26.327534+00:00",
+  "reports": 71,
+  "original_starter_reports": 10,
+  "converted_followup_reports": 61,
+  "candidate_checks": 139,
+  "candidate_field_expectations": 1529,
+  "normalized_observations": 137,
+  "normalized_core_expectations": {
+    "known": 803,
+    "null": 430,
+    "total": 1233
+  },
+  "reference_evidence_entries": 279,
+  "generation_requests": 3,
+  "extraction_requests_so_far": 0,
+  "questionnaire_answers_in_final_sources": 0,
+  "review": "Separate source-reference author and independent reviewer checked all71pairings without invoking the normalizer or extractor. One disclosed pre-extraction wording clarification; no numeric changes.",
+  "file_hashes": {
+    "data/longitudinal_text/editorial_review.json": "68ef6a00a3b5ab3499ab21267e1e1945f99533df29d2d1e546f80f85bae87b5b",
+    "data/longitudinal_text/expected.jsonl": "ee305a62a1daa8a96d86b41f86344124600d757c2ebf0363edb9911c97728ce5",
+    "data/longitudinal_text/medication_changes.json": "beb022356f1e5b9d58727b7727dcbb0f124ea96b31b1daecceb4f9034627e2be",
+    "data/longitudinal_text/patients.json": "80e1b0b842ee627c27a9734b8e2ee6f382b5c00be9bd1c6595c654a0ffb3c41c",
+    "data/longitudinal_text/preparation.json": "b100167370dd868fdf174951f229849ec9aaffcef93c8b7cb889c26d70923fcc",
+    "data/longitudinal_text/reports.jsonl": "a2259d0f1975766dcdc2d1b91692f07ce339cb51deed0267309527d760ec276d",
+    "data/longitudinal_text/seeds.jsonl": "5636c4e6537838fdff46d717ca5b900d8d54b8a12f1c67df585ff5d68c8d9145",
+    "results/longitudinal-text-generation/batch-01/generated_texts.jsonl": "a2c088e70ec136fa47f6b04ac22a9b44b5b0447e0b3349627e9b3425520a3b1e",
+    "results/longitudinal-text-generation/batch-01/request.json": "122f8e3a1ccd09fa402c5a3d1d37d38f5ffc7582be1f07f59df2731509df44fd",
+    "results/longitudinal-text-generation/batch-01/response.json": "b86e20e8de84f12954c952eeddc653111ffd49a5e094186a6f12e06f7f1e381e",
+    "results/longitudinal-text-generation/batch-02/generated_texts.jsonl": "abff102c7a266589b5c79838341d4452a96cdbcb3aac9227113d7ed13092ccb8",
+    "results/longitudinal-text-generation/batch-02/request.json": "6bf6ad2d0e6fe0601c032daa1817a40fe5c1ce2ebffdf3720220378188f9dbcc",
+    "results/longitudinal-text-generation/batch-02/response.json": "d6ee54013a09a9c47bdf42859aa4985c4ccc1505dfe9dd2a4d943072b0ac69a9",
+    "results/longitudinal-text-generation/batch-03/generated_texts.jsonl": "e23054aa11ecc24149ff1c96e16c4a3037c5a2ab42e040147c638424934349e6",
+    "results/longitudinal-text-generation/batch-03/request.json": "c071b66d424c5318df61a569e56a34c57153703cf3c0f250ecb813f99cbb4e80",
+    "results/longitudinal-text-generation/batch-03/response.json": "985f179401e3e996c9850da56e3d6a8cd3dd6d2513679e53bfe6013fba78c3dd",
+    "results/longitudinal-text-generation/manifest.json": "acaa9604fadd9e339b716aa4139fd73b3691236774ec848770da1936d0803ac4"
+  },
+  "runtime_sha256": "93ccc524c40fe5b04ec1ebec79d327fb48d350b9734462eb6d60ef4b15e778ca",
+  "source_dataset_sha256": "15923a5c9f988918eb31210526ce79835c5099c15bc9c74305dce8ccf095a225",
+  "gold_dataset_sha256": "847f190b9b5b96fabd24d80c97a2e3e72a838f7487759777a138f5a417b6732c",
+  "limitations": [
+    "Known synthetic longitudinal integration, not a new held-out benchmark.",
+    "37unique raw generation texts among63supplements; repeated patterns and shared model family.",
+    "Original ten reports and seed facts were previously used during development."
+  ]
+}

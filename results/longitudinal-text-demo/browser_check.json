@@ -1,0 +1,36 @@
+{
+  "run_id": "longitudinal-text-v1",
+  "browser": "Codex in-app browser",
+  "url": "http://127.0.0.1:8765/dashboard.html",
+  "patient_summaries": {
+    "P001": {
+      "episodes": 37,
+      "count_coverage": "23/28",
+      "report_days": "25/28",
+      "count_review_days": 1
+    },
+    "P002": {
+      "episodes": 39,
+      "count_coverage": "22/28",
+      "report_days": "23/28",
+      "count_review_days": 1
+    },
+    "P003": {
+      "episodes": 27,
+      "count_coverage": "16/28",
+      "report_days": "21/28",
+      "count_review_days": 3
+    }
+  },
+  "observed_checks": [
+    "All three patient selections update charts and summaries",
+    "Medication legends name changes",
+    "P001 review shows nausea 2/5 versus 3/5 and cumulative count 4 versus 1",
+    "Review source button expands TXT-R002 with original text, raw candidates and normalized results",
+    "P002 correction TXT-R006 replaces TXT-R005 remains visible",
+    "P003 unknown counts and hypothetical vomiting stay out of count trend",
+    "Footer shows 71 cached text extractions and 0 questionnaire submissions"
+  ],
+  "browser_console_errors": [],
+  "scope": "Manual browser smoke check at default viewport; database/chart data equality checked separately in validation.json"
+}

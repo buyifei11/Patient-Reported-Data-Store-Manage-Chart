@@ -1,0 +1,37 @@
+{
+  "run_id": "longitudinal-text-v1",
+  "model_requests": 0,
+  "patients": 3,
+  "reports": 71,
+  "normalized_observations": 137,
+  "failed_reports": 0,
+  "followup_patient_days": 84,
+  "usable_count_days": 61,
+  "count_review_days": 5,
+  "missing_count_days": 18,
+  "review_items": 12,
+  "corrections": [
+    {
+      "report_id": "TXT-R006",
+      "target_report_id": "TXT-R005",
+      "status": "applied",
+      "reason": null
+    }
+  ],
+  "database_integrity": "ok",
+  "metadata": {
+    "description": "Synthetic follow-up; all reports use saved LLM text extractions",
+    "cached_text_reports": 71,
+    "questionnaire_reports": 0,
+    "reviewed_evidence_reports": 0,
+    "model_requests": 0,
+    "runtime_sha256": "93ccc524c40fe5b04ec1ebec79d327fb48d350b9734462eb6d60ef4b15e778ca",
+    "cache_sha256": "888800b3a641287f231e0a90a26e1dc558f1c401ec70c8392016e67e1a5dbd96",
+    "dashboard_template_sha256": "353c575cf76224697f33daa240141d49aa956006e5a5d393646b644da3dede54",
+    "dataset_files": {
+      "patients.json": "80e1b0b842ee627c27a9734b8e2ee6f382b5c00be9bd1c6595c654a0ffb3c41c",
+      "reports.jsonl": "a2259d0f1975766dcdc2d1b91692f07ce339cb51deed0267309527d760ec276d",
+      "medication_changes.json": "beb022356f1e5b9d58727b7727dcbb0f124ea96b31b1daecceb4f9034627e2be"
+    }
+  }
+}

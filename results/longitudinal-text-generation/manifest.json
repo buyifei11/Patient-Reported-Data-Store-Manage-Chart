@@ -1,0 +1,163 @@
+{
+  "kind": "questionnaire_to_text_generation_only",
+  "started_at_utc": "2026-11-16T20:35:14.954940+00:00",
+  "planned_requests": 3,
+  "actual_requests": 3,
+  "extraction_requests": 0,
+  "seed_count": 63,
+  "batches": [
+    {
+      "batch": 1,
+      "started_at_utc": "2026-11-16T20:35:14.955710+00:00",
+      "report_ids": [
+        "TXT-R002",
+        "TXT-R009",
+        "TXT-L-P001-04",
+        "TXT-L-P001-05",
+        "TXT-L-P001-06",
+        "TXT-L-P001-07",
+        "TXT-L-P001-09",
+        "TXT-L-P001-10",
+        "TXT-L-P001-11",
+        "TXT-L-P001-12",
+        "TXT-L-P001-13",
+        "TXT-L-P001-14",
+        "TXT-L-P001-15",
+        "TXT-L-P001-17",
+        "TXT-L-P001-18",
+        "TXT-L-P001-19",
+        "TXT-L-P001-20",
+        "TXT-L-P001-21",
+        "TXT-L-P001-22",
+        "TXT-L-P001-23",
+        "TXT-L-P001-24"
+      ],
+      "request_sha256": "122f8e3a1ccd09fa402c5a3d1d37d38f5ffc7582be1f07f59df2731509df44fd",
+      "status": "completed",
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "response_id": "resp_07cb326e16f58249016afb69032f8c87d19f1560fac227e936",
+      "usage": {
+        "input_tokens": 3860,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cache_write_tokens_details": {
+            "ttl_12h_tokens": 0,
+            "ttl_30m_tokens": 0
+          },
+          "cached_tokens": 0
+        },
+        "output_tokens": 1091,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 4951
+      },
+      "response_sha256": "b86e20e8de84f12954c952eeddc653111ffd49a5e094186a6f12e06f7f1e381e",
+      "generated_texts_sha256": "a2c088e70ec136fa47f6b04ac22a9b44b5b0447e0b3349627e9b3425520a3b1e",
+      "finished_at_utc": "2026-11-16T20:35:20.667285+00:00"
+    },
+    {
+      "batch": 2,
+      "started_at_utc": "2026-11-16T20:35:20.668423+00:00",
+      "report_ids": [
+        "TXT-L-P001-26",
+        "TXT-L-P001-27",
+        "TXT-L-P001-28",
+        "TXT-L-P002-05",
+        "TXT-L-P002-06",
+        "TXT-L-P002-08",
+        "TXT-L-P002-09",
+        "TXT-L-P002-10",
+        "TXT-L-P002-11",
+        "TXT-L-P002-13",
+        "TXT-L-P002-14",
+        "TXT-L-P002-15",
+        "TXT-L-P002-16",
+        "TXT-L-P002-17",
+        "TXT-L-P002-18",
+        "TXT-L-P002-19",
+        "TXT-L-P002-21",
+        "TXT-L-P002-22",
+        "TXT-L-P002-23",
+        "TXT-L-P002-24",
+        "TXT-L-P002-25"
+      ],
+      "request_sha256": "6bf6ad2d0e6fe0601c032daa1817a40fe5c1ce2ebffdf3720220378188f9dbcc",
+      "status": "completed",
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "response_id": "resp_0db3efbd82803be5016afb6908d48487d1839e219e315642e0",
+      "usage": {
+        "input_tokens": 3907,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cache_write_tokens_details": {
+            "ttl_12h_tokens": 0,
+            "ttl_30m_tokens": 0
+          },
+          "cached_tokens": 0
+        },
+        "output_tokens": 1334,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 5241
+      },
+      "response_sha256": "d6ee54013a09a9c47bdf42859aa4985c4ccc1505dfe9dd2a4d943072b0ac69a9",
+      "generated_texts_sha256": "abff102c7a266589b5c79838341d4452a96cdbcb3aac9227113d7ed13092ccb8",
+      "finished_at_utc": "2026-11-16T20:35:27.917951+00:00"
+    },
+    {
+      "batch": 3,
+      "started_at_utc": "2026-11-16T20:35:27.919703+00:00",
+      "report_ids": [
+        "TXT-L-P002-26",
+        "TXT-L-P002-27",
+        "TXT-L-P002-28",
+        "TXT-L-P003-09",
+        "TXT-L-P003-10",
+        "TXT-L-P003-12",
+        "TXT-L-P003-13",
+        "TXT-L-P003-14",
+        "TXT-L-P003-15",
+        "TXT-L-P003-16",
+        "TXT-L-P003-17",
+        "TXT-L-P003-19",
+        "TXT-L-P003-20",
+        "TXT-L-P003-21",
+        "TXT-L-P003-22",
+        "TXT-L-P003-23",
+        "TXT-L-P003-24",
+        "TXT-L-P003-25",
+        "TXT-L-P003-27",
+        "TXT-L-P003-28",
+        "TXT-L-P001-10-AM"
+      ],
+      "request_sha256": "c071b66d424c5318df61a569e56a34c57153703cf3c0f250ecb813f99cbb4e80",
+      "status": "completed",
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "response_id": "resp_05fd963c6a1e2ad4016afb69101adc87d1936e4faed7a5e1ef",
+      "usage": {
+        "input_tokens": 3911,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cache_write_tokens_details": {
+            "ttl_12h_tokens": 0,
+            "ttl_30m_tokens": 0
+          },
+          "cached_tokens": 0
+        },
+        "output_tokens": 1032,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 4943
+      },
+      "response_sha256": "985f179401e3e996c9850da56e3d6a8cd3dd6d2513679e53bfe6013fba78c3dd",
+      "generated_texts_sha256": "e23054aa11ecc24149ff1c96e16c4a3037c5a2ab42e040147c638424934349e6",
+      "finished_at_utc": "2026-11-16T20:35:34.301823+00:00"
+    }
+  ],
+  "preparation_sha256": "b100167370dd868fdf174951f229849ec9aaffcef93c8b7cb889c26d70923fcc",
+  "status": "completed",
+  "finished_at_utc": "2026-11-16T20:35:34.302297+00:00"
+}

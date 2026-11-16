@@ -1,0 +1,274 @@
+{
+  "evaluation_version": "1.0",
+  "reference_role": "development_fixtures",
+  "report_completion": {
+    "total": 71,
+    "ok": 71,
+    "error": 0,
+    "missing": 0,
+    "rate": 1.0
+  },
+  "observation_detection": {
+    "true_positive": 137,
+    "false_positive": 0,
+    "false_negative": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  },
+  "fields": {
+    "symptom": {
+      "reference_known": {
+        "correct": 137,
+        "total": 137,
+        "accuracy": 1.0
+      },
+      "reference_null": {
+        "correct": 0,
+        "total": 0,
+        "accuracy": null,
+        "overfilled": 0
+      },
+      "missing_predictions": 0
+    },
+    "assertion": {
+      "reference_known": {
+        "correct": 137,
+        "total": 137,
+        "accuracy": 1.0
+      },
+      "reference_null": {
+        "correct": 0,
+        "total": 0,
+        "accuracy": null,
+        "overfilled": 0
+      },
+      "missing_predictions": 0
+    },
+    "count": {
+      "reference_known": {
+        "correct": 67,
+        "total": 67,
+        "accuracy": 1.0
+      },
+      "reference_null": {
+        "correct": 70,
+        "total": 70,
+        "accuracy": 1.0,
+        "overfilled": 0
+      },
+      "missing_predictions": 0
+    },
+    "count_scope": {
+      "reference_known": {
+        "correct": 70,
+        "total": 70,
+        "accuracy": 1.0
+      },
+      "reference_null": {
+        "correct": 67,
+        "total": 67,
+        "accuracy": 1.0,
+        "overfilled": 0
+      },
+      "missing_predictions": 0
+    },
+    "severity": {
+      "reference_known": {
+        "correct": 117,
+        "total": 117,
+        "accuracy": 1.0
+      },
+      "reference_null": {
+        "correct": 20,
+        "total": 20,
+        "accuracy": 1.0,
+        "overfilled": 0
+      },
+      "missing_predictions": 0
+    },
+    "event_date": {
+      "reference_known": {
+        "correct": 136,
+        "total": 136,
+        "accuracy": 1.0
+      },
+      "reference_null": {
+        "correct": 1,
+        "total": 1,
+        "accuracy": 1.0,
+        "overfilled": 0
+      },
+      "missing_predictions": 0
+    },
+    "event_time": {
+      "reference_known": {
+        "correct": 1,
+        "total": 1,
+        "accuracy": 1.0
+      },
+      "reference_null": {
+        "correct": 136,
+        "total": 136,
+        "accuracy": 1.0,
+        "overfilled": 0
+      },
+      "missing_predictions": 0
+    },
+    "time_text": {
+      "reference_known": {
+        "correct": 135,
+        "total": 137,
+        "accuracy": 0.9854014598540146
+      },
+      "reference_null": {
+        "correct": 0,
+        "total": 0,
+        "accuracy": null,
+        "overfilled": 0
+      },
+      "missing_predictions": 0
+    },
+    "date_basis": {
+      "reference_known": {
+        "correct": 137,
+        "total": 137,
+        "accuracy": 1.0
+      },
+      "reference_null": {
+        "correct": 0,
+        "total": 0,
+        "accuracy": null,
+        "overfilled": 0
+      },
+      "missing_predictions": 0
+    },
+    "medication_relation": {
+      "reference_known": {
+        "correct": 1,
+        "total": 1,
+        "accuracy": 1.0
+      },
+      "reference_null": {
+        "correct": 136,
+        "total": 136,
+        "accuracy": 1.0,
+        "overfilled": 0
+      },
+      "missing_predictions": 0
+    }
+  },
+  "assertion_accuracy": {
+    "correct": 137,
+    "total": 137,
+    "accuracy": 1.0
+  },
+  "unknown_overfill": {
+    "errors": 0,
+    "reference_null_fields": 430,
+    "rate": 0.0
+  },
+  "issue_detection": {
+    "true_positive": 6,
+    "false_positive": 0,
+    "false_negative": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  },
+  "extraction_checks": {
+    "passed": 139,
+    "total": 139,
+    "accuracy": 1.0,
+    "fields": {
+      "assertion": {
+        "correct": 139,
+        "total": 139,
+        "accuracy": 1.0
+      },
+      "clock_time": {
+        "correct": 139,
+        "total": 139,
+        "accuracy": 1.0
+      },
+      "count": {
+        "correct": 139,
+        "total": 139,
+        "accuracy": 1.0
+      },
+      "count_scope": {
+        "correct": 139,
+        "total": 139,
+        "accuracy": 1.0
+      },
+      "day_reference": {
+        "correct": 139,
+        "total": 139,
+        "accuracy": 1.0
+      },
+      "explicit_date": {
+        "correct": 139,
+        "total": 139,
+        "accuracy": 1.0
+      },
+      "medication_relation": {
+        "correct": 139,
+        "total": 139,
+        "accuracy": 1.0
+      },
+      "severity_context": {
+        "correct": 139,
+        "total": 139,
+        "accuracy": 1.0
+      },
+      "severity_scale_max": {
+        "correct": 139,
+        "total": 139,
+        "accuracy": 1.0
+      },
+      "severity_value": {
+        "correct": 139,
+        "total": 139,
+        "accuracy": 1.0
+      },
+      "symptom": {
+        "correct": 139,
+        "total": 139,
+        "accuracy": 1.0
+      }
+    }
+  },
+  "matching": {
+    "ambiguous_groups": []
+  },
+  "mismatches": [
+    {
+      "report_id": "TXT-L-P003-20",
+      "reference_index": 1,
+      "reference_id": "TXT-L-P003-20-O2",
+      "prediction_index": 1,
+      "kind": "field",
+      "field": "time_text",
+      "expected": "so far today",
+      "predicted": "today so far",
+      "prediction_missing": false
+    },
+    {
+      "report_id": "TXT-R002",
+      "reference_index": 0,
+      "reference_id": "TXT-R002-O1",
+      "prediction_index": 0,
+      "kind": "field",
+      "field": "time_text",
+      "expected": "so far today",
+      "predicted": "today so far",
+      "prediction_missing": false
+    }
+  ],
+  "provenance": {
+    "source_dataset_sha256": "15923a5c9f988918eb31210526ce79835c5099c15bc9c74305dce8ccf095a225",
+    "gold_dataset_sha256": "847f190b9b5b96fabd24d80c97a2e3e72a838f7487759777a138f5a417b6732c",
+    "predictions_file_sha256": "888800b3a641287f231e0a90a26e1dc558f1c401ec70c8392016e67e1a5dbd96",
+    "evaluation_scope": "Development fixtures; not held-out or clinical validation"
+  }
+}

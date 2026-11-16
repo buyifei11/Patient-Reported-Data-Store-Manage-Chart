@@ -1,0 +1,1145 @@
+{
+  "dataset_role": "known_synthetic_longitudinal_integration_not_independent_test",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "prompt_file": "prompts/extraction_nausea_grouping.txt",
+  "runtime_sha256": "93ccc524c40fe5b04ec1ebec79d327fb48d350b9734462eb6d60ef4b15e778ca",
+  "model_requests": 71,
+  "attempts_per_report": 1,
+  "usage": {
+    "input_tokens": 166109,
+    "output_tokens": 13794,
+    "total_tokens": 179903
+  },
+  "emitted_candidates": 140,
+  "distinct_reference_candidate_checks": 139,
+  "candidate_field_checks": {
+    "correct": 1529,
+    "total": 1529
+  },
+  "report_completion": {
+    "total": 71,
+    "ok": 71,
+    "error": 0,
+    "missing": 0,
+    "rate": 1.0
+  },
+  "candidate_checks": {
+    "passed": 139,
+    "total": 139,
+    "accuracy": 1.0,
+    "fields": {
+      "assertion": {
+        "correct": 139,
+        "total": 139,
+        "accuracy": 1.0
+      },
+      "clock_time": {
+        "correct": 139,
+        "total": 139,
+        "accuracy": 1.0
+      },
+      "count": {
+        "correct": 139,
+        "total": 139,
+        "accuracy": 1.0
+      },
+      "count_scope": {
+        "correct": 139,
+        "total": 139,
+        "accuracy": 1.0
+      },
+      "day_reference": {
+        "correct": 139,
+        "total": 139,
+        "accuracy": 1.0
+      },
+      "explicit_date": {
+        "correct": 139,
+        "total": 139,
+        "accuracy": 1.0
+      },
+      "medication_relation": {
+        "correct": 139,
+        "total": 139,
+        "accuracy": 1.0
+      },
+      "severity_context": {
+        "correct": 139,
+        "total": 139,
+        "accuracy": 1.0
+      },
+      "severity_scale_max": {
+        "correct": 139,
+        "total": 139,
+        "accuracy": 1.0
+      },
+      "severity_value": {
+        "correct": 139,
+        "total": 139,
+        "accuracy": 1.0
+      },
+      "symptom": {
+        "correct": 139,
+        "total": 139,
+        "accuracy": 1.0
+      }
+    }
+  },
+  "core_fields": {
+    "reference_known": {
+      "correct": 803,
+      "total": 803
+    },
+    "reference_null": {
+      "correct": 430,
+      "total": 430
+    }
+  },
+  "observation_detection": {
+    "true_positive": 137,
+    "false_positive": 0,
+    "false_negative": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  },
+  "issue_detection": {
+    "true_positive": 6,
+    "false_positive": 0,
+    "false_negative": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  },
+  "exact_time_text": {
+    "reference_known": {
+      "correct": 135,
+      "total": 137,
+      "accuracy": 0.9854014598540146
+    },
+    "reference_null": {
+      "correct": 0,
+      "total": 0,
+      "accuracy": null,
+      "overfilled": 0
+    },
+    "missing_predictions": 0
+  },
+  "mismatches": [
+    {
+      "report_id": "TXT-L-P003-20",
+      "reference_index": 1,
+      "reference_id": "TXT-L-P003-20-O2",
+      "prediction_index": 1,
+      "kind": "field",
+      "field": "time_text",
+      "expected": "so far today",
+      "predicted": "today so far",
+      "prediction_missing": false
+    },
+    {
+      "report_id": "TXT-R002",
+      "reference_index": 0,
+      "reference_id": "TXT-R002-O1",
+      "prediction_index": 0,
+      "kind": "field",
+      "field": "time_text",
+      "expected": "so far today",
+      "predicted": "today so far",
+      "prediction_missing": false
+    }
+  ],
+  "whole_reports": {
+    "normalized_core_and_issues_correct": 71,
+    "literal_evaluator_match": 69,
+    "raw_candidate_count_matches": 70,
+    "total": 71
+  },
+  "reviewed_evidence_exceptions": 0,
+  "groups": {
+    "original_ten": {
+      "report_completion": {
+        "total": 10,
+        "ok": 10,
+        "error": 0,
+        "missing": 0,
+        "rate": 1.0
+      },
+      "candidate_checks": {
+        "passed": 17,
+        "total": 17,
+        "accuracy": 1.0,
+        "fields": {
+          "assertion": {
+            "correct": 17,
+            "total": 17,
+            "accuracy": 1.0
+          },
+          "clock_time": {
+            "correct": 17,
+            "total": 17,
+            "accuracy": 1.0
+          },
+          "count": {
+            "correct": 17,
+            "total": 17,
+            "accuracy": 1.0
+          },
+          "count_scope": {
+            "correct": 17,
+            "total": 17,
+            "accuracy": 1.0
+          },
+          "day_reference": {
+            "correct": 17,
+            "total": 17,
+            "accuracy": 1.0
+          },
+          "explicit_date": {
+            "correct": 17,
+            "total": 17,
+            "accuracy": 1.0
+          },
+          "medication_relation": {
+            "correct": 17,
+            "total": 17,
+            "accuracy": 1.0
+          },
+          "severity_context": {
+            "correct": 17,
+            "total": 17,
+            "accuracy": 1.0
+          },
+          "severity_scale_max": {
+            "correct": 17,
+            "total": 17,
+            "accuracy": 1.0
+          },
+          "severity_value": {
+            "correct": 17,
+            "total": 17,
+            "accuracy": 1.0
+          },
+          "symptom": {
+            "correct": 17,
+            "total": 17,
+            "accuracy": 1.0
+          }
+        }
+      },
+      "core_fields": {
+        "reference_known": {
+          "correct": 79,
+          "total": 79
+        },
+        "reference_null": {
+          "correct": 56,
+          "total": 56
+        }
+      },
+      "observation_detection": {
+        "true_positive": 15,
+        "false_positive": 0,
+        "false_negative": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "issue_detection": {
+        "true_positive": 5,
+        "false_positive": 0,
+        "false_negative": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "exact_time_text": {
+        "reference_known": {
+          "correct": 14,
+          "total": 15,
+          "accuracy": 0.9333333333333333
+        },
+        "reference_null": {
+          "correct": 0,
+          "total": 0,
+          "accuracy": null,
+          "overfilled": 0
+        },
+        "missing_predictions": 0
+      },
+      "mismatches": [
+        {
+          "report_id": "TXT-R002",
+          "reference_index": 0,
+          "reference_id": "TXT-R002-O1",
+          "prediction_index": 0,
+          "kind": "field",
+          "field": "time_text",
+          "expected": "so far today",
+          "predicted": "today so far",
+          "prediction_missing": false
+        }
+      ]
+    },
+    "converted_followups": {
+      "report_completion": {
+        "total": 61,
+        "ok": 61,
+        "error": 0,
+        "missing": 0,
+        "rate": 1.0
+      },
+      "candidate_checks": {
+        "passed": 122,
+        "total": 122,
+        "accuracy": 1.0,
+        "fields": {
+          "assertion": {
+            "correct": 122,
+            "total": 122,
+            "accuracy": 1.0
+          },
+          "clock_time": {
+            "correct": 122,
+            "total": 122,
+            "accuracy": 1.0
+          },
+          "count": {
+            "correct": 122,
+            "total": 122,
+            "accuracy": 1.0
+          },
+          "count_scope": {
+            "correct": 122,
+            "total": 122,
+            "accuracy": 1.0
+          },
+          "day_reference": {
+            "correct": 122,
+            "total": 122,
+            "accuracy": 1.0
+          },
+          "explicit_date": {
+            "correct": 122,
+            "total": 122,
+            "accuracy": 1.0
+          },
+          "medication_relation": {
+            "correct": 122,
+            "total": 122,
+            "accuracy": 1.0
+          },
+          "severity_context": {
+            "correct": 122,
+            "total": 122,
+            "accuracy": 1.0
+          },
+          "severity_scale_max": {
+            "correct": 122,
+            "total": 122,
+            "accuracy": 1.0
+          },
+          "severity_value": {
+            "correct": 122,
+            "total": 122,
+            "accuracy": 1.0
+          },
+          "symptom": {
+            "correct": 122,
+            "total": 122,
+            "accuracy": 1.0
+          }
+        }
+      },
+      "core_fields": {
+        "reference_known": {
+          "correct": 724,
+          "total": 724
+        },
+        "reference_null": {
+          "correct": 374,
+          "total": 374
+        }
+      },
+      "observation_detection": {
+        "true_positive": 122,
+        "false_positive": 0,
+        "false_negative": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "issue_detection": {
+        "true_positive": 1,
+        "false_positive": 0,
+        "false_negative": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "exact_time_text": {
+        "reference_known": {
+          "correct": 121,
+          "total": 122,
+          "accuracy": 0.9918032786885246
+        },
+        "reference_null": {
+          "correct": 0,
+          "total": 0,
+          "accuracy": null,
+          "overfilled": 0
+        },
+        "missing_predictions": 0
+      },
+      "mismatches": [
+        {
+          "report_id": "TXT-L-P003-20",
+          "reference_index": 1,
+          "reference_id": "TXT-L-P003-20-O2",
+          "prediction_index": 1,
+          "kind": "field",
+          "field": "time_text",
+          "expected": "so far today",
+          "predicted": "today so far",
+          "prediction_missing": false
+        }
+      ]
+    }
+  },
+  "reports": [
+    {
+      "report_id": "TXT-R001",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-R002",
+      "raw_candidates": 4,
+      "distinct_reference_claims": 3,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": false,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": false,
+      "mismatches": [
+        {
+          "report_id": "TXT-R002",
+          "reference_index": 0,
+          "reference_id": "TXT-R002-O1",
+          "prediction_index": 0,
+          "kind": "field",
+          "field": "time_text",
+          "expected": "so far today",
+          "predicted": "today so far",
+          "prediction_missing": false
+        }
+      ]
+    },
+    {
+      "report_id": "TXT-R003",
+      "raw_candidates": 1,
+      "distinct_reference_claims": 1,
+      "normalized_observations": 1,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-R004",
+      "raw_candidates": 1,
+      "distinct_reference_claims": 1,
+      "normalized_observations": 1,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-R005",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-R006",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-R007",
+      "raw_candidates": 1,
+      "distinct_reference_claims": 1,
+      "normalized_observations": 1,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-R008",
+      "raw_candidates": 1,
+      "distinct_reference_claims": 1,
+      "normalized_observations": 1,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-R009",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 1,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-R010",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P001-04",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P001-05",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P001-06",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P001-07",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P001-09",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P001-10",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P001-11",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P001-12",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P001-13",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P001-14",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P001-15",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P001-17",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P001-18",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P001-19",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P001-20",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P001-21",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P001-22",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P001-23",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P001-24",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P001-26",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P001-27",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P001-28",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P002-05",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P002-06",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P002-08",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P002-09",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P002-10",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P002-11",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P002-13",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P002-14",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P002-15",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P002-16",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P002-17",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P002-18",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P002-19",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P002-21",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P002-22",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P002-23",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P002-24",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P002-25",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P002-26",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P002-27",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P002-28",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P003-09",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P003-10",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P003-12",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P003-13",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P003-14",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P003-15",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P003-16",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P003-17",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P003-19",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P003-20",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": false,
+      "mismatches": [
+        {
+          "report_id": "TXT-L-P003-20",
+          "reference_index": 1,
+          "reference_id": "TXT-L-P003-20-O2",
+          "prediction_index": 1,
+          "kind": "field",
+          "field": "time_text",
+          "expected": "so far today",
+          "predicted": "today so far",
+          "prediction_missing": false
+        }
+      ]
+    },
+    {
+      "report_id": "TXT-L-P003-21",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P003-22",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P003-23",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P003-24",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P003-25",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P003-27",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P003-28",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    },
+    {
+      "report_id": "TXT-L-P001-10-AM",
+      "raw_candidates": 2,
+      "distinct_reference_claims": 2,
+      "normalized_observations": 2,
+      "raw_count_matches_reference": true,
+      "all_core_fields_and_issues_match": true,
+      "literal_evaluator_match": true,
+      "mismatches": []
+    }
+  ]
+}

@@ -3,8 +3,16 @@
 All reports are fictional and written in English. These files are for extraction development and evaluation, not model training or clinical validation.
 
 The table below describes the **diagnostic extraction sets**. The separate
-[`longitudinal/`](longitudinal/README.md) folder now supplies the working
-four-week demo: 71 reports, three patients, 84 follow-up patient-days, and five
+[`longitudinal_text/`](longitudinal_text/README.md) folder supplies the current
+four-week demo: 71 all-text reports, three patients, 84 follow-up patient-days,
+and five medication changes. It converts the questionnaire facts into reviewed
+text and uses 71 actual LLM extractions. Its 139 distinct candidate checks and
+137 reference observations are evaluation-only; references never feed the
+dashboard. This derived, partly repetitive integration dataset is not an
+additional independent test set.
+
+The original [`longitudinal/`](longitudinal/README.md) remains the historical
+mixed-input demo: 71 reports, three patients, 84 follow-up patient-days, and five
 medication changes. It intentionally reuses the ten starter reports and adds
 61 questionnaire-only submissions. Do not add the two dataset totals as if all
 reports were independent. The offline demo itself does not create gold labels or
@@ -16,8 +24,9 @@ request, and provides reviewed references: five development reports, ten symptom
 observations, and ten candidate-level checks. These are derived pilot examples,
 not additional independent patients or test cases. Their
 [first extraction baseline](../results/text-pilot-extraction/README.md) is now
-recorded separately. They do not replace any historical set below or the current
-dashboard inputs.
+recorded separately. They do not replace any historical set below or the original
+longitudinal dataset. The current all-text dashboard uses the separate
+`longitudinal_text/` inputs described above.
 
 The separate [`text_validation/`](text_validation/README.md) contains ten newly
 authored synthetic cases, 15 observations, and 15 candidate-level checks. It

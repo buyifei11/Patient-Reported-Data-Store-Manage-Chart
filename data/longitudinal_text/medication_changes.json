@@ -1,0 +1,37 @@
+[
+  {
+    "change_id": "M001",
+    "patient_id": "P001",
+    "medication": "Medication A",
+    "changed_at": "2026-11-01T08:00:00-06:00",
+    "change_type": "start"
+  },
+  {
+    "change_id": "M002",
+    "patient_id": "P001",
+    "medication": "Medication A",
+    "changed_at": "2026-11-15T12:00:00-06:00",
+    "change_type": "dose_change"
+  },
+  {
+    "change_id": "M003",
+    "patient_id": "P002",
+    "medication": "Medication B",
+    "changed_at": "2026-11-03T13:00:00-06:00",
+    "change_type": "start"
+  },
+  {
+    "change_id": "M004",
+    "patient_id": "P002",
+    "medication": "Medication B",
+    "changed_at": "2026-11-17T10:00:00-06:00",
+    "change_type": "dose_change"
+  },
+  {
+    "change_id": "M005",
+    "patient_id": "P003",
+    "medication": "Medication A",
+    "changed_at": "2026-11-08T08:00:00-06:00",
+    "change_type": "start"
+  }
+]

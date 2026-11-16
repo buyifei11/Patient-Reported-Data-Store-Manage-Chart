@@ -1,0 +1,35 @@
+{
+  "run_id": "longitudinal-text-v1",
+  "completed": true,
+  "guard": "Python open audit rejects reference and seed reads during the actual build",
+  "blocked_filenames": [
+    "expected.jsonl",
+    "seeds.jsonl"
+  ],
+  "repository_files_read": [
+    "data/longitudinal_text/medication_changes.json",
+    "data/longitudinal_text/patients.json",
+    "data/longitudinal_text/reports.jsonl",
+    "results/longitudinal-text-extraction/predictions.jsonl",
+    "sql/after_medication_change.sql",
+    "sql/schema.sql",
+    "sql/weekly_counts.sql",
+    "src/__init__.py",
+    "src/aggregation.py",
+    "src/dashboard.py",
+    "src/dashboard_review.py",
+    "src/demo.py",
+    "src/evaluation.py",
+    "src/experiment.py",
+    "src/llm.py",
+    "src/normalization.py",
+    "src/openai_client.py",
+    "src/pipeline.py",
+    "src/schema.py",
+    "src/store.py",
+    "web/dashboard.html"
+  ],
+  "reference_or_seed_reads": 0,
+  "cache": "results/longitudinal-text-extraction/predictions.jsonl",
+  "model_requests_during_build": 0
+}

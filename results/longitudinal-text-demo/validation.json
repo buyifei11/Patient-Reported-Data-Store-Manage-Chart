@@ -1,0 +1,1234 @@
+{
+  "run_id": "longitudinal-text-v1",
+  "validated_at_utc": "2026-11-16T20:52:35.415100+00:00",
+  "status": "passed",
+  "scope": "Independent read-only audit of actual SQLite contents, CSV exports, saved predictions, and embedded dashboard data.",
+  "method": "Compared actual source and extraction files with stored records; reconciled every export and embedded dataset; independently recomputed calendar grouping, weekly counts, coverage, and medication-change ordering; checked explicit correction, conflict, uncertainty, hypothetical, and gap scenarios.",
+  "reference_answer_files_read": [],
+  "seed_files_read": [],
+  "model_requests_during_audit": 0,
+  "audit_did_not_rebuild_or_modify_production_artifacts": true,
+  "limitations": [
+    "This checks data lineage and downstream behavior on a synthetic dataset; it does not establish real-world model accuracy.",
+    "The 164 medication-relative rows are observation/change pairs, not 164 unique symptom observations.",
+    "Only the dashboard embedded data is audited here; browser rendering and interaction checks are performed separately.",
+    "Reported episode sums include eligible partial-day cumulative values and are not complete clinical event totals."
+  ],
+  "counts": {
+    "patients": 3,
+    "reports": 71,
+    "predictions": 71,
+    "observations": 137,
+    "daily_rows": 84,
+    "weekly_rows": 15,
+    "medication_changes": 5,
+    "medication_relative_query_rows": 164,
+    "review_items": 12,
+    "effective_reports": 70
+  },
+  "patient_summaries": [
+    {
+      "patient_id": "P001",
+      "followup_days": 28,
+      "count_status_days": {
+        "usable": 23,
+        "missing": 4,
+        "review": 1
+      },
+      "days_with_reports": 25,
+      "reported_vomiting_count": 37
+    },
+    {
+      "patient_id": "P002",
+      "followup_days": 28,
+      "count_status_days": {
+        "missing": 5,
+        "review": 1,
+        "usable": 22
+      },
+      "days_with_reports": 23,
+      "reported_vomiting_count": 39
+    },
+    {
+      "patient_id": "P003",
+      "followup_days": 28,
+      "count_status_days": {
+        "missing": 9,
+        "review": 3,
+        "usable": 16
+      },
+      "days_with_reports": 21,
+      "reported_vomiting_count": 27
+    }
+  ],
+  "checks_passed": 54,
+  "checks_total": 54,
+  "checks": [
+    {
+      "name": "sqlite_integrity",
+      "passed": true,
+      "evidence": [
+        "ok"
+      ]
+    },
+    {
+      "name": "sqlite_foreign_keys",
+      "passed": true,
+      "evidence": []
+    },
+    {
+      "name": "expected_stored_row_counts",
+      "passed": true,
+      "evidence": {
+        "patients": 3,
+        "reports": 71,
+        "predictions": 71,
+        "observations": 137,
+        "daily_rows": 84,
+        "weekly_rows": 15,
+        "medication_changes": 5,
+        "medication_relative_query_rows": 164,
+        "review_items": 12,
+        "effective_reports": 70
+      }
+    },
+    {
+      "name": "database_reports_equal_actual_text_inputs",
+      "passed": true,
+      "evidence": {
+        "reports_compared": 71
+      }
+    },
+    {
+      "name": "all_sources_use_text_and_no_structured_questionnaire_answers",
+      "passed": true,
+      "evidence": {
+        "text_reports": 71,
+        "questionnaire_answers": 0
+      }
+    },
+    {
+      "name": "cache_has_exact_source_id_set",
+      "passed": true,
+      "evidence": {
+        "unique_ids": 71
+      }
+    },
+    {
+      "name": "all_actual_extractions_succeeded",
+      "passed": true,
+      "evidence": {
+        "successful": 71
+      }
+    },
+    {
+      "name": "raw_candidates_and_responses_preserved",
+      "passed": true,
+      "evidence": {
+        "reports_compared": 71
+      }
+    },
+    {
+      "name": "original_inference_metadata_preserved",
+      "passed": true,
+      "evidence": {
+        "reports_compared": 71
+      }
+    },
+    {
+      "name": "current_replay_matches_actual_extraction_observations",
+      "passed": true,
+      "evidence": {
+        "normalized_observations_compared": 137
+      }
+    },
+    {
+      "name": "prediction_export_matches_database",
+      "passed": true,
+      "evidence": {
+        "rows_compared": 71
+      }
+    },
+    {
+      "name": "all_observation_evidence_is_supported_by_source_text",
+      "passed": true,
+      "evidence": {
+        "observations_checked": 137
+      }
+    },
+    {
+      "name": "all_build_predictions_are_offline_candidate_replays",
+      "passed": true,
+      "evidence": {
+        "model_requests_during_replay": 0
+      }
+    },
+    {
+      "name": "build_metadata_identifies_all_text_inputs",
+      "passed": true,
+      "evidence": {
+        "cache_sha256": "888800b3a641287f231e0a90a26e1dc558f1c401ec70c8392016e67e1a5dbd96",
+        "cached_text_reports": 71,
+        "dashboard_template_sha256": "353c575cf76224697f33daa240141d49aa956006e5a5d393646b644da3dede54",
+        "dataset_files": {
+          "medication_changes.json": "beb022356f1e5b9d58727b7727dcbb0f124ea96b31b1daecceb4f9034627e2be",
+          "patients.json": "80e1b0b842ee627c27a9734b8e2ee6f382b5c00be9bd1c6595c654a0ffb3c41c",
+          "reports.jsonl": "a2259d0f1975766dcdc2d1b91692f07ce339cb51deed0267309527d760ec276d"
+        },
+        "description": "Synthetic follow-up; all reports use saved LLM text extractions",
+        "model_requests": 0,
+        "questionnaire_reports": 0,
+        "reviewed_evidence_reports": 0,
+        "runtime_sha256": "93ccc524c40fe5b04ec1ebec79d327fb48d350b9734462eb6d60ef4b15e778ca"
+      }
+    },
+    {
+      "name": "cache_hash_matches_build_provenance",
+      "passed": true,
+      "evidence": {
+        "actual_sha256": "888800b3a641287f231e0a90a26e1dc558f1c401ec70c8392016e67e1a5dbd96"
+      }
+    },
+    {
+      "name": "dataset_hashes_match_build_provenance",
+      "passed": true,
+      "evidence": {
+        "medication_changes.json": "beb022356f1e5b9d58727b7727dcbb0f124ea96b31b1daecceb4f9034627e2be",
+        "patients.json": "80e1b0b842ee627c27a9734b8e2ee6f382b5c00be9bd1c6595c654a0ffb3c41c",
+        "reports.jsonl": "a2259d0f1975766dcdc2d1b91692f07ce339cb51deed0267309527d760ec276d"
+      }
+    },
+    {
+      "name": "embedded_dashboard_patients_matches_database",
+      "passed": true,
+      "evidence": {
+        "compared": "patients"
+      }
+    },
+    {
+      "name": "embedded_dashboard_reports_matches_database",
+      "passed": true,
+      "evidence": {
+        "compared": "reports"
+      }
+    },
+    {
+      "name": "embedded_dashboard_predictions_matches_database",
+      "passed": true,
+      "evidence": {
+        "compared": "predictions"
+      }
+    },
+    {
+      "name": "embedded_dashboard_metadata_matches_database",
+      "passed": true,
+      "evidence": {
+        "compared": "metadata"
+      }
+    },
+    {
+      "name": "embedded_dashboard_daily_matches_database",
+      "passed": true,
+      "evidence": {
+        "rows_compared": 84
+      }
+    },
+    {
+      "name": "embedded_dashboard_weekly_matches_database",
+      "passed": true,
+      "evidence": {
+        "rows_compared": 15
+      }
+    },
+    {
+      "name": "embedded_dashboard_after_medication_matches_database",
+      "passed": true,
+      "evidence": {
+        "rows_compared": 164
+      }
+    },
+    {
+      "name": "embedded_dashboard_corrections_matches_database",
+      "passed": true,
+      "evidence": {
+        "items_compared": 1
+      }
+    },
+    {
+      "name": "embedded_dashboard_effective_report_ids_matches_database",
+      "passed": true,
+      "evidence": {
+        "items_compared": 70
+      }
+    },
+    {
+      "name": "embedded_dashboard_run_matches",
+      "passed": true,
+      "evidence": {
+        "run_id": "longitudinal-text-v1"
+      }
+    },
+    {
+      "name": "embedded_medication_markers_preserve_events_and_local_dates",
+      "passed": true,
+      "evidence": {
+        "markers_checked": 5
+      }
+    },
+    {
+      "name": "embedded_review_preserves_all_database_findings_and_links",
+      "passed": true,
+      "evidence": {
+        "items_compared": 12
+      }
+    },
+    {
+      "name": "csv_daily.csv_matches_database",
+      "passed": true,
+      "evidence": {
+        "rows_compared": 84,
+        "file": "artifacts/longitudinal-text-demo/daily.csv"
+      }
+    },
+    {
+      "name": "csv_weekly_counts.csv_matches_database",
+      "passed": true,
+      "evidence": {
+        "rows_compared": 15,
+        "file": "artifacts/longitudinal-text-demo/weekly_counts.csv"
+      }
+    },
+    {
+      "name": "csv_after_medication_change.csv_matches_database",
+      "passed": true,
+      "evidence": {
+        "rows_compared": 164,
+        "file": "artifacts/longitudinal-text-demo/after_medication_change.csv"
+      }
+    },
+    {
+      "name": "csv_review_queue.csv_matches_database",
+      "passed": true,
+      "evidence": {
+        "rows_compared": 12,
+        "file": "artifacts/longitudinal-text-demo/review_queue.csv"
+      }
+    },
+    {
+      "name": "daily_week_start_is_calendar_monday",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "weekly_statistics_recomputed_independently_from_daily_rows",
+      "passed": true,
+      "evidence": {
+        "weeks_compared": 15,
+        "differences": [],
+        "coverage_precision": "Four decimal places, matching the declared export precision in sql/weekly_counts.sql:13; all other counts compared exactly.",
+        "independent_grouping": "Calendar Monday derived from event_date; all counts and interpretations recomputed from daily rows."
+      }
+    },
+    {
+      "name": "complete_followup_calendar_P001",
+      "passed": true,
+      "evidence": {
+        "days": 28
+      }
+    },
+    {
+      "name": "complete_followup_calendar_P002",
+      "passed": true,
+      "evidence": {
+        "days": 28
+      }
+    },
+    {
+      "name": "complete_followup_calendar_P003",
+      "passed": true,
+      "evidence": {
+        "days": 28
+      }
+    },
+    {
+      "name": "daily_count_status_partition",
+      "passed": true,
+      "evidence": {
+        "usable": 61,
+        "missing": 18,
+        "review": 5
+      }
+    },
+    {
+      "name": "unusable_counts_are_null_and_usable_counts_are_nonnegative",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "daily_sources_use_only_effective_reports",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "correction_preserves_original_but_excludes_superseded_report",
+      "passed": true,
+      "evidence": {
+        "corrections": [
+          {
+            "reason": null,
+            "report_id": "TXT-R006",
+            "status": "applied",
+            "target_report_id": "TXT-R005"
+          }
+        ],
+        "stored_original_vomiting_count": 3,
+        "replacement_vomiting_count": 2
+      }
+    },
+    {
+      "name": "P002_Nov04_cumulative_reports_are_not_added",
+      "passed": true,
+      "evidence": {
+        "count_basis": "day_to_date",
+        "count_status": "usable",
+        "event_date": "2026-11-04",
+        "nausea_severity": 4,
+        "nausea_status": "usable",
+        "patient_id": "P002",
+        "report_count": 2,
+        "review_reasons": [],
+        "source_report_ids": [
+          "TXT-R004",
+          "TXT-R006"
+        ],
+        "vomiting_count": 2,
+        "vomiting_severity": null,
+        "vomiting_severity_status": "missing",
+        "week_start": "2026-11-02"
+      }
+    },
+    {
+      "name": "P001_Nov10_decreasing_4_to_1_count_is_excluded_and_reviewed",
+      "passed": true,
+      "evidence": {
+        "source_counts": {
+          "TXT-L-P001-10-AM": 4,
+          "TXT-L-P001-10": 1
+        },
+        "daily": {
+          "count_basis": null,
+          "count_status": "review",
+          "event_date": "2026-11-10",
+          "nausea_severity": 5,
+          "nausea_status": "usable",
+          "patient_id": "P001",
+          "report_count": 2,
+          "review_reasons": [
+            "decreasing_or_conflicting_cumulative_count"
+          ],
+          "source_report_ids": [
+            "TXT-L-P001-10",
+            "TXT-L-P001-10-AM"
+          ],
+          "vomiting_count": null,
+          "vomiting_severity": 2,
+          "vomiting_severity_status": "usable",
+          "week_start": "2026-11-09"
+        }
+      }
+    },
+    {
+      "name": "R002_nausea_conflict_does_not_remove_supported_zero_vomiting",
+      "passed": true,
+      "evidence": {
+        "daily": {
+          "count_basis": "day_to_date",
+          "count_status": "usable",
+          "event_date": "2026-11-03",
+          "nausea_severity": null,
+          "nausea_status": "review",
+          "patient_id": "P001",
+          "report_count": 1,
+          "review_reasons": [
+            "conflicting_sources"
+          ],
+          "source_report_ids": [
+            "TXT-R002"
+          ],
+          "vomiting_count": 0,
+          "vomiting_severity": null,
+          "vomiting_severity_status": "missing",
+          "week_start": "2026-11-02"
+        },
+        "dashboard_review": {
+          "event_date": "2026-11-03",
+          "field": "severity",
+          "observation_id": "TXT-R002-O1",
+          "patient_id": "P001",
+          "reason": "conflicting_sources",
+          "report_id": "TXT-R002",
+          "detail": "Nausea severity: sources disagree. Text: “I've had nausea today so far, and the worst nausea today so far is 3/5.”; Text: “My nausea has been 2 out of 5 at its worst so far today.”",
+          "impact": "Daily nausea severity excluded pending review. Daily vomiting count remains usable (0).",
+          "source_report_ids": [
+            "TXT-R002"
+          ]
+        }
+      }
+    },
+    {
+      "name": "R009_conflicting_zero_and_one_count_is_not_resolved_by_guessing",
+      "passed": true,
+      "evidence": {
+        "daily": {
+          "count_basis": null,
+          "count_status": "review",
+          "event_date": "2026-11-07",
+          "nausea_severity": null,
+          "nausea_status": "missing",
+          "patient_id": "P003",
+          "report_count": 1,
+          "review_reasons": [
+            "conflicting_sources",
+            "daily_count_conflict"
+          ],
+          "source_report_ids": [
+            "TXT-R009"
+          ],
+          "vomiting_count": null,
+          "vomiting_severity": null,
+          "vomiting_severity_status": "missing",
+          "week_start": "2026-11-02"
+        },
+        "observation": {
+          "assertion": "uncertain",
+          "count": null,
+          "count_scope": "day_to_date",
+          "date_basis": "relative_text",
+          "event_date": "2026-11-07",
+          "event_time": null,
+          "evidence": [
+            {
+              "path": "text",
+              "value": "I haven't vomited so far today."
+            },
+            {
+              "path": "text",
+              "value": "I have vomited once in total so far today."
+            }
+          ],
+          "issues": [
+            {
+              "code": "conflicting_sources",
+              "field": "assertion"
+            },
+            {
+              "code": "conflicting_sources",
+              "field": "count"
+            }
+          ],
+          "medication_relation": null,
+          "observation_id": "TXT-R009-O1",
+          "severity": null,
+          "symptom": "vomiting",
+          "time_text": "so far today"
+        }
+      }
+    },
+    {
+      "name": "R007_unknown_date_count_is_preserved_without_submission_date_imputation",
+      "passed": true,
+      "evidence": {
+        "daily": {
+          "count_basis": null,
+          "count_status": "missing",
+          "event_date": "2026-11-05",
+          "nausea_severity": null,
+          "nausea_status": "missing",
+          "patient_id": "P003",
+          "report_count": 1,
+          "review_reasons": [],
+          "source_report_ids": [
+            "TXT-R007"
+          ],
+          "vomiting_count": null,
+          "vomiting_severity": null,
+          "vomiting_severity_status": "missing",
+          "week_start": "2026-11-02"
+        },
+        "unallocated_observation": {
+          "assertion": "present",
+          "count": 1,
+          "count_scope": "window",
+          "date_basis": "unknown",
+          "event_date": null,
+          "event_time": null,
+          "evidence": [
+            {
+              "path": "text",
+              "value": "I vomited once after dinner."
+            }
+          ],
+          "issues": [
+            {
+              "code": "date_unknown",
+              "field": "event_date"
+            }
+          ],
+          "medication_relation": null,
+          "observation_id": "TXT-R007-O1",
+          "severity": null,
+          "symptom": "vomiting",
+          "time_text": "after dinner"
+        }
+      }
+    },
+    {
+      "name": "R008_unknown_count_is_not_zero",
+      "passed": true,
+      "evidence": {
+        "daily": {
+          "count_basis": null,
+          "count_status": "review",
+          "event_date": "2026-11-06",
+          "nausea_severity": null,
+          "nausea_status": "missing",
+          "patient_id": "P003",
+          "report_count": 1,
+          "review_reasons": [
+            "count_unknown",
+            "latest_daily_count_unresolved"
+          ],
+          "source_report_ids": [
+            "TXT-R008"
+          ],
+          "vomiting_count": null,
+          "vomiting_severity": null,
+          "vomiting_severity_status": "missing",
+          "week_start": "2026-11-02"
+        },
+        "observation": {
+          "assertion": "present",
+          "count": null,
+          "count_scope": "day_to_date",
+          "date_basis": "relative_text",
+          "event_date": "2026-11-06",
+          "event_time": null,
+          "evidence": [
+            {
+              "path": "text",
+              "value": "I have vomited a few times in total so far today, but I cannot remember how many."
+            }
+          ],
+          "issues": [
+            {
+              "code": "count_unknown",
+              "field": "count"
+            }
+          ],
+          "medication_relation": null,
+          "observation_id": "TXT-R008-O1",
+          "severity": null,
+          "symptom": "vomiting",
+          "time_text": "so far today"
+        }
+      }
+    },
+    {
+      "name": "R010_hypothetical_vomiting_is_preserved_but_not_counted",
+      "passed": true,
+      "evidence": {
+        "daily": {
+          "count_basis": null,
+          "count_status": "missing",
+          "event_date": "2026-11-08",
+          "nausea_severity": null,
+          "nausea_status": "missing",
+          "patient_id": "P003",
+          "report_count": 1,
+          "review_reasons": [],
+          "source_report_ids": [
+            "TXT-R010"
+          ],
+          "vomiting_count": null,
+          "vomiting_severity": null,
+          "vomiting_severity_status": "missing",
+          "week_start": "2026-11-02"
+        },
+        "hypothetical_observation": {
+          "assertion": "hypothetical",
+          "count": null,
+          "count_scope": null,
+          "date_basis": "relative_text",
+          "event_date": "2026-11-08",
+          "event_time": null,
+          "evidence": [
+            {
+              "path": "text",
+              "value": "I am worried I might vomit tonight."
+            }
+          ],
+          "issues": [],
+          "medication_relation": null,
+          "observation_id": "TXT-R010-O2",
+          "severity": null,
+          "symptom": "vomiting",
+          "time_text": "tonight"
+        }
+      }
+    },
+    {
+      "name": "unreported_day_and_empty_week_remain_missing_not_zero",
+      "passed": true,
+      "evidence": {
+        "daily": {
+          "count_basis": null,
+          "count_status": "missing",
+          "event_date": "2026-11-01",
+          "nausea_severity": null,
+          "nausea_status": "missing",
+          "patient_id": "P003",
+          "report_count": 0,
+          "review_reasons": [],
+          "source_report_ids": [],
+          "vomiting_count": null,
+          "vomiting_severity": null,
+          "vomiting_severity_status": "missing",
+          "week_start": "2026-10-26"
+        },
+        "weekly": {
+          "patient_id": "P003",
+          "display_name": "Demo patient 3",
+          "week_start": "2026-10-26",
+          "followup_days": 1,
+          "reported_days": 0,
+          "count_covered_days": 0,
+          "review_days": 0,
+          "missing_count_days": 1,
+          "partial_count_days": 0,
+          "completed_count_days": 0,
+          "reported_vomiting_count": null,
+          "count_coverage": 0.0,
+          "interpretation": "partial_reporting"
+        }
+      }
+    },
+    {
+      "name": "R003_exact_event_time_is_retained_without_treating_event_count_as_daily_total",
+      "passed": true,
+      "evidence": {
+        "daily": {
+          "count_basis": null,
+          "count_status": "review",
+          "event_date": "2026-11-03",
+          "nausea_severity": null,
+          "nausea_status": "missing",
+          "patient_id": "P002",
+          "report_count": 1,
+          "review_reasons": [
+            "unresolved_count_relationship"
+          ],
+          "source_report_ids": [
+            "TXT-R003"
+          ],
+          "vomiting_count": null,
+          "vomiting_severity": null,
+          "vomiting_severity_status": "missing",
+          "week_start": "2026-11-02"
+        },
+        "medication_relative_query_row": {
+          "change_id": "M003",
+          "patient_id": "P002",
+          "display_name": "Demo patient 2",
+          "medication": "Medication B",
+          "change_type": "start",
+          "changed_at": "2026-11-03T13:00:00-06:00",
+          "changed_utc": "2026-11-03T19:00:00.000000Z",
+          "report_id": "TXT-R003",
+          "observation_id": "TXT-R003-O1",
+          "symptom": "vomiting",
+          "count": 1,
+          "count_scope": "event",
+          "severity": null,
+          "event_date": "2026-11-03",
+          "event_time": "14:20",
+          "time_precision": "exact",
+          "timing_status": "after",
+          "has_review_items": true,
+          "evidence": [
+            {
+              "path": "text",
+              "value": "I vomited once today at 14:20."
+            }
+          ],
+          "issues": []
+        }
+      }
+    },
+    {
+      "name": "medication_relative_rows_only_include_present_effective_observations",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "medication_relative_timing_recomputed_from_recorded_dates_and_clocks",
+      "passed": true,
+      "evidence": {
+        "rows_compared": 164,
+        "differences": [],
+        "interpretation": "Order relative to a recorded medication change; not order relative to each daily dose and not causation."
+      }
+    },
+    {
+      "name": "actual_build_input_guard_confirms_zero_reference_or_seed_reads",
+      "passed": true,
+      "evidence": {
+        "run_id": "longitudinal-text-v1",
+        "completed": true,
+        "guard": "Python open audit rejects reference and seed reads during the actual build",
+        "blocked_filenames": [
+          "expected.jsonl",
+          "seeds.jsonl"
+        ],
+        "repository_files_read": [
+          "data/longitudinal_text/medication_changes.json",
+          "data/longitudinal_text/patients.json",
+          "data/longitudinal_text/reports.jsonl",
+          "results/longitudinal-text-extraction/predictions.jsonl",
+          "sql/after_medication_change.sql",
+          "sql/schema.sql",
+          "sql/weekly_counts.sql",
+          "src/__init__.py",
+          "src/aggregation.py",
+          "src/dashboard.py",
+          "src/dashboard_review.py",
+          "src/demo.py",
+          "src/evaluation.py",
+          "src/experiment.py",
+          "src/llm.py",
+          "src/normalization.py",
+          "src/openai_client.py",
+          "src/pipeline.py",
+          "src/schema.py",
+          "src/store.py",
+          "web/dashboard.html"
+        ],
+        "reference_or_seed_reads": 0,
+        "cache": "results/longitudinal-text-extraction/predictions.jsonl",
+        "model_requests_during_build": 0
+      }
+    },
+    {
+      "name": "summary_matches_audited_database",
+      "passed": true,
+      "evidence": {
+        "run_id": "longitudinal-text-v1",
+        "model_requests": 0,
+        "patients": 3,
+        "reports": 71,
+        "normalized_observations": 137,
+        "failed_reports": 0,
+        "followup_patient_days": 84,
+        "usable_count_days": 61,
+        "count_review_days": 5,
+        "missing_count_days": 18,
+        "review_items": 12,
+        "corrections": [
+          {
+            "report_id": "TXT-R006",
+            "target_report_id": "TXT-R005",
+            "status": "applied",
+            "reason": null
+          }
+        ],
+        "database_integrity": "ok",
+        "metadata": {
+          "description": "Synthetic follow-up; all reports use saved LLM text extractions",
+          "cached_text_reports": 71,
+          "questionnaire_reports": 0,
+          "reviewed_evidence_reports": 0,
+          "model_requests": 0,
+          "runtime_sha256": "93ccc524c40fe5b04ec1ebec79d327fb48d350b9734462eb6d60ef4b15e778ca",
+          "cache_sha256": "888800b3a641287f231e0a90a26e1dc558f1c401ec70c8392016e67e1a5dbd96",
+          "dashboard_template_sha256": "353c575cf76224697f33daa240141d49aa956006e5a5d393646b644da3dede54",
+          "dataset_files": {
+            "patients.json": "80e1b0b842ee627c27a9734b8e2ee6f382b5c00be9bd1c6595c654a0ffb3c41c",
+            "reports.jsonl": "a2259d0f1975766dcdc2d1b91692f07ce339cb51deed0267309527d760ec276d",
+            "medication_changes.json": "beb022356f1e5b9d58727b7727dcbb0f124ea96b31b1daecceb4f9034627e2be"
+          }
+        }
+      }
+    }
+  ],
+  "scenario_evidence": {
+    "correction_preserves_original_but_excludes_superseded_report": {
+      "corrections": [
+        {
+          "reason": null,
+          "report_id": "TXT-R006",
+          "status": "applied",
+          "target_report_id": "TXT-R005"
+        }
+      ],
+      "stored_original_vomiting_count": 3,
+      "replacement_vomiting_count": 2
+    },
+    "P002_Nov04_cumulative_reports_are_not_added": {
+      "count_basis": "day_to_date",
+      "count_status": "usable",
+      "event_date": "2026-11-04",
+      "nausea_severity": 4,
+      "nausea_status": "usable",
+      "patient_id": "P002",
+      "report_count": 2,
+      "review_reasons": [],
+      "source_report_ids": [
+        "TXT-R004",
+        "TXT-R006"
+      ],
+      "vomiting_count": 2,
+      "vomiting_severity": null,
+      "vomiting_severity_status": "missing",
+      "week_start": "2026-11-02"
+    },
+    "P001_Nov10_decreasing_4_to_1_count_is_excluded_and_reviewed": {
+      "source_counts": {
+        "TXT-L-P001-10-AM": 4,
+        "TXT-L-P001-10": 1
+      },
+      "daily": {
+        "count_basis": null,
+        "count_status": "review",
+        "event_date": "2026-11-10",
+        "nausea_severity": 5,
+        "nausea_status": "usable",
+        "patient_id": "P001",
+        "report_count": 2,
+        "review_reasons": [
+          "decreasing_or_conflicting_cumulative_count"
+        ],
+        "source_report_ids": [
+          "TXT-L-P001-10",
+          "TXT-L-P001-10-AM"
+        ],
+        "vomiting_count": null,
+        "vomiting_severity": 2,
+        "vomiting_severity_status": "usable",
+        "week_start": "2026-11-09"
+      }
+    },
+    "R002_nausea_conflict_does_not_remove_supported_zero_vomiting": {
+      "daily": {
+        "count_basis": "day_to_date",
+        "count_status": "usable",
+        "event_date": "2026-11-03",
+        "nausea_severity": null,
+        "nausea_status": "review",
+        "patient_id": "P001",
+        "report_count": 1,
+        "review_reasons": [
+          "conflicting_sources"
+        ],
+        "source_report_ids": [
+          "TXT-R002"
+        ],
+        "vomiting_count": 0,
+        "vomiting_severity": null,
+        "vomiting_severity_status": "missing",
+        "week_start": "2026-11-02"
+      },
+      "dashboard_review": {
+        "event_date": "2026-11-03",
+        "field": "severity",
+        "observation_id": "TXT-R002-O1",
+        "patient_id": "P001",
+        "reason": "conflicting_sources",
+        "report_id": "TXT-R002",
+        "detail": "Nausea severity: sources disagree. Text: “I've had nausea today so far, and the worst nausea today so far is 3/5.”; Text: “My nausea has been 2 out of 5 at its worst so far today.”",
+        "impact": "Daily nausea severity excluded pending review. Daily vomiting count remains usable (0).",
+        "source_report_ids": [
+          "TXT-R002"
+        ]
+      }
+    },
+    "R009_conflicting_zero_and_one_count_is_not_resolved_by_guessing": {
+      "daily": {
+        "count_basis": null,
+        "count_status": "review",
+        "event_date": "2026-11-07",
+        "nausea_severity": null,
+        "nausea_status": "missing",
+        "patient_id": "P003",
+        "report_count": 1,
+        "review_reasons": [
+          "conflicting_sources",
+          "daily_count_conflict"
+        ],
+        "source_report_ids": [
+          "TXT-R009"
+        ],
+        "vomiting_count": null,
+        "vomiting_severity": null,
+        "vomiting_severity_status": "missing",
+        "week_start": "2026-11-02"
+      },
+      "observation": {
+        "assertion": "uncertain",
+        "count": null,
+        "count_scope": "day_to_date",
+        "date_basis": "relative_text",
+        "event_date": "2026-11-07",
+        "event_time": null,
+        "evidence": [
+          {
+            "path": "text",
+            "value": "I haven't vomited so far today."
+          },
+          {
+            "path": "text",
+            "value": "I have vomited once in total so far today."
+          }
+        ],
+        "issues": [
+          {
+            "code": "conflicting_sources",
+            "field": "assertion"
+          },
+          {
+            "code": "conflicting_sources",
+            "field": "count"
+          }
+        ],
+        "medication_relation": null,
+        "observation_id": "TXT-R009-O1",
+        "severity": null,
+        "symptom": "vomiting",
+        "time_text": "so far today"
+      }
+    },
+    "R007_unknown_date_count_is_preserved_without_submission_date_imputation": {
+      "daily": {
+        "count_basis": null,
+        "count_status": "missing",
+        "event_date": "2026-11-05",
+        "nausea_severity": null,
+        "nausea_status": "missing",
+        "patient_id": "P003",
+        "report_count": 1,
+        "review_reasons": [],
+        "source_report_ids": [
+          "TXT-R007"
+        ],
+        "vomiting_count": null,
+        "vomiting_severity": null,
+        "vomiting_severity_status": "missing",
+        "week_start": "2026-11-02"
+      },
+      "unallocated_observation": {
+        "assertion": "present",
+        "count": 1,
+        "count_scope": "window",
+        "date_basis": "unknown",
+        "event_date": null,
+        "event_time": null,
+        "evidence": [
+          {
+            "path": "text",
+            "value": "I vomited once after dinner."
+          }
+        ],
+        "issues": [
+          {
+            "code": "date_unknown",
+            "field": "event_date"
+          }
+        ],
+        "medication_relation": null,
+        "observation_id": "TXT-R007-O1",
+        "severity": null,
+        "symptom": "vomiting",
+        "time_text": "after dinner"
+      }
+    },
+    "R008_unknown_count_is_not_zero": {
+      "daily": {
+        "count_basis": null,
+        "count_status": "review",
+        "event_date": "2026-11-06",
+        "nausea_severity": null,
+        "nausea_status": "missing",
+        "patient_id": "P003",
+        "report_count": 1,
+        "review_reasons": [
+          "count_unknown",
+          "latest_daily_count_unresolved"
+        ],
+        "source_report_ids": [
+          "TXT-R008"
+        ],
+        "vomiting_count": null,
+        "vomiting_severity": null,
+        "vomiting_severity_status": "missing",
+        "week_start": "2026-11-02"
+      },
+      "observation": {
+        "assertion": "present",
+        "count": null,
+        "count_scope": "day_to_date",
+        "date_basis": "relative_text",
+        "event_date": "2026-11-06",
+        "event_time": null,
+        "evidence": [
+          {
+            "path": "text",
+            "value": "I have vomited a few times in total so far today, but I cannot remember how many."
+          }
+        ],
+        "issues": [
+          {
+            "code": "count_unknown",
+            "field": "count"
+          }
+        ],
+        "medication_relation": null,
+        "observation_id": "TXT-R008-O1",
+        "severity": null,
+        "symptom": "vomiting",
+        "time_text": "so far today"
+      }
+    },
+    "R010_hypothetical_vomiting_is_preserved_but_not_counted": {
+      "daily": {
+        "count_basis": null,
+        "count_status": "missing",
+        "event_date": "2026-11-08",
+        "nausea_severity": null,
+        "nausea_status": "missing",
+        "patient_id": "P003",
+        "report_count": 1,
+        "review_reasons": [],
+        "source_report_ids": [
+          "TXT-R010"
+        ],
+        "vomiting_count": null,
+        "vomiting_severity": null,
+        "vomiting_severity_status": "missing",
+        "week_start": "2026-11-02"
+      },
+      "hypothetical_observation": {
+        "assertion": "hypothetical",
+        "count": null,
+        "count_scope": null,
+        "date_basis": "relative_text",
+        "event_date": "2026-11-08",
+        "event_time": null,
+        "evidence": [
+          {
+            "path": "text",
+            "value": "I am worried I might vomit tonight."
+          }
+        ],
+        "issues": [],
+        "medication_relation": null,
+        "observation_id": "TXT-R010-O2",
+        "severity": null,
+        "symptom": "vomiting",
+        "time_text": "tonight"
+      }
+    },
+    "unreported_day_and_empty_week_remain_missing_not_zero": {
+      "daily": {
+        "count_basis": null,
+        "count_status": "missing",
+        "event_date": "2026-11-01",
+        "nausea_severity": null,
+        "nausea_status": "missing",
+        "patient_id": "P003",
+        "report_count": 0,
+        "review_reasons": [],
+        "source_report_ids": [],
+        "vomiting_count": null,
+        "vomiting_severity": null,
+        "vomiting_severity_status": "missing",
+        "week_start": "2026-10-26"
+      },
+      "weekly": {
+        "patient_id": "P003",
+        "display_name": "Demo patient 3",
+        "week_start": "2026-10-26",
+        "followup_days": 1,
+        "reported_days": 0,
+        "count_covered_days": 0,
+        "review_days": 0,
+        "missing_count_days": 1,
+        "partial_count_days": 0,
+        "completed_count_days": 0,
+        "reported_vomiting_count": null,
+        "count_coverage": 0.0,
+        "interpretation": "partial_reporting"
+      }
+    },
+    "R003_exact_event_time_is_retained_without_treating_event_count_as_daily_total": {
+      "daily": {
+        "count_basis": null,
+        "count_status": "review",
+        "event_date": "2026-11-03",
+        "nausea_severity": null,
+        "nausea_status": "missing",
+        "patient_id": "P002",
+        "report_count": 1,
+        "review_reasons": [
+          "unresolved_count_relationship"
+        ],
+        "source_report_ids": [
+          "TXT-R003"
+        ],
+        "vomiting_count": null,
+        "vomiting_severity": null,
+        "vomiting_severity_status": "missing",
+        "week_start": "2026-11-02"
+      },
+      "medication_relative_query_row": {
+        "change_id": "M003",
+        "patient_id": "P002",
+        "display_name": "Demo patient 2",
+        "medication": "Medication B",
+        "change_type": "start",
+        "changed_at": "2026-11-03T13:00:00-06:00",
+        "changed_utc": "2026-11-03T19:00:00.000000Z",
+        "report_id": "TXT-R003",
+        "observation_id": "TXT-R003-O1",
+        "symptom": "vomiting",
+        "count": 1,
+        "count_scope": "event",
+        "severity": null,
+        "event_date": "2026-11-03",
+        "event_time": "14:20",
+        "time_precision": "exact",
+        "timing_status": "after",
+        "has_review_items": true,
+        "evidence": [
+          {
+            "path": "text",
+            "value": "I vomited once today at 14:20."
+          }
+        ],
+        "issues": []
+      }
+    }
+  },
+  "artifact_sha256": {
+    "data/longitudinal_text/reports.jsonl": "a2259d0f1975766dcdc2d1b91692f07ce339cb51deed0267309527d760ec276d",
+    "data/longitudinal_text/patients.json": "80e1b0b842ee627c27a9734b8e2ee6f382b5c00be9bd1c6595c654a0ffb3c41c",
+    "data/longitudinal_text/medication_changes.json": "beb022356f1e5b9d58727b7727dcbb0f124ea96b31b1daecceb4f9034627e2be",
+    "results/longitudinal-text-extraction/predictions.jsonl": "888800b3a641287f231e0a90a26e1dc558f1c401ec70c8392016e67e1a5dbd96",
+    "results/longitudinal-text-demo/build_input_audit.json": "8745c924ecd99d14881ff17057b3dde96cf0ff758b35b3406bc30253e99a1b03",
+    "artifacts/longitudinal-text-demo/patient_reports.sqlite": "c32dbd5e1e8512d00ac4edcfe6bfca961511b63b8ee0f3c5f3415e55324b8422",
+    "artifacts/longitudinal-text-demo/predictions.jsonl": "1f0132c27fc9e048c84b3a1cb9d591c50278ff0ff20a2ebe1196971c20d868d6",
+    "artifacts/longitudinal-text-demo/daily.csv": "4de1e830b03a4deccb33a70e1d955f5ce76dc1cc4f2e4e52155ec76d902ed939",
+    "artifacts/longitudinal-text-demo/weekly_counts.csv": "7063aeffe8f8278716361395ae838a0fcf7d2128eddbb235f60ec032ac0b23c7",
+    "artifacts/longitudinal-text-demo/after_medication_change.csv": "bd8ffe442bdb134a18ac48c938f43350ad57e7180646b34b86cde46e7ddcb7ec",
+    "artifacts/longitudinal-text-demo/review_queue.csv": "dcfd03df53f2992ee34eaf85ceee464c516599a57012b4f10c4b2993b09e84b4",
+    "artifacts/longitudinal-text-demo/dashboard.html": "8c569e2929c52ec30cf77335fabe60398809204a07fada152843b2921cb101df",
+    "artifacts/longitudinal-text-demo/summary.json": "9ffad9e55b4f1a66d31e65069d7285c63883c9d617ddf51159848d8665f848fb"
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "model": "gpt-5.4-mini-2026-03-17",
+  "instructions": "Write short fictional English patient feedback from each supplied questionnaire.\nReturn only report_id/text pairs. Each item is a separate submission. Preserve\nevery stated value, absence, and uncertainty; do not merge submissions.\n\nFor EVERY symptom entry, write its own complete first-person sentence(s):\n- A vomiting count is cumulative from the start of today to this submission.\n  State that explicitly using \"so far today\" or \"today up to now\". Positive\n  counts describe vomiting that happened; count zero explicitly denies vomiting\n  across today so far. A null count means vomiting happened but the patient does\n  not know how many times. Never turn an unknown count into zero.\n- Every non-null severity is the named symptom's WORST severity SO FAR TODAY,\n  measured out of 5. Explicitly name the symptom, say worst, identify today so\n  far, and give both the stated value and scale. Do not omit any of these to\n  shorten the wording. \"Nausea is 3/5\" alone is insufficient.\n- Nausea ratings imply nausea occurred today so far. Nausea has no episode\n  count: do not invent one. A null severity means no rating was supplied, not a\n  zero score. Do not add a vomiting rating to an explicit zero-count entry.\n- Keep each rating attached to its own symptom. A count does not determine a\n  severity. Do not borrow dates, counts, or ratings from another submission.\n- Use ordinary English, contractions, and either number words or digits. The\n  style instruction may change sentence order, but never facts or time scope.\n- Submission dates/times are metadata. Do not introduce symptom occurrence\n  clocks, meals, morning-only windows, completed-day totals, or other dates.\n- Do not add medications, causes, diagnoses, treatments, corrections, severity\n  adjectives, or symptoms that do not appear in the supplied questionnaire.\n- These statements may be appended to another source note. Do not describe\n  them as corrected, more recent, authoritative, or replacing another claim.\n\nBefore returning each item, verify that both symptom entries (when supplied)\nare present, all numerical values are unchanged, all scores explicitly identify\ntheir symptom/worst-today-so-far context/out-of-5 scale, and vomiting counts\nretain today's cumulative scope even when zero or unknown. Do not mention JSON,\ndatasets, extraction, prompts, or expected answers in the patient text.\n",
+  "input": [
+    {
+      "role": "user",
+      "content": "{\"reports\": [{\"report_id\": \"TXT-L-P001-26\", \"context\": {\"patient_id\": \"P001\", \"reported_at\": \"2026-11-26T20:30:00-06:00\", \"patient_timezone\": \"America/Chicago\", \"supersedes_report_id\": null}, \"questionnaire_facts\": [{\"symptom\": \"vomiting\", \"event_date\": \"2026-11-26\", \"count\": 0, \"severity\": null}, {\"symptom\": \"nausea\", \"event_date\": \"2026-11-26\", \"count\": null, \"severity\": 1}], \"style\": \"Nausea first, vomiting second; use contractions where natural.\"}, {\"report_id\": \"TXT-L-P001-27\", \"context\": {\"patient_id\": \"P001\", \"reported_at\": \"2026-11-27T20:30:00-06:00\", \"patient_timezone\": \"America/Chicago\", \"supersedes_report_id\": null}, \"questionnaire_facts\": [{\"symptom\": \"vomiting\", \"event_date\": \"2026-11-27\", \"count\": 1, \"severity\": 2}, {\"symptom\": \"nausea\", \"event_date\": \"2026-11-27\", \"count\": null, \"severity\": 2}], \"style\": \"Vomiting count and worst rating in adjacent clauses; nausea in a separate sentence.\"}, {\"report_id\": \"TXT-L-P001-28\", \"context\": {\"patient_id\": \"P001\", \"reported_at\": \"2026-11-28T20:30:00-06:00\", \"patient_timezone\": \"America/Chicago\", \"supersedes_report_id\": null}, \"questionnaire_facts\": [{\"symptom\": \"vomiting\", \"event_date\": \"2026-11-28\", \"count\": 2, \"severity\": 2}, {\"symptom\": \"nausea\", \"event_date\": \"2026-11-28\", \"count\": null, \"severity\": 2}], \"style\": \"Brief diary tone; spell out the episode count but keep all rating context explicit.\"}, {\"report_id\": \"TXT-L-P002-05\", \"context\": {\"patient_id\": \"P002\", \"reported_at\": \"2026-11-05T20:30:00-06:00\", \"patient_timezone\": \"America/Chicago\", \"supersedes_report_id\": null}, \"questionnaire_facts\": [{\"symptom\": \"vomiting\", \"event_date\": \"2026-11-05\", \"count\": 2, \"severity\": 2}, {\"symptom\": \"nausea\", \"event_date\": \"2026-11-05\", \"count\": null, \"severity\": 3}], \"style\": \"Vomiting first, nausea second; a plain daily check-in.\"}, {\"report_id\": \"TXT-L-P002-06\", \"context\": {\"patient_id\": \"P002\", \"reported_at\": \"2026-11-06T20:30:00-06:00\", \"patient_timezone\": \"America/Chicago\", \"supersedes_report_id\": null}, \"questionnaire_facts\": [{\"symptom\": \"vomiting\", \"event_date\": \"2026-11-06\", \"count\": 3, \"severity\": 2}, {\"symptom\": \"nausea\", \"event_date\": \"2026-11-06\", \"count\": null, \"severity\": 4}], \"style\": \"Nausea first, vomiting second; use contractions where natural.\"}, {\"report_id\": \"TXT-L-P002-08\", \"context\": {\"patient_id\": \"P002\", \"reported_at\": \"2026-11-08T20:30:00-06:00\", \"patient_timezone\": \"America/Chicago\", \"supersedes_report_id\": null}, \"questionnaire_facts\": [{\"symptom\": \"vomiting\", \"event_date\": \"2026-11-08\", \"count\": 1, \"severity\": 2}, {\"symptom\": \"nausea\", \"event_date\": \"2026-11-08\", \"count\": null, \"severity\": 3}], \"style\": \"Vomiting count and worst rating in adjacent clauses; nausea in a separate sentence.\"}, {\"report_id\": \"TXT-L-P002-09\", \"context\": {\"patient_id\": \"P002\", \"reported_at\": \"2026-11-09T20:30:00-06:00\", \"patient_timezone\": \"America/Chicago\", \"supersedes_report_id\": null}, \"questionnaire_facts\": [{\"symptom\": \"vomiting\", \"event_date\": \"2026-11-09\", \"count\": 2, \"severity\": 2}, {\"symptom\": \"nausea\", \"event_date\": \"2026-11-09\", \"count\": null, \"severity\": 3}], \"style\": \"Brief diary tone; spell out the episode count but keep all rating context explicit.\"}, {\"report_id\": \"TXT-L-P002-10\", \"context\": {\"patient_id\": \"P002\", \"reported_at\": \"2026-11-10T20:30:00-06:00\", \"patient_timezone\": \"America/Chicago\", \"supersedes_report_id\": null}, \"questionnaire_facts\": [{\"symptom\": \"vomiting\", \"event_date\": \"2026-11-10\", \"count\": 3, \"severity\": 2}, {\"symptom\": \"nausea\", \"event_date\": \"2026-11-10\", \"count\": null, \"severity\": 4}], \"style\": \"Vomiting first, nausea second; a plain daily check-in.\"}, {\"report_id\": \"TXT-L-P002-11\", \"context\": {\"patient_id\": \"P002\", \"reported_at\": \"2026-11-11T20:30:00-06:00\", \"patient_timezone\": \"America/Chicago\", \"supersedes_report_id\": null}, \"questionnaire_facts\": [{\"symptom\": \"vomiting\", \"event_date\": \"2026-11-11\", \"count\": 2, \"severity\": 2}, {\"symptom\": \"nausea\", \"event_date\": \"2026-11-11\", \"count\": null, \"severity\": 3}], \"style\": \"Nausea first, vomiting second; use contractions where natural.\"}, {\"report_id\": \"TXT-L-P002-13\", \"context\": {\"patient_id\": \"P002\", \"reported_at\": \"2026-11-13T20:30:00-06:00\", \"patient_timezone\": \"America/Chicago\", \"supersedes_report_id\": null}, \"questionnaire_facts\": [{\"symptom\": \"vomiting\", \"event_date\": \"2026-11-13\", \"count\": 2, \"severity\": 2}, {\"symptom\": \"nausea\", \"event_date\": \"2026-11-13\", \"count\": null, \"severity\": 3}], \"style\": \"Vomiting count and worst rating in adjacent clauses; nausea in a separate sentence.\"}, {\"report_id\": \"TXT-L-P002-14\", \"context\": {\"patient_id\": \"P002\", \"reported_at\": \"2026-11-14T20:30:00-06:00\", \"patient_timezone\": \"America/Chicago\", \"supersedes_report_id\": null}, \"questionnaire_facts\": [{\"symptom\": \"vomiting\", \"event_date\": \"2026-11-14\", \"count\": 3, \"severity\": 2}, {\"symptom\": \"nausea\", \"event_date\": \"2026-11-14\", \"count\": null, \"severity\": 3}], \"style\": \"Brief diary tone; spell out the episode count but keep all rating context explicit.\"}, {\"report_id\": \"TXT-L-P002-15\", \"context\": {\"patient_id\": \"P002\", \"reported_at\": \"2026-11-15T20:30:00-06:00\", \"patient_timezone\": \"America/Chicago\", \"supersedes_report_id\": null}, \"questionnaire_facts\": [{\"symptom\": \"vomiting\", \"event_date\": \"2026-11-15\", \"count\": 1, \"severity\": 2}, {\"symptom\": \"nausea\", \"event_date\": \"2026-11-15\", \"count\": null, \"severity\": 3}], \"style\": \"Vomiting first, nausea second; a plain daily check-in.\"}, {\"report_id\": \"TXT-L-P002-16\", \"context\": {\"patient_id\": \"P002\", \"reported_at\": \"2026-11-16T20:30:00-06:00\", \"patient_timezone\": \"America/Chicago\", \"supersedes_report_id\": null}, \"questionnaire_facts\": [{\"symptom\": \"vomiting\", \"event_date\": \"2026-11-16\", \"count\": 2, \"severity\": 2}, {\"symptom\": \"nausea\", \"event_date\": \"2026-11-16\", \"count\": null, \"severity\": 3}], \"style\": \"Nausea first, vomiting second; use contractions where natural.\"}, {\"report_id\": \"TXT-L-P002-17\", \"context\": {\"patient_id\": \"P002\", \"reported_at\": \"2026-11-17T20:30:00-06:00\", \"patient_timezone\": \"America/Chicago\", \"supersedes_report_id\": null}, \"questionnaire_facts\": [{\"symptom\": \"vomiting\", \"event_date\": \"2026-11-17\", \"count\": 3, \"severity\": 2}, {\"symptom\": \"nausea\", \"event_date\": \"2026-11-17\", \"count\": null, \"severity\": 4}], \"style\": \"Vomiting count and worst rating in adjacent clauses; nausea in a separate sentence.\"}, {\"report_id\": \"TXT-L-P002-18\", \"context\": {\"patient_id\": \"P002\", \"reported_at\": \"2026-11-18T20:30:00-06:00\", \"patient_timezone\": \"America/Chicago\", \"supersedes_report_id\": null}, \"questionnaire_facts\": [{\"symptom\": \"vomiting\", \"event_date\": \"2026-11-18\", \"count\": 2, \"severity\": 2}, {\"symptom\": \"nausea\", \"event_date\": \"2026-11-18\", \"count\": null, \"severity\": 3}], \"style\": \"Brief diary tone; spell out the episode count but keep all rating context explicit.\"}, {\"report_id\": \"TXT-L-P002-19\", \"context\": {\"patient_id\": \"P002\", \"reported_at\": \"2026-11-19T20:30:00-06:00\", \"patient_timezone\": \"America/Chicago\", \"supersedes_report_id\": null}, \"questionnaire_facts\": [{\"symptom\": \"vomiting\", \"event_date\": \"2026-11-19\", \"count\": 1, \"severity\": 2}, {\"symptom\": \"nausea\", \"event_date\": \"2026-11-19\", \"count\": null, \"severity\": 2}], \"style\": \"Vomiting first, nausea second; a plain daily check-in.\"}, {\"report_id\": \"TXT-L-P002-21\", \"context\": {\"patient_id\": \"P002\", \"reported_at\": \"2026-11-21T20:30:00-06:00\", \"patient_timezone\": \"America/Chicago\", \"supersedes_report_id\": null}, \"questionnaire_facts\": [{\"symptom\": \"vomiting\", \"event_date\": \"2026-11-21\", \"count\": 3, \"severity\": 2}, {\"symptom\": \"nausea\", \"event_date\": \"2026-11-21\", \"count\": null, \"severity\": 3}], \"style\": \"Nausea first, vomiting second; use contractions where natural.\"}, {\"report_id\": \"TXT-L-P002-22\", \"context\": {\"patient_id\": \"P002\", \"reported_at\": \"2026-11-22T20:30:00-06:00\", \"patient_timezone\": \"America/Chicago\", \"supersedes_report_id\": null}, \"questionnaire_facts\": [{\"symptom\": \"vomiting\", \"event_date\": \"2026-11-22\", \"count\": 0, \"severity\": null}, {\"symptom\": \"nausea\", \"event_date\": \"2026-11-22\", \"count\": null, \"severity\": 2}], \"style\": \"Vomiting count and worst rating in adjacent clauses; nausea in a separate sentence.\"}, {\"report_id\": \"TXT-L-P002-23\", \"context\": {\"patient_id\": \"P002\", \"reported_at\": \"2026-11-23T20:30:00-06:00\", \"patient_timezone\": \"America/Chicago\", \"supersedes_report_id\": null}, \"questionnaire_facts\": [{\"symptom\": \"vomiting\", \"event_date\": \"2026-11-23\", \"count\": 1, \"severity\": 2}, {\"symptom\": \"nausea\", \"event_date\": \"2026-11-23\", \"count\": null, \"severity\": 2}], \"style\": \"Brief diary tone; spell out the episode count but keep all rating context explicit.\"}, {\"report_id\": \"TXT-L-P002-24\", \"context\": {\"patient_id\": \"P002\", \"reported_at\": \"2026-11-24T20:30:00-06:00\", \"patient_timezone\": \"America/Chicago\", \"supersedes_report_id\": null}, \"questionnaire_facts\": [{\"symptom\": \"vomiting\", \"event_date\": \"2026-11-24\", \"count\": 2, \"severity\": 2}, {\"symptom\": \"nausea\", \"event_date\": \"2026-11-24\", \"count\": null, \"severity\": 3}], \"style\": \"Vomiting first, nausea second; a plain daily check-in.\"}, {\"report_id\": \"TXT-L-P002-25\", \"context\": {\"patient_id\": \"P002\", \"reported_at\": \"2026-11-25T20:30:00-06:00\", \"patient_timezone\": \"America/Chicago\", \"supersedes_report_id\": null}, \"questionnaire_facts\": [{\"symptom\": \"vomiting\", \"event_date\": \"2026-11-25\", \"count\": 1, \"severity\": 2}, {\"symptom\": \"nausea\", \"event_date\": \"2026-11-25\", \"count\": null, \"severity\": 2}], \"style\": \"Nausea first, vomiting second; use contractions where natural.\"}]}"
+    }
+  ],
+  "text": {
+    "format": {
+      "type": "json_schema",
+      "name": "fictional_questionnaire_feedback",
+      "schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "reports": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "report_id": {
+                  "type": "string",
+                  "enum": [
+                    "TXT-L-P001-26",
+                    "TXT-L-P001-27",
+                    "TXT-L-P001-28",
+                    "TXT-L-P002-05",
+                    "TXT-L-P002-06",
+                    "TXT-L-P002-08",
+                    "TXT-L-P002-09",
+                    "TXT-L-P002-10",
+                    "TXT-L-P002-11",
+                    "TXT-L-P002-13",
+                    "TXT-L-P002-14",
+                    "TXT-L-P002-15",
+                    "TXT-L-P002-16",
+                    "TXT-L-P002-17",
+                    "TXT-L-P002-18",
+                    "TXT-L-P002-19",
+                    "TXT-L-P002-21",
+                    "TXT-L-P002-22",
+                    "TXT-L-P002-23",
+                    "TXT-L-P002-24",
+                    "TXT-L-P002-25"
+                  ]
+                },
+                "text": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "report_id",
+                "text"
+              ]
+            }
+          }
+        },
+        "required": [
+          "reports"
+        ]
+      },
+      "strict": true
+    }
+  },
+  "reasoning": {
+    "effort": "none"
+  },
+  "max_output_tokens": 8192,
+  "store": false,
+  "stream": false
+}

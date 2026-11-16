@@ -1,0 +1,26 @@
+{
+  "created_at_utc": "2026-11-16T20:37:50.221988+00:00",
+  "source_reports": 71,
+  "original_text_prefixes_preserved": 10,
+  "original_text_only_reports": 8,
+  "generated_supplements": 63,
+  "unchanged_generated_supplements": 62,
+  "edited_generated_supplements": 1,
+  "questionnaire_answers_in_final_sources": 0,
+  "discarded_or_regenerated": 0,
+  "extraction_requests_so_far": 0,
+  "edits": [
+    {
+      "report_id": "TXT-L-P003-14",
+      "original_text": "My nausea is worst at 3/5 today so far. I've had vomiting today so far, and my vomiting is worst at 2/5 today so far.",
+      "reviewed_text": "My nausea is worst at 3/5 today so far. I've had vomiting today so far, but I don't know how many times. My vomiting is worst at 2/5 today so far.",
+      "reason": "Restore the seeded explicit unknown-count statement omitted during generation. Occurrence, daily scope, numeric ratings and all other facts remain unchanged.",
+      "stage": "before reference authoring and before extraction",
+      "numeric_facts_changed": false
+    }
+  ],
+  "assembly_note": "Original text is verbatim. R002 and R009 append independently verbalized form statements under a same-interval header; the header does not select an authoritative source. Other61form-only reports use the generated text. New TXT-IDs and mapped replacement links preserve all original sources.",
+  "raw_unique_generated_texts": 37,
+  "raw_generation_repeat_count": 26,
+  "limitation": "Repeated controlled wording is suitable for longitudinal integration but is not independent linguistic validation."
+}

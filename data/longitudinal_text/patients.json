@@ -1,0 +1,23 @@
+[
+  {
+    "patient_id": "P001",
+    "display_name": "Demo patient 1",
+    "patient_timezone": "America/Chicago",
+    "followup_start": "2026-11-01",
+    "followup_end": "2026-11-28"
+  },
+  {
+    "patient_id": "P002",
+    "display_name": "Demo patient 2",
+    "patient_timezone": "America/Chicago",
+    "followup_start": "2026-11-01",
+    "followup_end": "2026-11-28"
+  },
+  {
+    "patient_id": "P003",
+    "display_name": "Demo patient 3",
+    "patient_timezone": "America/Chicago",
+    "followup_start": "2026-11-01",
+    "followup_end": "2026-11-28"
+  }
+]
