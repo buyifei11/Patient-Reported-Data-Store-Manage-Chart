@@ -170,3 +170,10 @@ both an additional correct-date score and a count overfill. The number comes
 from the form; the metric alone does not mean it was fabricated. Inspect this
 case with the missing/extra observations and conflict flags. The frozen scores
 were not changed after this limitation was discovered.
+
+A subsequent [normalization fix and offline replay](normalization_fix.md) resolve
+the three saved H016 candidates with `day_to_date` scope into one conflict-marked
+observation. The fourth candidate has `window` scope and remains separate; its
+alignment limitation still applies. The evaluator and historical scores are
+unchanged. Follow-up replay scores measure a code change on known cases, not new
+model inference or independent generalization.

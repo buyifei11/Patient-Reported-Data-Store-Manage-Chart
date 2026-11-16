@@ -25,4 +25,6 @@ Data generation is intentionally different from the later four-week follow-up da
 - `extraction_checks` inspect selected candidate fields before reconciliation. They are not a complete training dataset of candidate objects.
 - No prompt or label changes are made in response to held-out outputs within the frozen experiment. Future tuning based on those errors turns these cases into known regression data; a later independent evaluation needs new cases.
 
+The subsequent [normalization fix and offline replay](../docs/normalization_fix.md) use the observed H016 failure. Consequently, `heldout/` retains its historical name and frozen contents but is now known regression data for follow-up development, not a fresh independent test set.
+
 See [the frozen experiment protocol](../docs/prompt_experiment.md) for versions, run counts, controls, and interpretation.

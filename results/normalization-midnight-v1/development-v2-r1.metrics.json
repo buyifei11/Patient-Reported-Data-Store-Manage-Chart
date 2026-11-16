@@ -1,0 +1,368 @@
+{
+  "evaluation_version": "1.0",
+  "reference_role": "known_regression_data",
+  "report_completion": {
+    "total": 30,
+    "ok": 30,
+    "error": 0,
+    "missing": 0,
+    "rate": 1.0
+  },
+  "observation_detection": {
+    "true_positive": 36,
+    "false_positive": 0,
+    "false_negative": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  },
+  "fields": {
+    "symptom": {
+      "reference_known": {
+        "correct": 36,
+        "total": 36,
+        "accuracy": 1.0
+      },
+      "reference_null": {
+        "correct": 0,
+        "total": 0,
+        "accuracy": null,
+        "overfilled": 0
+      },
+      "missing_predictions": 0
+    },
+    "assertion": {
+      "reference_known": {
+        "correct": 36,
+        "total": 36,
+        "accuracy": 1.0
+      },
+      "reference_null": {
+        "correct": 0,
+        "total": 0,
+        "accuracy": null,
+        "overfilled": 0
+      },
+      "missing_predictions": 0
+    },
+    "count": {
+      "reference_known": {
+        "correct": 17,
+        "total": 17,
+        "accuracy": 1.0
+      },
+      "reference_null": {
+        "correct": 19,
+        "total": 19,
+        "accuracy": 1.0,
+        "overfilled": 0
+      },
+      "missing_predictions": 0
+    },
+    "count_scope": {
+      "reference_known": {
+        "correct": 22,
+        "total": 22,
+        "accuracy": 1.0
+      },
+      "reference_null": {
+        "correct": 14,
+        "total": 14,
+        "accuracy": 1.0,
+        "overfilled": 0
+      },
+      "missing_predictions": 0
+    },
+    "severity": {
+      "reference_known": {
+        "correct": 3,
+        "total": 3,
+        "accuracy": 1.0
+      },
+      "reference_null": {
+        "correct": 33,
+        "total": 33,
+        "accuracy": 1.0,
+        "overfilled": 0
+      },
+      "missing_predictions": 0
+    },
+    "event_date": {
+      "reference_known": {
+        "correct": 33,
+        "total": 33,
+        "accuracy": 1.0
+      },
+      "reference_null": {
+        "correct": 3,
+        "total": 3,
+        "accuracy": 1.0,
+        "overfilled": 0
+      },
+      "missing_predictions": 0
+    },
+    "event_time": {
+      "reference_known": {
+        "correct": 5,
+        "total": 5,
+        "accuracy": 1.0
+      },
+      "reference_null": {
+        "correct": 31,
+        "total": 31,
+        "accuracy": 1.0,
+        "overfilled": 0
+      },
+      "missing_predictions": 0
+    },
+    "time_text": {
+      "reference_known": {
+        "correct": 29,
+        "total": 36,
+        "accuracy": 0.8055555555555556
+      },
+      "reference_null": {
+        "correct": 0,
+        "total": 0,
+        "accuracy": null,
+        "overfilled": 0
+      },
+      "missing_predictions": 0
+    },
+    "date_basis": {
+      "reference_known": {
+        "correct": 36,
+        "total": 36,
+        "accuracy": 1.0
+      },
+      "reference_null": {
+        "correct": 0,
+        "total": 0,
+        "accuracy": null,
+        "overfilled": 0
+      },
+      "missing_predictions": 0
+    },
+    "medication_relation": {
+      "reference_known": {
+        "correct": 1,
+        "total": 1,
+        "accuracy": 1.0
+      },
+      "reference_null": {
+        "correct": 35,
+        "total": 35,
+        "accuracy": 1.0,
+        "overfilled": 0
+      },
+      "missing_predictions": 0
+    }
+  },
+  "assertion_accuracy": {
+    "correct": 36,
+    "total": 36,
+    "accuracy": 1.0
+  },
+  "unknown_overfill": {
+    "errors": 0,
+    "reference_null_fields": 135,
+    "rate": 0.0
+  },
+  "issue_detection": {
+    "true_positive": 14,
+    "false_positive": 1,
+    "false_negative": 1,
+    "precision": 0.9333333333333333,
+    "recall": 0.9333333333333333,
+    "f1": 0.9333333333333333
+  },
+  "extraction_checks": {
+    "passed": 23,
+    "total": 24,
+    "accuracy": 0.9583333333333334,
+    "fields": {
+      "assertion": {
+        "correct": 11,
+        "total": 11,
+        "accuracy": 1.0
+      },
+      "clock_time": {
+        "correct": 3,
+        "total": 3,
+        "accuracy": 1.0
+      },
+      "count": {
+        "correct": 10,
+        "total": 10,
+        "accuracy": 1.0
+      },
+      "count_scope": {
+        "correct": 12,
+        "total": 12,
+        "accuracy": 1.0
+      },
+      "day_reference": {
+        "correct": 13,
+        "total": 13,
+        "accuracy": 1.0
+      },
+      "explicit_date": {
+        "correct": 1,
+        "total": 1,
+        "accuracy": 1.0
+      },
+      "severity_context": {
+        "correct": 4,
+        "total": 5,
+        "accuracy": 0.8
+      },
+      "severity_scale_max": {
+        "correct": 5,
+        "total": 5,
+        "accuracy": 1.0
+      },
+      "severity_value": {
+        "correct": 5,
+        "total": 5,
+        "accuracy": 1.0
+      },
+      "symptom": {
+        "correct": 7,
+        "total": 7,
+        "accuracy": 1.0
+      }
+    }
+  },
+  "matching": {
+    "ambiguous_groups": []
+  },
+  "mismatches": [
+    {
+      "report_id": "D006",
+      "reference_index": 0,
+      "reference_id": "D006-O1",
+      "prediction_index": 0,
+      "kind": "field",
+      "field": "time_text",
+      "expected": "the whole day yesterday",
+      "predicted": "Across the whole day yesterday",
+      "prediction_missing": false
+    },
+    {
+      "report_id": "D016",
+      "reference_index": 0,
+      "reference_id": "D016-O1",
+      "prediction_index": 0,
+      "kind": "issues",
+      "missing": [
+        {
+          "field": "severity",
+          "code": "severity_context_unknown"
+        }
+      ],
+      "extra": [
+        {
+          "field": "severity",
+          "code": "unsupported_severity_context"
+        }
+      ]
+    },
+    {
+      "report_id": "D016",
+      "kind": "extraction_check",
+      "check_index": 0,
+      "source": {
+        "path": "text",
+        "value": "Nausea today: 2 out of 5."
+      },
+      "candidate_found": true,
+      "ambiguous_candidates": false,
+      "differences": [
+        {
+          "field": "severity_context",
+          "expected": "unknown",
+          "predicted": "current",
+          "prediction_missing": false
+        }
+      ]
+    },
+    {
+      "report_id": "D017",
+      "reference_index": 0,
+      "reference_id": "D017-O1",
+      "prediction_index": 0,
+      "kind": "field",
+      "field": "time_text",
+      "expected": "Yesterday during the train ride",
+      "predicted": "Yesterday",
+      "prediction_missing": false
+    },
+    {
+      "report_id": "D018",
+      "reference_index": 0,
+      "reference_id": "D018-O1",
+      "prediction_index": 0,
+      "kind": "field",
+      "field": "time_text",
+      "expected": "today",
+      "predicted": "for today",
+      "prediction_missing": false
+    },
+    {
+      "report_id": "D019",
+      "reference_index": 0,
+      "reference_id": "D019-O1",
+      "prediction_index": 0,
+      "kind": "field",
+      "field": "time_text",
+      "expected": "today so far",
+      "predicted": "for today so far",
+      "prediction_missing": false
+    },
+    {
+      "report_id": "R002",
+      "reference_index": 0,
+      "reference_id": "R002-O1",
+      "prediction_index": 0,
+      "kind": "field",
+      "field": "time_text",
+      "expected": "so far today",
+      "predicted": "today",
+      "prediction_missing": false
+    },
+    {
+      "report_id": "R005",
+      "reference_index": 0,
+      "reference_id": "R005-O1",
+      "prediction_index": 0,
+      "kind": "field",
+      "field": "time_text",
+      "expected": "so far today",
+      "predicted": "at its worst so far today",
+      "prediction_missing": false
+    },
+    {
+      "report_id": "R006",
+      "reference_index": 0,
+      "reference_id": "R006-O1",
+      "prediction_index": 0,
+      "kind": "field",
+      "field": "time_text",
+      "expected": "so far today",
+      "predicted": "at its worst so far today",
+      "prediction_missing": false
+    }
+  ],
+  "provenance": {
+    "manifest_sha256": "bda6cd2de18c5e778759f77a08b7d4d3319015cee11bdef903871d1115a6c36d",
+    "predictions_sha256": "4ff75164d08a8d6c8f4aed410e9fba5061f35d76050698c611af7bef2a979b19",
+    "source_sha256": "3cddaad286d687452cfd4100dfdf38dd0323b1a021fbb809bddbd6ad7e9005ba",
+    "gold_sha256": "cd45036eec3415fcd75cdaddea8e1521bb2a3a883cb7c0fa73eb2d0976ddfa62",
+    "split": "development",
+    "repeat": 1,
+    "kind": "offline_normalization_replay",
+    "original_metrics_sha256": "c98f5f2c1be754691b0be953c3131ee76cd38a40dbd7b703104322a0a1eba27e",
+    "current_code_sha256": "d9dedbf210c524f0783aa11470d2cf47a1f0a937c035dc5598c82adc39384ed6",
+    "replay_script_sha256": "aa0c25e0e45c155ee72743aa5d79283625dde89c9c609a2bd4d4204afdc4ec62"
+  }
+}

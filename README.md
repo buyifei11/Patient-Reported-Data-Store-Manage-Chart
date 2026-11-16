@@ -6,6 +6,8 @@ Track B prototype for structuring synthetic patient reports, storing them over t
 
 The extraction and evaluation milestone is implemented: source validation, LLM text extraction, deterministic normalization, and comparison with authored reference answers. A controlled prompt experiment now adds separately authored data and two held-out rounds. See [the prompt-comparison report](docs/prompt_comparison.md) for gains, regressions, and the decision to retain v1 as the default. The [first-run report](docs/development_run.md) remains available unchanged.
 
+A subsequent [normalization fix](docs/normalization_fix.md) reconciles explicit midnight-to-submission daily counts with the questionnaire. Its offline replay uses the same saved candidates and preserves the original experiment artifacts.
+
 | Component | Status |
 | --- | --- |
 | Data contract | v0.2 design and executable strict schemas. |
@@ -83,6 +85,7 @@ python run_pipeline.py extract --provider ollama --model YOUR_INSTALLED_MODEL \
 | `docs/evaluation.md` | Metric definitions, matching, and limitations. |
 | `docs/development_run.md` | Actual first-run results and error interpretation. |
 | `docs/prompt_experiment.md`, `docs/prompt_comparison.md` | Frozen experiment protocol and actual comparison findings. |
+| `docs/normalization_fix.md`, `scripts/replay_normalization.py` | Daily-range reconciliation fix and reproducible offline replay of saved candidates. |
 | `data/README.md`, `data/dev/`, `data/heldout/` | Dataset roles, new sources/references, case groups, and pre-inference reviews. |
 | `data/raw/reports.jsonl` | Original synthetic reports. |
 | `data/gold/expected.jsonl` | Authored answers; never model input. |
@@ -107,8 +110,8 @@ python run_pipeline.py evaluate \
 
 The initial R010 error did not recur for either prompt in the new paired run. More informative new cases show v2 improving `tonight` interpretation, including H004 in both held-out rounds. However, v2 also introduces bounded-window scope errors and one new exact-evidence failure. It remains experimental; the full report explains why aggregate date improvements are insufficient for default replacement.
 
-The experiment also exposed a shared normalization defect: H016's phrase `from midnight today through this submission` is incorrectly treated as an incompatible earlier window, so a text/form count conflict is missed. Evidence-based matching then makes one run's aggregate score sensitive to excerpt length. Both limitations are documented; the frozen code and results have not been altered to hide them. The original small development run's high scores should not be generalized to these harder cases.
+The experiment also exposed a shared normalization defect: H016's phrase `from midnight today through this submission` was treated as an incompatible earlier window, so a text/form count conflict was missed. The current normalizer fixes that gate while retaining earlier snapshots and preserving the extracted scope. The original experiment artifacts remain unchanged and reproduce at Git revision `be61143`. Evidence-based matching still makes the unresolved `window` output sensitive to excerpt length; see the [follow-up replay](docs/normalization_fix.md). The original small development run's high scores should not be generalized to these harder cases.
 
 Normalization supports a bounded set of English temporal expressions, ISO or English month/day/year dates, and explicit clock times. Unsupported or contradictory candidates fail visibly. Passing schema/evidence checks cannot prove that every semantic interpretation is correct. A single-day observation representation cannot allocate multi-day totals.
 
-Next, fix and regression-test daily-source reconciliation, then improve count-scope and evidence preservation in a separately versioned experiment. These reviewed cases must become known regression data if used for tuning; a future independent evaluation needs new cases. SQLite, correction-aware aggregation, SQL queries, charts, full follow-up coverage, and medication-change records remain future work.
+Next, improve count-scope and evidence preservation in a separately versioned experiment. The reviewed cases are now known regression data; a future independent evaluation needs new cases. SQLite, correction-aware aggregation, SQL queries, charts, full follow-up coverage, and medication-change records remain future work.

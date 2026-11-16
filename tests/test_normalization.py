@@ -212,6 +212,105 @@ class NormalizationTests(unittest.TestCase):
         self.assertEqual(result["issues"], [])
         self.assertEqual(len(result["evidence"]), 4)
 
+    def test_day_start_through_submission_reconciles_conflicting_counts(self):
+        for timing in (
+            "from midnight today through this submission",
+            "from midnight today until now",
+            "from midnight today to now",
+            "FROM MIDNIGHT TODAY THROUGH THIS SUBMISSION",
+        ):
+            with self.subTest(timing=timing):
+                text = f"I count five vomiting episodes {timing}."
+                source = report(text, [answer(count=3)])
+                values = [candidate(text, count=5, count_scope="day_to_date", time_text=timing)]
+                original = copy.deepcopy((source, values))
+                result = normalize_report(source, values)
+                self.assertEqual(len(result), 1)
+                observation = result[0]
+                self.assertEqual(observation["assertion"], "present")
+                self.assertIsNone(observation["count"])
+                self.assertEqual(observation["count_scope"], "day_to_date")
+                self.assertEqual(observation["time_text"], timing)
+                self.assertEqual(issues(observation), {("count", "conflicting_sources")})
+                self.assertEqual(observation["evidence"], [
+                    {"path": "text", "value": text},
+                    {"path": "questionnaire_answers.0.symptom", "value": "vomiting"},
+                    {"path": "questionnaire_answers.0.event_date", "value": "2026-07-04"},
+                    {"path": "questionnaire_answers.0.count", "value": 3},
+                ])
+                self.assertEqual((source, values), original)
+
+    def test_day_start_range_preserves_agreement_and_zero_positive_conflict(self):
+        text = "I count five vomiting episodes from midnight today through this submission."
+        for form_count, expected_count, assertion, expected_issues in (
+            (5, 5, "present", set()),
+            (0, None, "uncertain", {("count", "conflicting_sources"), ("assertion", "conflicting_sources")}),
+        ):
+            with self.subTest(form_count=form_count):
+                result = normalize_report(report(text, [answer(count=form_count)]), [
+                    candidate(text, count=5, count_scope="day_to_date"),
+                ])
+                self.assertEqual(len(result), 1)
+                self.assertEqual(result[0]["count"], expected_count)
+                self.assertEqual(result[0]["assertion"], assertion)
+                self.assertEqual(issues(result[0]), expected_issues)
+
+    def test_day_start_with_earlier_endpoint_remains_separate(self):
+        for timing in (
+            "by noon today", "as of 10 today", "at midnight today",
+            "from midnight today through noon", "from midnight today until 10:00",
+            "from midnight today to breakfast",
+        ):
+            with self.subTest(timing=timing):
+                text = f"I had two vomiting episodes {timing}."
+                result = normalize_report(report(text, [answer(count=3)]), [
+                    candidate(text, count=2, count_scope="day_to_date", time_text=timing),
+                ])
+                self.assertEqual(len(result), 2)
+                self.assertEqual(sorted(o["count"] for o in result), [2, 3])
+                self.assertTrue(all(not o["issues"] for o in result))
+
+    def test_current_day_range_does_not_override_other_snapshot_qualifiers(self):
+        text = ("By noon today I had two vomiting episodes. "
+                "I am now counting from midnight today through this submission.")
+        result = normalize_report(report(text, [answer(count=3)]), [
+            candidate(text, count=2, count_scope="day_to_date", time_text="By noon today"),
+        ])
+        self.assertEqual(len(result), 2)
+        self.assertEqual(sorted(o["count"] for o in result), [2, 3])
+        self.assertTrue(all(not o["issues"] for o in result))
+
+    def test_current_day_range_does_not_rewrite_extracted_window_scope(self):
+        text = "I count five vomiting episodes from midnight today through this submission."
+        result = normalize_report(report(text, [answer(count=3)]), [
+            candidate(text, count=5, count_scope="window"),
+        ])
+        self.assertEqual(len(result), 2)
+        self.assertEqual({(o["count"], o["count_scope"]) for o in result}, {(3, "day_to_date"), (5, "window")})
+        self.assertTrue(all(not o["issues"] for o in result))
+
+    def test_day_start_range_uses_local_date_for_questionnaire_reconciliation(self):
+        text = "I count five vomiting episodes from midnight today through this submission."
+        form = {**answer(count=3), "event_date": "2026-11-13"}
+        source = report(text, [form], reported_at="2026-11-12T23:20:00Z", patient_timezone="Asia/Tokyo")
+        result = normalize_report(source, [candidate(text, count=5, count_scope="day_to_date")])
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]["event_date"], "2026-11-13")
+        self.assertIsNone(result[0]["count"])
+        self.assertEqual(issues(result[0]), {("count", "conflicting_sources")})
+
+    def test_day_start_range_reconciles_text_claims_without_questionnaire(self):
+        first = "I count five vomiting episodes from midnight today through this submission."
+        second = "I have vomited three times in total so far today."
+        result = normalize_report(report(first + " " + second), [
+            candidate(first, count=5, count_scope="day_to_date"),
+            candidate(second, count=3, count_scope="day_to_date"),
+        ])
+        self.assertEqual(len(result), 1)
+        self.assertIsNone(result[0]["count"])
+        self.assertEqual(issues(result[0]), {("count", "conflicting_sources")})
+        self.assertEqual(len(result[0]["evidence"]), 2)
+
     def test_valid_form_severity_does_not_hide_rejected_text_score(self):
         text = "My nausea at its worst today was 6 out of 10."
         result = normalize_report(report(text, [answer("nausea", severity=3)]), [nausea(text, severity_value=6, severity_scale_max=10, severity_context="worst_today_so_far")])[0]

@@ -211,12 +211,19 @@ def _compatible_with_questionnaire(candidate: dict, observation: dict, questionn
     if observation["symptom"] == "vomiting":
         if observation["count_scope"] != "day_to_date":
             return False
+        # Midnight can be the START of today's current cumulative range. Mask
+        # only this explicit start-to-present phrase for the snapshot check;
+        # keep source evidence intact and inspect any remaining qualifiers.
+        snapshot_context = re.sub(
+            r"\bfrom\s+midnight\s+today\s+(?:through|until|to)\s+(?:this\s+submission|now)\b",
+            " ", candidate["quote"], flags=re.IGNORECASE,
+        )
         # Earlier within-day snapshots and a submission-time form answer can
         # both be correct. Do not collapse their different reporting windows.
         return not re.search(
             r"\b(?:earlier|previously|before|after|morning|afternoon|evening|tonight|"
             r"breakfast|lunch|dinner|noon|midnight|as\s+of)\b|\b(?:by|at)\s+\d",
-            candidate["quote"],
+            snapshot_context,
             re.IGNORECASE,
         )
     # A daily nausea score is comparable; a current or morning-only claim is not.

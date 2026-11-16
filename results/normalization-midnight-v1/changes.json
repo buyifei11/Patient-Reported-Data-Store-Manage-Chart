@@ -1,0 +1,362 @@
+[
+  {
+    "run": "heldout-v1-r1",
+    "report_id": "H016",
+    "candidates": [
+      {
+        "symptom": "vomiting",
+        "assertion": "present",
+        "count": 5,
+        "count_scope": "day_to_date",
+        "severity_value": null,
+        "severity_scale_max": null,
+        "severity_context": null,
+        "time_text": "from midnight today through this submission",
+        "day_reference": "today",
+        "explicit_date": null,
+        "clock_time": null,
+        "quote": "I count five vomiting episodes from midnight today through this submission.",
+        "medication_relation": null
+      }
+    ],
+    "before": {
+      "status": "ok",
+      "error_code": null,
+      "error": null,
+      "observations": [
+        {
+          "observation_id": "H016-O1",
+          "symptom": "vomiting",
+          "assertion": "present",
+          "count": 3,
+          "count_scope": "day_to_date",
+          "severity": null,
+          "event_date": "2026-11-13",
+          "event_time": null,
+          "time_text": null,
+          "date_basis": "questionnaire",
+          "medication_relation": null,
+          "evidence": [
+            {
+              "path": "questionnaire_answers.0.symptom",
+              "value": "vomiting"
+            },
+            {
+              "path": "questionnaire_answers.0.event_date",
+              "value": "2026-11-13"
+            },
+            {
+              "path": "questionnaire_answers.0.count",
+              "value": 3
+            }
+          ],
+          "issues": []
+        },
+        {
+          "observation_id": "H016-O2",
+          "symptom": "vomiting",
+          "assertion": "present",
+          "count": 5,
+          "count_scope": "day_to_date",
+          "severity": null,
+          "event_date": "2026-11-13",
+          "event_time": null,
+          "time_text": "from midnight today through this submission",
+          "date_basis": "relative_text",
+          "medication_relation": null,
+          "evidence": [
+            {
+              "path": "text",
+              "value": "I count five vomiting episodes from midnight today through this submission."
+            }
+          ],
+          "issues": []
+        }
+      ]
+    },
+    "after": {
+      "status": "ok",
+      "error_code": null,
+      "error": null,
+      "observations": [
+        {
+          "observation_id": "H016-O1",
+          "symptom": "vomiting",
+          "assertion": "present",
+          "count": null,
+          "count_scope": "day_to_date",
+          "severity": null,
+          "event_date": "2026-11-13",
+          "event_time": null,
+          "time_text": "from midnight today through this submission",
+          "date_basis": "relative_text",
+          "medication_relation": null,
+          "evidence": [
+            {
+              "path": "text",
+              "value": "I count five vomiting episodes from midnight today through this submission."
+            },
+            {
+              "path": "questionnaire_answers.0.symptom",
+              "value": "vomiting"
+            },
+            {
+              "path": "questionnaire_answers.0.event_date",
+              "value": "2026-11-13"
+            },
+            {
+              "path": "questionnaire_answers.0.count",
+              "value": 3
+            }
+          ],
+          "issues": [
+            {
+              "field": "count",
+              "code": "conflicting_sources"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "run": "heldout-v1-r2",
+    "report_id": "H016",
+    "candidates": [
+      {
+        "symptom": "vomiting",
+        "assertion": "present",
+        "count": 5,
+        "count_scope": "day_to_date",
+        "severity_value": null,
+        "severity_scale_max": null,
+        "severity_context": null,
+        "time_text": "from midnight today through this submission",
+        "day_reference": "today",
+        "explicit_date": null,
+        "clock_time": null,
+        "quote": "I count five vomiting episodes from midnight today through this submission.",
+        "medication_relation": null
+      }
+    ],
+    "before": {
+      "status": "ok",
+      "error_code": null,
+      "error": null,
+      "observations": [
+        {
+          "observation_id": "H016-O1",
+          "symptom": "vomiting",
+          "assertion": "present",
+          "count": 3,
+          "count_scope": "day_to_date",
+          "severity": null,
+          "event_date": "2026-11-13",
+          "event_time": null,
+          "time_text": null,
+          "date_basis": "questionnaire",
+          "medication_relation": null,
+          "evidence": [
+            {
+              "path": "questionnaire_answers.0.symptom",
+              "value": "vomiting"
+            },
+            {
+              "path": "questionnaire_answers.0.event_date",
+              "value": "2026-11-13"
+            },
+            {
+              "path": "questionnaire_answers.0.count",
+              "value": 3
+            }
+          ],
+          "issues": []
+        },
+        {
+          "observation_id": "H016-O2",
+          "symptom": "vomiting",
+          "assertion": "present",
+          "count": 5,
+          "count_scope": "day_to_date",
+          "severity": null,
+          "event_date": "2026-11-13",
+          "event_time": null,
+          "time_text": "from midnight today through this submission",
+          "date_basis": "relative_text",
+          "medication_relation": null,
+          "evidence": [
+            {
+              "path": "text",
+              "value": "I count five vomiting episodes from midnight today through this submission."
+            }
+          ],
+          "issues": []
+        }
+      ]
+    },
+    "after": {
+      "status": "ok",
+      "error_code": null,
+      "error": null,
+      "observations": [
+        {
+          "observation_id": "H016-O1",
+          "symptom": "vomiting",
+          "assertion": "present",
+          "count": null,
+          "count_scope": "day_to_date",
+          "severity": null,
+          "event_date": "2026-11-13",
+          "event_time": null,
+          "time_text": "from midnight today through this submission",
+          "date_basis": "relative_text",
+          "medication_relation": null,
+          "evidence": [
+            {
+              "path": "text",
+              "value": "I count five vomiting episodes from midnight today through this submission."
+            },
+            {
+              "path": "questionnaire_answers.0.symptom",
+              "value": "vomiting"
+            },
+            {
+              "path": "questionnaire_answers.0.event_date",
+              "value": "2026-11-13"
+            },
+            {
+              "path": "questionnaire_answers.0.count",
+              "value": 3
+            }
+          ],
+          "issues": [
+            {
+              "field": "count",
+              "code": "conflicting_sources"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "run": "heldout-v2-r2",
+    "report_id": "H016",
+    "candidates": [
+      {
+        "symptom": "vomiting",
+        "assertion": "present",
+        "count": 5,
+        "count_scope": "day_to_date",
+        "severity_value": null,
+        "severity_scale_max": null,
+        "severity_context": null,
+        "time_text": "from midnight today through this submission",
+        "day_reference": "today",
+        "explicit_date": null,
+        "clock_time": null,
+        "quote": "I count five vomiting episodes from midnight today through this submission.",
+        "medication_relation": null
+      }
+    ],
+    "before": {
+      "status": "ok",
+      "error_code": null,
+      "error": null,
+      "observations": [
+        {
+          "observation_id": "H016-O1",
+          "symptom": "vomiting",
+          "assertion": "present",
+          "count": 3,
+          "count_scope": "day_to_date",
+          "severity": null,
+          "event_date": "2026-11-13",
+          "event_time": null,
+          "time_text": null,
+          "date_basis": "questionnaire",
+          "medication_relation": null,
+          "evidence": [
+            {
+              "path": "questionnaire_answers.0.symptom",
+              "value": "vomiting"
+            },
+            {
+              "path": "questionnaire_answers.0.event_date",
+              "value": "2026-11-13"
+            },
+            {
+              "path": "questionnaire_answers.0.count",
+              "value": 3
+            }
+          ],
+          "issues": []
+        },
+        {
+          "observation_id": "H016-O2",
+          "symptom": "vomiting",
+          "assertion": "present",
+          "count": 5,
+          "count_scope": "day_to_date",
+          "severity": null,
+          "event_date": "2026-11-13",
+          "event_time": null,
+          "time_text": "from midnight today through this submission",
+          "date_basis": "relative_text",
+          "medication_relation": null,
+          "evidence": [
+            {
+              "path": "text",
+              "value": "I count five vomiting episodes from midnight today through this submission."
+            }
+          ],
+          "issues": []
+        }
+      ]
+    },
+    "after": {
+      "status": "ok",
+      "error_code": null,
+      "error": null,
+      "observations": [
+        {
+          "observation_id": "H016-O1",
+          "symptom": "vomiting",
+          "assertion": "present",
+          "count": null,
+          "count_scope": "day_to_date",
+          "severity": null,
+          "event_date": "2026-11-13",
+          "event_time": null,
+          "time_text": "from midnight today through this submission",
+          "date_basis": "relative_text",
+          "medication_relation": null,
+          "evidence": [
+            {
+              "path": "text",
+              "value": "I count five vomiting episodes from midnight today through this submission."
+            },
+            {
+              "path": "questionnaire_answers.0.symptom",
+              "value": "vomiting"
+            },
+            {
+              "path": "questionnaire_answers.0.event_date",
+              "value": "2026-11-13"
+            },
+            {
+              "path": "questionnaire_answers.0.count",
+              "value": 3
+            }
+          ],
+          "issues": [
+            {
+              "field": "count",
+              "code": "conflicting_sources"
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

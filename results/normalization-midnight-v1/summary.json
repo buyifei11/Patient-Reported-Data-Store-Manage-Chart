@@ -1,0 +1,735 @@
+{
+  "kind": "offline_normalization_replay",
+  "reference_role": "known_regression_data",
+  "created_at": "2026-11-16T01:31:06.705321+00:00",
+  "model_requests": 0,
+  "interpretation": "Same saved candidates under revised normalization; not new model output or independent held-out evidence.",
+  "base_revision": "be6114310772db621475420e285ede57fa623a17",
+  "base_manifest_sha256": "bda6cd2de18c5e778759f77a08b7d4d3319015cee11bdef903871d1115a6c36d",
+  "base_code_sha256": "de076b5cf30df5e2e99dbf9f0cbf373273c4b066dc93ff350bde89cceac1eee1",
+  "current_code_sha256": "d9dedbf210c524f0783aa11470d2cf47a1f0a937c035dc5598c82adc39384ed6",
+  "normalization_sha256": "f290c4ba2c740364d12ff53bc681f5a82edc2f580ae399aedae1428ad29d7c20",
+  "replay_script_sha256": "aa0c25e0e45c155ee72743aa5d79283625dde89c9c609a2bd4d4204afdc4ec62",
+  "runs": {
+    "development-v1-r1": {
+      "saved_predictions_sha256": "d9e19d6edacdca9dc1896969693adffcff638efa214b2ac1ae252abccc0437d6",
+      "original_metrics_sha256": "535f159252b209b9dfc95b8d886505defb27a51ed04dac05cc004e35c884039e",
+      "replayed_reports": 30,
+      "changed_report_ids": [],
+      "extraction_checks_unchanged": true,
+      "before": {
+        "report_completion": {
+          "total": 30,
+          "ok": 29,
+          "error": 1,
+          "missing": 0,
+          "rate": 0.9666666666666667
+        },
+        "observation_detection": {
+          "true_positive": 35,
+          "false_positive": 0,
+          "false_negative": 1,
+          "precision": 1.0,
+          "recall": 0.9722222222222222,
+          "f1": 0.9859154929577465
+        },
+        "date_known": {
+          "correct": 31,
+          "total": 33,
+          "accuracy": 0.9393939393939394
+        },
+        "count_known": {
+          "correct": 16,
+          "total": 17,
+          "accuracy": 0.9411764705882353
+        },
+        "count_null": {
+          "correct": 19,
+          "total": 19,
+          "accuracy": 1.0,
+          "overfilled": 0
+        },
+        "scope_known": {
+          "correct": 20,
+          "total": 22,
+          "accuracy": 0.9090909090909091
+        },
+        "assertion_accuracy": {
+          "correct": 35,
+          "total": 36,
+          "accuracy": 0.9722222222222222
+        },
+        "issue_detection": {
+          "true_positive": 13,
+          "false_positive": 3,
+          "false_negative": 2,
+          "precision": 0.8125,
+          "recall": 0.8666666666666667,
+          "f1": 0.8387096774193549
+        },
+        "unknown_overfill": {
+          "errors": 0,
+          "reference_null_fields": 135,
+          "rate": 0.0
+        }
+      },
+      "after": {
+        "report_completion": {
+          "total": 30,
+          "ok": 29,
+          "error": 1,
+          "missing": 0,
+          "rate": 0.9666666666666667
+        },
+        "observation_detection": {
+          "true_positive": 35,
+          "false_positive": 0,
+          "false_negative": 1,
+          "precision": 1.0,
+          "recall": 0.9722222222222222,
+          "f1": 0.9859154929577465
+        },
+        "date_known": {
+          "correct": 31,
+          "total": 33,
+          "accuracy": 0.9393939393939394
+        },
+        "count_known": {
+          "correct": 16,
+          "total": 17,
+          "accuracy": 0.9411764705882353
+        },
+        "count_null": {
+          "correct": 19,
+          "total": 19,
+          "accuracy": 1.0,
+          "overfilled": 0
+        },
+        "scope_known": {
+          "correct": 20,
+          "total": 22,
+          "accuracy": 0.9090909090909091
+        },
+        "assertion_accuracy": {
+          "correct": 35,
+          "total": 36,
+          "accuracy": 0.9722222222222222
+        },
+        "issue_detection": {
+          "true_positive": 13,
+          "false_positive": 3,
+          "false_negative": 2,
+          "precision": 0.8125,
+          "recall": 0.8666666666666667,
+          "f1": 0.8387096774193549
+        },
+        "unknown_overfill": {
+          "errors": 0,
+          "reference_null_fields": 135,
+          "rate": 0.0
+        }
+      }
+    },
+    "development-v2-r1": {
+      "saved_predictions_sha256": "4ff75164d08a8d6c8f4aed410e9fba5061f35d76050698c611af7bef2a979b19",
+      "original_metrics_sha256": "c98f5f2c1be754691b0be953c3131ee76cd38a40dbd7b703104322a0a1eba27e",
+      "replayed_reports": 30,
+      "changed_report_ids": [],
+      "extraction_checks_unchanged": true,
+      "before": {
+        "report_completion": {
+          "total": 30,
+          "ok": 30,
+          "error": 0,
+          "missing": 0,
+          "rate": 1.0
+        },
+        "observation_detection": {
+          "true_positive": 36,
+          "false_positive": 0,
+          "false_negative": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "date_known": {
+          "correct": 33,
+          "total": 33,
+          "accuracy": 1.0
+        },
+        "count_known": {
+          "correct": 17,
+          "total": 17,
+          "accuracy": 1.0
+        },
+        "count_null": {
+          "correct": 19,
+          "total": 19,
+          "accuracy": 1.0,
+          "overfilled": 0
+        },
+        "scope_known": {
+          "correct": 22,
+          "total": 22,
+          "accuracy": 1.0
+        },
+        "assertion_accuracy": {
+          "correct": 36,
+          "total": 36,
+          "accuracy": 1.0
+        },
+        "issue_detection": {
+          "true_positive": 14,
+          "false_positive": 1,
+          "false_negative": 1,
+          "precision": 0.9333333333333333,
+          "recall": 0.9333333333333333,
+          "f1": 0.9333333333333333
+        },
+        "unknown_overfill": {
+          "errors": 0,
+          "reference_null_fields": 135,
+          "rate": 0.0
+        }
+      },
+      "after": {
+        "report_completion": {
+          "total": 30,
+          "ok": 30,
+          "error": 0,
+          "missing": 0,
+          "rate": 1.0
+        },
+        "observation_detection": {
+          "true_positive": 36,
+          "false_positive": 0,
+          "false_negative": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "date_known": {
+          "correct": 33,
+          "total": 33,
+          "accuracy": 1.0
+        },
+        "count_known": {
+          "correct": 17,
+          "total": 17,
+          "accuracy": 1.0
+        },
+        "count_null": {
+          "correct": 19,
+          "total": 19,
+          "accuracy": 1.0,
+          "overfilled": 0
+        },
+        "scope_known": {
+          "correct": 22,
+          "total": 22,
+          "accuracy": 1.0
+        },
+        "assertion_accuracy": {
+          "correct": 36,
+          "total": 36,
+          "accuracy": 1.0
+        },
+        "issue_detection": {
+          "true_positive": 14,
+          "false_positive": 1,
+          "false_negative": 1,
+          "precision": 0.9333333333333333,
+          "recall": 0.9333333333333333,
+          "f1": 0.9333333333333333
+        },
+        "unknown_overfill": {
+          "errors": 0,
+          "reference_null_fields": 135,
+          "rate": 0.0
+        }
+      }
+    },
+    "heldout-v1-r1": {
+      "saved_predictions_sha256": "605bcd44e5c6ab522014ed66696796d997f8f794039cb519995e619b1c4dafb4",
+      "original_metrics_sha256": "c2ccd98e735dbf5c6cd47f3a5e9f6abbf5df98c641ecceb030dfacb038a9574a",
+      "replayed_reports": 20,
+      "changed_report_ids": [
+        "H016"
+      ],
+      "extraction_checks_unchanged": true,
+      "before": {
+        "report_completion": {
+          "total": 20,
+          "ok": 18,
+          "error": 2,
+          "missing": 0,
+          "rate": 0.9
+        },
+        "observation_detection": {
+          "true_positive": 22,
+          "false_positive": 3,
+          "false_negative": 3,
+          "precision": 0.88,
+          "recall": 0.88,
+          "f1": 0.88
+        },
+        "date_known": {
+          "correct": 19,
+          "total": 23,
+          "accuracy": 0.8260869565217391
+        },
+        "count_known": {
+          "correct": 8,
+          "total": 11,
+          "accuracy": 0.7272727272727273
+        },
+        "count_null": {
+          "correct": 13,
+          "total": 14,
+          "accuracy": 0.9285714285714286,
+          "overfilled": 0
+        },
+        "scope_known": {
+          "correct": 9,
+          "total": 14,
+          "accuracy": 0.6428571428571429
+        },
+        "assertion_accuracy": {
+          "correct": 22,
+          "total": 25,
+          "accuracy": 0.88
+        },
+        "issue_detection": {
+          "true_positive": 7,
+          "false_positive": 2,
+          "false_negative": 2,
+          "precision": 0.7777777777777778,
+          "recall": 0.7777777777777778,
+          "f1": 0.7777777777777778
+        },
+        "unknown_overfill": {
+          "errors": 0,
+          "reference_null_fields": 97,
+          "rate": 0.0
+        }
+      },
+      "after": {
+        "report_completion": {
+          "total": 20,
+          "ok": 18,
+          "error": 2,
+          "missing": 0,
+          "rate": 0.9
+        },
+        "observation_detection": {
+          "true_positive": 23,
+          "false_positive": 1,
+          "false_negative": 2,
+          "precision": 0.9583333333333334,
+          "recall": 0.92,
+          "f1": 0.9387755102040817
+        },
+        "date_known": {
+          "correct": 20,
+          "total": 23,
+          "accuracy": 0.8695652173913043
+        },
+        "count_known": {
+          "correct": 8,
+          "total": 11,
+          "accuracy": 0.7272727272727273
+        },
+        "count_null": {
+          "correct": 14,
+          "total": 14,
+          "accuracy": 1.0,
+          "overfilled": 0
+        },
+        "scope_known": {
+          "correct": 10,
+          "total": 14,
+          "accuracy": 0.7142857142857143
+        },
+        "assertion_accuracy": {
+          "correct": 23,
+          "total": 25,
+          "accuracy": 0.92
+        },
+        "issue_detection": {
+          "true_positive": 8,
+          "false_positive": 2,
+          "false_negative": 1,
+          "precision": 0.8,
+          "recall": 0.8888888888888888,
+          "f1": 0.8421052631578947
+        },
+        "unknown_overfill": {
+          "errors": 0,
+          "reference_null_fields": 97,
+          "rate": 0.0
+        }
+      }
+    },
+    "heldout-v2-r1": {
+      "saved_predictions_sha256": "e053e7a6b7fa1939179cbe634742c60517c930dfa6ced234d5fab4067302842e",
+      "original_metrics_sha256": "e90a235736c794fe7d96e2cd9b8da88d9c145e419cff3ffd3f8073830d813f31",
+      "replayed_reports": 20,
+      "changed_report_ids": [],
+      "extraction_checks_unchanged": true,
+      "before": {
+        "report_completion": {
+          "total": 20,
+          "ok": 18,
+          "error": 2,
+          "missing": 0,
+          "rate": 0.9
+        },
+        "observation_detection": {
+          "true_positive": 23,
+          "false_positive": 2,
+          "false_negative": 2,
+          "precision": 0.92,
+          "recall": 0.92,
+          "f1": 0.92
+        },
+        "date_known": {
+          "correct": 21,
+          "total": 23,
+          "accuracy": 0.9130434782608695
+        },
+        "count_known": {
+          "correct": 8,
+          "total": 11,
+          "accuracy": 0.7272727272727273
+        },
+        "count_null": {
+          "correct": 13,
+          "total": 14,
+          "accuracy": 0.9285714285714286,
+          "overfilled": 1
+        },
+        "scope_known": {
+          "correct": 9,
+          "total": 14,
+          "accuracy": 0.6428571428571429
+        },
+        "assertion_accuracy": {
+          "correct": 23,
+          "total": 25,
+          "accuracy": 0.92
+        },
+        "issue_detection": {
+          "true_positive": 7,
+          "false_positive": 1,
+          "false_negative": 2,
+          "precision": 0.875,
+          "recall": 0.7777777777777778,
+          "f1": 0.8235294117647058
+        },
+        "unknown_overfill": {
+          "errors": 1,
+          "reference_null_fields": 97,
+          "rate": 0.010309278350515464
+        }
+      },
+      "after": {
+        "report_completion": {
+          "total": 20,
+          "ok": 18,
+          "error": 2,
+          "missing": 0,
+          "rate": 0.9
+        },
+        "observation_detection": {
+          "true_positive": 23,
+          "false_positive": 2,
+          "false_negative": 2,
+          "precision": 0.92,
+          "recall": 0.92,
+          "f1": 0.92
+        },
+        "date_known": {
+          "correct": 21,
+          "total": 23,
+          "accuracy": 0.9130434782608695
+        },
+        "count_known": {
+          "correct": 8,
+          "total": 11,
+          "accuracy": 0.7272727272727273
+        },
+        "count_null": {
+          "correct": 13,
+          "total": 14,
+          "accuracy": 0.9285714285714286,
+          "overfilled": 1
+        },
+        "scope_known": {
+          "correct": 9,
+          "total": 14,
+          "accuracy": 0.6428571428571429
+        },
+        "assertion_accuracy": {
+          "correct": 23,
+          "total": 25,
+          "accuracy": 0.92
+        },
+        "issue_detection": {
+          "true_positive": 7,
+          "false_positive": 1,
+          "false_negative": 2,
+          "precision": 0.875,
+          "recall": 0.7777777777777778,
+          "f1": 0.8235294117647058
+        },
+        "unknown_overfill": {
+          "errors": 1,
+          "reference_null_fields": 97,
+          "rate": 0.010309278350515464
+        }
+      }
+    },
+    "heldout-v1-r2": {
+      "saved_predictions_sha256": "36ff302fe6baba04639756a72b45a571274dd0221cb1ef4e71a29e3d23b63635",
+      "original_metrics_sha256": "4fb5ecee0c65a51bd7d66c464ff40c4268e08505301ce1233f599accdb12a9ff",
+      "replayed_reports": 20,
+      "changed_report_ids": [
+        "H016"
+      ],
+      "extraction_checks_unchanged": true,
+      "before": {
+        "report_completion": {
+          "total": 20,
+          "ok": 17,
+          "error": 3,
+          "missing": 0,
+          "rate": 0.85
+        },
+        "observation_detection": {
+          "true_positive": 19,
+          "false_positive": 3,
+          "false_negative": 6,
+          "precision": 0.8636363636363636,
+          "recall": 0.76,
+          "f1": 0.8085106382978723
+        },
+        "date_known": {
+          "correct": 16,
+          "total": 23,
+          "accuracy": 0.6956521739130435
+        },
+        "count_known": {
+          "correct": 7,
+          "total": 11,
+          "accuracy": 0.6363636363636364
+        },
+        "count_null": {
+          "correct": 11,
+          "total": 14,
+          "accuracy": 0.7857142857142857,
+          "overfilled": 0
+        },
+        "scope_known": {
+          "correct": 7,
+          "total": 14,
+          "accuracy": 0.5
+        },
+        "assertion_accuracy": {
+          "correct": 19,
+          "total": 25,
+          "accuracy": 0.76
+        },
+        "issue_detection": {
+          "true_positive": 7,
+          "false_positive": 2,
+          "false_negative": 2,
+          "precision": 0.7777777777777778,
+          "recall": 0.7777777777777778,
+          "f1": 0.7777777777777778
+        },
+        "unknown_overfill": {
+          "errors": 0,
+          "reference_null_fields": 97,
+          "rate": 0.0
+        }
+      },
+      "after": {
+        "report_completion": {
+          "total": 20,
+          "ok": 17,
+          "error": 3,
+          "missing": 0,
+          "rate": 0.85
+        },
+        "observation_detection": {
+          "true_positive": 20,
+          "false_positive": 1,
+          "false_negative": 5,
+          "precision": 0.9523809523809523,
+          "recall": 0.8,
+          "f1": 0.8695652173913043
+        },
+        "date_known": {
+          "correct": 17,
+          "total": 23,
+          "accuracy": 0.7391304347826086
+        },
+        "count_known": {
+          "correct": 7,
+          "total": 11,
+          "accuracy": 0.6363636363636364
+        },
+        "count_null": {
+          "correct": 12,
+          "total": 14,
+          "accuracy": 0.8571428571428571,
+          "overfilled": 0
+        },
+        "scope_known": {
+          "correct": 8,
+          "total": 14,
+          "accuracy": 0.5714285714285714
+        },
+        "assertion_accuracy": {
+          "correct": 20,
+          "total": 25,
+          "accuracy": 0.8
+        },
+        "issue_detection": {
+          "true_positive": 8,
+          "false_positive": 2,
+          "false_negative": 1,
+          "precision": 0.8,
+          "recall": 0.8888888888888888,
+          "f1": 0.8421052631578947
+        },
+        "unknown_overfill": {
+          "errors": 0,
+          "reference_null_fields": 97,
+          "rate": 0.0
+        }
+      }
+    },
+    "heldout-v2-r2": {
+      "saved_predictions_sha256": "d3f5482a8d49e61d9ae822fc4cc1a34a8b68eb55a10ff9635eddf17bd608314f",
+      "original_metrics_sha256": "f51f3eb3d6b0b208d88a0bdfad246be192b0b52210ba737ebd9b24b5ecc72c15",
+      "replayed_reports": 20,
+      "changed_report_ids": [
+        "H016"
+      ],
+      "extraction_checks_unchanged": true,
+      "before": {
+        "report_completion": {
+          "total": 20,
+          "ok": 17,
+          "error": 3,
+          "missing": 0,
+          "rate": 0.85
+        },
+        "observation_detection": {
+          "true_positive": 21,
+          "false_positive": 3,
+          "false_negative": 4,
+          "precision": 0.875,
+          "recall": 0.84,
+          "f1": 0.8571428571428571
+        },
+        "date_known": {
+          "correct": 19,
+          "total": 23,
+          "accuracy": 0.8260869565217391
+        },
+        "count_known": {
+          "correct": 8,
+          "total": 11,
+          "accuracy": 0.7272727272727273
+        },
+        "count_null": {
+          "correct": 12,
+          "total": 14,
+          "accuracy": 0.8571428571428571,
+          "overfilled": 0
+        },
+        "scope_known": {
+          "correct": 9,
+          "total": 14,
+          "accuracy": 0.6428571428571429
+        },
+        "assertion_accuracy": {
+          "correct": 21,
+          "total": 25,
+          "accuracy": 0.84
+        },
+        "issue_detection": {
+          "true_positive": 6,
+          "false_positive": 1,
+          "false_negative": 3,
+          "precision": 0.8571428571428571,
+          "recall": 0.6666666666666666,
+          "f1": 0.75
+        },
+        "unknown_overfill": {
+          "errors": 0,
+          "reference_null_fields": 97,
+          "rate": 0.0
+        }
+      },
+      "after": {
+        "report_completion": {
+          "total": 20,
+          "ok": 17,
+          "error": 3,
+          "missing": 0,
+          "rate": 0.85
+        },
+        "observation_detection": {
+          "true_positive": 22,
+          "false_positive": 1,
+          "false_negative": 3,
+          "precision": 0.9565217391304348,
+          "recall": 0.88,
+          "f1": 0.9166666666666666
+        },
+        "date_known": {
+          "correct": 20,
+          "total": 23,
+          "accuracy": 0.8695652173913043
+        },
+        "count_known": {
+          "correct": 8,
+          "total": 11,
+          "accuracy": 0.7272727272727273
+        },
+        "count_null": {
+          "correct": 13,
+          "total": 14,
+          "accuracy": 0.9285714285714286,
+          "overfilled": 0
+        },
+        "scope_known": {
+          "correct": 10,
+          "total": 14,
+          "accuracy": 0.7142857142857143
+        },
+        "assertion_accuracy": {
+          "correct": 22,
+          "total": 25,
+          "accuracy": 0.88
+        },
+        "issue_detection": {
+          "true_positive": 7,
+          "false_positive": 1,
+          "false_negative": 2,
+          "precision": 0.875,
+          "recall": 0.7777777777777778,
+          "f1": 0.8235294117647058
+        },
+        "unknown_overfill": {
+          "errors": 0,
+          "reference_null_fields": 97,
+          "rate": 0.0
+        }
+      }
+    }
+  }
+}
