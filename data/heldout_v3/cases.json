@@ -1,0 +1,122 @@
+[
+  {
+    "report_id": "T001",
+    "scenario_group": "v3_t001_bounded_window",
+    "focus": "bounded window; clock boundaries",
+    "reason": "Two episodes belong to a stated interval today. The interval endpoints are not episode times, and the text does not claim a day-to-date total."
+  },
+  {
+    "report_id": "T002",
+    "scenario_group": "v3_t002_single_event",
+    "focus": "single event; explicit clock",
+    "reason": "The patient identifies one particular episode with an exact clock time. No daily total is stated."
+  },
+  {
+    "report_id": "T003",
+    "scenario_group": "v3_t003_current_cumulative_total",
+    "focus": "current cumulative total; evening is not completed day",
+    "reason": "The tracking-card count explicitly covers the full current day so far through the submission. Its evening timing does not turn the running count into a completed-day total. The evidence spans both sentences to preserve the endpoint context."
+  },
+  {
+    "report_id": "T004",
+    "scenario_group": "v3_t004_completed_calendar_day",
+    "focus": "completed calendar day",
+    "reason": "Yesterday is a completed calendar day, and the patient explicitly states an entire-day total. The relative date is November 13."
+  },
+  {
+    "report_id": "T005",
+    "scenario_group": "v3_t005_multiple_days",
+    "focus": "multiple days; single date representation",
+    "reason": "The retreat tally covers three calendar dates and explicitly was not separated by date. Preserve the four episodes as one window count with no single event date and an unsupported-time-range issue; do not allocate episodes to dates."
+  },
+  {
+    "report_id": "T006",
+    "scenario_group": "v3_t006_negative_window",
+    "focus": "negative window; meal boundaries",
+    "reason": "Explicit absence supports zero only for the breakfast-to-lunch window. It does not establish absence throughout today, and meals do not supply exact clock times."
+  },
+  {
+    "report_id": "T007",
+    "scenario_group": "v3_t007_negative_completed_day",
+    "focus": "negative completed day",
+    "reason": "The patient explicitly denies vomiting for all of yesterday. This is a completed-day zero, unlike a negative statement limited to a window."
+  },
+  {
+    "report_id": "T008",
+    "scenario_group": "v3_t008_two_stated_episodes_one_window",
+    "focus": "two stated episodes one window; avoid duplicate observations",
+    "reason": "The explicit total of two and the two descriptions refer to the same train-ride window. Keep one count of two; do not emit an extra total plus duplicate individual episodes. Departure and arrival times bound the window."
+  },
+  {
+    "report_id": "T009",
+    "scenario_group": "v3_t009_cross_sentence_calendar_anchor",
+    "focus": "cross sentence calendar anchor; contiguous evidence",
+    "reason": "The first sentence dates the following symptom sentence. The contiguous evidence spans both sentences so the explicit calendar anchor remains traceable. Lunch is a window, not an exact time."
+  },
+  {
+    "report_id": "T010",
+    "scenario_group": "v3_t010_case_and_punctuation",
+    "focus": "case and punctuation; meal window count one",
+    "reason": "The evidence must retain uppercase TODAY, the colon, and the em dash exactly. One episode described within the after-supper interval uses the contract's window convention."
+  },
+  {
+    "report_id": "T011",
+    "scenario_group": "v3_t011_explicit_start_to_current_endpoint",
+    "focus": "explicit start to current endpoint; daily form conflict; earlier cumulative snapshot",
+    "reason": "The 09:00 running total is an earlier cumulative snapshot and stays separate; its cutoff is not an episode occurrence time, so event_time is null. The start-of-day-to-report text total of three is compatible with the submission-time form total of four, creating only a count conflict. Both compatible sources still support presence."
+  },
+  {
+    "report_id": "T012",
+    "scenario_group": "v3_t012_hypothetical",
+    "focus": "hypothetical; same day future anchor",
+    "reason": "The patient expresses a possibility tonight, not an observed episode. Tonight supplies a same-day anchor but no exact clock time, count, or severity."
+  },
+  {
+    "report_id": "T013",
+    "scenario_group": "v3_t013_unknown_date",
+    "focus": "unknown date; unknown count; meal window",
+    "reason": "Occurrence is explicit, while both date and count are explicitly unknown. A snack gives a window but cannot supply a date or clock time. The submission date must not fill the missing event date."
+  },
+  {
+    "report_id": "T014",
+    "scenario_group": "v3_t014_unknown_count_known_daily_scope",
+    "focus": "unknown count known daily scope",
+    "reason": "A current-day cumulative scope and occurrence are explicit even though the exact count is unavailable. Only count receives an issue; missing severity is simply null."
+  },
+  {
+    "report_id": "T015",
+    "scenario_group": "v3_t015_unsupported_severity_scale",
+    "focus": "unsupported severity scale",
+    "reason": "The rating has the required worst-so-far-today context but uses a 0-to-10 scale. Preserve the extracted seven and scale maximum ten in the targeted check, leave normalized severity null, and do not convert it."
+  },
+  {
+    "report_id": "T016",
+    "scenario_group": "v3_t016_current_only_severity",
+    "focus": "current only severity",
+    "reason": "The five-point scale is compatible but the score describes the present moment, not the worst value so far today. Keep the symptom and date, reject only the normalized severity."
+  },
+  {
+    "report_id": "T017",
+    "scenario_group": "v3_t017_unknown_severity_context",
+    "focus": "unknown severity context; cross sentence anchor",
+    "reason": "Today dates the nausea and associated note, but the patient explicitly cannot identify the score's summary context. The rating is retained as a source claim while normalized severity is null with a context-unknown issue."
+  },
+  {
+    "report_id": "T018",
+    "scenario_group": "v3_t018_no_relevant_symptoms",
+    "focus": "no relevant symptoms",
+    "reason": "Neither target symptom is mentioned and no questionnaire answer supplies one. A successful extraction has zero observations; silence is not explicit absence."
+  },
+  {
+    "report_id": "T019",
+    "scenario_group": "v3_t019_two_symptoms",
+    "focus": "two symptoms; medication temporal relation; distinct observations",
+    "reason": "Nausea follows the fictional medication by the patient's description, without a causal claim. Vomiting is a separate explicitly timed episode and does not inherit the medication relation. The exact-time observation precedes the untimed one in display order."
+  },
+  {
+    "report_id": "T020",
+    "scenario_group": "v3_t020_cross_sentence_calendar_anchor",
+    "focus": "cross sentence calendar anchor; two dates two symptoms; valid questionnaire rejected text score",
+    "reason": "The first two sentences jointly support a completed-day vomiting total on November 13. Today's nausea is separate. Its incompatible ten-point text score remains a diagnostic, while the independently valid current-day questionnaire supplies severity four; this is not a score conversion or eligible-score conflict."
+  }
+]

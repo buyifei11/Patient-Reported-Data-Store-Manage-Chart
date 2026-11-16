@@ -177,3 +177,20 @@ observation. The fourth candidate has `window` scope and remains separate; its
 alignment limitation still applies. The evaluator and historical scores are
 unchanged. Follow-up replay scores measure a code change on known cases, not new
 model inference or independent generalization.
+
+## Follow-up scope and evidence experiment
+
+The [v3 comparison](prompt_v3_comparison.md) uses the same evaluator and corrected
+normalizer for both prompts: 50 known regression reports and 20 newly authored
+validation reports, two rounds per arm. `scripts/run_prompt_v3.py` preserves full
+metrics and adds paired report diagnostics. It excludes `time_text` and
+`date_basis` from automated material-mismatch summaries, not from the full scores.
+Manual review must still distinguish a valid alternative excerpt from a wrong
+semantic phrase; H010's location-valued `time_text` is a genuine remaining error.
+
+V3 demonstrates why candidate checks, completion, and normalized-field accuracy
+must be read together. Fresh round 2 completes 20/20 reports but has only 11/16
+correct known normalized scopes and 12/16 targeted candidate scope checks. D012
+passes the fields selected in its targeted check while failing an uncovered
+cross-field date rule. Literal evidence checks also do not prove that every
+numeric claim is supported or that an interval endpoint is an episode time.

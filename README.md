@@ -8,17 +8,20 @@ The extraction and evaluation milestone is implemented: source validation, LLM t
 
 A subsequent [normalization fix](docs/normalization_fix.md) reconciles explicit midnight-to-submission daily counts with the questionnaire. Its offline replay uses the same saved candidates and preserves the original experiment artifacts.
 
+The [v3 scope/evidence comparison](docs/prompt_v3_comparison.md) is also complete: 280 paired calls on 50 known and 20 fresh reports. V3 improves evidence retention but introduces repeated count-scope errors, so the default remains v1. All outputs and failed cases are preserved.
+
 | Component | Status |
 | --- | --- |
 | Data contract | v0.2 design and executable strict schemas. |
 | Starter data | 10 reports, 3 fictional patients, 15 reference observations, 3 targeted extraction checks. |
-| Additional evaluation data | 20 development and 20 held-out reports; 50 reports and 61 reference observations across all sets. See [dataset roles](data/README.md). |
+| Additional evaluation data | 20 development, 20 first held-out, and 20 fresh v3 validation reports; 70 reports and 83 reference observations across all sets. See [dataset roles](data/README.md). |
 | Model integration | OpenAI Responses API and optional local Ollama adapter; no automatic model fallback. |
 | Normalization | Relative dates, evidence checks, severity rules, and compatible source reconciliation. |
 | Evaluation | Detection, per-field known/null accuracy, assertions, issue detection, and pre-reconciliation checks. |
 | Offline tests | Schema, client failure paths, normalization, metrics, and CLI boundaries. No API charges for tests. |
 | Database, cross-report aggregation, SQL, charts | Not implemented yet. Correction links are validated, but effective versions and cumulative totals are not computed. |
 | Prompt comparison | 140 recorded calls with frozen prompts, data, code, and scoring; all failures retained. |
+| Scope/evidence comparison | A separate 280-call v1/v3 comparison with two rounds per split; v3 remains experimental. |
 | Four-week longitudinal data | Not prepared yet. |
 
 The original reports and reference answers are unchanged. They were drafted with AI assistance and reviewed against the documented rules; they are development fixtures, not independently annotated clinical ground truth. Model outputs and code-test success do not establish clinical validity.
@@ -63,7 +66,7 @@ python run_pipeline.py evaluate \
 
 Use a new output filename for each run. Existing files are never overwritten. Extraction reads only source reports, sends only their text to the model, and saves actual candidates before normalization. It never reads gold. Evaluation is a separate command that reads saved output and references. `--limit` truncates extraction; evaluation still includes all reference reports, so unrequested reports count as missing unless you explicitly supply matching source and gold subsets.
 
-The default prompt is v1. Select `--prompt-file prompts/extraction_v2.txt` only when explicitly evaluating the experimental temporal revision. The selected file and its hash are recorded; a missing file fails before any API request. Do not interpret the retained default as a claim that v1 has no errors.
+The default prompt is v1. Select `--prompt-file prompts/extraction_v2.txt` for the experimental temporal revision, or `--prompt-file prompts/extraction_v3.txt` for the experimental scope/evidence revision. The selected file and its hash are recorded; a missing file fails before any API request. Neither revision passed its adoption gate. Do not interpret the retained default as a claim that v1 has no errors.
 
 Each result records `status`, candidates, observations, exact model output, an error code when needed, model/prompt/source/code metadata, and elapsed time. A failed report differs from a successful empty extraction. Valid candidates survive a normalization failure so the extraction stage can still be inspected. API/configuration failures stop the run; semantic failures are recorded per report. There are no automatic retries.
 
@@ -85,11 +88,12 @@ python run_pipeline.py extract --provider ollama --model YOUR_INSTALLED_MODEL \
 | `docs/evaluation.md` | Metric definitions, matching, and limitations. |
 | `docs/development_run.md` | Actual first-run results and error interpretation. |
 | `docs/prompt_experiment.md`, `docs/prompt_comparison.md` | Frozen experiment protocol and actual comparison findings. |
+| `docs/prompt_v3_experiment.md`, `docs/prompt_v3_comparison.md`, `scripts/run_prompt_v3.py` | Frozen scope/evidence protocol, measured results, and reproducible runner. |
 | `docs/normalization_fix.md`, `scripts/replay_normalization.py` | Daily-range reconciliation fix and reproducible offline replay of saved candidates. |
-| `data/README.md`, `data/dev/`, `data/heldout/` | Dataset roles, new sources/references, case groups, and pre-inference reviews. |
+| `data/README.md`, `data/dev/`, `data/heldout/`, `data/heldout_v3/` | Dataset roles, sources/references, case groups, and pre-inference reviews. |
 | `data/raw/reports.jsonl` | Original synthetic reports. |
 | `data/gold/expected.jsonl` | Authored answers; never model input. |
-| `prompts/extraction.txt`, `prompts/extraction_v1.txt`, `prompts/extraction_v2.txt` | Default baseline and explicitly versioned prompts. |
+| `prompts/extraction.txt`, `prompts/extraction_v1.txt`, `prompts/extraction_v2.txt`, `prompts/extraction_v3.txt` | Default baseline and explicitly versioned prompts. |
 | `src/schema.py` | Required fields, types, and input contracts. |
 | `src/openai_client.py`, `src/llm.py` | Cloud and local inference adapters. |
 | `src/normalization.py` | Code-owned dates, evidence, scopes, and reconciliation. |
@@ -114,4 +118,4 @@ The experiment also exposed a shared normalization defect: H016's phrase `from m
 
 Normalization supports a bounded set of English temporal expressions, ISO or English month/day/year dates, and explicit clock times. Unsupported or contradictory candidates fail visibly. Passing schema/evidence checks cannot prove that every semantic interpretation is correct. A single-day observation representation cannot allocate multi-day totals.
 
-Next, improve count-scope and evidence preservation in a separately versioned experiment. The reviewed cases are now known regression data; a future independent evaluation needs new cases. SQLite, correction-aware aggregation, SQL queries, charts, full follow-up coverage, and medication-change records remain future work.
+The v3 experiment improves evidence retention but confirms that known scopes can be lost when counts are unknown. It also exposes further current-day range wording and interval-endpoint limitations in the code. Next, address those deterministic boundaries and isolate evidence changes from scope changes in a future prompt comparison. The reviewed cases are now known regression data if used for tuning; a future independent evaluation needs new cases. SQLite, correction-aware aggregation, SQL queries, charts, full follow-up coverage, and medication-change records remain future work.

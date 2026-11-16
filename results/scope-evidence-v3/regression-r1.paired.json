@@ -1,0 +1,1438 @@
+{
+  "reference_role": "known_regression_data",
+  "interpretation": "Diagnostic mismatches in time_text and date_basis are excluded here; full metrics retain them. Matching ambiguity and mixed changes require manual review. No automatic adoption decision.",
+  "manifest_sha256": "30078111ab94c0a0ffc3296f6da18faa2a0f1594f0cd7216ed18720d34dbaf78",
+  "repeat": 1,
+  "reports": [
+    {
+      "report_id": "R001",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "R002",
+      "classification": "new_errors",
+      "status": {
+        "v1": "ok",
+        "v3": "error"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": "normalization_error"
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": [
+          {
+            "report_id": "R002",
+            "kind": "report_failure",
+            "status": "error",
+            "error": "Candidates failed provenance or normalization checks; inspect the saved candidates."
+          },
+          {
+            "report_id": "R002",
+            "reference_index": 0,
+            "reference_id": "R002-O1",
+            "prediction_index": null,
+            "kind": "missing_observation",
+            "symptom": "nausea",
+            "evidence": [
+              {
+                "path": "text",
+                "value": "My nausea has been 2 out of 5 at its worst so far today."
+              },
+              {
+                "path": "questionnaire_answers.0.symptom",
+                "value": "nausea"
+              },
+              {
+                "path": "questionnaire_answers.0.event_date",
+                "value": "2026-11-03"
+              },
+              {
+                "path": "questionnaire_answers.0.severity",
+                "value": 3
+              }
+            ]
+          },
+          {
+            "report_id": "R002",
+            "reference_index": 0,
+            "reference_id": "R002-O1",
+            "prediction_index": null,
+            "kind": "issues",
+            "missing": [
+              {
+                "field": "severity",
+                "code": "conflicting_sources"
+              }
+            ],
+            "extra": []
+          },
+          {
+            "report_id": "R002",
+            "reference_index": 1,
+            "reference_id": "R002-O2",
+            "prediction_index": null,
+            "kind": "missing_observation",
+            "symptom": "vomiting",
+            "evidence": [
+              {
+                "path": "text",
+                "value": "I have not vomited at all today."
+              },
+              {
+                "path": "questionnaire_answers.1.symptom",
+                "value": "vomiting"
+              },
+              {
+                "path": "questionnaire_answers.1.event_date",
+                "value": "2026-11-03"
+              },
+              {
+                "path": "questionnaire_answers.1.count",
+                "value": 0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "report_id": "R003",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "R004",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "R005",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "R006",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "R007",
+      "classification": "new_errors",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": [
+          {
+            "report_id": "R007",
+            "reference_index": 0,
+            "reference_id": "R007-O1",
+            "prediction_index": 0,
+            "kind": "field",
+            "field": "count_scope",
+            "expected": "window",
+            "predicted": "event",
+            "prediction_missing": false
+          }
+        ]
+      }
+    },
+    {
+      "report_id": "R008",
+      "classification": "new_errors",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": [
+          {
+            "report_id": "R008",
+            "reference_index": 0,
+            "reference_id": "R008-O1",
+            "prediction_index": 0,
+            "kind": "field",
+            "field": "count_scope",
+            "expected": "day_to_date",
+            "predicted": null,
+            "prediction_missing": false
+          }
+        ]
+      }
+    },
+    {
+      "report_id": "R009",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "R010",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "D001",
+      "classification": "resolved_errors",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [
+          {
+            "report_id": "D001",
+            "reference_index": 0,
+            "reference_id": "D001-O1",
+            "prediction_index": 0,
+            "kind": "field",
+            "field": "event_date",
+            "expected": "2026-12-10",
+            "predicted": null,
+            "prediction_missing": false
+          },
+          {
+            "report_id": "D001",
+            "reference_index": 0,
+            "reference_id": "D001-O1",
+            "prediction_index": 0,
+            "kind": "issues",
+            "missing": [],
+            "extra": [
+              {
+                "field": "event_date",
+                "code": "date_unknown"
+              }
+            ]
+          },
+          {
+            "report_id": "D001",
+            "kind": "extraction_check",
+            "check_index": 0,
+            "source": {
+              "path": "text",
+              "value": "I am afraid I could vomit tonight when the book club meets."
+            },
+            "candidate_found": true,
+            "ambiguous_candidates": false,
+            "differences": [
+              {
+                "field": "day_reference",
+                "expected": "today",
+                "predicted": "unknown",
+                "prediction_missing": false
+              }
+            ]
+          }
+        ],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "D002",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "D003",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "D004",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "D005",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "D006",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "D007",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "D008",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "D009",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "D010",
+      "classification": "unchanged_errors",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [
+          {
+            "report_id": "D010",
+            "reference_index": 0,
+            "reference_id": "D010-O1",
+            "prediction_index": 0,
+            "kind": "field",
+            "field": "count_scope",
+            "expected": "window",
+            "predicted": null,
+            "prediction_missing": false
+          },
+          {
+            "report_id": "D010",
+            "kind": "extraction_check",
+            "check_index": 0,
+            "source": {
+              "path": "text",
+              "value": "I threw up several times during today's ferry ride, but I did not count them."
+            },
+            "candidate_found": true,
+            "ambiguous_candidates": false,
+            "differences": [
+              {
+                "field": "count_scope",
+                "expected": "window",
+                "predicted": null,
+                "prediction_missing": false
+              }
+            ]
+          }
+        ],
+        "v3": [
+          {
+            "report_id": "D010",
+            "reference_index": 0,
+            "reference_id": "D010-O1",
+            "prediction_index": 0,
+            "kind": "field",
+            "field": "count_scope",
+            "expected": "window",
+            "predicted": null,
+            "prediction_missing": false
+          },
+          {
+            "report_id": "D010",
+            "kind": "extraction_check",
+            "check_index": 0,
+            "source": {
+              "path": "text",
+              "value": "I threw up several times during today's ferry ride, but I did not count them."
+            },
+            "candidate_found": true,
+            "ambiguous_candidates": false,
+            "differences": [
+              {
+                "field": "count_scope",
+                "expected": "window",
+                "predicted": null,
+                "prediction_missing": false
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "report_id": "D011",
+      "classification": "new_errors",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": [
+          {
+            "report_id": "D011",
+            "reference_index": 1,
+            "reference_id": "D011-O2",
+            "prediction_index": 1,
+            "kind": "field",
+            "field": "count",
+            "expected": 0,
+            "predicted": null,
+            "prediction_missing": false
+          },
+          {
+            "report_id": "D011",
+            "reference_index": 1,
+            "reference_id": "D011-O2",
+            "prediction_index": 1,
+            "kind": "field",
+            "field": "count_scope",
+            "expected": "day_to_date",
+            "predicted": null,
+            "prediction_missing": false
+          },
+          {
+            "report_id": "D011",
+            "kind": "extraction_check",
+            "check_index": 1,
+            "source": {
+              "path": "text",
+              "value": "I have not thrown up at any point since today began."
+            },
+            "candidate_found": true,
+            "ambiguous_candidates": false,
+            "differences": [
+              {
+                "field": "count",
+                "expected": 0,
+                "predicted": null,
+                "prediction_missing": false
+              },
+              {
+                "field": "count_scope",
+                "expected": "day_to_date",
+                "predicted": null,
+                "prediction_missing": false
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "report_id": "D012",
+      "classification": "changed_errors_requires_review",
+      "status": {
+        "v1": "error",
+        "v3": "error"
+      },
+      "error_code": {
+        "v1": "normalization_error",
+        "v3": "normalization_error"
+      },
+      "material_mismatches": {
+        "v1": [
+          {
+            "report_id": "D012",
+            "kind": "report_failure",
+            "status": "error",
+            "error": "Candidates failed provenance or normalization checks; inspect the saved candidates."
+          },
+          {
+            "report_id": "D012",
+            "reference_index": 0,
+            "reference_id": "D012-O1",
+            "prediction_index": null,
+            "kind": "missing_observation",
+            "symptom": "vomiting",
+            "evidence": [
+              {
+                "path": "text",
+                "value": "Between 2026-12-03 and 2026-12-05, I threw up a total of six times."
+              }
+            ]
+          },
+          {
+            "report_id": "D012",
+            "reference_index": 0,
+            "reference_id": "D012-O1",
+            "prediction_index": null,
+            "kind": "issues",
+            "missing": [
+              {
+                "field": "event_date",
+                "code": "unsupported_time_range"
+              }
+            ],
+            "extra": []
+          },
+          {
+            "report_id": "D012",
+            "kind": "extraction_check",
+            "check_index": 0,
+            "source": {
+              "path": "text",
+              "value": "Between 2026-12-03 and 2026-12-05, I threw up a total of six times."
+            },
+            "candidate_found": true,
+            "ambiguous_candidates": false,
+            "differences": [
+              {
+                "field": "count_scope",
+                "expected": "window",
+                "predicted": "day_total",
+                "prediction_missing": false
+              }
+            ]
+          }
+        ],
+        "v3": [
+          {
+            "report_id": "D012",
+            "kind": "report_failure",
+            "status": "error",
+            "error": "Candidates failed provenance or normalization checks; inspect the saved candidates."
+          },
+          {
+            "report_id": "D012",
+            "reference_index": 0,
+            "reference_id": "D012-O1",
+            "prediction_index": null,
+            "kind": "missing_observation",
+            "symptom": "vomiting",
+            "evidence": [
+              {
+                "path": "text",
+                "value": "Between 2026-12-03 and 2026-12-05, I threw up a total of six times."
+              }
+            ]
+          },
+          {
+            "report_id": "D012",
+            "reference_index": 0,
+            "reference_id": "D012-O1",
+            "prediction_index": null,
+            "kind": "issues",
+            "missing": [
+              {
+                "field": "event_date",
+                "code": "unsupported_time_range"
+              }
+            ],
+            "extra": []
+          }
+        ]
+      }
+    },
+    {
+      "report_id": "D013",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "D014",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "D015",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "D016",
+      "classification": "unchanged_errors",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [
+          {
+            "report_id": "D016",
+            "reference_index": 0,
+            "reference_id": "D016-O1",
+            "prediction_index": 0,
+            "kind": "issues",
+            "missing": [
+              {
+                "field": "severity",
+                "code": "severity_context_unknown"
+              }
+            ],
+            "extra": [
+              {
+                "field": "severity",
+                "code": "unsupported_severity_context"
+              }
+            ]
+          },
+          {
+            "report_id": "D016",
+            "kind": "extraction_check",
+            "check_index": 0,
+            "source": {
+              "path": "text",
+              "value": "Nausea today: 2 out of 5."
+            },
+            "candidate_found": true,
+            "ambiguous_candidates": false,
+            "differences": [
+              {
+                "field": "severity_context",
+                "expected": "unknown",
+                "predicted": "current",
+                "prediction_missing": false
+              }
+            ]
+          }
+        ],
+        "v3": [
+          {
+            "report_id": "D016",
+            "reference_index": 0,
+            "reference_id": "D016-O1",
+            "prediction_index": 0,
+            "kind": "issues",
+            "missing": [
+              {
+                "field": "severity",
+                "code": "severity_context_unknown"
+              }
+            ],
+            "extra": [
+              {
+                "field": "severity",
+                "code": "unsupported_severity_context"
+              }
+            ]
+          },
+          {
+            "report_id": "D016",
+            "kind": "extraction_check",
+            "check_index": 0,
+            "source": {
+              "path": "text",
+              "value": "Nausea today: 2 out of 5."
+            },
+            "candidate_found": true,
+            "ambiguous_candidates": false,
+            "differences": [
+              {
+                "field": "severity_context",
+                "expected": "unknown",
+                "predicted": "current",
+                "prediction_missing": false
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "report_id": "D017",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "D018",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "D019",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "D020",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "H001",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "H002",
+      "classification": "resolved_errors",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [
+          {
+            "report_id": "H002",
+            "reference_index": 0,
+            "reference_id": "H002-O1",
+            "prediction_index": 0,
+            "kind": "field",
+            "field": "count",
+            "expected": 2,
+            "predicted": 1,
+            "prediction_missing": false
+          },
+          {
+            "report_id": "H002",
+            "reference_index": 0,
+            "reference_id": "H002-O1",
+            "prediction_index": 0,
+            "kind": "field",
+            "field": "count_scope",
+            "expected": "window",
+            "predicted": "event",
+            "prediction_missing": false
+          },
+          {
+            "report_id": "H002",
+            "kind": "extra_observation",
+            "prediction_index": 1,
+            "symptom": "vomiting",
+            "evidence": [
+              {
+                "path": "text",
+                "value": "vomited in two separate bouts during our card game."
+              }
+            ]
+          },
+          {
+            "report_id": "H002",
+            "kind": "extraction_check",
+            "check_index": 0,
+            "source": {
+              "path": "text",
+              "value": "This evening I vomited in two separate bouts during our card game."
+            },
+            "candidate_found": true,
+            "ambiguous_candidates": false,
+            "differences": [
+              {
+                "field": "count",
+                "expected": 2,
+                "predicted": 1,
+                "prediction_missing": false
+              },
+              {
+                "field": "count_scope",
+                "expected": "window",
+                "predicted": "event",
+                "prediction_missing": false
+              }
+            ]
+          }
+        ],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "H003",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "H004",
+      "classification": "resolved_errors",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [
+          {
+            "report_id": "H004",
+            "reference_index": 0,
+            "reference_id": "H004-O1",
+            "prediction_index": 0,
+            "kind": "field",
+            "field": "event_date",
+            "expected": "2026-11-13",
+            "predicted": null,
+            "prediction_missing": false
+          },
+          {
+            "report_id": "H004",
+            "reference_index": 0,
+            "reference_id": "H004-O1",
+            "prediction_index": 0,
+            "kind": "issues",
+            "missing": [],
+            "extra": [
+              {
+                "field": "event_date",
+                "code": "date_unknown"
+              }
+            ]
+          },
+          {
+            "report_id": "H004",
+            "kind": "extraction_check",
+            "check_index": 0,
+            "source": {
+              "path": "text",
+              "value": "Should vomiting interrupt the concert tonight, I plan to leave at intermission."
+            },
+            "candidate_found": true,
+            "ambiguous_candidates": false,
+            "differences": [
+              {
+                "field": "day_reference",
+                "expected": "today",
+                "predicted": "unknown",
+                "prediction_missing": false
+              }
+            ]
+          }
+        ],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "H005",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "H006",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "H007",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "H008",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "H009",
+      "classification": "new_errors",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": [
+          {
+            "report_id": "H009",
+            "reference_index": 0,
+            "reference_id": "H009-O1",
+            "prediction_index": 0,
+            "kind": "field",
+            "field": "count_scope",
+            "expected": "day_to_date",
+            "predicted": null,
+            "prediction_missing": false
+          },
+          {
+            "report_id": "H009",
+            "kind": "extraction_check",
+            "check_index": 0,
+            "source": {
+              "path": "text",
+              "value": "I've been vomiting since I woke up, but I cannot tell whether the total so far today is three or four."
+            },
+            "candidate_found": true,
+            "ambiguous_candidates": false,
+            "differences": [
+              {
+                "field": "count_scope",
+                "expected": "day_to_date",
+                "predicted": null,
+                "prediction_missing": false
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "report_id": "H010",
+      "classification": "resolved_errors",
+      "status": {
+        "v1": "error",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": "normalization_error",
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [
+          {
+            "report_id": "H010",
+            "kind": "report_failure",
+            "status": "error",
+            "error": "Candidates failed provenance or normalization checks; inspect the saved candidates."
+          },
+          {
+            "report_id": "H010",
+            "reference_index": 0,
+            "reference_id": "H010-O1",
+            "prediction_index": null,
+            "kind": "missing_observation",
+            "symptom": "vomiting",
+            "evidence": [
+              {
+                "path": "text",
+                "value": "I found a tally of seven vomiting episodes on the back of a community-center schedule. It combines 2026-11-06, 2026-11-07, 2026-11-08, and 2026-11-09 into one total; I cannot split it by date."
+              }
+            ]
+          },
+          {
+            "report_id": "H010",
+            "reference_index": 0,
+            "reference_id": "H010-O1",
+            "prediction_index": null,
+            "kind": "issues",
+            "missing": [
+              {
+                "field": "event_date",
+                "code": "unsupported_time_range"
+              }
+            ],
+            "extra": []
+          },
+          {
+            "report_id": "H010",
+            "kind": "extraction_check",
+            "check_index": 0,
+            "source": {
+              "path": "text",
+              "value": "I found a tally of seven vomiting episodes on the back of a community-center schedule. It combines 2026-11-06, 2026-11-07, 2026-11-08, and 2026-11-09 into one total; I cannot split it by date."
+            },
+            "candidate_found": true,
+            "ambiguous_candidates": false,
+            "differences": [
+              {
+                "field": "count_scope",
+                "expected": "window",
+                "predicted": "day_total",
+                "prediction_missing": false
+              }
+            ]
+          }
+        ],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "H011",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "H012",
+      "classification": "resolved_errors",
+      "status": {
+        "v1": "error",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": "normalization_error",
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [
+          {
+            "report_id": "H012",
+            "kind": "report_failure",
+            "status": "error",
+            "error": "Candidates failed provenance or normalization checks; inspect the saved candidates."
+          },
+          {
+            "report_id": "H012",
+            "reference_index": 0,
+            "reference_id": "H012-O1",
+            "prediction_index": null,
+            "kind": "missing_observation",
+            "symptom": "vomiting",
+            "evidence": [
+              {
+                "path": "text",
+                "value": "My finished log for 2026-11-08 records no vomiting from midnight to midnight."
+              }
+            ]
+          }
+        ],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "H013",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "H014",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "H015",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "H016",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "H017",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "H018",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "H019",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "H020",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    }
+  ]
+}

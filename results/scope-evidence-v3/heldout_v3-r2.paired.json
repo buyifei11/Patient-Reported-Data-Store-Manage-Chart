@@ -1,0 +1,958 @@
+{
+  "reference_role": "fresh_synthetic_validation",
+  "interpretation": "Diagnostic mismatches in time_text and date_basis are excluded here; full metrics retain them. Matching ambiguity and mixed changes require manual review. No automatic adoption decision.",
+  "manifest_sha256": "30078111ab94c0a0ffc3296f6da18faa2a0f1594f0cd7216ed18720d34dbaf78",
+  "repeat": 2,
+  "reports": [
+    {
+      "report_id": "T001",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "T002",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "T003",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "T004",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "T005",
+      "classification": "resolved_errors",
+      "status": {
+        "v1": "error",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": "normalization_error",
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [
+          {
+            "report_id": "T005",
+            "kind": "report_failure",
+            "status": "error",
+            "error": "Candidates failed provenance or normalization checks; inspect the saved candidates."
+          },
+          {
+            "report_id": "T005",
+            "reference_index": 0,
+            "reference_id": "T005-O1",
+            "prediction_index": null,
+            "kind": "missing_observation",
+            "symptom": "vomiting",
+            "evidence": [
+              {
+                "path": "text",
+                "value": "I kept a single tally during the retreat, which ran from 2026-11-09 through 2026-11-11: four vomiting episodes."
+              }
+            ]
+          },
+          {
+            "report_id": "T005",
+            "reference_index": 0,
+            "reference_id": "T005-O1",
+            "prediction_index": null,
+            "kind": "issues",
+            "missing": [
+              {
+                "field": "event_date",
+                "code": "unsupported_time_range"
+              }
+            ],
+            "extra": []
+          },
+          {
+            "report_id": "T005",
+            "kind": "extraction_check",
+            "check_index": 0,
+            "source": {
+              "path": "text",
+              "value": "I kept a single tally during the retreat, which ran from 2026-11-09 through 2026-11-11: four vomiting episodes."
+            },
+            "candidate_found": true,
+            "ambiguous_candidates": false,
+            "differences": [
+              {
+                "field": "count_scope",
+                "expected": "window",
+                "predicted": "day_to_date",
+                "prediction_missing": false
+              }
+            ]
+          }
+        ],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "T006",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "T007",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "T008",
+      "classification": "changed_errors_requires_review",
+      "status": {
+        "v1": "error",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": "normalization_error",
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [
+          {
+            "report_id": "T008",
+            "kind": "report_failure",
+            "status": "error",
+            "error": "Candidates failed provenance or normalization checks; inspect the saved candidates."
+          },
+          {
+            "report_id": "T008",
+            "reference_index": 0,
+            "reference_id": "T008-O1",
+            "prediction_index": null,
+            "kind": "missing_observation",
+            "symptom": "vomiting",
+            "evidence": [
+              {
+                "path": "text",
+                "value": "During today's train ride from 10:00 to 11:00, I vomited twice: once just after boarding and once before arrival."
+              }
+            ]
+          },
+          {
+            "report_id": "T008",
+            "kind": "extraction_check",
+            "check_index": 0,
+            "source": {
+              "path": "text",
+              "value": "During today's train ride from 10:00 to 11:00, I vomited twice: once just after boarding and once before arrival."
+            },
+            "candidate_found": true,
+            "ambiguous_candidates": false,
+            "differences": [
+              {
+                "field": "count",
+                "expected": 2,
+                "predicted": 1,
+                "prediction_missing": false
+              },
+              {
+                "field": "count_scope",
+                "expected": "window",
+                "predicted": "event",
+                "prediction_missing": false
+              }
+            ]
+          }
+        ],
+        "v3": [
+          {
+            "report_id": "T008",
+            "reference_index": 0,
+            "reference_id": "T008-O1",
+            "prediction_index": 0,
+            "kind": "field",
+            "field": "event_time",
+            "expected": null,
+            "predicted": "10:00",
+            "prediction_missing": false
+          },
+          {
+            "report_id": "T008",
+            "kind": "extraction_check",
+            "check_index": 0,
+            "source": {
+              "path": "text",
+              "value": "During today's train ride from 10:00 to 11:00, I vomited twice: once just after boarding and once before arrival."
+            },
+            "candidate_found": true,
+            "ambiguous_candidates": false,
+            "differences": [
+              {
+                "field": "clock_time",
+                "expected": null,
+                "predicted": "10:00",
+                "prediction_missing": false
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "report_id": "T009",
+      "classification": "resolved_errors",
+      "status": {
+        "v1": "error",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": "normalization_error",
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [
+          {
+            "report_id": "T009",
+            "kind": "report_failure",
+            "status": "error",
+            "error": "Candidates failed provenance or normalization checks; inspect the saved candidates."
+          },
+          {
+            "report_id": "T009",
+            "reference_index": 0,
+            "reference_id": "T009-O1",
+            "prediction_index": null,
+            "kind": "missing_observation",
+            "symptom": "vomiting",
+            "evidence": [
+              {
+                "path": "text",
+                "value": "This note is about 2026-11-13. During lunch, I vomited twice."
+              }
+            ]
+          }
+        ],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "T010",
+      "classification": "changed_errors_requires_review",
+      "status": {
+        "v1": "error",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": "normalization_error",
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [
+          {
+            "report_id": "T010",
+            "kind": "report_failure",
+            "status": "error",
+            "error": "Candidates failed provenance or normalization checks; inspect the saved candidates."
+          },
+          {
+            "report_id": "T010",
+            "reference_index": 0,
+            "reference_id": "T010-O1",
+            "prediction_index": null,
+            "kind": "missing_observation",
+            "symptom": "vomiting",
+            "evidence": [
+              {
+                "path": "text",
+                "value": "TODAY: after supper, I vomited once—then rested."
+              }
+            ]
+          }
+        ],
+        "v3": [
+          {
+            "report_id": "T010",
+            "reference_index": 0,
+            "reference_id": "T010-O1",
+            "prediction_index": 0,
+            "kind": "field",
+            "field": "count_scope",
+            "expected": "window",
+            "predicted": "event",
+            "prediction_missing": false
+          },
+          {
+            "report_id": "T010",
+            "kind": "extraction_check",
+            "check_index": 0,
+            "source": {
+              "path": "text",
+              "value": "TODAY: after supper, I vomited once—then rested."
+            },
+            "candidate_found": true,
+            "ambiguous_candidates": false,
+            "differences": [
+              {
+                "field": "count_scope",
+                "expected": "window",
+                "predicted": "event",
+                "prediction_missing": false
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "report_id": "T011",
+      "classification": "changed_errors_requires_review",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [
+          {
+            "report_id": "T011",
+            "reference_index": 0,
+            "reference_id": "T011-O1",
+            "prediction_index": 0,
+            "kind": "field",
+            "field": "event_time",
+            "expected": null,
+            "predicted": "09:00",
+            "prediction_missing": false
+          },
+          {
+            "report_id": "T011",
+            "reference_index": 1,
+            "reference_id": "T011-O2",
+            "prediction_index": null,
+            "kind": "missing_observation",
+            "symptom": "vomiting",
+            "evidence": [
+              {
+                "path": "text",
+                "value": "Since midnight today up to the time of this report, I have vomited three times in total."
+              },
+              {
+                "path": "questionnaire_answers.0.symptom",
+                "value": "vomiting"
+              },
+              {
+                "path": "questionnaire_answers.0.event_date",
+                "value": "2026-11-14"
+              },
+              {
+                "path": "questionnaire_answers.0.count",
+                "value": 4
+              }
+            ]
+          },
+          {
+            "report_id": "T011",
+            "reference_index": 1,
+            "reference_id": "T011-O2",
+            "prediction_index": null,
+            "kind": "issues",
+            "missing": [
+              {
+                "field": "count",
+                "code": "conflicting_sources"
+              }
+            ],
+            "extra": []
+          },
+          {
+            "report_id": "T011",
+            "kind": "extra_observation",
+            "prediction_index": 1,
+            "symptom": "vomiting",
+            "evidence": [
+              {
+                "path": "text",
+                "value": "Since midnight today up to the time of this report, I have vomited three times in total."
+              }
+            ]
+          },
+          {
+            "report_id": "T011",
+            "kind": "extra_observation",
+            "prediction_index": 2,
+            "symptom": "vomiting",
+            "evidence": [
+              {
+                "path": "questionnaire_answers.0.symptom",
+                "value": "vomiting"
+              },
+              {
+                "path": "questionnaire_answers.0.event_date",
+                "value": "2026-11-14"
+              },
+              {
+                "path": "questionnaire_answers.0.count",
+                "value": 4
+              }
+            ]
+          },
+          {
+            "report_id": "T011",
+            "kind": "extraction_check",
+            "check_index": 0,
+            "source": {
+              "path": "text",
+              "value": "By 09:00 today, I had vomited once in total."
+            },
+            "candidate_found": true,
+            "ambiguous_candidates": false,
+            "differences": [
+              {
+                "field": "clock_time",
+                "expected": null,
+                "predicted": "09:00",
+                "prediction_missing": false
+              }
+            ]
+          }
+        ],
+        "v3": [
+          {
+            "report_id": "T011",
+            "reference_index": 0,
+            "reference_id": "T011-O1",
+            "prediction_index": 0,
+            "kind": "field",
+            "field": "count_scope",
+            "expected": "day_to_date",
+            "predicted": "window",
+            "prediction_missing": false
+          },
+          {
+            "report_id": "T011",
+            "reference_index": 0,
+            "reference_id": "T011-O1",
+            "prediction_index": 0,
+            "kind": "field",
+            "field": "event_time",
+            "expected": null,
+            "predicted": "09:00",
+            "prediction_missing": false
+          },
+          {
+            "report_id": "T011",
+            "reference_index": 1,
+            "reference_id": "T011-O2",
+            "prediction_index": null,
+            "kind": "missing_observation",
+            "symptom": "vomiting",
+            "evidence": [
+              {
+                "path": "text",
+                "value": "Since midnight today up to the time of this report, I have vomited three times in total."
+              },
+              {
+                "path": "questionnaire_answers.0.symptom",
+                "value": "vomiting"
+              },
+              {
+                "path": "questionnaire_answers.0.event_date",
+                "value": "2026-11-14"
+              },
+              {
+                "path": "questionnaire_answers.0.count",
+                "value": 4
+              }
+            ]
+          },
+          {
+            "report_id": "T011",
+            "reference_index": 1,
+            "reference_id": "T011-O2",
+            "prediction_index": null,
+            "kind": "issues",
+            "missing": [
+              {
+                "field": "count",
+                "code": "conflicting_sources"
+              }
+            ],
+            "extra": []
+          },
+          {
+            "report_id": "T011",
+            "kind": "extra_observation",
+            "prediction_index": 1,
+            "symptom": "vomiting",
+            "evidence": [
+              {
+                "path": "text",
+                "value": "Since midnight today up to the time of this report, I have vomited three times in total."
+              }
+            ]
+          },
+          {
+            "report_id": "T011",
+            "kind": "extra_observation",
+            "prediction_index": 2,
+            "symptom": "vomiting",
+            "evidence": [
+              {
+                "path": "questionnaire_answers.0.symptom",
+                "value": "vomiting"
+              },
+              {
+                "path": "questionnaire_answers.0.event_date",
+                "value": "2026-11-14"
+              },
+              {
+                "path": "questionnaire_answers.0.count",
+                "value": 4
+              }
+            ]
+          },
+          {
+            "report_id": "T011",
+            "kind": "extraction_check",
+            "check_index": 0,
+            "source": {
+              "path": "text",
+              "value": "By 09:00 today, I had vomited once in total."
+            },
+            "candidate_found": true,
+            "ambiguous_candidates": false,
+            "differences": [
+              {
+                "field": "count_scope",
+                "expected": "day_to_date",
+                "predicted": "window",
+                "prediction_missing": false
+              },
+              {
+                "field": "clock_time",
+                "expected": null,
+                "predicted": "09:00",
+                "prediction_missing": false
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "report_id": "T012",
+      "classification": "resolved_errors",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [
+          {
+            "report_id": "T012",
+            "reference_index": 0,
+            "reference_id": "T012-O1",
+            "prediction_index": 0,
+            "kind": "field",
+            "field": "event_date",
+            "expected": "2026-11-14",
+            "predicted": null,
+            "prediction_missing": false
+          },
+          {
+            "report_id": "T012",
+            "reference_index": 0,
+            "reference_id": "T012-O1",
+            "prediction_index": 0,
+            "kind": "issues",
+            "missing": [],
+            "extra": [
+              {
+                "field": "event_date",
+                "code": "date_unknown"
+              }
+            ]
+          },
+          {
+            "report_id": "T012",
+            "kind": "extraction_check",
+            "check_index": 0,
+            "source": {
+              "path": "text",
+              "value": "I am worried that I might vomit tonight if the journey is rough."
+            },
+            "candidate_found": true,
+            "ambiguous_candidates": false,
+            "differences": [
+              {
+                "field": "day_reference",
+                "expected": "today",
+                "predicted": "unknown",
+                "prediction_missing": false
+              }
+            ]
+          }
+        ],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "T013",
+      "classification": "new_errors",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": [
+          {
+            "report_id": "T013",
+            "reference_index": 0,
+            "reference_id": "T013-O1",
+            "prediction_index": 0,
+            "kind": "field",
+            "field": "count_scope",
+            "expected": "window",
+            "predicted": null,
+            "prediction_missing": false
+          },
+          {
+            "report_id": "T013",
+            "kind": "extraction_check",
+            "check_index": 0,
+            "source": {
+              "path": "text",
+              "value": "I vomited after a snack, but I cannot remember which day it happened or how many times."
+            },
+            "candidate_found": true,
+            "ambiguous_candidates": false,
+            "differences": [
+              {
+                "field": "count_scope",
+                "expected": "window",
+                "predicted": null,
+                "prediction_missing": false
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "report_id": "T014",
+      "classification": "new_errors",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": [
+          {
+            "report_id": "T014",
+            "reference_index": 0,
+            "reference_id": "T014-O1",
+            "prediction_index": 0,
+            "kind": "field",
+            "field": "count_scope",
+            "expected": "day_to_date",
+            "predicted": null,
+            "prediction_missing": false
+          },
+          {
+            "report_id": "T014",
+            "kind": "extraction_check",
+            "check_index": 0,
+            "source": {
+              "path": "text",
+              "value": "I have lost track of how many times I have vomited in total so far today."
+            },
+            "candidate_found": true,
+            "ambiguous_candidates": false,
+            "differences": [
+              {
+                "field": "count_scope",
+                "expected": "day_to_date",
+                "predicted": null,
+                "prediction_missing": false
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "report_id": "T015",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "T016",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "T017",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "T018",
+      "classification": "no_material_mismatches",
+      "status": {
+        "v1": "ok",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": null,
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "T019",
+      "classification": "resolved_errors",
+      "status": {
+        "v1": "error",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": "normalization_error",
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [
+          {
+            "report_id": "T019",
+            "kind": "report_failure",
+            "status": "error",
+            "error": "Candidates failed provenance or normalization checks; inspect the saved candidates."
+          },
+          {
+            "report_id": "T019",
+            "reference_index": 0,
+            "reference_id": "T019-O1",
+            "prediction_index": null,
+            "kind": "missing_observation",
+            "symptom": "vomiting",
+            "evidence": [
+              {
+                "path": "text",
+                "value": "Later I had a single bout of vomiting, at 12:40 today, while waiting for a parcel."
+              }
+            ]
+          },
+          {
+            "report_id": "T019",
+            "reference_index": 1,
+            "reference_id": "T019-O2",
+            "prediction_index": null,
+            "kind": "missing_observation",
+            "symptom": "nausea",
+            "evidence": [
+              {
+                "path": "text",
+                "value": "After I took Medication Willowglass this morning, nausea interrupted my attempt to finish a crossword."
+              }
+            ]
+          }
+        ],
+        "v3": []
+      }
+    },
+    {
+      "report_id": "T020",
+      "classification": "resolved_errors",
+      "status": {
+        "v1": "error",
+        "v3": "ok"
+      },
+      "error_code": {
+        "v1": "normalization_error",
+        "v3": null
+      },
+      "material_mismatches": {
+        "v1": [
+          {
+            "report_id": "T020",
+            "kind": "report_failure",
+            "status": "error",
+            "error": "Candidates failed provenance or normalization checks; inspect the saved candidates."
+          },
+          {
+            "report_id": "T020",
+            "reference_index": 0,
+            "reference_id": "T020-O1",
+            "prediction_index": null,
+            "kind": "missing_observation",
+            "symptom": "vomiting",
+            "evidence": [
+              {
+                "path": "text",
+                "value": "My notes for 2026-11-13 follow. Over that whole day, I vomited twice in total."
+              }
+            ]
+          },
+          {
+            "report_id": "T020",
+            "reference_index": 1,
+            "reference_id": "T020-O2",
+            "prediction_index": null,
+            "kind": "missing_observation",
+            "symptom": "nausea",
+            "evidence": [
+              {
+                "path": "text",
+                "value": "Today my worst nausea so far is 6 on a 0-to-10 scale."
+              },
+              {
+                "path": "questionnaire_answers.0.symptom",
+                "value": "nausea"
+              },
+              {
+                "path": "questionnaire_answers.0.event_date",
+                "value": "2026-11-14"
+              },
+              {
+                "path": "questionnaire_answers.0.severity",
+                "value": 4
+              }
+            ]
+          },
+          {
+            "report_id": "T020",
+            "reference_index": 1,
+            "reference_id": "T020-O2",
+            "prediction_index": null,
+            "kind": "issues",
+            "missing": [
+              {
+                "field": "severity",
+                "code": "unsupported_scale"
+              }
+            ],
+            "extra": []
+          }
+        ],
+        "v3": []
+      }
+    }
+  ]
+}

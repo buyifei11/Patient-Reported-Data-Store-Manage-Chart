@@ -1,0 +1,874 @@
+{
+  "evaluation_version": "1.0",
+  "reference_role": "known_regression_data",
+  "report_completion": {
+    "total": 50,
+    "ok": 45,
+    "error": 5,
+    "missing": 0,
+    "rate": 0.9
+  },
+  "observation_detection": {
+    "true_positive": 54,
+    "false_positive": 1,
+    "false_negative": 7,
+    "precision": 0.9818181818181818,
+    "recall": 0.8852459016393442,
+    "f1": 0.9310344827586207
+  },
+  "fields": {
+    "symptom": {
+      "reference_known": {
+        "correct": 54,
+        "total": 61,
+        "accuracy": 0.8852459016393442
+      },
+      "reference_null": {
+        "correct": 0,
+        "total": 0,
+        "accuracy": null,
+        "overfilled": 0
+      },
+      "missing_predictions": 7
+    },
+    "assertion": {
+      "reference_known": {
+        "correct": 54,
+        "total": 61,
+        "accuracy": 0.8852459016393442
+      },
+      "reference_null": {
+        "correct": 0,
+        "total": 0,
+        "accuracy": null,
+        "overfilled": 0
+      },
+      "missing_predictions": 7
+    },
+    "count": {
+      "reference_known": {
+        "correct": 23,
+        "total": 28,
+        "accuracy": 0.8214285714285714
+      },
+      "reference_null": {
+        "correct": 30,
+        "total": 33,
+        "accuracy": 0.9090909090909091,
+        "overfilled": 0
+      },
+      "missing_predictions": 7
+    },
+    "count_scope": {
+      "reference_known": {
+        "correct": 30,
+        "total": 36,
+        "accuracy": 0.8333333333333334
+      },
+      "reference_null": {
+        "correct": 22,
+        "total": 25,
+        "accuracy": 0.88,
+        "overfilled": 0
+      },
+      "missing_predictions": 7
+    },
+    "severity": {
+      "reference_known": {
+        "correct": 5,
+        "total": 5,
+        "accuracy": 1.0
+      },
+      "reference_null": {
+        "correct": 49,
+        "total": 56,
+        "accuracy": 0.875,
+        "overfilled": 0
+      },
+      "missing_predictions": 7
+    },
+    "event_date": {
+      "reference_known": {
+        "correct": 47,
+        "total": 56,
+        "accuracy": 0.8392857142857143
+      },
+      "reference_null": {
+        "correct": 3,
+        "total": 5,
+        "accuracy": 0.6,
+        "overfilled": 0
+      },
+      "missing_predictions": 7
+    },
+    "event_time": {
+      "reference_known": {
+        "correct": 8,
+        "total": 8,
+        "accuracy": 1.0
+      },
+      "reference_null": {
+        "correct": 46,
+        "total": 53,
+        "accuracy": 0.8679245283018868,
+        "overfilled": 0
+      },
+      "missing_predictions": 7
+    },
+    "time_text": {
+      "reference_known": {
+        "correct": 42,
+        "total": 60,
+        "accuracy": 0.7
+      },
+      "reference_null": {
+        "correct": 1,
+        "total": 1,
+        "accuracy": 1.0,
+        "overfilled": 0
+      },
+      "missing_predictions": 7
+    },
+    "date_basis": {
+      "reference_known": {
+        "correct": 50,
+        "total": 61,
+        "accuracy": 0.819672131147541
+      },
+      "reference_null": {
+        "correct": 0,
+        "total": 0,
+        "accuracy": null,
+        "overfilled": 0
+      },
+      "missing_predictions": 7
+    },
+    "medication_relation": {
+      "reference_known": {
+        "correct": 2,
+        "total": 2,
+        "accuracy": 1.0
+      },
+      "reference_null": {
+        "correct": 52,
+        "total": 59,
+        "accuracy": 0.8813559322033898,
+        "overfilled": 0
+      },
+      "missing_predictions": 7
+    }
+  },
+  "assertion_accuracy": {
+    "correct": 54,
+    "total": 61,
+    "accuracy": 0.8852459016393442
+  },
+  "unknown_overfill": {
+    "errors": 0,
+    "reference_null_fields": 232,
+    "rate": 0.0
+  },
+  "issue_detection": {
+    "true_positive": 21,
+    "false_positive": 4,
+    "false_negative": 3,
+    "precision": 0.84,
+    "recall": 0.875,
+    "f1": 0.8571428571428571
+  },
+  "extraction_checks": {
+    "passed": 34,
+    "total": 41,
+    "accuracy": 0.8292682926829268,
+    "fields": {
+      "assertion": {
+        "correct": 19,
+        "total": 19,
+        "accuracy": 1.0
+      },
+      "clock_time": {
+        "correct": 10,
+        "total": 10,
+        "accuracy": 1.0
+      },
+      "count": {
+        "correct": 19,
+        "total": 20,
+        "accuracy": 0.95
+      },
+      "count_scope": {
+        "correct": 18,
+        "total": 22,
+        "accuracy": 0.8181818181818182
+      },
+      "day_reference": {
+        "correct": 19,
+        "total": 23,
+        "accuracy": 0.8260869565217391
+      },
+      "explicit_date": {
+        "correct": 3,
+        "total": 3,
+        "accuracy": 1.0
+      },
+      "severity_context": {
+        "correct": 9,
+        "total": 9,
+        "accuracy": 1.0
+      },
+      "severity_scale_max": {
+        "correct": 9,
+        "total": 9,
+        "accuracy": 1.0
+      },
+      "severity_value": {
+        "correct": 9,
+        "total": 9,
+        "accuracy": 1.0
+      },
+      "symptom": {
+        "correct": 24,
+        "total": 24,
+        "accuracy": 1.0
+      }
+    }
+  },
+  "matching": {
+    "ambiguous_groups": []
+  },
+  "mismatches": [
+    {
+      "report_id": "D001",
+      "reference_index": 0,
+      "reference_id": "D001-O1",
+      "prediction_index": 0,
+      "kind": "field",
+      "field": "event_date",
+      "expected": "2026-12-10",
+      "predicted": null,
+      "prediction_missing": false
+    },
+    {
+      "report_id": "D001",
+      "reference_index": 0,
+      "reference_id": "D001-O1",
+      "prediction_index": 0,
+      "kind": "field",
+      "field": "time_text",
+      "expected": "tonight",
+      "predicted": "tonight when the book club meets",
+      "prediction_missing": false
+    },
+    {
+      "report_id": "D001",
+      "reference_index": 0,
+      "reference_id": "D001-O1",
+      "prediction_index": 0,
+      "kind": "field",
+      "field": "date_basis",
+      "expected": "relative_text",
+      "predicted": "unknown",
+      "prediction_missing": false
+    },
+    {
+      "report_id": "D001",
+      "reference_index": 0,
+      "reference_id": "D001-O1",
+      "prediction_index": 0,
+      "kind": "issues",
+      "missing": [],
+      "extra": [
+        {
+          "field": "event_date",
+          "code": "date_unknown"
+        }
+      ]
+    },
+    {
+      "report_id": "D001",
+      "kind": "extraction_check",
+      "check_index": 0,
+      "source": {
+        "path": "text",
+        "value": "I am afraid I could vomit tonight when the book club meets."
+      },
+      "candidate_found": true,
+      "ambiguous_candidates": false,
+      "differences": [
+        {
+          "field": "day_reference",
+          "expected": "today",
+          "predicted": "unknown",
+          "prediction_missing": false
+        }
+      ]
+    },
+    {
+      "report_id": "D002",
+      "reference_index": 0,
+      "reference_id": "D002-O1",
+      "prediction_index": 0,
+      "kind": "field",
+      "field": "event_date",
+      "expected": "2026-12-10",
+      "predicted": null,
+      "prediction_missing": false
+    },
+    {
+      "report_id": "D002",
+      "reference_index": 0,
+      "reference_id": "D002-O1",
+      "prediction_index": 0,
+      "kind": "field",
+      "field": "date_basis",
+      "expected": "relative_text",
+      "predicted": "unknown",
+      "prediction_missing": false
+    },
+    {
+      "report_id": "D002",
+      "reference_index": 0,
+      "reference_id": "D002-O1",
+      "prediction_index": 0,
+      "kind": "issues",
+      "missing": [],
+      "extra": [
+        {
+          "field": "event_date",
+          "code": "date_unknown"
+        }
+      ]
+    },
+    {
+      "report_id": "D002",
+      "kind": "extraction_check",
+      "check_index": 0,
+      "source": {
+        "path": "text",
+        "value": "I threw up once tonight at the pottery studio sink."
+      },
+      "candidate_found": true,
+      "ambiguous_candidates": false,
+      "differences": [
+        {
+          "field": "day_reference",
+          "expected": "today",
+          "predicted": "unknown",
+          "prediction_missing": false
+        }
+      ]
+    },
+    {
+      "report_id": "D006",
+      "reference_index": 0,
+      "reference_id": "D006-O1",
+      "prediction_index": 0,
+      "kind": "field",
+      "field": "time_text",
+      "expected": "the whole day yesterday",
+      "predicted": "Across the whole day yesterday",
+      "prediction_missing": false
+    },
+    {
+      "report_id": "D010",
+      "reference_index": 0,
+      "reference_id": "D010-O1",
+      "prediction_index": 0,
+      "kind": "field",
+      "field": "count_scope",
+      "expected": "window",
+      "predicted": null,
+      "prediction_missing": false
+    },
+    {
+      "report_id": "D010",
+      "kind": "extraction_check",
+      "check_index": 0,
+      "source": {
+        "path": "text",
+        "value": "I threw up several times during today's ferry ride, but I did not count them."
+      },
+      "candidate_found": true,
+      "ambiguous_candidates": false,
+      "differences": [
+        {
+          "field": "count_scope",
+          "expected": "window",
+          "predicted": null,
+          "prediction_missing": false
+        }
+      ]
+    },
+    {
+      "report_id": "D012",
+      "kind": "report_failure",
+      "status": "error",
+      "error": "Candidates failed provenance or normalization checks; inspect the saved candidates."
+    },
+    {
+      "report_id": "D012",
+      "reference_index": 0,
+      "reference_id": "D012-O1",
+      "prediction_index": null,
+      "kind": "missing_observation",
+      "symptom": "vomiting",
+      "evidence": [
+        {
+          "path": "text",
+          "value": "Between 2026-12-03 and 2026-12-05, I threw up a total of six times."
+        }
+      ]
+    },
+    {
+      "report_id": "D012",
+      "reference_index": 0,
+      "reference_id": "D012-O1",
+      "prediction_index": null,
+      "kind": "issues",
+      "missing": [
+        {
+          "field": "event_date",
+          "code": "unsupported_time_range"
+        }
+      ],
+      "extra": []
+    },
+    {
+      "report_id": "D012",
+      "kind": "extraction_check",
+      "check_index": 0,
+      "source": {
+        "path": "text",
+        "value": "Between 2026-12-03 and 2026-12-05, I threw up a total of six times."
+      },
+      "candidate_found": true,
+      "ambiguous_candidates": false,
+      "differences": [
+        {
+          "field": "count_scope",
+          "expected": "window",
+          "predicted": "day_total",
+          "prediction_missing": false
+        }
+      ]
+    },
+    {
+      "report_id": "D018",
+      "reference_index": 0,
+      "reference_id": "D018-O1",
+      "prediction_index": 0,
+      "kind": "field",
+      "field": "time_text",
+      "expected": "today",
+      "predicted": "for today",
+      "prediction_missing": false
+    },
+    {
+      "report_id": "D019",
+      "reference_index": 0,
+      "reference_id": "D019-O1",
+      "prediction_index": 0,
+      "kind": "field",
+      "field": "time_text",
+      "expected": "today so far",
+      "predicted": "for today so far",
+      "prediction_missing": false
+    },
+    {
+      "report_id": "H002",
+      "reference_index": 0,
+      "reference_id": "H002-O1",
+      "prediction_index": 1,
+      "kind": "field",
+      "field": "count",
+      "expected": 2,
+      "predicted": 1,
+      "prediction_missing": false
+    },
+    {
+      "report_id": "H002",
+      "reference_index": 0,
+      "reference_id": "H002-O1",
+      "prediction_index": 1,
+      "kind": "field",
+      "field": "count_scope",
+      "expected": "window",
+      "predicted": "event",
+      "prediction_missing": false
+    },
+    {
+      "report_id": "H002",
+      "reference_index": 0,
+      "reference_id": "H002-O1",
+      "prediction_index": 1,
+      "kind": "field",
+      "field": "event_date",
+      "expected": "2026-11-14",
+      "predicted": null,
+      "prediction_missing": false
+    },
+    {
+      "report_id": "H002",
+      "reference_index": 0,
+      "reference_id": "H002-O1",
+      "prediction_index": 1,
+      "kind": "field",
+      "field": "time_text",
+      "expected": "This evening",
+      "predicted": "during our card game",
+      "prediction_missing": false
+    },
+    {
+      "report_id": "H002",
+      "reference_index": 0,
+      "reference_id": "H002-O1",
+      "prediction_index": 1,
+      "kind": "field",
+      "field": "date_basis",
+      "expected": "relative_text",
+      "predicted": "unknown",
+      "prediction_missing": false
+    },
+    {
+      "report_id": "H002",
+      "reference_index": 0,
+      "reference_id": "H002-O1",
+      "prediction_index": 1,
+      "kind": "issues",
+      "missing": [],
+      "extra": [
+        {
+          "field": "event_date",
+          "code": "date_unknown"
+        }
+      ]
+    },
+    {
+      "report_id": "H002",
+      "kind": "extra_observation",
+      "prediction_index": 0,
+      "symptom": "vomiting",
+      "evidence": [
+        {
+          "path": "text",
+          "value": "This evening I vomited in two separate bouts"
+        }
+      ]
+    },
+    {
+      "report_id": "H002",
+      "kind": "extraction_check",
+      "check_index": 0,
+      "source": {
+        "path": "text",
+        "value": "This evening I vomited in two separate bouts during our card game."
+      },
+      "candidate_found": true,
+      "ambiguous_candidates": false,
+      "differences": [
+        {
+          "field": "count",
+          "expected": 2,
+          "predicted": 1,
+          "prediction_missing": false
+        },
+        {
+          "field": "count_scope",
+          "expected": "window",
+          "predicted": "event",
+          "prediction_missing": false
+        },
+        {
+          "field": "day_reference",
+          "expected": "today",
+          "predicted": "unknown",
+          "prediction_missing": false
+        }
+      ]
+    },
+    {
+      "report_id": "H004",
+      "reference_index": 0,
+      "reference_id": "H004-O1",
+      "prediction_index": 0,
+      "kind": "field",
+      "field": "event_date",
+      "expected": "2026-11-13",
+      "predicted": null,
+      "prediction_missing": false
+    },
+    {
+      "report_id": "H004",
+      "reference_index": 0,
+      "reference_id": "H004-O1",
+      "prediction_index": 0,
+      "kind": "field",
+      "field": "date_basis",
+      "expected": "relative_text",
+      "predicted": "unknown",
+      "prediction_missing": false
+    },
+    {
+      "report_id": "H004",
+      "reference_index": 0,
+      "reference_id": "H004-O1",
+      "prediction_index": 0,
+      "kind": "issues",
+      "missing": [],
+      "extra": [
+        {
+          "field": "event_date",
+          "code": "date_unknown"
+        }
+      ]
+    },
+    {
+      "report_id": "H004",
+      "kind": "extraction_check",
+      "check_index": 0,
+      "source": {
+        "path": "text",
+        "value": "Should vomiting interrupt the concert tonight, I plan to leave at intermission."
+      },
+      "candidate_found": true,
+      "ambiguous_candidates": false,
+      "differences": [
+        {
+          "field": "day_reference",
+          "expected": "today",
+          "predicted": "unknown",
+          "prediction_missing": false
+        }
+      ]
+    },
+    {
+      "report_id": "H009",
+      "reference_index": 0,
+      "reference_id": "H009-O1",
+      "prediction_index": 0,
+      "kind": "field",
+      "field": "time_text",
+      "expected": "so far today",
+      "predicted": "since I woke up",
+      "prediction_missing": false
+    },
+    {
+      "report_id": "H010",
+      "kind": "report_failure",
+      "status": "error",
+      "error": "Candidates failed provenance or normalization checks; inspect the saved candidates."
+    },
+    {
+      "report_id": "H010",
+      "reference_index": 0,
+      "reference_id": "H010-O1",
+      "prediction_index": null,
+      "kind": "missing_observation",
+      "symptom": "vomiting",
+      "evidence": [
+        {
+          "path": "text",
+          "value": "I found a tally of seven vomiting episodes on the back of a community-center schedule. It combines 2026-11-06, 2026-11-07, 2026-11-08, and 2026-11-09 into one total; I cannot split it by date."
+        }
+      ]
+    },
+    {
+      "report_id": "H010",
+      "reference_index": 0,
+      "reference_id": "H010-O1",
+      "prediction_index": null,
+      "kind": "issues",
+      "missing": [
+        {
+          "field": "event_date",
+          "code": "unsupported_time_range"
+        }
+      ],
+      "extra": []
+    },
+    {
+      "report_id": "H010",
+      "kind": "extraction_check",
+      "check_index": 0,
+      "source": {
+        "path": "text",
+        "value": "I found a tally of seven vomiting episodes on the back of a community-center schedule. It combines 2026-11-06, 2026-11-07, 2026-11-08, and 2026-11-09 into one total; I cannot split it by date."
+      },
+      "candidate_found": true,
+      "ambiguous_candidates": false,
+      "differences": [
+        {
+          "field": "count_scope",
+          "expected": "window",
+          "predicted": "day_total",
+          "prediction_missing": false
+        }
+      ]
+    },
+    {
+      "report_id": "H012",
+      "kind": "report_failure",
+      "status": "error",
+      "error": "Candidates failed provenance or normalization checks; inspect the saved candidates."
+    },
+    {
+      "report_id": "H012",
+      "reference_index": 0,
+      "reference_id": "H012-O1",
+      "prediction_index": null,
+      "kind": "missing_observation",
+      "symptom": "vomiting",
+      "evidence": [
+        {
+          "path": "text",
+          "value": "My finished log for 2026-11-08 records no vomiting from midnight to midnight."
+        }
+      ]
+    },
+    {
+      "report_id": "H013",
+      "reference_index": 0,
+      "reference_id": "H013-O1",
+      "prediction_index": 0,
+      "kind": "field",
+      "field": "time_text",
+      "expected": "so far today",
+      "predicted": "so far today during the noisy elevator ride",
+      "prediction_missing": false
+    },
+    {
+      "report_id": "H014",
+      "kind": "report_failure",
+      "status": "error",
+      "error": "Candidates failed provenance or normalization checks; inspect the saved candidates."
+    },
+    {
+      "report_id": "H014",
+      "reference_index": 0,
+      "reference_id": "H014-O1",
+      "prediction_index": null,
+      "kind": "missing_observation",
+      "symptom": "nausea",
+      "evidence": [
+        {
+          "path": "text",
+          "value": "During today's video call, I selected level 2 on the 1-5 nausea scale. The question was about how I felt at that instant, and I was not rating the worst point of the day."
+        }
+      ]
+    },
+    {
+      "report_id": "H014",
+      "reference_index": 0,
+      "reference_id": "H014-O1",
+      "prediction_index": null,
+      "kind": "issues",
+      "missing": [
+        {
+          "field": "severity",
+          "code": "unsupported_severity_context"
+        }
+      ],
+      "extra": []
+    },
+    {
+      "report_id": "H015",
+      "reference_index": 0,
+      "reference_id": "H015-O1",
+      "prediction_index": 0,
+      "kind": "field",
+      "field": "time_text",
+      "expected": "Today",
+      "predicted": "Today's note",
+      "prediction_missing": false
+    },
+    {
+      "report_id": "H019",
+      "kind": "report_failure",
+      "status": "error",
+      "error": "Candidates failed provenance or normalization checks; inspect the saved candidates."
+    },
+    {
+      "report_id": "H019",
+      "reference_index": 0,
+      "reference_id": "H019-O1",
+      "prediction_index": null,
+      "kind": "missing_observation",
+      "symptom": "nausea",
+      "evidence": [
+        {
+          "path": "text",
+          "value": "Yesterday I couldn't shake the nausea during a museum visit."
+        }
+      ]
+    },
+    {
+      "report_id": "H019",
+      "reference_index": 1,
+      "reference_id": "H019-O2",
+      "prediction_index": null,
+      "kind": "missing_observation",
+      "symptom": "nausea",
+      "evidence": [
+        {
+          "path": "text",
+          "value": "No nausea has occurred today."
+        }
+      ]
+    },
+    {
+      "report_id": "H019",
+      "reference_index": 2,
+      "reference_id": "H019-O3",
+      "prediction_index": null,
+      "kind": "missing_observation",
+      "symptom": "vomiting",
+      "evidence": [
+        {
+          "path": "text",
+          "value": "Today's vomiting tally is zero up to this message."
+        }
+      ]
+    },
+    {
+      "report_id": "R002",
+      "reference_index": 0,
+      "reference_id": "R002-O1",
+      "prediction_index": 0,
+      "kind": "field",
+      "field": "time_text",
+      "expected": "so far today",
+      "predicted": "at its worst so far today",
+      "prediction_missing": false
+    },
+    {
+      "report_id": "R005",
+      "reference_index": 0,
+      "reference_id": "R005-O1",
+      "prediction_index": 0,
+      "kind": "field",
+      "field": "time_text",
+      "expected": "so far today",
+      "predicted": "at its worst so far today",
+      "prediction_missing": false
+    },
+    {
+      "report_id": "R006",
+      "reference_index": 0,
+      "reference_id": "R006-O1",
+      "prediction_index": 0,
+      "kind": "field",
+      "field": "time_text",
+      "expected": "so far today",
+      "predicted": "at its worst so far today",
+      "prediction_missing": false
+    }
+  ],
+  "provenance": {
+    "manifest_sha256": "30078111ab94c0a0ffc3296f6da18faa2a0f1594f0cd7216ed18720d34dbaf78",
+    "predictions_sha256": "95397cb89998b4173364d12b997bada317059c43137e1a5da89414a05cf87230",
+    "source_sha256": "5cda44ec06b9fe6e18e78536038a5f66cdea9b4c1253f574eb473d36e12239a3",
+    "gold_sha256": "5222182e606f3c724f5123a39fd21f42b1c0a467ef0c5be72ebd78fa79aac9f7",
+    "split": "regression",
+    "repeat": 2
+  }
+}

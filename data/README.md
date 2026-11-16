@@ -7,9 +7,10 @@ All reports are fictional and written in English. These files are for extraction
 | Original development | `raw/reports.jsonl` | `gold/expected.jsonl` | 10 | 15 | 3 |
 | Additional development | `dev/reports.jsonl` | `dev/expected.jsonl` | 20 | 21 | 21 |
 | Held-out comparison | `heldout/reports.jsonl` | `heldout/expected.jsonl` | 20 | 25 | 17 |
-| Total | | | 50 | 61 | 41 |
+| Fresh v3 validation | `heldout_v3/reports.jsonl` | `heldout_v3/expected.jsonl` | 20 | 22 | 22 |
+| Total | | | 70 | 83 | 63 |
 
-Each JSONL line is one report, not one observation. A report may describe multiple symptoms or no target symptoms. `report_id` joins a report to its reference record. Original IDs are R001-R010, additional development IDs are D001-D020, and held-out IDs are H001-H020. Do not combine observation counts with report counts.
+Each JSONL line is one report, not one observation. A report may describe multiple symptoms or no target symptoms. `report_id` joins a report to its reference record. Original IDs are R001-R010, additional development IDs are D001-D020, first held-out IDs are H001-H020, and fresh v3 validation IDs are T001-T020. Do not combine observation counts with report counts.
 
 The prompt experiment uses the original and additional development sets together: 30 development reports, with 36 reference observations and 24 targeted checks. The held-out set remains separate. Running it twice does not turn 20 independent test cases into 40.
 
@@ -26,5 +27,7 @@ Data generation is intentionally different from the later four-week follow-up da
 - No prompt or label changes are made in response to held-out outputs within the frozen experiment. Future tuning based on those errors turns these cases into known regression data; a later independent evaluation needs new cases.
 
 The subsequent [normalization fix and offline replay](../docs/normalization_fix.md) use the observed H016 failure. Consequently, `heldout/` retains its historical name and frozen contents but is now known regression data for follow-up development, not a fresh independent test set.
+
+The [v3 comparison](../docs/prompt_v3_experiment.md) uses all 50 older reports as known regression data and the separately authored 20 reports in `heldout_v3/` as fresh synthetic validation. The candidate prompt was locked before fresh-case inspection; manual review and label corrections occurred before any model inference. All 70 reports are run twice per prompt, but there are still only 70 unique reports. See `heldout_v3/review.md` for authorship, review, and limitations.
 
 See [the frozen experiment protocol](../docs/prompt_experiment.md) for versions, run counts, controls, and interpretation.
