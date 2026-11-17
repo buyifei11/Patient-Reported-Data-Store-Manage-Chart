@@ -118,6 +118,25 @@ and its [validation record](docs/prototype_validation.md) remain unchanged.
 that historical default: ten saved text extractions plus 61 direct questionnaires.
 Use the explicit dataset, cache, and run ID above for the current all-text demo.
 
+### Prepared interview queries
+
+After the offline database has been built, run these from the repository root.
+They open the existing all-text database read-only and print compact tables;
+they do not rebuild it or call the model.
+
+```bash
+.venv/bin/python run_queries.py weekly
+.venv/bin/python run_queries.py peak
+.venv/bin/python run_queries.py medication --patient P002 --report TXT-R003
+```
+
+Present weekly counts/coverage and peak nausea dates first; medication timing is
+the backup. `--show-sql` displays the actual parameterized SQL, `--patient` changes
+the patient, and `--format json` retains all result fields. Defaults are P001,
+`artifacts/longitudinal-text-demo/patient_reports.sqlite`, and `longitudinal-text-v1`.
+See the [query walkthrough](docs/demo_walkthrough.md#prepared-sql-demonstration-no-rebuild-required)
+for expected results, column meanings, and a short speaking script.
+
 ## What is implemented
 
 | Component | Behavior |
@@ -127,7 +146,7 @@ Use the explicit dataset, cache, and run ID above for the current all-text demo.
 | Normalization | Relative dates, literal evidence checks, clock-boundary checks, severity eligibility, and compatible text/form reconciliation. |
 | SQLite | Immutable source IDs and extraction runs; failed results, evidence, and correction history retained. |
 | Daily statistics | Complete replacements, cumulative no-sum rules, explicit zeros, missing days, field-specific eligibility, and review reasons. |
-| SQL | Weekly reported counts with coverage; symptoms relative to recorded medication changes. |
+| SQL | Weekly reported counts with coverage; all dates tied for highest usable nausea severity; symptoms relative to recorded medication changes. |
 | Dashboard | Patient selection, count/severity trends, labeled medication changes, weekly coverage, concrete review explanations, and expandable source records. |
 | Validation | Offline tests for schemas, clients, time boundaries, corrections, aggregation, database integrity, queries, and integration. |
 

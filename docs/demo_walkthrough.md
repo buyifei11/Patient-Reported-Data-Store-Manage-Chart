@@ -55,44 +55,127 @@ a long additional report is unnecessary for this presentation.
 | Time within the 15-minute walkthrough | What to show and explain |
 | --- | --- |
 | 0:00–1:30 | The provider's 30-second need, the oncology nausea/vomiting scope, and the pipeline. References feed evaluation, not chart values. |
-| 1:30–3:00 | Run the offline build below. Explain that it revalidates actual saved LLM outputs and builds a new SQLite database, queries, and dashboard; no fresh inference occurs. |
-| 3:00–8:00 | Open the new dashboard. Use patient 2 and TXT-R006 to follow source text, candidates, normalized values, and the corrected count 2. Then show patient 1's TXT-R002: conflicting nausea ratings are reviewed while the supported vomiting zero remains usable. |
-| 8:00–11:00 | Show the source/candidate/observation distinction in `src/schema.py` and the two SQL queries. Weekly counts include coverage; TXT-R003's 14:20 episode follows a recorded 13:00 medication change. |
+| 1:30–3:00 | Open the prepared dashboard and database. Explain their real saved LLM provenance. Rebuilding is optional and belongs to rehearsal, not the required live sequence. |
+| 3:00–8:00 | Use the prepared dashboard. Use patient 2 and TXT-R006 to follow source text, candidates, normalized values, and the corrected count 2. Then show patient 1's TXT-R002: conflicting nausea ratings are reviewed while the supported vomiting zero remains usable. |
+| 8:00–11:00 | Run the two main queries: weekly counts with coverage, then peak nausea dates. Keep the medication-change query as a backup. Explain the result and open its source report. |
 | 11:00–13:00 | Contrast 18/20 strict whole-report matches on the separate frozen validation set with 71/71 normalized core-and-issue matches on known synthetic integration cases. The latter has 69/71 literal matches and does not establish general 100% accuracy. |
 | 13:00–14:30 | Explain AI-assisted coding, synthetic text generation, and extraction; Python owns validation, date arithmetic, correction and counting rules. Discuss missing data, narrow symptom scope, and temporal association versus causation. |
 | 14:30–15:00 | State what the prototype demonstrates and hand over to questions. |
 
-Rehearse the commands and patient switches before the interview, with dependencies
-already installed. Keep the verified dashboard available as a backup. The CLI's
-defaults still select the historical mixed-input demo, so supply all dataset,
-cache, and run arguments explicitly. Existing output directories are rejected;
-this command selects a fresh timestamped directory:
+## Prepared SQL demonstration: no rebuild required
+
+Complete the offline setup before the interview. The three commands below read
+`artifacts/longitudinal-text-demo/patient_reports.sqlite` with run
+`longitudinal-text-v1`; this is the current all-text dataset. No API key, network,
+model call, database write, or new database is involved. Run from the repository
+root in the VS Code terminal. The helper uses only Python's standard library.
+
+### Main query 1: weekly vomiting counts and coverage
 
 ```bash
-interview_stamp="$(date +%Y%m%d-%H%M%S)"
-interview_output="artifacts/interview-demo-${interview_stamp}"
-interview_run="interview-${interview_stamp}"
-python run_demo.py build --dataset data/longitudinal_text \
-  --cached-predictions results/longitudinal-text-extraction/predictions.jsonl \
-  --run-id "$interview_run" --output "$interview_output"
+.venv/bin/python run_queries.py weekly
 ```
 
-Open `dashboard.html` in the printed output directory. In the same terminal,
-run both stored-data queries; filter the medication output to one useful example
-instead of scrolling through all observation/change pairs:
+The default patient is P001. This executes [weekly_counts.sql](../sql/weekly_counts.sql)
+with a bound patient filter and prints five weekly rows. Focus on the week of
+**2026-11-09**: **15 reported episodes, 6/7 usable count days, one review day**.
+Explain that incomplete reporting prevents treating this as a complete weekly
+frequency. Daily cumulative updates were already reconciled before SQL sums the
+daily rows; they are not added as separate submissions.
+
+| Display column | Meaning |
+| --- | --- |
+| `Week of` | Monday starting the calendar week. Follow-up is clipped to November 1-28, so the October 26 bucket contains only November 1. |
+| `Count` | Sum of eligible daily reported values; `NULL` if none are usable. |
+| `Coverage` | Days with usable counts / registered follow-up days in that week. |
+| `Review days` | Daily counts excluded because an unresolved issue affects counting. |
+| `Missing days` | No usable daily count and no count-review classification; this can include a report that omits the count. |
+| `Partial days` | Usable cumulative reports covering today so far. |
+| `Full days` | Usable explicit completed-day reports. |
+
+`Coverage` numerator + `Review days` + `Missing days` equals the follow-up
+denominator. This is count coverage, not the number of submissions.
+
+Suggested explanation: “This week has 15 reported episodes across six usable
+days. The remaining day needs review, so I show coverage beside the total.”
+
+### Main query 2: highest reported nausea severity
 
 ```bash
-python run_demo.py query --db "$interview_output/patient_reports.sqlite" \
-  --run-id "$interview_run" --query weekly
-python run_demo.py query --db "$interview_output/patient_reports.sqlite" \
-  --run-id "$interview_run" --query medication |
-  python -c 'import json, sys; rows = json.load(sys.stdin); print(json.dumps([row for row in rows if row["report_id"] == "TXT-R003"], indent=2))'
+.venv/bin/python run_queries.py peak
 ```
 
-No API key or network is required for this sequence. If the interviewer asks for
-fresh inference, a single-report call is an optional extension after the main
-demonstration; do not rerun all 71 requests live. Be explicit about whether an
-output comes from a saved request or a new request.
+[peak_nausea.sql](../sql/peak_nausea.sql) selects only usable daily-worst nausea
+ratings, calculates the maximum for the selected patient and run, and returns
+**all tied dates**. It does not compare vomiting counts with severity ratings.
+
+For P001 the current result is **2026-11-10, nausea 5/5**. `Vomiting count` is
+`NULL` and `Count status` is `review`: the nausea rating is usable even though
+that day's vomiting counts conflict. `NULL` is not zero. The source IDs are
+`TXT-L-P001-10` and `TXT-L-P001-10-AM`.
+
+In the dashboard select **Demo patient 1**, inspect November 10, and expand
+these two source records. Their vomiting counts decrease from 4 at 10:00 to 1
+at 20:30 without a correction. Explain field-specific eligibility: a count
+conflict does not invalidate an independently supported nausea score.
+
+Suggested explanation: “November 10 has the highest usable nausea rating, 5/5.
+The conflicting vomiting count stays unresolved; the source reports remain
+available for review.”
+
+### Backup query 3: symptoms relative to medication changes
+
+```bash
+.venv/bin/python run_queries.py medication --patient P002 --report TXT-R003
+```
+
+This executes [after_medication_change.sql](../sql/after_medication_change.sql)
+with patient and report filters. The actual result shows Medication B change
+`M003` at **2026-11-03 13:00 -06:00**, and a vomiting event at **14:20** on the
+same date. `Order=after` establishes time order relative to that recorded change.
+It does not prove a medication reaction or identify each day's dose.
+
+`Review=yes` is expected here: a single event is not an established daily total,
+so count aggregation needs review even though the exact event time is usable.
+Other rows can be `indeterminate`, `unknown_date`, or `at_change_time`; definite
+before-change rows are excluded. Each result is an observation/change pair, not
+necessarily a unique symptom event. One observation can relate to several changes.
+
+Suggested explanation: “This event was reported after the medication change.
+I preserve that timing relationship without claiming the medication caused it.”
+
+### Useful controls and rehearsal
+
+```bash
+# Show the exact SQL and bound inputs, then execute it.
+.venv/bin/python run_queries.py peak --show-sql
+# Switch patient explicitly.
+.venv/bin/python run_queries.py weekly --patient P002
+# Get complete machine-readable rows, including evidence for medication timing.
+.venv/bin/python run_queries.py medication --patient P002 --report TXT-R003 --format json
+```
+
+The table view hides lengthy JSON evidence, but does not change query values.
+Missing databases, unknown run/patient/report selections, and invalid argument
+combinations produce explicit errors. If there are no eligible rows, the output
+says so; this is not interpreted as zero symptoms. `--report` applies only to the
+medication query. All three prepared queries are parameterized.
+
+Keep SQL files open in VS Code beside the terminal. Run the first two queries
+live, read one informative row each, then open its source in the prepared
+dashboard. Reserve the third query for questions. Budget 2-3 minutes for this
+sequence; rehearse beforehand rather than installing dependencies live.
+
+If building a different database during rehearsal, supply its matching path and
+run ID with `--db PATH --run-id RUN`. Never point at the historical mixed-input
+`artifacts/demo` accidentally. The original `run_demo.py query` commands remain
+available unchanged.
+
+A rebuild is optional: use the setup command with a new output directory because
+existing outputs are protected. The brief does not require rebuilding a database
+or writing SQL from scratch during the interview. If fresh inference is requested,
+one report can be extracted separately; disclose whether a response is saved or
+new, and do not rerun all 71 requests as part of the main demonstration.
 
 ## A concise demonstration
 
