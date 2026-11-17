@@ -7,6 +7,7 @@ import unittest
 
 from src.aggregation import aggregate
 from src.dashboard_review import review_details
+from src.demo import prepare_predictions
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -17,7 +18,9 @@ class DashboardReviewTests(unittest.TestCase):
     def setUpClass(cls):
         patients = json.loads((ROOT / "data/longitudinal/patients.json").read_text())
         reports = [json.loads(line) for line in (ROOT / "data/longitudinal/reports.jsonl").read_text().splitlines()]
-        predictions = [json.loads(line) for line in (ROOT / "results/longitudinal-demo/predictions.jsonl").read_text().splitlines()]
+        # Reconstruct from preserved actual model candidates and source forms,
+        # rather than depending on an obsolete generated dashboard snapshot.
+        predictions = prepare_predictions(reports, ROOT / "results/gpt54mini-dev-v1/predictions.jsonl")
         cls.data = {"patients": patients, "reports": reports, "predictions": predictions,
                     **aggregate(patients, reports, predictions)}
 

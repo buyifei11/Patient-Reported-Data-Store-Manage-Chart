@@ -3,8 +3,9 @@
 This snapshot uses **71 actual saved text extractions and zero direct
 questionnaire submissions**. It contains three fictional patients across 84
 follow-up patient-days, 137 stored symptom observations, and five medication
-changes. The original mixed-input demo is preserved in
-[`../longitudinal-demo/`](../longitudinal-demo/).
+changes. The original mixed-input exports are preserved in
+[Git history](https://github.com/buyifei11/Patient-Reported-Data-Store-Manage-Chart/tree/d839974ede58b65df6e2ef4aafab85185e610c0c/results/longitudinal-demo).
+Only the current all-text dashboard snapshot is kept in the working repository.
 
 Open [dashboard.html](dashboard.html) locally. GitHub's file viewer does not
 execute HTML; download the file or build the demo with the command below.

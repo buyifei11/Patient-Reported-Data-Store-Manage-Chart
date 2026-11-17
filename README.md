@@ -112,8 +112,9 @@ recorded starts, stops, or dose changes, not each day's actual medication intake
 It remains available through SQL, the CLI, and CSV exports; the dashboard uses
 labeled medication markers rather than a separate timing-comparison table.
 
-The [original mixed-input snapshot](results/longitudinal-demo/dashboard.html)
-and its [validation record](docs/prototype_validation.md) remain unchanged.
+The original mixed-input export is retained in
+[Git history](https://github.com/buyifei11/Patient-Reported-Data-Store-Manage-Chart/tree/d839974ede58b65df6e2ef4aafab85185e610c0c/results/longitudinal-demo);
+its [historical validation record](docs/prototype_validation.md) remains available.
 `python run_demo.py build --output artifacts/original-mixed-demo` still builds
 that historical default: ten saved text extractions plus 61 direct questionnaires.
 Use the explicit dataset, cache, and run ID above for the current all-text demo.
@@ -213,7 +214,8 @@ limitations. Installation alone is not evidence of task suitability.
 | --- | --- |
 | `docs/design.md`, `docs/storage_and_trends.md` | Field meanings, schema, responsibilities, and counting rules. |
 | `docs/demo_walkthrough.md` | Setup, live walkthrough, query commands, and trade-offs. |
-| `data/longitudinal/` | Four-week sources, patients, medication changes, and generation notes. |
+| `data/longitudinal_text/` | Current all-text sources, references, patient metadata, and generation provenance. |
+| `data/longitudinal/` | Original mixed-input sources retained for provenance and regression checks. |
 | `data/raw/`, `data/gold/`, `data/dev/`, `data/heldout/`, `data/heldout_v3/` | Separate extraction-development and validation sources/references. |
 | `src/normalization.py`, `src/aggregation.py` | Code-owned time, reconciliation, correction, and eligibility rules. |
 | `src/store.py`, `sql/` | SQLite storage and executable queries. |

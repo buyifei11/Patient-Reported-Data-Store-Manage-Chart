@@ -1,5 +1,11 @@
 # Prototype validation record
 
+This is the historical mixed-input milestone, not the current all-text result.
+Its generated exports and screenshot were retired from the working tree during
+repository cleanup; the links below point to their preserved Git revision.
+See the [current verification](../results/longitudinal-text-demo/README.md) for
+the all-text deliverable. Historical counts and observations below are unchanged.
+
 This milestone completes the local source-to-store-to-chart flow while keeping
 the v1 extraction baseline fixed. All data are synthetic. No new model requests
 were made during implementation, offline replay, or demo generation.
@@ -49,7 +55,7 @@ diagnostics. SQLite integrity and foreign-key checks pass.
 The two SQL exports contain 15 patient/calendar-week rows and 164 medication
 context rows. An observation may be related in time to multiple changes, so the
 second count is not a symptom-episode total. Snapshot files are preserved in
-[`results/longitudinal-demo/`](../results/longitudinal-demo/); local databases and
+[the preserved Git revision](https://github.com/buyifei11/Patient-Reported-Data-Store-Manage-Chart/tree/d839974ede58b65df6e2ef4aafab85185e610c0c/results/longitudinal-demo); local databases and
 routine build artifacts remain ignored under `artifacts/`.
 
 Browser checks used an isolated headless Chrome profile with external
@@ -62,8 +68,8 @@ Medication legends matched the stored changes, and the removed comparison table
 and timing filter were absent. Desktop (1440 pixels) and mobile (390 pixels)
 layouts had no page overflow or script errors. The page made no remote requests.
 Desktop/mobile images were visually inspected. The selected
-[browser record](../results/longitudinal-demo/browser-check.json) and
-[preview](dashboard-preview.png) accompany the saved dashboard snapshot.
+[browser record](https://github.com/buyifei11/Patient-Reported-Data-Store-Manage-Chart/blob/d839974ede58b65df6e2ef4aafab85185e610c0c/results/longitudinal-demo/browser-check.json) and
+[preview](https://github.com/buyifei11/Patient-Reported-Data-Store-Manage-Chart/blob/d839974ede58b65df6e2ef4aafab85185e610c0c/docs/dashboard-preview.png) accompany the historical snapshot.
 
 The subsequent presentation refinement adds explicit medication legends, concrete
 review explanations with source links and field-level impact, and separate
