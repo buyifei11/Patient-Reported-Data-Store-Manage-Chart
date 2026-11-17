@@ -1,12 +1,14 @@
 # Track B: Patient-Reported Data Prototype Design (v0.2)
 
-This document defines the data contract for extraction, normalization, and the planned database and charts. All patients, reports, and medication labels are fictional. All submission artifacts, including documentation, sample text, code comments, prompts, and interface labels, must be in English.
+This document defines the implemented data contract for extraction, normalization, SQLite storage, and charts. All patients, reports, and medication labels are fictional. Submission artifacts, including documentation, sample text, code comments, prompts, and interface labels, are in English.
 
-Current deliverables include executable schemas, cloud/local extraction adapters, deterministic normalization, evaluation, SQLite storage, correction-aware aggregation, two SQL queries, and an offline dashboard. The longitudinal demo has 71 reports from three fictional patients over 28 days; the separate diagnostic sets contain 70 reports and 83 reference observations. Examples and references are AI-assisted synthetic material, not independently human-annotated clinical ground truth. See [storage and trend rules](storage_and_trends.md), [demo instructions](demo_walkthrough.md), and [dataset roles](../data/README.md). The original ten-report fixtures and historical model outputs remain unchanged.
+Current deliverables include executable schemas, cloud/local extraction adapters, deterministic normalization, evaluation, SQLite storage, correction-aware aggregation, two SQL queries, and an offline dashboard. The current [all-text longitudinal demo](../data/longitudinal_text/README.md) uses 71 actual saved LLM extractions from three fictional patients over 28 days, with no directly processed questionnaires. The historical mixed-input demo and original ten-report fixtures remain available unchanged. See [storage and trend rules](storage_and_trends.md), [demo instructions](demo_walkthrough.md), and [dataset roles](../data/README.md).
+
+Codex assisted with code, tests, documentation, synthetic data, and reference authoring. Separate agents reviewed source/reference consistency; this is AI-assisted review, not independent clinician annotation. Recorded model outputs were checked against frozen references and source evidence, while offline tests and database/query checks exercised program behavior. Python owns date arithmetic, validation, correction handling, and aggregation. Neither AI-authored references nor passing code tests establish clinical validity.
 
 ## 1. Scope and changes in v0.2
 
-The scenario covers nausea (`nausea`) and vomiting (`vomiting`) during oncology treatment. The implemented longitudinal demo covers three patients over four consecutive weeks. The original ten reports remain small extraction examples; the additional follow-up reports are structured questionnaires, not new LLM validation cases. `Medication A` is a fictional label and makes no claim about a real drug, dosage, or treatment.
+The scenario covers nausea (`nausea`) and vomiting (`vomiting`) during oncology treatment. The current longitudinal sources retain the ten original texts and convert 61 questionnaire-only follow-ups into reviewed text. Two of the original ten also retain their form facts as text supplements, preserving the original conflicts. All 71 final `questionnaire_answers` arrays are empty. These are known synthetic integration cases, not a new held-out benchmark. `Medication A` and `Medication B` are fictional labels and make no claim about a real drug, dosage, or treatment.
 
 Version 0.2 makes six changes:
 
@@ -21,9 +23,9 @@ The source fixtures were deliberately revised for this version; their earlier ve
 
 ## 2. Processing stages and dataset roles
 
-All stages in this diagram are implemented. The offline demo replays saved model candidates for the original text and processes the additional questionnaires directly, then queries the stored data to produce trends.
+The current path is final text → LLM candidates → Python normalization → SQLite → SQL and charts. The frozen extraction uses `gpt-5.4-mini-2026-03-17` and `prompts/extraction_nausea_grouping.txt`. The offline demo revalidates all 71 saved candidate batches and makes zero additional model calls; it never reads reference answers or fact seeds to populate charts. The diagram below shows the shared contract, including the direct questionnaire branch used by the historical mixed-input demo. That branch is unused by the current all-text dataset.
 
-The original starter fixtures below remain unchanged. Later prompt experiments add 20 development, 20 first held-out, and 20 fresh v3 validation reports, bringing the diagnostic sets to 70 reports and 83 reference observations. Their roles and pre-inference reviews are documented in [data/README.md](../data/README.md); measured gains, regressions, and known code limitations are in [prompt_comparison.md](prompt_comparison.md). The separately documented `data/longitudinal/` dataset supplies four-week follow-up; diagnostic cases are not mixed into its patient trends.
+The original starter fixtures below remain unchanged. Earlier prompt experiments added 20 development, 20 first held-out, and 20 fresh v3 validation reports, totaling 70 historical diagnostic reports and 83 reference observations. The later text workflow has separate five-report pilot, ten-report development, and twenty-report frozen validation sets. Their roles and limitations are documented in [data/README.md](../data/README.md). `data/longitudinal_text/` supplies the current four-week integration demo; `data/longitudinal/` preserves its mixed-input source dataset. Separate diagnostic cases are not mixed into patient trends.
 
 ```mermaid
 flowchart TD
@@ -40,19 +42,23 @@ flowchart TD
 
 | Dataset | Location | Purpose |
 | --- | --- | --- |
-| Source reports | `data/raw/reports.jsonl` | Original text, structured questionnaire answers, and submission metadata. |
-| Expected results (gold) | `data/gold/expected.jsonl` | Authored reference answers and a few source-specific checks. Never passed to the parser as input. |
-| Processed results | `data/processed/`; selected run in `results/gpt54mini-dev-v1/` | Actual outputs of the implemented pipeline. Copying gold is not successful extraction. |
+| Current all-text sources | `data/longitudinal_text/reports.jsonl` | 71 texts with empty questionnaire arrays; submission and correction metadata remain structured. |
+| Current all-text references | `data/longitudinal_text/expected.jsonl` | 139 candidate checks and 137 expected observations, authored and frozen before extraction. Evaluation only. |
+| Current all-text predictions | `results/longitudinal-text-extraction/predictions.jsonl` | Actual model responses, candidates, normalized observations, and run provenance. |
+| Historical mixed-input sources | `data/longitudinal/` | Ten original text reports and 61 questionnaire-only follow-ups, preserved as the earlier demo. |
+| Original starter sources | `data/raw/reports.jsonl` | Original text, structured questionnaire answers, and submission metadata. |
+| Original starter references | `data/gold/expected.jsonl` | Authored expected observations and three source-specific checks. Evaluation only. |
+| Original starter predictions | Selected run in `results/gpt54mini-dev-v1/` | Actual outputs of the initial extraction pipeline. |
 
-Each existing JSONL file contains 10 records, one JSON object per line. Records are linked by `report_id`.
+The original starter source and reference files each contain 10 records. The current all-text source, reference, and prediction files each contain 71. JSONL stores one object per line; `report_id` links records across stages. Reference answers never enter model requests or supply dashboard values.
 
 ### Responsibilities
 
-- **Text parser:** reads the original text and identifies source claims, including symptom, assertion, count and scope, quoted time expressions, explicit score and scale, score context, and medication relationships. An LLM is optional. Questionnaire answers are handled directly by code rather than being merged by the model.
-- **Normalization code:** resolves relative dates using the report context; enforces the score contract; compares compatible text and questionnaire claims; produces normalized values, evidence, and field-specific issues; and assigns reference identifiers.
+- **Text parser:** reads source text and identifies claims, including symptom, assertion, count and scope, quoted time expressions, explicit score and scale, score context, and medication relationships. The current all-text demo uses the LLM for every report. The historical mixed-input path handles questionnaire answers directly in code.
+- **Normalization code:** resolves relative dates using the report context; enforces the score contract; compares compatible claims, including questionnaire claims when supplied; produces normalized values, evidence, and field-specific issues; and assigns observation identifiers.
 - **Aggregation code:** applies valid corrections, prevents cumulative double counting, and computes query-specific eligibility. An observation may be usable for a count trend but unusable for a severity trend.
 
-The parser must preserve conflicting source values before reconciliation. For R009, the text candidate is count 1, while the questionnaire value is 0; only the normalized count becomes `null`. For R002, the text candidate severity is 2/5, the questionnaire rating is 3/5, and only the normalized severity becomes `null`.
+The parser must preserve conflicting source values before reconciliation. In the original starter R009, the text candidate is count 1 while the questionnaire value is 0; only the normalized count becomes `null`. In starter R002, text severity is 2/5 and the questionnaire rating is 3/5; only normalized severity becomes `null`. In the current `TXT-R009` and `TXT-R002`, both sides of each conflict are written in source text and extracted as candidates before code reconciles them.
 
 The internal candidate object and diagnostic output are not another complete dataset. Targeted checks use candidate field names such as `symptom`, `assertion`, `count`, `count_scope`, `severity_value`, `severity_scale_max`, and `severity_context`. `severity_context=worst_today_so_far` identifies a compatible score; current-only, other, or unknown contexts remain distinguishable before normalization. Preserve the original time expression for code to resolve. Do not ask a model to invent database IDs, final issue flags, correction targets, or aggregate totals.
 
@@ -74,7 +80,7 @@ Create observations only for symptoms actually mentioned in text or questionnair
 | `questionnaire_answers` | List of answer objects; `[]` if none | Allows a single submission to include answers about multiple symptoms. |
 | `supersedes_report_id` | Report ID or `null` | Target of an explicit complete-replacement edit action. Never inferred by the model from a partial correction sentence. |
 
-Each questionnaire answer contains:
+The questionnaire contract remains supported for historical sources and other mixed-input runs. Current all-text reports use `[]`. When present, each questionnaire answer contains:
 
 | Field | Meaning and rule |
 | --- | --- |
@@ -98,8 +104,8 @@ Each gold record contains:
 | Field | Purpose |
 | --- | --- |
 | `report_id` | Links to the source submission. |
-| `extraction_checks` | A small list of source-specific assertions to check before reconciliation; `[]` when no additional check is specified. |
-| `observations` | Expected results after date normalization, field validation, and source reconciliation. There are 15 across the 10 reports. |
+| `extraction_checks` | Source-specific assertions to check before reconciliation; `[]` when no additional check is specified. The original starter set has three checks; the current all-text set has 139. |
+| `observations` | Expected results after date normalization, field validation, and source reconciliation: 15 across the 10 original starter reports, or 137 across the 71 current all-text reports. |
 
 Each observation contains:
 
@@ -138,6 +144,8 @@ A count over several days remains a `window` count with its source text preserve
 Evidence paths use dot notation with zero-based list indexes, such as `questionnaire_answers.0.severity`. `value` is an exact questionnaire value or a contiguous source-text substring. Preserve evidence from both sides of a conflict. A valid substring is necessary for traceability but does not alone prove correct interpretation.
 
 `medication_relation` contains `medication` (the source label) and `relation`. The current relation `after_taking` means the patient described a symptom after taking the medication. It does not establish causation and is not a medication-change record.
+
+For the assessment's side-effect scope, nausea and vomiting are stored as patient-reported symptom observations with any explicit medication relationship and supporting evidence. The prototype does not classify a symptom as a confirmed drug side effect. Separate medication-change records contain the medication label, change timestamp, and `start`, `stop`, or `dose_change` type. They provide timeline context, not each day's actual dose intake. Specific dose amounts, medication adherence, and causal attribution are outside this prototype's contract.
 
 ### Field-specific issues
 
@@ -203,11 +211,13 @@ Gold `observation_id` values are reference labels, not medical identities and no
 
 SQLite stores observation identifiers under a processing run and report; their composite identity preserves processing versions. Semantic evaluation matches observations by symptom, time, and source evidence, not by output-array position or a database ID. Different valid evidence excerpts should not automatically fail an otherwise correct extraction.
 
-Each targeted extraction check contains `source` (a `{path, value}` reference) and `expected_fields` (only the candidate fields being checked). Current checks cover R001's complete-day count, R002's text rating of 2/5, and R009's text count of 1. These checks are evaluated before questionnaire reconciliation; then compare normalized observations to gold. No additional full candidate dataset is required.
+Each targeted extraction check contains `source` (a `{path, value}` reference) and `expected_fields` (only the candidate fields being checked). The original three starter checks cover R001's complete-day count, R002's text rating of 2/5, and R009's text count of 1 before questionnaire reconciliation. The current all-text reference supplies 139 distinct claim checks covering 1,529 candidate fields; normalized observations are evaluated separately. A passing expected-claim check does not by itself rule out an extra raw candidate, so candidate counts and source evidence are reviewed too.
 
 Format validation and semantic evaluation are separate. Run diagnostics distinguish parse failures from a successful extraction with no relevant symptoms; a model error must not become a symptom-free report. Reference answers can be revised with a documented reason and are not independent clinical ground truth. [evaluation.md](evaluation.md) defines implemented matching and denominators.
 
 ## 8. Starter examples and acceptance expectations
+
+This table describes the original ten mixed-input starter fixtures. Their current all-text counterparts prepend `TXT-` to the IDs and verbalize the R002/R009 questionnaire claims; the intended facts and conflict outcomes remain the same.
 
 | Report | Case | Expected result |
 | --- | --- | --- |
@@ -224,13 +234,14 @@ Format validation and semantic evaluation are separate. Run diagnostics distingu
 
 All dates are in 2026. Across R004, R005, and R006, effective cumulative vomiting counts progress 2 -> 3 -> 2; they are never summed. Nausea severity from the corrected report is retained at 4.
 
-Additional model-evaluation examples are needed before claiming broader coverage: multi-day counts, ambiguous incremental reports, incompatible severity scales or contexts, incomplete corrections, and decreasing cumulative counts without a correction. Offline tests cover several normalization boundaries, but these are not held-out model outputs. Cross-report correction and aggregation behavior is implemented with targeted boundary tests and conservative exclusion of unresolved counts.
+Later diagnostic sets and offline tests exercise additional time ranges, count scopes, severity contexts, and conflicts; their recorded results and limitations are linked from [data/README.md](../data/README.md). The separate twenty-report frozen text validation remains 18/20 fully correct. More independent and diverse evidence would be needed for broader accuracy claims. Cross-report correction and aggregation behavior has targeted boundary tests and conservatively excludes unresolved counts; these code tests are not held-out model outputs.
 
 ## 9. Implemented downstream inputs and remaining limits
 
-`data/longitudinal/patients.json` defines follow-up and timezone metadata;
+`data/longitudinal_text/patients.json` defines current follow-up and timezone metadata;
 `medication_changes.json` defines five fictional timestamped changes. SQLite
-preserves these separately from symptom observations. The weekly query includes
+preserves these separately from symptom observations. These metadata files are
+unchanged copies of the original mixed-input dataset's files. The weekly query includes
 coverage, partial counts, and review indicators. The medication query classifies
 known and indeterminate temporal order without asserting causation.
 
@@ -243,5 +254,10 @@ workflow and general event/window overlap resolution are not implemented.
 The local HTML dashboard displays stored query results, gaps, explicit zeros,
 severity, medication markers, and source evidence. See [storage_and_trends.md](storage_and_trends.md)
 for the implemented rules and [time_boundaries.md](time_boundaries.md) for
-subsequent normalization fixes. Default v1 extraction still has documented
-semantic limitations; an error-free prototype or clinical validity is not claimed.
+subsequent normalization fixes. The current nausea-grouping prompt matched all
+137 observations and 1,233 core fields in the known all-text integration set,
+with one extra supported raw candidate and two harmless literal time-phrase
+differences. The separate twenty-case validation still contains an unknown-count
+scope omission and a morning/current severity-context error. The CLI retains
+v1 as its historical default; current demo commands select the nausea-grouping
+prompt explicitly. No fine-tuning was performed, and clinical validity is not claimed.

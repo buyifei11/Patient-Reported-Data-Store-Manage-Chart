@@ -33,6 +33,67 @@ retained. References were reviewed and frozen before the 71 extraction calls.
 The dashboard reads model output, never references. `saved_candidate_replay`
 means Python revalidates recorded model candidates; it is not a new API call.
 
+## Interview plan: 30 minutes
+
+The brief allocates **5 minutes to the candidate introduction, 15 minutes to the
+prototype and design decisions, and 10 minutes to technical questions,
+trade-offs, and AI usage**. Use the introduction for your actual background,
+relevant experience, and why you chose this problem, then transition to the
+prototype. Do not spend that entire section presenting the project.
+
+Slides are optional; the brief requires a live prototype, not a slide deck.
+Four short slides are enough: the provider's problem; the pipeline and schema;
+validation results; and decisions and limitations. Switch to the actual terminal,
+dashboard, and source records for the demonstration.
+
+Use the [16:9 pipeline image](presentation/pipeline-overview.png) directly in
+slides; the [SVG version](presentation/pipeline-overview.svg) remains editable.
+An optional separate introduction slide can summarize your own background.
+The repository already supplies written design and evaluation documentation;
+a long additional report is unnecessary for this presentation.
+
+| Time within the 15-minute walkthrough | What to show and explain |
+| --- | --- |
+| 0:00–1:30 | The provider's 30-second need, the oncology nausea/vomiting scope, and the pipeline. References feed evaluation, not chart values. |
+| 1:30–3:00 | Run the offline build below. Explain that it revalidates actual saved LLM outputs and builds a new SQLite database, queries, and dashboard; no fresh inference occurs. |
+| 3:00–8:00 | Open the new dashboard. Use patient 2 and TXT-R006 to follow source text, candidates, normalized values, and the corrected count 2. Then show patient 1's TXT-R002: conflicting nausea ratings are reviewed while the supported vomiting zero remains usable. |
+| 8:00–11:00 | Show the source/candidate/observation distinction in `src/schema.py` and the two SQL queries. Weekly counts include coverage; TXT-R003's 14:20 episode follows a recorded 13:00 medication change. |
+| 11:00–13:00 | Contrast 18/20 strict whole-report matches on the separate frozen validation set with 71/71 normalized core-and-issue matches on known synthetic integration cases. The latter has 69/71 literal matches and does not establish general 100% accuracy. |
+| 13:00–14:30 | Explain AI-assisted coding, synthetic text generation, and extraction; Python owns validation, date arithmetic, correction and counting rules. Discuss missing data, narrow symptom scope, and temporal association versus causation. |
+| 14:30–15:00 | State what the prototype demonstrates and hand over to questions. |
+
+Rehearse the commands and patient switches before the interview, with dependencies
+already installed. Keep the verified dashboard available as a backup. The CLI's
+defaults still select the historical mixed-input demo, so supply all dataset,
+cache, and run arguments explicitly. Existing output directories are rejected;
+this command selects a fresh timestamped directory:
+
+```bash
+interview_stamp="$(date +%Y%m%d-%H%M%S)"
+interview_output="artifacts/interview-demo-${interview_stamp}"
+interview_run="interview-${interview_stamp}"
+python run_demo.py build --dataset data/longitudinal_text \
+  --cached-predictions results/longitudinal-text-extraction/predictions.jsonl \
+  --run-id "$interview_run" --output "$interview_output"
+```
+
+Open `dashboard.html` in the printed output directory. In the same terminal,
+run both stored-data queries; filter the medication output to one useful example
+instead of scrolling through all observation/change pairs:
+
+```bash
+python run_demo.py query --db "$interview_output/patient_reports.sqlite" \
+  --run-id "$interview_run" --query weekly
+python run_demo.py query --db "$interview_output/patient_reports.sqlite" \
+  --run-id "$interview_run" --query medication |
+  python -c 'import json, sys; rows = json.load(sys.stdin); print(json.dumps([row for row in rows if row["report_id"] == "TXT-R003"], indent=2))'
+```
+
+No API key or network is required for this sequence. If the interviewer asks for
+fresh inference, a single-report call is an optional extension after the main
+demonstration; do not rerun all 71 requests live. Be explicit about whether an
+output comes from a saved request or a new request.
+
 ## A concise demonstration
 
 1. Open **Demo patient 2**. Show four weeks of daily counts, gaps, coverage, and
@@ -72,7 +133,12 @@ dashboard uses labeled medication markers.
 ## Optional fresh extraction
 
 Configure `.env` locally before this command. It makes 71 paid API requests.
-The saved extraction already supplies the offline demo, so this is optional.
+This full rerun is for development, outside the interview sequence. The saved
+extraction already supplies the offline demo, so no rerun is required. For an
+explicitly requested one-report demonstration, add `--limit 1` to the extraction
+command and use a fresh output path. It selects TXT-R001 from the full source
+file. Do not evaluate that single output against all 71 references and describe
+the resulting missing reports as extraction failures.
 
 ```bash
 python run_pipeline.py extract --source data/longitudinal_text/reports.jsonl \

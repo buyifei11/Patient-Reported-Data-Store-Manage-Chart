@@ -15,6 +15,24 @@ candidate that Python merged, and two time phrases differ only in wording.
 This is a synthetic integration result, not evidence of general 100% accuracy.
 See the [extraction results](results/longitudinal-text-extraction/README.md).
 
+## Product context and presentation
+
+The [public Dr.Tracker oncology demo](https://demo.pipelinesecurities.net/c/ffhz57)
+was reviewed on 2026-11-17, including the patient check-in and clinic console.
+It connects recurring patient reports with longitudinal trends, flagged entries,
+and source detail. The visible demo emphasizes mouth sores, pain, swallowing,
+and weight during radiation with chemotherapy. This prototype adapts that
+report-to-review workflow to the assessment's nausea/vomiting example; it does
+not reproduce the full demo or its clinical measurements. Our fixed 1-5 severity
+contract and fictional medication labels are prototype choices, not the demo's
+mouth-sore or pain scales or a clinical grading standard.
+
+Use the [interview walkthrough](docs/demo_walkthrough.md) for a timed live demo.
+The presentation diagram is available as a
+[high-resolution 16:9 PNG](docs/presentation/pipeline-overview.png) and an
+[editable vector SVG](docs/presentation/pipeline-overview.svg). The lower branch
+shows reference-based evaluation separately from the data used in the dashboard.
+
 A separate [five-report text pilot](data/text_pilot/README.md) now contains actual
 LLM-generated feedback, reviewed references, and generation provenance. Its
 [first extraction baseline](results/text-pilot-extraction/README.md) and a bounded
